@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.net/dist/0install/0downstream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>0downstream</name>
+	<summary>keep a 0install feed up-to-date from an upstream project</summary>
+	<publish mode="0tools" xmlns="http://gfxmonk.net/dist/0install"/>
+	<description>
+	___
+	</description>
+
+	<group main="zeroinstall_downstream/main.py">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<requires interface="http://gfxmonk.net/dist/0install/version.xml"/>
+		<command name="run" path="zeroinstall_downstream/main.py">
+			<runner interface="http://repo.roscidus.com/python/python"/>
+		</command>
+		<command name="test">
+			<requires interface="http://gfxmonk.net/dist/0install/mocktest.xml"/>
+			<runner interface="http://gfxmonk.net/dist/0install/nosetests-runner.xml" command="run-py2"/>
+			<arg>-v</arg>
+			<arg>--exe</arg>
+		</command>
+		<requires interface="http://gfxmonk.net/dist/0install/python-requests.xml"/>
+		<environment name="PYTHONPATH" insert="" mode="prepend" />
+
+		<implementation id="." version="0.0.1">
+		</implementation>
+	</group>
+</interface>
