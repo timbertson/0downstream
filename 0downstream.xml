@@ -18,9 +18,13 @@
 		</command>
 		<command name="test">
 			<requires interface="http://gfxmonk.net/dist/0install/mocktest.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-beautifulsoup.xml"/>
 			<runner interface="http://gfxmonk.net/dist/0install/nosetests-runner.xml" command="run-py2"/>
 			<arg>-v</arg>
 			<arg>--exe</arg>
+		</command>
+		<command name="notebook">
+			<runner interface="http://gfxmonk.net/dist/0install/ipython.xml" command="notebook"/>
 		</command>
 		<requires interface="http://gfxmonk.net/dist/0install/python-requests.xml"/>
 		<environment name="PYTHONPATH" insert="" mode="prepend" />
