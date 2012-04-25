@@ -1,5 +1,7 @@
 from .project import SOURCES, make
+from .archive import Archive
 from xml.dom import minidom
+from version import Version
 import subprocess
 import logging
 
@@ -95,8 +97,49 @@ class Feed(object):
 		assert '/' in self.uri, "Bad URI: %s" % (self.uri,)
 		return self.uri.rstrip('/').rsplit('/', 1)[1].rsplit('.', 1)[0]
 
-	def add_impl(self, impl):
-		pass
+	def add_latest_implementation(self, extract=None):
+		assert self.needs_update, "feed already up to date"
+		release = self.project.latest_release
+		group = self.interface.getElementsByTagName("group")[-1]
+		impl = self._mknode('implementation')
+		impl.setAttribute('version', release.version)
+		impl.setAttribute('released', release.released)
+		extract = extract or release.extract
+		archive = Archive(release.url, type=release.type, extract=extract)
+		archive_tag = self._mknode('archive')
+		archive_tag.setAttribute('url', release.url)
+		if extract:
+			archive_tag.setAttribute('extract', extract)
+		archive_tag.setAttribute('size', str(archive.size))
+		manifest_tag = self._mknode('manifest')
+		manifest_tag.setAttribute(*archive.manifest)
+		impl.appendChild(manifest_tag)
+		impl.setAttribute('id', "=".join(archive.manifest))
+		impl.appendChild(archive_tag)
+		group.appendChild(impl)
+	
+	@property
+	def needs_update(self):
+		versions = self.interface.getElementsByTagName("implementation")
+		versions = map(lambda x: x.getAttribute("version"), versions)
+		versions = map(Version, versions)
+		versions = list(versions)
+		if not versions:
+			log.debug("no existing versions")
+			return True
+		last_version = max(versions)
+		project_version = Version(self.project.latest_version)
+
+		log.debug("comparing last feed version (%s) to latest (%s)" % (
+			last_version, project_version))
+		if project_version == last_version:
+			return False
+
+		if project_version < last_version:
+			raise ValueError("project version (%s) is OLDER than latest version in feed! (%s)" % (
+				project_version, last_version))
+
+		return True
 
 	@property
 	def xml(self):

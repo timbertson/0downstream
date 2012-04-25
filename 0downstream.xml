@@ -14,6 +14,9 @@
 		</requires>
 		<requires interface="http://gfxmonk.net/dist/0install/version.xml"/>
 		<requires interface="http://gfxmonk.net/dist/0install/xmlformat.xml"/>
+		<requires interface="http://0install.net/2007/interfaces/ZeroInstall.xml">
+			<environment name="PYTHONPATH" insert="" mode="prepend"/>
+		</requires>
 		<command name="run" path="zeroinstall_downstream/main.py">
 			<runner interface="http://repo.roscidus.com/python/python"/>
 		</command>

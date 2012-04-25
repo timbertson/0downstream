@@ -34,7 +34,7 @@ class Pypi(BaseProject):
 		print repr(dir(info['upload_time']))
 		print repr(dir(info['upload_time'].value))
 		released = datetime.datetime(*info['upload_time'].timetuple()[:6])
-		return Implementation(version=self.latest_version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None)
+		return Implementation(version=self.latest_version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None, extract=None)
 
 
 

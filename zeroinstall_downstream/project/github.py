@@ -26,7 +26,7 @@ class Tag(object):
 	def version(self): return re.sub(self.version_re, '', self.name)
 	@property
 	def implementation(self):
-		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released)
+		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released, extract=None)
 	@cached_property
 	def commit_info(self):
 		return get(self.info['commit']['url'])['commit']

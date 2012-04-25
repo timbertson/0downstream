@@ -4,7 +4,9 @@ from mocktest import *
 from BeautifulSoup import BeautifulStoneSoup as ParseXML
 
 from zeroinstall_downstream.feed import Feed
+import zeroinstall_downstream.feed as feed_module
 from zeroinstall_downstream.project import SOURCES
+from zeroinstall_downstream import archive
 
 def dumpxml(xml):
 	xml = str(xml)
@@ -15,6 +17,8 @@ def dumpxml(xml):
 
 class TestFeed(TestCase):
 	def setUp(self):
+		self.archive = mock('archive').with_children(size=1234, manifest=('sha256','abcd'))
+		modify(feed_module).Archive = lambda *a, **k: self.archive
 		self.proj = mock('project').with_children(
 			homepage='http://example.com/project',
 			upstream_id='upstream_id',
@@ -25,7 +29,8 @@ class TestFeed(TestCase):
 			latest_release=mock('latest release').with_children(
 				version='2.5.1',
 				url='http://example.com/download-2.5.1',
-				released='2012-01-01'
+				released='2012-01-01',
+				extract=None,
 			)
 		).with_methods(
 			updated_since = lambda v: v != '2.5.1'
@@ -53,10 +58,12 @@ class TestFeed(TestCase):
 	
 	def saved_dom(self):
 		xml = self.buffer.getvalue()
-		return ParseXML(xml).interface
+		return ParseXML(xml, selfClosingTags='archive manifest gfxmonk:publish gfxmonk:upstream'.split()).interface
 
-	def write_initial_feed(self, proj):
+	def write_initial_feed(self, proj, add_impl = False):
 		feed = Feed.from_project(proj, 'http://example.com/')
+		if add_impl:
+			feed.add_latest_implementation()
 		feed.save(self.buffer)
 		self.buffer.seek(0)
 	
@@ -69,6 +76,20 @@ class TestFeed(TestCase):
 		self.assertEqual(upstream_attrs, {'type': project.upstream_type, 'id': project.upstream_id})
 		self.assertNotEqual(saved_dom.find('group'), None)
 
+	def assert_impl_matches(self, impl, project, size, expected_manifest):
+		expected_impl = project.latest_release
+		self.assertEqual(impl['version'], expected_impl.version)
+		self.assertEqual(impl['released'], expected_impl.released)
+		self.assertEqual(impl['id'], "%s=%s" % expected_manifest)
+		manifest = impl.find('manifest')
+		archive = impl.find('archive')
+		self.assertEqual(archive['url'], expected_impl.url)
+		self.assertEqual(archive['size'], str(size))
+		manifest_attrs = manifest.attrs
+		assert len(manifest_attrs) == 1
+		manifest_found = manifest_attrs[0]
+		self.assertEqual(manifest_found, expected_manifest)
+
 	def test_feed_creation(self):
 		feed = Feed.from_project(self.proj, "http://example.com/my-project.xml")
 		feed.save(self.buffer)
@@ -79,12 +100,7 @@ class TestFeed(TestCase):
 	
 	def test_update_details(self):
 		self.write_initial_feed(self.proj)
-		class UpstreamMock(object):
-			def __new__(cls, id):
-				assert id == 'upstream_id'
-				# return a project with _new_ details
-				return self.proj2
-		modify(SOURCES)['upstream_mock'] = UpstreamMock
+		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj2
 		feed = Feed.from_file(self.buffer)
 		self.assertEqual(feed.project, self.proj2)
 
@@ -94,18 +110,51 @@ class TestFeed(TestCase):
 		self.assert_details_match(self.proj2)
 	
 	def test_add_implementation_without_modifying_details(self):
-		pass
+		self.write_initial_feed(self.proj)
+		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj
+
+		feed = Feed.from_file(self.buffer)
+		self.assertEqual(feed.project, self.proj)
+
+		feed.add_latest_implementation()
+		self.clear_buffer()
+		feed.save(self.buffer)
+
+		output = self.saved_dom()
+		implementations = output.findAll('implementation')
+		self.assertEqual(len(implementations), 1, repr(implementations))
+		impl = implementations[0]
+		self.assertEqual(impl["version"], self.proj.latest_version)
+		self.assert_impl_matches(impl, self.proj, size=1234, expected_manifest=('sha256','abcd'))
+
+	@ignore
 	def test_add_initial_implementation_to_source_group(self):
 		pass
-	def test_add_implementation_to_source_group(self):
-		pass
-	def test_checking_for_new_release(self):
+	@ignore
+	def test_add_another_implementation_to_source_group(self):
 		pass
 
+	def test_detects_new_release(self):
+		self.write_initial_feed(self.proj, add_impl = True)
+		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj2
+
+		feed = Feed.from_file(self.buffer)
+		self.assertTrue(feed.needs_update)
+
+	def test_detects_up_to_date_feed(self):
+		self.write_initial_feed(self.proj, add_impl = True)
+		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj
+
+		feed = Feed.from_file(self.buffer)
+		self.assertFalse(feed.needs_update)
+
 class TestFeedProcessing(TestCase):
+	@ignore
 	def test_constructing_pypi_project_from_feed(self):
 		pass
+	@ignore
 	def test_constructing_github_project_from_feed(self):
 		pass
+	@ignore
 	def test_constructing_with_arbitrary_attributes(self):
 		pass
