@@ -21,6 +21,6 @@ class Implementation(object):
 class BaseProject(object):
 	@cached_property
 	def latest_version(self):
-		return max(self.versions, key = Version)
+		return max(self.versions, key = Version.parse)
 	def updated_since(self, version):
-		return Version(version) < Version(self.latest_version)
+		return Version.parse(version) < Version.parse(self.latest_version)

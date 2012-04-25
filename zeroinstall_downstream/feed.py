@@ -122,13 +122,13 @@ class Feed(object):
 	def needs_update(self):
 		versions = self.interface.getElementsByTagName("implementation")
 		versions = map(lambda x: x.getAttribute("version"), versions)
-		versions = map(Version, versions)
+		versions = map(Version.parse, versions)
 		versions = list(versions)
 		if not versions:
 			log.debug("no existing versions")
 			return True
 		last_version = max(versions)
-		project_version = Version(self.project.latest_version)
+		project_version = Version.parse(self.project.latest_version)
 
 		log.debug("comparing last feed version (%s) to latest (%s)" % (
 			last_version, project_version))
