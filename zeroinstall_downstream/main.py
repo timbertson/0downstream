@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 import argparse
-from zeroinstall_downstream.pypi import Pypi
-from zeroinstall_downstream.github import Github
-
-sources = {
-	'pypi': Pypi,
-	'github': Github
-}
+from zeroinstall_downstream.project import SOURCES
 
 def run():
 	parser = argparse.ArgumentParser()
@@ -18,7 +12,7 @@ def run():
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
 
-	parser_new.add_argument('source', help='upstream type', choices=sources.keys())
+	parser_new.add_argument('source', help='upstream type', choices=SOURCES.keys())
 	parser_new.add_argument('id', help='package name (or "user/repo" for github)')
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
 	parser_new.add_argument('--prefix', help='prefix location for uploaded feed')

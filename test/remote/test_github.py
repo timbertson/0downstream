@@ -1,6 +1,6 @@
 import sys
 from mocktest import *
-from zeroinstall_downstream import github
+from zeroinstall_downstream.project import github
 
 project = github.Github('gfxmonk/pagefeed-android')
 class GithubTest(TestCase):

@@ -1,6 +1,6 @@
 import sys
 from mocktest import *
-from zeroinstall_downstream import pypi
+from zeroinstall_downstream.project import pypi
 
 project = pypi.Pypi('mandy')
 class PypiTest(TestCase):

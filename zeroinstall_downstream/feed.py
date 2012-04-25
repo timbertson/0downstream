@@ -1,19 +1,9 @@
-TEMPLATE="""<?xml version="1.0" ?>
-<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:gfxmonk="http://gfxmonk.net/dist/0install" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile">
-	<name></name>
-	<summary></summary>
-	<gfxmonk:publish mode="third-party"/>
-	<description>
-	</description>
-	<homepage></homepage>
-
-	<group>
-	</group>
-</interface>
-"""
-
+from .project import SOURCES, make
 from xml.dom import minidom
+import subprocess
+import logging
+
+log = logging.getLogger(__name__)
 
 ZI = "http://zero-install.sourceforge.net/2004/injector/interface"
 GFXMONK = "http://gfxmonk.net/dist/0install"
@@ -26,7 +16,7 @@ class Feed(object):
 		self.project = project
 		self.interface = doc.documentElement
 		self.interface.setAttribute("xmlns:gfxmonk", GFXMONK)
-		self.interface.setAttribute("xmlns:0compile", ZEROCOMPILE)
+		self.interface.setAttribute("xmlns:compile", ZEROCOMPILE)
 
 	@classmethod
 	def from_project(cls, project, dest_uri):
@@ -36,6 +26,20 @@ class Feed(object):
 		feed.update_metadata()
 		group = feed._mknode("group")
 		feed.interface.appendChild(group)
+		return feed
+
+	@classmethod
+	def from_file(cls, infile):
+		doc = minidom.parse(infile)
+		interface = doc.documentElement
+		uri = interface.getAttribute('uri')
+		project_info = interface.getElementsByTagNameNS(GFXMONK, 'upstream')[0]
+		project_attrs = dict([(attr.name, attr.value) for attr in project_info.attributes.values()])
+		try:
+			project = make(**project_attrs)
+		except TypeError as e:
+			raise ValueError("Can't construct project definition from attributes %r\nOriginal error: %s" % (project_attrs, e))
+		feed = cls(doc, project=project, uri = uri)
 		return feed
 
 	def update_metadata(self):
@@ -52,10 +56,12 @@ class Feed(object):
 	def _create_or_update_child_node(self, elem, node_name, content=None, ns=None):
 		children = elem.childNodes
 		for child in children:
-			if child.tagName == node_name:
+			if child.nodeType == child.ELEMENT_NODE and child.tagName == node_name:
+				log.debug("using existing node %s for node type %s" % (child, node_name))
 				new_node = child
 				while new_node.hasChildNodes():
 					_del = new_node.removeChild(new_node.childNodes[0])
+					_del.unlink()
 				break
 		else:
 			new_node = self._mknode(node_name)
@@ -65,6 +71,7 @@ class Feed(object):
 			else:
 				elem.appendChild(new_node)
 		if content is not None:
+			log.debug("setting %s to %s" %(node_name, content))
 			content = self.doc.createTextNode(content)
 			new_node.appendChild(content)
 		return new_node
@@ -78,10 +85,6 @@ class Feed(object):
 			content = self.doc.createTextNode(content)
 			node.appendChild(content)
 		return node
-
-	@classmethod
-	def from_feed(cls, infile):
-		pass
 
 	@property
 	def has_new_implementations(self):
@@ -97,8 +100,11 @@ class Feed(object):
 
 	@property
 	def xml(self):
-		return self.doc.toprettyxml(indent='')
+		proc = subprocess.Popen(['xmlformat'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+		stdout, _ = proc.communicate(self.doc.toxml())
+		assert proc.returncode == 0, "xmlformat failed!"
+		return stdout
 
 	def save(self, outfile):
-		self.doc.writexml(outfile)
+		outfile.write(self.xml)
 
