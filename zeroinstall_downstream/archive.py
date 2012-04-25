@@ -14,7 +14,13 @@ class Archive(object):
 			dest='extract'
 			fetch(url, base=base, filename=filename, dest=dest, type=type)
 			if local_file is None:
+				files_extracted = os.listdir(os.path.join(base, dest))
+				if len(files_extracted == 1) and extract is None:
+					extract = files_extracted[0]
 				local_file = os.path.join(base, filename)
+			if extract is False:
+				extract = None
+			self.extract = extract
 			self.manifest = get_manifest(os.path.join(base, dest), extract=extract)
 			self.size = os.stat(local_file).st_size
 		finally:
