@@ -112,9 +112,9 @@ class Feed(object):
 			archive_tag.setAttribute('extract', extract)
 		archive_tag.setAttribute('size', str(archive.size))
 		manifest_tag = self._mknode('manifest')
-		manifest_tag.setAttribute(*archive.manifest)
+		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])
 		impl.appendChild(manifest_tag)
-		impl.setAttribute('id', "=".join(archive.manifest))
+		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
 		impl.appendChild(archive_tag)
 		group.appendChild(impl)
 	

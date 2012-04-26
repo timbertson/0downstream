@@ -27,7 +27,3 @@ class PypiTest(TestCase):
 		self.assertEqual(impl.version, '0.1.4')
 		self.assertEqual(impl.url, 'http://pypi.python.org/packages/source/m/mandy/mandy-0.1.4.tar.gz')
 		self.assertEqual(impl.released, '2009-06-24')
-
-	@pending
-	def test_implementation_extract(self):
-		self.assertEqual(project.latest_release.extract, 'mandy-0.1.4')

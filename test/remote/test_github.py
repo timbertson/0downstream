@@ -30,6 +30,3 @@ class GithubTest(TestCase):
 		self.assertEqual(project.latest_release.archive_type, 'application/x-compressed-tar')
 	def test_implementation_releasedate(self):
 		self.assertEqual(project.latest_release.released, '2011-03-07')
-	@pending
-	def test_implementation_extract(self):
-		self.assertEqual(project.latest_release.extract, 'gfxmonk-pagefeed-android-6889a9f')

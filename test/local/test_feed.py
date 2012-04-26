@@ -17,7 +17,7 @@ def dumpxml(xml):
 
 class TestFeed(TestCase):
 	def setUp(self):
-		self.archive = mock('archive').with_children(size=1234, manifest=('sha256','abcd'))
+		self.archive = mock('archive').with_children(size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'})
 		modify(feed_module).Archive = lambda *a, **k: self.archive
 		self.proj = mock('project').with_children(
 			homepage='http://example.com/project',
@@ -76,11 +76,11 @@ class TestFeed(TestCase):
 		self.assertEqual(upstream_attrs, {'type': project.upstream_type, 'id': project.upstream_id})
 		self.assertNotEqual(saved_dom.find('group'), None)
 
-	def assert_impl_matches(self, impl, project, size, expected_manifest):
+	def assert_impl_matches(self, impl, project, size, manifests):
 		expected_impl = project.latest_release
 		self.assertEqual(impl['version'], expected_impl.version)
 		self.assertEqual(impl['released'], expected_impl.released)
-		self.assertEqual(impl['id'], "%s=%s" % expected_manifest)
+		self.assertEqual(impl['id'], "sha1new=%s" % manifests['sha1new'])
 		manifest = impl.find('manifest')
 		archive = impl.find('archive')
 		self.assertEqual(archive['url'], expected_impl.url)
@@ -88,7 +88,7 @@ class TestFeed(TestCase):
 		manifest_attrs = manifest.attrs
 		assert len(manifest_attrs) == 1
 		manifest_found = manifest_attrs[0]
-		self.assertEqual(manifest_found, expected_manifest)
+		self.assertEqual(manifest_found, ('sha256', manifests['sha256']))
 
 	def test_feed_creation(self):
 		feed = Feed.from_project(self.proj, "http://example.com/my-project.xml")
@@ -125,7 +125,7 @@ class TestFeed(TestCase):
 		self.assertEqual(len(implementations), 1, repr(implementations))
 		impl = implementations[0]
 		self.assertEqual(impl["version"], self.proj.latest_version)
-		self.assert_impl_matches(impl, self.proj, size=1234, expected_manifest=('sha256','abcd'))
+		self.assert_impl_matches(impl, self.proj, size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'})
 
 	@ignore
 	def test_add_initial_implementation_to_source_group(self):

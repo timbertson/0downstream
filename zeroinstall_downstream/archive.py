@@ -1,8 +1,13 @@
 import tempfile
 import shutil
 import os
+import urllib2
 
 from zeroinstall.zerostore import manifest, unpack
+import contextlib
+
+import logging
+log = logging.getLogger(__name__)
 
 class Archive(object):
 	def __init__(self, url, type=None, extract=None, local_file=None):
@@ -11,30 +16,38 @@ class Archive(object):
 		try:
 			filename = url.rsplit('/', 1)[1]
 			assert filename or local_file
-			dest='extract'
-			fetch(url, base=base, filename=filename, dest=dest, type=type)
-			if local_file is None:
+			dest='root'
+			fetch(url, base=base, filename=filename, dest=dest, type=type, local_file=local_file)
+			if extract is None:
 				files_extracted = os.listdir(os.path.join(base, dest))
-				if len(files_extracted == 1) and extract is None:
+				log.debug("found %s files in archive" % len(files_extracted))
+				if len(files_extracted) == 1 and extract is None:
 					extract = files_extracted[0]
-				local_file = os.path.join(base, filename)
 			if extract is False:
 				extract = None
 			self.extract = extract
-			self.manifest = get_manifest(os.path.join(base, dest), extract=extract)
+			self.manifests = {}
+			self.manifests['sha1new'] = get_manifest(os.path.join(base, dest), extract=extract, algname='sha1new')
+			self.manifests['sha256']  = get_manifest(os.path.join(base, dest), extract=extract, algname='sha256')
+			if local_file is None:
+				local_file = os.path.join(base, filename)
 			self.size = os.stat(local_file).st_size
 		finally:
-			shutil.rmtree(base)
+			pass
+			#shutil.rmtree(base)
 
 def fetch(url, base, filename, dest, extract=None, type=None, local_file=None):
-	with open(local_file or os.path.join(base, filename), 'rw') as data:
+	mode = 'w+' if local_file is None else 'r'
+	with open(local_file or os.path.join(base, filename), mode) as data:
 		if local_file is None:
-			with urllib2.urlopen(url) as stream:
-				while true:
+			log.info("downloading %s -> %s" % (url, os.path.join(base, filename)))
+			with contextlib.closing(urllib2.urlopen(url)) as stream:
+				while True:
 					chunk = stream.read(1024)
 					if not chunk: break
 					data.write(chunk)
-		data.seek(0)
+			data.seek(0)
+		os.makedirs(os.path.join(base, dest))
 		unpack.unpack_archive(url, data = data, destdir = os.path.join(base, dest), extract=extract, type=type)
 
 def get_manifest(root, extract, algname='sha256'):
@@ -42,11 +55,12 @@ def get_manifest(root, extract, algname='sha256'):
 		root = os.path.join(root, extract)
 	try:
 		alg = manifest.algorithms.get(algname)
+		log.debug("got algorithm for %s: %r" % (algname, alg,))
 	except KeyError:
 		raise ValueError("unknown algorithm: %s" % (algname,))
 	digest = alg.new_digest()
 	for line in alg.generate_manifest(root):
 		digest.update(line + '\n')
-	return (alg, alg.getID(digest))
+	return digest.hexdigest()
 
 
