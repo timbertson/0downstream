@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 from zeroinstall_downstream.project import SOURCES
+from zeroinstall_downstream.feed import Feed
 
 def run():
 	parser = argparse.ArgumentParser()
@@ -21,16 +22,42 @@ def run():
 
 	args = parser.parse_args()
 	print repr(args)
-	args.func(args)
+	return args.func(args)
 
-def new():
-	pass
+def new(opts):
+	cls = SOURCES[opts.source]
+	project = cls(id=opts.id)
+	opts.feed = os.path.expanduser(opts.feed)
+	filename = os.path.basename(opts.feed)
+	feed = Feed.from_project(project, opts.prefix)
+	feed.add_latest_implementation()
+	feed.save(opts.feed)
 
-def update():
-	pass
+def update(opts):
+	assert os.path.exists(opts.feed)
+	with open(opts.feed, 'rw') as file:
+		feed = Feed.from_file(file)
+		feed.add_latest_implementation()
+		file.seek(0)
+		feed.save(file)
 
-def check():
-	pass
+import contextlib
+def _feed_from_path(path):
+	if os.path.exists(path):
+		ctx = open(path)
+	else:
+		assert '://' in path, "file does not exist (and does not look like a URL): %s" % (path,)
+		ctx = contextlib.closing(urllib.urlopen(path))
+	with ctx as file:
+		return Feed.from_file(file)
+
+def check(opts):
+	feed = _feed_from_path(opts.feed)
+	if feed.needs_update():
+		print "feed %s is outdated - new version %s is available" % (opts.feed, feed.latest_version())
+		return 1
+	else:
+		print "feed %s is up to date" % (opts.feed,)
 
 if __name__ == '__main__':
-	run()
+	sys.exit(run())
