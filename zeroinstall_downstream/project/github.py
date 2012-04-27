@@ -2,13 +2,13 @@ import re
 
 import requests
 import json
+import logging
 
 from .common import cached_property, Implementation, BaseProject
 
 def get(*a, **k):
 	response = requests.get(*a, **k)
 	assert response.ok, response.content
-	print (response.content)
 	return json.loads(response.content)
 
 class Tag(object):
@@ -40,6 +40,18 @@ class Github(BaseProject):
 		self.id = id
 		self.upstream_id = id
 		self.base = 'https://api.github.com/repos/' + id
+	
+	@classmethod
+	def parse_uri(cls, uri):
+		try:
+			match = re.match('[^:]+://github.com/(?P<id>[^/]+/[^/]+)', uri)
+			return {
+				'type': cls.upstream_type,
+				'id': match.group('id')
+			}
+		except StandardError as e:
+			logging.debug(e, exc_info=True)
+			raise ValueError("can't parse github project from %s" % (uri,))
 	
 	@cached_property
 	def tags(self):

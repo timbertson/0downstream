@@ -139,14 +139,14 @@ class TestFeed(TestCase):
 		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj2
 
 		feed = Feed.from_file(self.buffer)
-		self.assertTrue(feed.needs_update)
+		self.assertTrue(feed.has_new_implementations)
 
 	def test_detects_up_to_date_feed(self):
 		self.write_initial_feed(self.proj, add_impl = True)
 		modify(SOURCES)['upstream_mock'] = lambda **kw: self.proj
 
 		feed = Feed.from_file(self.buffer)
-		self.assertFalse(feed.needs_update)
+		self.assertFalse(feed.has_new_implementations)
 
 class TestFeedProcessing(TestCase):
 	@ignore

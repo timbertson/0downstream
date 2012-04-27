@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+import os, sys
 import argparse
-from zeroinstall_downstream.project import SOURCES
+from zeroinstall_downstream.project import guess_project, SOURCES
 from zeroinstall_downstream.feed import Feed
 
 def run():
@@ -13,25 +14,28 @@ def run():
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
 
-	parser_new.add_argument('source', help='upstream type', choices=SOURCES.keys())
-	parser_new.add_argument('id', help='package name (or "user/repo" for github)')
+	parser_new.add_argument('url', help='url of the upstream project\'s page (can be from any of %s)' % ", ".join(SOURCES.keys()))
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
-	parser_new.add_argument('--prefix', help='prefix location for uploaded feed')
+	parser_new.add_argument('--prefix', help='prefix location for uploaded feed', required=True)
+	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file')
 	parser_update.add_argument('feed', help='local zeroinstall feed file')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 
 	args = parser.parse_args()
-	print repr(args)
 	return args.func(args)
 
 def new(opts):
-	cls = SOURCES[opts.source]
-	project = cls(id=opts.id)
+	project = guess_project(opts.url)
 	opts.feed = os.path.expanduser(opts.feed)
+	if not opts.force and os.path.exists(opts.feed):
+		print "feed %s already exists - use --force to overwrite it"
+		return 1
 	filename = os.path.basename(opts.feed)
+	destinatino_uri = opts.prefix.rstrip('/') + '/' + filename
 	feed = Feed.from_project(project, opts.prefix)
 	feed.add_latest_implementation()
-	feed.save(opts.feed)
+	with open(opts.feed, 'w') as outfile:
+		feed.save(outfile)
 
 def update(opts):
 	assert os.path.exists(opts.feed)
@@ -53,7 +57,7 @@ def _feed_from_path(path):
 
 def check(opts):
 	feed = _feed_from_path(opts.feed)
-	if feed.needs_update():
+	if feed.has_new_implementations:
 		print "feed %s is outdated - new version %s is available" % (opts.feed, feed.latest_version())
 		return 1
 	else:

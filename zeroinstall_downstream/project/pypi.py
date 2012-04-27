@@ -1,3 +1,5 @@
+import re
+import logging
 import xmlrpclib
 import datetime
 from .common import cached_property, Implementation, BaseProject
@@ -9,6 +11,18 @@ class Pypi(BaseProject):
 		self.upstream_id = id
 		self.client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
 	
+	@classmethod
+	def parse_uri(cls, uri):
+		try:
+			match = re.match('[^:]+://pypi.python.org/pypi/(?P<id>[^/]+)', uri)
+			return {
+				'type': cls.upstream_type,
+				'id': match.group('id')
+			}
+		except StandardError as e:
+			logging.debug(e, exc_info=True)
+			raise ValueError("can't parse github project from %s" % (uri,))
+
 	@cached_property
 	def versions(self):
 		return self.client.package_releases(self.id)
@@ -26,13 +40,10 @@ class Pypi(BaseProject):
 	@cached_property
 	def latest_release(self):
 		info = self.client.release_urls(self.id, self.latest_version)
-		print repr(info)
 		info = filter(lambda x: x['packagetype'] == 'sdist', info)
 		if len(info) == 0:
 			raise ValueError("no `sdist` downloads found")
 		info = info[0]
-		print repr(dir(info['upload_time']))
-		print repr(dir(info['upload_time'].value))
 		released = datetime.datetime(*info['upload_time'].timetuple()[:6])
 		return Implementation(version=self.latest_version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None, extract=None)
 

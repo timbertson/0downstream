@@ -37,11 +37,14 @@ class Feed(object):
 		uri = interface.getAttribute('uri')
 		project_info = interface.getElementsByTagNameNS(GFXMONK, 'upstream')[0]
 		project_attrs = dict([(attr.name, attr.value) for attr in project_info.attributes.values()])
+		update_metadata = project_attrs.pop('update-metadata', 'true') == 'true'
 		try:
 			project = make(**project_attrs)
 		except TypeError as e:
 			raise ValueError("Can't construct project definition from attributes %r\nOriginal error: %s" % (project_attrs, e))
 		feed = cls(doc, project=project, uri = uri)
+		if update_metadata:
+			feed.update_metadata()
 		return feed
 
 	def update_metadata(self):
@@ -89,23 +92,19 @@ class Feed(object):
 		return node
 
 	@property
-	def has_new_implementations(self):
-		pass
-
-	@property
 	def name(self):
 		assert '/' in self.uri, "Bad URI: %s" % (self.uri,)
 		return self.uri.rstrip('/').rsplit('/', 1)[1].rsplit('.', 1)[0]
 
 	def add_latest_implementation(self, extract=None):
-		assert self.needs_update, "feed already up to date"
+		assert self.has_new_implementations, "feed already up to date"
 		release = self.project.latest_release
 		group = self.interface.getElementsByTagName("group")[-1]
 		impl = self._mknode('implementation')
 		impl.setAttribute('version', release.version)
 		impl.setAttribute('released', release.released)
 		extract = extract or release.extract
-		archive = Archive(release.url, type=release.type, extract=extract)
+		archive = Archive(release.url, type=release.archive_type, extract=extract)
 		archive_tag = self._mknode('archive')
 		archive_tag.setAttribute('url', release.url)
 		if extract:
@@ -119,7 +118,7 @@ class Feed(object):
 		group.appendChild(impl)
 	
 	@property
-	def needs_update(self):
+	def has_new_implementations(self):
 		versions = self.interface.getElementsByTagName("implementation")
 		versions = map(lambda x: x.getAttribute("version"), versions)
 		versions = map(Version.parse, versions)

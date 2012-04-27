@@ -14,6 +14,7 @@ class GithubTest(TestCase):
 		self.assertEqual(project.latest_version, '0.3')
 	def test_project_summary(self):
 		self.assertEqual(project.summary, 'android app for pagefeed.appspot.com')
+
 	def test_project_description(self):
 		self.assertEqual(project.description, 'android app for pagefeed.appspot.com')
 
