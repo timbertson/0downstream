@@ -31,6 +31,7 @@ class TestFeed(TestCase):
 				url='http://example.com/download-2.5.1',
 				released='2012-01-01',
 				extract=None,
+				archive_type='text/awesome',
 			)
 		).with_methods(
 			updated_since = lambda v: v != '2.5.1'
@@ -76,7 +77,7 @@ class TestFeed(TestCase):
 		self.assertEqual(upstream_attrs, {'type': project.upstream_type, 'id': project.upstream_id})
 		self.assertNotEqual(saved_dom.find('group'), None)
 
-	def assert_impl_matches(self, impl, project, size, manifests):
+	def assert_impl_matches(self, impl, project, size, manifests, type=None):
 		expected_impl = project.latest_release
 		self.assertEqual(impl['version'], expected_impl.version)
 		self.assertEqual(impl['released'], expected_impl.released)
@@ -85,6 +86,8 @@ class TestFeed(TestCase):
 		archive = impl.find('archive')
 		self.assertEqual(archive['url'], expected_impl.url)
 		self.assertEqual(archive['size'], str(size))
+		if type is not None:
+			self.assertEqual(archive['type'], type)
 		manifest_attrs = manifest.attrs
 		assert len(manifest_attrs) == 1
 		manifest_found = manifest_attrs[0]
@@ -125,7 +128,7 @@ class TestFeed(TestCase):
 		self.assertEqual(len(implementations), 1, repr(implementations))
 		impl = implementations[0]
 		self.assertEqual(impl["version"], self.proj.latest_version)
-		self.assert_impl_matches(impl, self.proj, size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'})
+		self.assert_impl_matches(impl, self.proj, size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'}, type='text/awesome')
 
 	@ignore
 	def test_add_initial_implementation_to_source_group(self):

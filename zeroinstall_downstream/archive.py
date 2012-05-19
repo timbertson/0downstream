@@ -25,16 +25,22 @@ class Archive(object):
 					extract = files_extracted[0]
 			if extract is False:
 				extract = None
+			log.debug("extract = %s" % (extract,))
 			self.extract = extract
 			self.manifests = {}
 			self.manifests['sha1new'] = get_manifest(os.path.join(base, dest), extract=extract, algname='sha1new')
+			log.debug("sha1new manifest = %s" % (self.manifests['sha1new'],))
 			self.manifests['sha256']  = get_manifest(os.path.join(base, dest), extract=extract, algname='sha256')
+			log.debug("sha256 manifest = %s" % (self.manifests['sha256'],))
+			self.type = type
 			if local_file is None:
 				local_file = os.path.join(base, filename)
 			self.size = os.stat(local_file).st_size
 		finally:
-			pass
-			#shutil.rmtree(base)
+			if log.isEnabledFor(logging.DEBUG):
+				log.debug("debug mode enabled - NOT cleaning up directory: %s" % (base,))
+			else:
+				shutil.rmtree(base)
 
 def fetch(url, base, filename, dest, extract=None, type=None, local_file=None):
 	mode = 'w+' if local_file is None else 'r'

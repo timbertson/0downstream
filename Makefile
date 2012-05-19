@@ -1,3 +1,5 @@
+0:
+	mkzero-gfxmonk -p downstream.py -p zeroinstall_downstream 0downstream.xml
 
 0downstream-local.xml: 0downstream.xml
 	0launch http://gfxmonk.net/dist/0install/0local.xml 0downstream.xml

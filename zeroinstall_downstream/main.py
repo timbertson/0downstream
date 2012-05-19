@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 import os, sys
 import argparse
+import logging
 from zeroinstall_downstream.project import guess_project, SOURCES
 from zeroinstall_downstream.feed import Feed
 
 def run():
 	parser = argparse.ArgumentParser()
+	parser.add_argument('--debug', action='store_true')
 	sub = parser.add_subparsers()
 	parser_new = sub.add_parser('new', help='make a new feed')
 	parser_new.set_defaults(func=new)
@@ -17,11 +19,14 @@ def run():
 	parser_new.add_argument('url', help='url of the upstream project\'s page (can be from any of %s)' % ", ".join(SOURCES.keys()))
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
 	parser_new.add_argument('--prefix', help='prefix location for uploaded feed', required=True)
-	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file')
+	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
 	parser_update.add_argument('feed', help='local zeroinstall feed file')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 
 	args = parser.parse_args()
+	if args.debug:
+		logging.getLogger().setLevel(logging.DEBUG)
+		logging.debug("debug mode enabled")
 	return args.func(args)
 
 def new(opts):

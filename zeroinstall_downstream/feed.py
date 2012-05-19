@@ -17,6 +17,7 @@ class Feed(object):
 		self.uri = uri
 		self.project = project
 		self.interface = doc.documentElement
+		self.interface.setAttribute("xmlns", ZI)
 		self.interface.setAttribute("xmlns:gfxmonk", GFXMONK)
 		self.interface.setAttribute("xmlns:compile", ZEROCOMPILE)
 
@@ -103,12 +104,19 @@ class Feed(object):
 		impl = self._mknode('implementation')
 		impl.setAttribute('version', release.version)
 		impl.setAttribute('released', release.released)
+
+		# Note that release *and* archive extracts may populate their own
+		# `extract` field if not specified by the caller.
 		extract = extract or release.extract
 		archive = Archive(release.url, type=release.archive_type, extract=extract)
+		extract = archive.extract
+
 		archive_tag = self._mknode('archive')
-		archive_tag.setAttribute('url', release.url)
+		archive_tag.setAttribute('href', release.url)
 		if extract:
 			archive_tag.setAttribute('extract', extract)
+		if archive.type is not None:
+			archive_tag.setAttribute('type', archive.type)
 		archive_tag.setAttribute('size', str(archive.size))
 		manifest_tag = self._mknode('manifest')
 		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])

@@ -1,13 +1,13 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface uri="http://gfxmonk.net/dist/0install/0downstream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.net/dist/0install/0downstream.xml">
 	<name>0downstream</name>
 	<summary>maintain a zeroinstall feed based on an upstream project</summary>
-	<publish mode="0tools" xmlns="http://gfxmonk.net/dist/0install"/>
+	<publish xmlns="http://gfxmonk.net/dist/0install" mode="0tools"/>
 	<description>
-	___
+Create, check and update downstream zeroinstall feeds using tagged releases
+on project pages (github, pypi, etc).
 	</description>
-
 	<group main="zeroinstall_downstream/main.py">
 		<requires interface="http://repo.roscidus.com/python/python">
 			<version before="3"/>
@@ -15,7 +15,7 @@
 		<requires interface="http://gfxmonk.net/dist/0install/version.xml"/>
 		<requires interface="http://gfxmonk.net/dist/0install/xmlformat.xml"/>
 		<requires interface="http://0install.net/2007/interfaces/ZeroInstall.xml">
-			<environment name="PYTHONPATH" insert="" mode="prepend"/>
+			<environment insert="" mode="prepend" name="PYTHONPATH"/>
 		</requires>
 		<command name="run" path="zeroinstall_downstream/main.py">
 			<runner interface="http://repo.roscidus.com/python/python"/>
@@ -25,19 +25,20 @@
 				<version not-before="0.6.3"/>
 			</requires>
 			<requires interface="http://gfxmonk.net/dist/0install/python-beautifulsoup.xml"/>
-			<runner interface="http://gfxmonk.net/dist/0install/nosetests-runner.xml" command="run-py2"/>
+			<runner command="run-py2" interface="http://gfxmonk.net/dist/0install/nosetests-runner.xml"/>
 			<arg>-v</arg>
 			<arg>--exe</arg>
 		</command>
 		<command name="notebook">
 			<requires interface="http://gfxmonk.net/dist/0install/mocktest.xml"/>
 			<requires interface="http://gfxmonk.net/dist/0install/python-beautifulsoup.xml"/>
-			<runner interface="http://gfxmonk.net/dist/0install/ipython.xml" command="notebook"/>
+			<runner command="notebook" interface="http://gfxmonk.net/dist/0install/ipython.xml"/>
 		</command>
 		<requires interface="http://gfxmonk.net/dist/0install/python-requests.xml"/>
-		<environment name="PYTHONPATH" insert="" mode="prepend" />
-
-		<implementation id="." version="0.0.1">
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<implementation id="sha1new=2ec3239738d824c4a06a6346aca6d63266ae9eed" released="2012-05-19" version="0.1">
+			<manifest-digest sha256="50e1ec9fd54cdea0305b69ef9fb09a716868aff803cba4366ab33b9adcf654d2"/>
+			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.1.tgz" size="12607"/>
 		</implementation>
 	</group>
 </interface>
