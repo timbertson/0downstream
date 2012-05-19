@@ -11,6 +11,19 @@ def get(*a, **k):
 	assert response.ok, response.content
 	return json.loads(response.content)
 
+#TODO: use this to get readme data
+class Tree(object):
+	def __init__(self, sha):
+		pass
+
+	@cached_property
+	def files(self):
+		pass
+
+	@cached_property
+	def readme(self):
+		pass
+
 class Tag(object):
 	archive_type='application/x-compressed-tar'
 	version_re = re.compile('^(v(ersion)?(. -)?)?(?=[0-9])', re.I)
@@ -18,18 +31,24 @@ class Tag(object):
 		self.info = info
 	@property
 	def name(self): return self.info['name']
+
 	@property
 	def url(self): return self.info['tarball_url']
+
 	@property
 	def is_version(self): return re.match(self.version_re, self.name)
+
 	@property
 	def version(self): return re.sub(self.version_re, '', self.name)
+
 	@property
 	def implementation(self):
 		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released, extract=None)
+
 	@cached_property
 	def commit_info(self):
 		return get(self.info['commit']['url'])['commit']
+
 	@property
 	def released(self):
 		return self.commit_info['author']['date'][:10]
