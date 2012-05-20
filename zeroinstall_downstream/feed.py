@@ -105,10 +105,11 @@ class Feed(object):
 		impl.setAttribute('version', release.version)
 		impl.setAttribute('released', release.released)
 
-		# Note that release *and* archive extracts may populate their own
-		# `extract` field if not specified by the caller.
+		# release has a default `extract
 		extract = extract or release.extract
 		archive = Archive(release.url, type=release.archive_type, extract=extract)
+		# Archive may guess an `extract` value, if there was only one toplevel
+		# specified and we didn't pass an extract explicitly
 		extract = archive.extract
 
 		archive_tag = self._mknode('archive')
