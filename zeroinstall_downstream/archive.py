@@ -26,6 +26,16 @@ class Archive(object):
 			if extract is False:
 				extract = None
 			log.debug("extract = %s" % (extract,))
+
+			def list_toplevel():
+				toplevel_path = os.path.join(base, dest)
+				if extract is not None:
+					toplevel_path = os.path.join(toplevel_path, extract)
+				contents = os.listdir(toplevel_path)
+				sep = "\n  "
+				print "NOTE: Toplevel contents or archive are:", sep.join(sorted(contents))
+			list_toplevel()
+
 			self.extract = extract
 			self.manifests = {}
 			self.manifests['sha1new'] = get_manifest(os.path.join(base, dest), extract=extract, algname='sha1new')

@@ -1,3 +1,5 @@
+import requests
+import json
 from version import Version
 
 def cached_property(fn):
@@ -21,6 +23,13 @@ class Implementation(object):
 class BaseProject(object):
 	@cached_property
 	def latest_version(self):
+		if len(self.versions) == 0:
+			raise RuntimeError("no versions found")
 		return max(self.versions, key = Version.parse)
 	def updated_since(self, version):
 		return Version.parse(version) < Version.parse(self.latest_version)
+
+def getjson(*a, **k):
+	response = requests.get(*a, **k)
+	assert response.ok, response.content
+	return json.loads(response.content)

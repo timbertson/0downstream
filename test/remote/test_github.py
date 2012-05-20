@@ -16,8 +16,10 @@ class GithubTest(TestCase):
 		self.assertEqual(project.summary, 'android app for pagefeed.appspot.com')
 
 	def test_project_description(self):
-		self.assertEqual(project.description, """An android client for http://pagefeed.appspot.com/
-				Built .apk files are downloadable from here: http://gfxmonk.net/dist/android/pagefeed/""")
+		self.assertEqual(project.description, 'android app for pagefeed.appspot.com')
+		# TODO: extract readme contents?
+		# self.assertEqual(project.description, """An android client for http://pagefeed.appspot.com/
+		# 		Built .apk files are downloadable from here: http://gfxmonk.net/dist/android/pagefeed/""")
 
 	def test_update_check(self):
 		self.assertTrue(project.updated_since('0.1.3'))

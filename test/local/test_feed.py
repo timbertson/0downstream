@@ -17,8 +17,13 @@ def dumpxml(xml):
 
 class TestFeed(TestCase):
 	def setUp(self):
-		self.archive = mock('archive').with_children(size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'})
-		modify(feed_module).Archive = lambda *a, **k: self.archive
+		def mkarchive(*a, **k):
+			m = mock('archive').with_children(size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'})
+			m.with_children(extract = k.get('extract', None))
+			m.with_children(type = k.get('type', None))
+			return m
+
+		modify(feed_module).Archive = mkarchive
 		self.proj = mock('project').with_children(
 			homepage='http://example.com/project',
 			upstream_id='upstream_id',
@@ -30,7 +35,7 @@ class TestFeed(TestCase):
 				version='2.5.1',
 				url='http://example.com/download-2.5.1',
 				released='2012-01-01',
-				extract=None,
+				extract = None,
 				archive_type='text/awesome',
 			)
 		).with_methods(
@@ -47,6 +52,8 @@ class TestFeed(TestCase):
 			latest_release=mock('latest release2').with_children(
 				version='2.5.12',
 				url='http://example.com/download-2.5.12',
+				archive_type=None,
+				extract = None,
 				released='2012-01-012'
 			)
 		).with_methods(
@@ -84,7 +91,7 @@ class TestFeed(TestCase):
 		self.assertEqual(impl['id'], "sha1new=%s" % manifests['sha1new'])
 		manifest = impl.find('manifest')
 		archive = impl.find('archive')
-		self.assertEqual(archive['url'], expected_impl.url)
+		self.assertEqual(archive['href'], expected_impl.url)
 		self.assertEqual(archive['size'], str(size))
 		if type is not None:
 			self.assertEqual(archive['type'], type)

@@ -17,5 +17,12 @@ class ParsePypiTest(TestCase):
 		info = guess_project_info('https://github.com/gfxmonk/pagefeed-android')
 		self.assertEqual(info, {'type':'github','id':'gfxmonk/pagefeed-android'})
 
+	def test_parse_rubygems(self):
+		info = guess_project_info('http://rubygems.org/gems/xargs/blah')
+		self.assertEqual(info, {'type':'rubygems','id':'xargs'})
+
+		info = guess_project_info('http://rubygems.org/gems/xargs')
+		self.assertEqual(info, {'type':'rubygems','id':'xargs'})
+
 	def test_parse_fail(self):
 		self.assertRaises(ValueError, lambda: guess_project_info('http://gfxmonk.net/whatever'))

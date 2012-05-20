@@ -1,15 +1,10 @@
 import re
 
 import requests
-import json
 import logging
 
-from .common import cached_property, Implementation, BaseProject
+from .common import cached_property, Implementation, BaseProject, getjson
 
-def get(*a, **k):
-	response = requests.get(*a, **k)
-	assert response.ok, response.content
-	return json.loads(response.content)
 
 #TODO: use this to get readme data
 class Tree(object):
@@ -47,7 +42,7 @@ class Tag(object):
 
 	@cached_property
 	def commit_info(self):
-		return get(self.info['commit']['url'])['commit']
+		return getjson(self.info['commit']['url'])['commit']
 
 	@property
 	def released(self):
@@ -74,7 +69,7 @@ class Github(BaseProject):
 	
 	@cached_property
 	def tags(self):
-		return map(Tag, get(self.base + '/' + 'tags'))
+		return map(Tag, getjson(self.base + '/' + 'tags'))
 	
 	@cached_property
 	def version_tags(self):
@@ -93,7 +88,7 @@ class Github(BaseProject):
 	
 	@cached_property
 	def repo_info(self):
-		return get(self.base)
+		return getjson(self.base)
 
 	@cached_property
 	def homepage(self): return self.repo_info['html_url']

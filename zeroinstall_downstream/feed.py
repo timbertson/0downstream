@@ -112,17 +112,30 @@ class Feed(object):
 		extract = archive.extract
 
 		archive_tag = self._mknode('archive')
-		archive_tag.setAttribute('href', release.url)
-		if extract:
-			archive_tag.setAttribute('extract', extract)
+		def set_archive_attr(attr, val):
+			log.debug("setting archive %s to %r" %(attr, val))
+			archive_tag.setAttribute(attr, val)
+
+		print repr(archive_tag.toxml())
+		set_archive_attr('href', release.url)
+		print repr(archive_tag.toxml())
+		if extract is not None:
+			set_archive_attr('extract', extract)
+		print repr(archive_tag.toxml())
 		if archive.type is not None:
-			archive_tag.setAttribute('type', archive.type)
-		archive_tag.setAttribute('size', str(archive.size))
+			set_archive_attr('type', archive.type)
+		print repr(archive_tag.toxml())
+		set_archive_attr('size', str(archive.size))
+		impl.appendChild(archive_tag)
+
+		print repr(impl.toxml())
 		manifest_tag = self._mknode('manifest')
 		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])
 		impl.appendChild(manifest_tag)
+		print repr(impl.toxml())
+
 		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
-		impl.appendChild(archive_tag)
+		print repr(impl.toxml())
 		group.appendChild(impl)
 	
 	@property
@@ -150,8 +163,9 @@ class Feed(object):
 
 	@property
 	def xml(self):
+		xml = self.doc.toxml()
 		proc = subprocess.Popen(['xmlformat'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-		stdout, _ = proc.communicate(self.doc.toxml())
+		stdout, _ = proc.communicate(xml)
 		assert proc.returncode == 0, "xmlformat failed!"
 		return stdout
 

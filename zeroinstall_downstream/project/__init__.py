@@ -1,9 +1,11 @@
 from .pypi import Pypi
 from .github import Github
+from .rubygems import Rubygems
 
 SOURCES = {
 	'pypi': Pypi,
-	'github': Github
+	'github': Github,
+	'rubygems': Rubygems
 }
 
 def make(**k):

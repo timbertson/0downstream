@@ -16,7 +16,7 @@ def run():
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
 
-	parser_new.add_argument('url', help='url of the upstream project\'s page (can be from any of %s)' % ", ".join(SOURCES.keys()))
+	parser_new.add_argument('url', help='url of the upstream project\'s page (from one of %s)' % ", ".join(sorted(SOURCES.keys())))
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
 	parser_new.add_argument('--prefix', help='prefix location for uploaded feed', required=True)
 	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
