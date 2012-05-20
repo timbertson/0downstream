@@ -117,26 +117,19 @@ class Feed(object):
 			log.debug("setting archive %s to %r" %(attr, val))
 			archive_tag.setAttribute(attr, val)
 
-		print repr(archive_tag.toxml())
 		set_archive_attr('href', release.url)
-		print repr(archive_tag.toxml())
 		if extract is not None:
 			set_archive_attr('extract', extract)
-		print repr(archive_tag.toxml())
 		if archive.type is not None:
 			set_archive_attr('type', archive.type)
-		print repr(archive_tag.toxml())
 		set_archive_attr('size', str(archive.size))
 		impl.appendChild(archive_tag)
 
-		print repr(impl.toxml())
 		manifest_tag = self._mknode('manifest')
 		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])
 		impl.appendChild(manifest_tag)
-		print repr(impl.toxml())
 
 		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
-		print repr(impl.toxml())
 		group.appendChild(impl)
 	
 	@property

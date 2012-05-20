@@ -1,4 +1,5 @@
 import requests
+import sys
 import json
 from version import Version
 
@@ -25,7 +26,18 @@ class BaseProject(object):
 	def latest_version(self):
 		if len(self.versions) == 0:
 			raise RuntimeError("no versions found")
-		return max(self.versions, key = Version.parse)
+
+		def parse(s):
+			try:
+				return Version.parse(s)
+			except ValueError, e:
+				try:
+					return Version.parse(s.replace('.rc', '-pre'))
+				except ValueError: pass
+				print >> sys.stderr, "WARNING: ignoring unparseable version %s: %s" % (s, e)
+				return Version.parse('0')
+		return max(self.versions, key = parse)
+
 	def updated_since(self, version):
 		return Version.parse(version) < Version.parse(self.latest_version)
 

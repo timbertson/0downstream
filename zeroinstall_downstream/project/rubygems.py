@@ -54,11 +54,11 @@ class Rubygems(BaseProject):
 
 	@cached_property
 	def _version_objects(self):
-		v= {}
+		res = {}
 		for v in self._version_info:
 			val = Version(self, v)
-			v[val.version] = val
-		return v
+			res[val.version] = val
+		return res
 
 	@cached_property
 	def latest_release(self):

@@ -33,7 +33,7 @@ class Archive(object):
 					toplevel_path = os.path.join(toplevel_path, extract)
 				contents = os.listdir(toplevel_path)
 				sep = "\n  "
-				print "NOTE: Toplevel contents or archive are:", sep.join(sorted(contents))
+				print "NOTE: Toplevel contents or archive are:" + sep, sep.join(sorted(contents))
 			list_toplevel()
 
 			self.extract = extract
