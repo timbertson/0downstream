@@ -40,5 +40,9 @@ on project pages (github, pypi, etc).
 			<manifest-digest sha256="50e1ec9fd54cdea0305b69ef9fb09a716868aff803cba4366ab33b9adcf654d2"/>
 			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.1.tgz" size="12607"/>
 		</implementation>
+		<implementation id="sha1new=6b7f27aca8a4aac1cb1167ceb86098db60da08a4" released="2012-05-20" version="0.2">
+			<manifest-digest sha256="824a3089643126730a05f605debaeb3e37fea42b1299a9403f2bebcaeb442fe3"/>
+			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.2.tgz" size="15125"/>
+		</implementation>
 	</group>
 </interface>
