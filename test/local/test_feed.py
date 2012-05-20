@@ -101,10 +101,10 @@ class TestFeed(TestCase):
 		self.assertEqual(manifest_found, ('sha256', manifests['sha256']))
 
 	def test_feed_creation(self):
-		feed = Feed.from_project(self.proj, "http://example.com/my-project.xml")
+		feed = Feed.from_project(self.proj, "http://example.com/dist/0install/my-project.xml")
 		feed.save(self.buffer)
 		output = self.saved_dom()
-		self.assertEqual(output['uri'], 'http://example.com/my-project.xml')
+		self.assertEqual(output['uri'], 'http://example.com/dist/0install/my-project.xml')
 		self.assert_details_match(self.proj)
 		self.assertEqual(output.find('name').text, 'my-project')
 	

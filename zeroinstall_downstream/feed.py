@@ -15,6 +15,7 @@ class Feed(object):
 	def __init__(self, doc, uri, project=None):
 		self.doc = doc
 		self.uri = uri
+		print repr(self.uri)
 		self.project = project
 		self.interface = doc.documentElement
 		self.interface.setAttribute("xmlns", ZI)

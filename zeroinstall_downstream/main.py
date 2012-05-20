@@ -21,6 +21,7 @@ def run():
 	parser_new.add_argument('--prefix', help='prefix location for uploaded feed', required=True)
 	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
 	parser_update.add_argument('feed', help='local zeroinstall feed file')
+	parser_update.add_argument('--info', action='store_true', dest='just_info', help='update project info only')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 
 	args = parser.parse_args()
@@ -36,17 +37,18 @@ def new(opts):
 		print "feed %s already exists - use --force to overwrite it"
 		return 1
 	filename = os.path.basename(opts.feed)
-	destinatino_uri = opts.prefix.rstrip('/') + '/' + filename
-	feed = Feed.from_project(project, opts.prefix)
+	destination_url = opts.prefix.rstrip('/') + '/' + filename
+	feed = Feed.from_project(project, destination_url)
 	feed.add_latest_implementation()
 	with open(opts.feed, 'w') as outfile:
 		feed.save(outfile)
 
 def update(opts):
 	assert os.path.exists(opts.feed)
-	with open(opts.feed, 'rw') as file:
+	with open(opts.feed, 'r+') as file:
 		feed = Feed.from_file(file)
-		feed.add_latest_implementation()
+		if not opts.just_info:
+			feed.add_latest_implementation()
 		file.seek(0)
 		feed.save(file)
 
