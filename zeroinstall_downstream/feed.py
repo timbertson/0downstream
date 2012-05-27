@@ -125,7 +125,7 @@ class Feed(object):
 		set_archive_attr('size', str(archive.size))
 		impl.appendChild(archive_tag)
 
-		manifest_tag = self._mknode('manifest')
+		manifest_tag = self._mknode('manifest-digest')
 		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])
 		impl.appendChild(manifest_tag)
 

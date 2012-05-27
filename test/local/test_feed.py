@@ -66,7 +66,7 @@ class TestFeed(TestCase):
 	
 	def saved_dom(self):
 		xml = self.buffer.getvalue()
-		return ParseXML(xml, selfClosingTags='archive manifest gfxmonk:publish gfxmonk:upstream'.split()).interface
+		return ParseXML(xml, selfClosingTags='archive manifest-digest gfxmonk:publish gfxmonk:upstream'.split()).interface
 
 	def write_initial_feed(self, proj, add_impl = False):
 		feed = Feed.from_project(proj, 'http://example.com/')
@@ -89,7 +89,7 @@ class TestFeed(TestCase):
 		self.assertEqual(impl['version'], expected_impl.version)
 		self.assertEqual(impl['released'], expected_impl.released)
 		self.assertEqual(impl['id'], "sha1new=%s" % manifests['sha1new'])
-		manifest = impl.find('manifest')
+		manifest = impl.find('manifest-digest')
 		archive = impl.find('archive')
 		self.assertEqual(archive['href'], expected_impl.url)
 		self.assertEqual(archive['size'], str(size))
