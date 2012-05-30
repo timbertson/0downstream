@@ -1,7 +1,8 @@
 # 0downstream
 
 Easily generate [zero-install][] feeds and keep them up to date based on an
-existing upstream project.
+existing upstream project. You can run this feed from:
+[http://gfxmonk.net/dist/0install/0downstream.xml][self]
 
 Currently supported project sources are:
 
@@ -15,20 +16,22 @@ support for `0compile`d (source) feeds yet, but I hope to add it in the future.
 
 ### Create a new feed:
 
-    0downstream new <prefix> <url> <filename>
+    0downstream new --prefix=<prefix> <url> <filename>
 
 e.g:
 
     0downstream new \
-      http://gfxmonk.net/dist/0install/ \
-      https://github.com/gfxmonk/version \
-      version.xml
+      --prefix=http://gfxmonk.net/dist/0install/ \
+      https://github.com/jkbr/httpie \
+      httpie.xml
 
 This will fill in feed details using the available metadata, and add an
-implementation for the latest implementation of the project, based on project
-releases (or version tags in the case of github). You'll still have to fill in
-dependency information, environment bindings and any commands yourself, but
-hopefully only once.
+implementation for the latest implementation of the project, based on
+project releases (or version tags in the case of github). You'll still
+have to fill in dependency information, environment bindings and any
+commands yourself, but hopefully only once. You can see the result at
+[my 0install repository](http://gfxmonk.net/dist/0install/httpie.xml)
+(view source to see the actual generated xml).
 
 The `prefix` argument is the base URL where you plan to upload the feed. All mine
 go in `http://gfxmonk.net/dist/0install/`.
@@ -65,3 +68,4 @@ pull requests for new project sources until you've added the appropriate tests
 [github]:         https://github.com/
 [rubygems.org]:   https://rubygems.org/
 [pypi]:           https://pypi.python.org/pypi/
+[self]:           http://gfxmonk.net/dist/0install/0downstream.xml

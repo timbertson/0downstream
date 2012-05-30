@@ -5,9 +5,128 @@
 	<summary>maintain a zeroinstall feed based on an upstream project</summary>
 	<publish xmlns="http://gfxmonk.net/dist/0install" mode="0tools"/>
 	<description>
-Create, check and update downstream zeroinstall feeds using tagged releases
-on project pages (github, pypi, etc).
+# 0downstream
+
+Easily generate [zero-install][] feeds and keep them up to date based on an
+existing upstream project. You can run this feed from:
+[http://gfxmonk.net/dist/0install/0downstream.xml][self]
+
+Currently supported project sources are:
+
+ - [github][]
+ - [rubygems.org][]
+ - [pypi][]
+
+These locations are all frequently used for interpreted languages. There is no
+support for `0compile`d (source) feeds yet, but I hope to add it in the future.
+
+
+### Create a new feed:
+
+    0downstream new --prefix=&lt;prefix&gt; &lt;url&gt; &lt;filename&gt;
+
+e.g:
+
+    0downstream new \
+      --prefix=http://gfxmonk.net/dist/0install/ \
+      https://github.com/jkbr/httpie \
+      httpie.xml
+
+This will fill in feed details using the available metadata, and add an
+implementation for the latest implementation of the project, based on
+project releases (or version tags in the case of github). You'll still
+have to fill in dependency information, environment bindings and any
+commands yourself, but hopefully only once. You can see the result at
+[my 0install repository](http://gfxmonk.net/dist/0install/httpie.xml)
+(view source to see the actual generated xml).
+
+The `prefix` argument is the base URL where you plan to upload the feed. All mine
+go in `http://gfxmonk.net/dist/0install/`.
+
+### update an existing feed:
+
+because 0downstream embeds project information inside the generated feed, you
+can just run:
+
+    0downstream update &lt;filename&gt;
+
+And it'll add an &amp;lt;implementation&amp;gt; for the latest version of the project
+(in the &amp;lt;group&amp;gt; nearest the end of the file).
+
+### check for updates:
+
+Not very useful for manual use, but this command will exit with a `1` status
+code if there is a newer version on the project page than in the feed. Probably
+useful in a `cron` script.
+
+    0downstream check &lt;filename&gt;
+
+# "it doesn't work", or "you should add ..."
+
+Please open a github issue. I especially like the "pull request" type where
+you've done all the hard work and I just press the green button.
+
+It should be reasonably easy to add a new project type - you can use one of the
+existing ones in `zeroinstall_downstream/project` to base it on. I won't merge
+pull requests for new project sources until you've added the appropriate tests
+(they're not hard!).
+
+[zero-install]:   http://0install.net/
+[github]:         https://github.com/
+[rubygems.org]:   https://rubygems.org/
+[pypi]:           https://pypi.python.org/pypi/
+[self]:           http://gfxmonk.net/dist/0install/0downstream.xml
 	</description>
+	<rich-description xmlns="http://gfxmonk.net/dist/0install">
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<h1 id="downstream">0downstream</h1>
+			<p>Easily generate <a href="http://0install.net/">zero-install</a> feeds and keep them up to date based on an existing upstream project. You can run this feed from: <a href="http://gfxmonk.net/dist/0install/0downstream.xml">http://gfxmonk.net/dist/0install/0downstream.xml</a></p>
+			<p>Currently supported project sources are:</p>
+			<ul>
+				<li>
+					<a href="https://github.com/">github</a>
+				</li>
+				<li>
+					<a href="https://rubygems.org/">rubygems.org</a>
+				</li>
+				<li>
+					<a href="https://pypi.python.org/pypi/">pypi</a>
+				</li>
+			</ul>
+			<p>These locations are all frequently used for interpreted languages. There is no support for <code>0compile</code>d (source) feeds yet, but I hope to add it in the future.</p>
+			<h3 id="create-a-new-feed">Create a new feed:</h3>
+			<pre>
+				<code>0downstream new --prefix=&lt;prefix&gt; &lt;url&gt; &lt;filename&gt;
+</code>
+			</pre>
+			<p>e.g:</p>
+			<pre>
+				<code>0downstream new \
+  --prefix=http://gfxmonk.net/dist/0install/ \
+  https://github.com/jkbr/httpie \
+  httpie.xml
+</code>
+			</pre>
+			<p>This will fill in feed details using the available metadata, and add an implementation for the latest implementation of the project, based on project releases (or version tags in the case of github). You'll still have to fill in dependency information, environment bindings and any commands yourself, but hopefully only once. You can see the result at <a href="http://gfxmonk.net/dist/0install/httpie.xml">my 0install repository</a> (view source to see the actual generated xml).</p>
+			<p>The <code>prefix</code> argument is the base URL where you plan to upload the feed. All mine go in <code>http://gfxmonk.net/dist/0install/</code>.</p>
+			<h3 id="update-an-existing-feed">update an existing feed:</h3>
+			<p>because 0downstream embeds project information inside the generated feed, you can just run:</p>
+			<pre>
+				<code>0downstream update &lt;filename&gt;
+</code>
+			</pre>
+			<p>And it'll add an &lt;implementation&gt; for the latest version of the project (in the &lt;group&gt; nearest the end of the file).</p>
+			<h3 id="check-for-updates">check for updates:</h3>
+			<p>Not very useful for manual use, but this command will exit with a <code>1</code> status code if there is a newer version on the project page than in the feed. Probably useful in a <code>cron</code> script.</p>
+			<pre>
+				<code>0downstream check &lt;filename&gt;
+</code>
+			</pre>
+			<h1 id="it-doesnt-work-or-you-should-add-...">"it doesn't work", or "you should add ..."</h1>
+			<p>Please open a github issue. I especially like the "pull request" type where you've done all the hard work and I just press the green button.</p>
+			<p>It should be reasonably easy to add a new project type - you can use one of the existing ones in <code>zeroinstall_downstream/project</code> to base it on. I won't merge pull requests for new project sources until you've added the appropriate tests (they're not hard!).</p>
+		</div>
+	</rich-description>
 	<group main="zeroinstall_downstream/main.py">
 		<requires interface="http://repo.roscidus.com/python/python">
 			<version before="3"/>
