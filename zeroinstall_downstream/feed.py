@@ -97,9 +97,13 @@ class Feed(object):
 		assert '/' in self.uri, "Bad URI: %s" % (self.uri,)
 		return self.uri.rstrip('/').rsplit('/', 1)[1].rsplit('.', 1)[0]
 
-	def add_latest_implementation(self, extract=None):
-		assert self.has_new_implementations, "feed already up to date"
-		release = self.project.latest_release
+	def add_implementation(self, version=None, extract=None):
+		if version is None:
+			version = self.project.latest_version
+		assert version in self.project.versions, "no such version: %s" % (version,)
+		assert version in self.unpublished_versions(), "version %s already published" % (version,)
+		log.debug("adding version: %s" % (version,))
+		release = self.project.implementation_for(version)
 		group = self.interface.getElementsByTagName("group")[-1]
 		impl = self._mknode('implementation')
 		impl.setAttribute('version', release.version)
@@ -132,28 +136,20 @@ class Feed(object):
 		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
 		group.appendChild(impl)
 	
-	@property
-	def has_new_implementations(self):
+	def unpublished_versions(self, newest_only=False):
 		versions = self.interface.getElementsByTagName("implementation")
 		versions = map(lambda x: x.getAttribute("version"), versions)
 		versions = map(Version.parse, versions)
 		versions = list(versions)
-		if not versions:
-			log.debug("no existing versions")
-			return True
-		last_version = max(versions)
-		project_version = Version.parse(self.project.latest_version)
+		log.debug("published versions: %r" % (versions,))
+		project_versions = map(Version.parse, self.project.versions)
+		log.debug("project versions: %r" % (project_versions,))
 
-		log.debug("comparing last feed version (%s) to latest (%s)" % (
-			last_version, project_version))
-		if project_version == last_version:
-			return False
-
-		if project_version < last_version:
-			raise ValueError("project version (%s) is OLDER than latest version in feed! (%s)" % (
-				project_version, last_version))
-
-		return True
+		if newest_only:
+			project_versions = [max(project_versions)]
+		unpublished = set(project_versions).difference(set(versions))
+		log.debug("unpublished versions: %r" % (unpublished,))
+		return set(map(str, unpublished))
 
 	@property
 	def xml(self):

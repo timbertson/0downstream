@@ -27,3 +27,11 @@ class RubyTest(TestCase):
 		self.assertEqual(impl.url, 'http://rubygems.org/gems/xargs-0.0.1.gem')
 		self.assertEqual(impl.archive_type, 'application/x-ruby-gem')
 		self.assertEqual(impl.released, '2006-04-09')
+
+	def test_specific_version_implementation_info(self):
+		# should probably find a dead project with multiple versions, but oh well
+		impl = project.implementation_for('0.0.1')
+		self.assertEqual(impl.version, '0.0.1')
+		self.assertEqual(impl.url, 'http://rubygems.org/gems/xargs-0.0.1.gem')
+		self.assertEqual(impl.archive_type, 'application/x-ruby-gem')
+		self.assertEqual(impl.released, '2006-04-09')

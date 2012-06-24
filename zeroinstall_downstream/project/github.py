@@ -82,9 +82,8 @@ class Github(BaseProject):
 	def versions(self):
 		return self.version_tags.keys()
 
-	@cached_property
-	def latest_release(self):
-		return self.version_tags[self.latest_version].implementation
+	def implementation_for(self, version):
+		return self.version_tags[version].implementation
 	
 	@cached_property
 	def repo_info(self):

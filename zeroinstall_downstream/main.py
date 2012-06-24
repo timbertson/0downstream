@@ -15,6 +15,8 @@ def run():
 	parser_update.set_defaults(func=update)
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
+	parser_list_versions = sub.add_parser('list-versions', help='list the available versions of a feed')
+	parser_list_versions.set_defaults(func=list_versions)
 
 	parser_new.add_argument('url', help='url of the upstream project\'s page (from one of %s)' % ", ".join(sorted(SOURCES.keys())))
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
@@ -22,7 +24,10 @@ def run():
 	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
 	parser_update.add_argument('feed', help='local zeroinstall feed file')
 	parser_update.add_argument('--info', action='store_true', dest='just_info', help='update project info only')
+	parser_update.add_argument('--version', action='store_true', help='publish a specific version, not the newest')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
+	parser_check.add_argument('--all', action='store_true', help='check for any unpublished versions, not just the newest')
+	parser_list_versions.add_argument('feed', help='local or remote zeroinstall feed file')
 
 	args = parser.parse_args()
 	if args.debug:
@@ -39,7 +44,7 @@ def new(opts):
 	filename = os.path.basename(opts.feed)
 	destination_url = opts.prefix.rstrip('/') + '/' + filename
 	feed = Feed.from_project(project, destination_url)
-	feed.add_latest_implementation()
+	feed.add_implementation()
 	with open(opts.feed, 'w') as outfile:
 		feed.save(outfile)
 
@@ -48,7 +53,7 @@ def update(opts):
 	with open(opts.feed, 'r+') as file:
 		feed = Feed.from_file(file)
 		if not opts.just_info:
-			feed.add_latest_implementation()
+			feed.add_implementation(version=opts.version)
 		file.seek(0)
 		feed.save(file)
 
@@ -64,8 +69,9 @@ def _feed_from_path(path):
 
 def check(opts):
 	feed = _feed_from_path(opts.feed)
-	if feed.has_new_implementations:
-		print "feed %s is outdated - new version %s is available" % (opts.feed, feed.latest_version())
+	new_versions = feed.unpublished_versions(newest_only = not opts.all)
+	if new_versions:
+		print "feed %s is missing an implementation for version %s" % (opts.feed, ", ".join(sorted(new_versions)))
 		return 1
 	else:
 		print "feed %s is up to date" % (opts.feed,)

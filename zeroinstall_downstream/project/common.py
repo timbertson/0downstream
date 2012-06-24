@@ -41,6 +41,10 @@ class BaseProject(object):
 	def updated_since(self, version):
 		return Version.parse(version) < Version.parse(self.latest_version)
 
+	@cached_property
+	def latest_release(self):
+		return self.implementation_for(self.latest_version)
+
 def getjson(*a, **k):
 	response = requests.get(*a, **k)
 	assert response.ok, response.content

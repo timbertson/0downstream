@@ -21,7 +21,7 @@ class Pypi(BaseProject):
 			}
 		except StandardError as e:
 			logging.debug(e, exc_info=True)
-			raise ValueError("can't parse github project from %s" % (uri,))
+			raise ValueError("can't parse pypi project from %s" % (uri,))
 
 	@cached_property
 	def versions(self):
@@ -37,15 +37,14 @@ class Pypi(BaseProject):
 	def summary(self): return self._release_data['summary']
 	@cached_property
 	def description(self): return self._release_data['description']
-	@cached_property
-	def latest_release(self):
-		info = self.client.release_urls(self.id, self.latest_version)
+	def implementation_for(self, version):
+		info = self.client.release_urls(self.id, version)
 		info = filter(lambda x: x['packagetype'] == 'sdist', info)
 		if len(info) == 0:
 			raise ValueError("no `sdist` downloads found")
 		info = info[0]
 		released = datetime.datetime(*info['upload_time'].timetuple()[:6])
-		return Implementation(version=self.latest_version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None, extract=None)
+		return Implementation(version=version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None, extract=None)
 
 
 

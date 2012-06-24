@@ -60,9 +60,8 @@ class Rubygems(BaseProject):
 			res[val.version] = val
 		return res
 
-	@cached_property
-	def latest_release(self):
-		return self._version_objects[self.latest_version].implementation
+	def implementation_for(self, version):
+		return self._version_objects[version].implementation
 	
 	@classmethod
 	def parse_uri(cls, uri):

@@ -34,3 +34,10 @@ class GithubTest(TestCase):
 		self.assertEqual(project.latest_release.archive_type, 'application/x-compressed-tar')
 	def test_implementation_releasedate(self):
 		self.assertEqual(project.latest_release.released, '2011-03-07')
+
+	def test_old_implementation_info(self):
+		impl = project.implementation_for('0.2.1')
+		self.assertEqual(impl.version, '0.2.1')
+		self.assertEqual(impl.url, 'https://github.com/gfxmonk/pagefeed-android/tarball/0.2.1')
+		self.assertEqual(impl.archive_type, 'application/x-compressed-tar')
+		self.assertEqual(impl.released, '2010-06-30')
