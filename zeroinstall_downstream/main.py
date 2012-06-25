@@ -24,7 +24,7 @@ def run():
 	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
 	parser_update.add_argument('feed', help='local zeroinstall feed file')
 	parser_update.add_argument('--info', action='store_true', dest='just_info', help='update project info only')
-	parser_update.add_argument('--version', action='store_true', help='publish a specific version, not the newest')
+	parser_update.add_argument('--version', help='publish a specific version, not the newest')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 	parser_check.add_argument('--all', action='store_true', help='check for any unpublished versions, not just the newest')
 	parser_list.add_argument('feed', help='local zeroinstall feed file')
