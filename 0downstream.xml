@@ -167,9 +167,9 @@ pull requests for new project sources until you've added the appropriate tests
 			<manifest-digest sha256="2a898640dd6880f2725391257c4568a9a131a837180ce0cc026eb9a819bdd5ba"/>
 			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.2.1.tgz" size="15185"/>
 		</implementation>
-		<implementation id="sha1new=d927dd34afb3f64e5737640e9f017f74a7a0d607" released="2012-06-25" version="0.3">
-			<manifest-digest sha256="26a6d1f4c473a198feecda7875a8315bdf3fd6ded37c0b24da8c9ce696805a13"/>
-			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.3.tgz" size="15802"/>
+		<implementation id="sha1new=061cb6a1fabd72d55171b1ae8ee9ba83ed0bb702" released="2012-06-25" version="0.3.1">
+			<manifest-digest sha256="e111cbc9051dedaee8d2690d100460ca9c5701329b51080ef04b85a0e48e5d05"/>
+			<archive href="http://gfxmonk.net/dist/0install/0downstream/0downstream-0.3.1.tgz" size="15803"/>
 		</implementation>
 	</group>
 </interface>
