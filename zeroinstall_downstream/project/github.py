@@ -67,6 +67,10 @@ class Github(BaseProject):
 			logging.debug(e, exc_info=True)
 			raise ValueError("can't parse github project from %s" % (uri,))
 	
+	@property
+	def url(self):
+		return "https://github.com/" + self.id
+	
 	@cached_property
 	def tags(self):
 		return map(Tag, getjson(self.base + '/' + 'tags'))

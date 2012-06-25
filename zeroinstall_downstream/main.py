@@ -15,8 +15,8 @@ def run():
 	parser_update.set_defaults(func=update)
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
-	parser_list_versions = sub.add_parser('list-versions', help='list the available versions of a feed')
-	parser_list_versions.set_defaults(func=list_versions)
+	parser_list = sub.add_parser('list', help='list project / feed versions')
+	parser_list.set_defaults(func=list)
 
 	parser_new.add_argument('url', help='url of the upstream project\'s page (from one of %s)' % ", ".join(sorted(SOURCES.keys())))
 	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
@@ -27,7 +27,7 @@ def run():
 	parser_update.add_argument('--version', action='store_true', help='publish a specific version, not the newest')
 	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 	parser_check.add_argument('--all', action='store_true', help='check for any unpublished versions, not just the newest')
-	parser_list_versions.add_argument('feed', help='local or remote zeroinstall feed file')
+	parser_list.add_argument('feed', help='local zeroinstall feed file')
 
 	args = parser.parse_args()
 	if args.debug:
@@ -57,6 +57,32 @@ def update(opts):
 		file.seek(0)
 		feed.save(file)
 
+def list(opts):
+	assert os.path.exists(opts.feed)
+	with open(opts.feed, 'r') as file:
+		feed = Feed.from_file(file)
+
+	print ""
+	print " Version information for %s" % (opts.feed,)
+	print " %s\n" % (feed.project.url,)
+	_list_versions(feed)
+
+def _list_versions(feed):
+	feed_versions = set(feed.published_versions)
+	project_versions = set(feed.project.versions)
+	all_versions = feed_versions.union(project_versions)
+	print " +---- available at project page"
+	print " | +-- published in zeroinstall feed"
+	print " | |"
+	print "------------------------"
+	for version in sorted(all_versions):
+		flag = lambda b: '+' if b else ' '
+		print " %s %s   version %s" % (
+				flag(version in project_versions),
+				flag(version in feed_versions),
+				version)
+
+
 import contextlib
 def _feed_from_path(path):
 	if os.path.exists(path):
@@ -71,7 +97,9 @@ def check(opts):
 	feed = _feed_from_path(opts.feed)
 	new_versions = feed.unpublished_versions(newest_only = not opts.all)
 	if new_versions:
-		print "feed %s is missing an implementation for version %s" % (opts.feed, ", ".join(sorted(new_versions)))
+		_list_versions(feed)
+		print ""
+		print "feed %s\nis missing an implementation for version %s" % (opts.feed, ", ".join(sorted(new_versions)))
 		return 1
 	else:
 		print "feed %s is up to date" % (opts.feed,)

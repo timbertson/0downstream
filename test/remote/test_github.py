@@ -6,6 +6,7 @@ project = github.Github('gfxmonk/pagefeed-android')
 class GithubTest(TestCase):
 	def test_project_homepage(self):
 		self.assertEqual(project.homepage, 'https://github.com/gfxmonk/pagefeed-android')
+		self.assertEqual(project.url, 'https://github.com/gfxmonk/pagefeed-android')
 	def test_project_id(self):
 		self.assertEqual(project.upstream_id, 'gfxmonk/pagefeed-android')
 	def test_project_type(self):

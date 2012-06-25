@@ -6,6 +6,7 @@ project = rubygems.Rubygems('xargs')
 class RubyTest(TestCase):
 	def test_project_homepage(self):
 		self.assertEqual(project.homepage, 'http://rubygems.org/gems/xargs')
+		self.assertEqual(project.url, 'http://rubygems.org/gems/xargs')
 	def test_project_id(self):
 		self.assertEqual(project.upstream_id, 'xargs')
 	def test_project_type(self):

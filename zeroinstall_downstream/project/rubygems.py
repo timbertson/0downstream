@@ -26,6 +26,10 @@ class Rubygems(BaseProject):
 		self.id = id
 		self.upstream_id = id
 		self.api_filename = "%s.json" % (id,)
+
+	@property
+	def url(self):
+		return "https://rubygems.org/gems" + self.id
 	
 	@cached_property
 	def _project_info(self):

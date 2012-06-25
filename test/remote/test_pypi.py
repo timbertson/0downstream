@@ -6,6 +6,7 @@ project = pypi.Pypi('mandy')
 class PypiTest(TestCase):
 	def test_project_homepage(self):
 		self.assertEqual(project.homepage, 'http://pypi.python.org/pypi/mandy/')
+		self.assertEqual(project.url, 'http://pypi.python.org/pypi/mandy/')
 	def test_project_id(self):
 		self.assertEqual(project.upstream_id, 'mandy')
 	def test_project_type(self):

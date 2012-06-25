@@ -136,9 +136,13 @@ class Feed(object):
 		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
 		group.appendChild(impl)
 	
-	def unpublished_versions(self, newest_only=False):
+	@property
+	def published_versions(self):
 		versions = self.interface.getElementsByTagName("implementation")
-		versions = map(lambda x: x.getAttribute("version"), versions)
+		return map(lambda x: x.getAttribute("version"), versions)
+
+	def unpublished_versions(self, newest_only=False):
+		versions = self.published_versions
 		versions = map(Version.parse, versions)
 		versions = list(versions)
 		log.debug("published versions: %r" % (versions,))

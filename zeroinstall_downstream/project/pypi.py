@@ -10,6 +10,10 @@ class Pypi(BaseProject):
 		self.id = id
 		self.upstream_id = id
 		self.client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+
+	@property
+	def url(self):
+		return "http://pypi.python.org/pypi/" + self.id
 	
 	@classmethod
 	def parse_uri(cls, uri):
