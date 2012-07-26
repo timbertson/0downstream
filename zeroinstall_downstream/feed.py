@@ -1,4 +1,5 @@
 from .project import SOURCES, make
+from .project.common import parse_version
 from .archive import Archive
 from xml.dom import minidom
 from version import Version
@@ -146,7 +147,7 @@ class Feed(object):
 		versions = map(Version.parse, versions)
 		versions = list(versions)
 		log.debug("published versions: %r" % (versions,))
-		project_versions = map(Version.parse, self.project.versions)
+		project_versions = map(parse_version, self.project.versions)
 		log.debug("project versions: %r" % (project_versions,))
 
 		if newest_only:

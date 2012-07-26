@@ -3,6 +3,7 @@ import os, sys
 import argparse
 import logging
 from zeroinstall_downstream.project import guess_project, SOURCES
+from zeroinstall_downstream.project.common import parse_version
 from zeroinstall_downstream.feed import Feed
 
 def run():
@@ -80,7 +81,7 @@ def _list_versions(feed):
 		print " %s %s   version %s" % (
 				flag(version in project_versions),
 				flag(version in feed_versions),
-				version)
+				_format_version(version))
 
 
 import contextlib

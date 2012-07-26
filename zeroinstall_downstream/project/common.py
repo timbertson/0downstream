@@ -3,6 +3,9 @@ import sys
 import json
 from version import Version
 
+def parse_version(s):
+	return Version.parse(s, coerce=True)
+
 def cached_property(fn):
 	result = []
 	def get(self):
@@ -29,17 +32,14 @@ class BaseProject(object):
 
 		def parse(s):
 			try:
-				return Version.parse(s)
+				return parse_version(s)
 			except ValueError, e:
-				try:
-					return Version.parse(s.replace('.rc', '-pre'))
-				except ValueError: pass
 				print >> sys.stderr, "WARNING: ignoring unparseable version %s: %s" % (s, e)
-				return Version.parse('0')
+				return parse_version('0')
 		return max(self.versions, key = parse)
 
 	def updated_since(self, version):
-		return Version.parse(version) < Version.parse(self.latest_version)
+		return parse_version(version) < parse_version(self.latest_version)
 
 	@cached_property
 	def latest_release(self):
