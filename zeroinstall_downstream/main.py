@@ -58,8 +58,25 @@ def update(opts):
 		file.seek(0)
 		feed.save(file)
 
+def _format_version(text):
+	try:
+		parsed = parse_version(text)
+	except ValueError:
+		parsed = "unparseable"
+	if text == str(parsed):
+		return text
+	return "%s (%s)" % (text, parsed)
+
 def list(opts):
-	assert os.path.exists(opts.feed)
+	if not os.path.exists(opts.feed):
+		if opts.feed.startswith('http'):
+			project = guess_project(opts.feed)
+			print "Versions for project %s:" % (opts.feed,)
+			for version in sorted(project.versions):
+				print _format_version(version)
+			return
+		else:
+			assert os.path.exists(opts.feed)
 	with open(opts.feed, 'r') as file:
 		feed = Feed.from_file(file)
 
