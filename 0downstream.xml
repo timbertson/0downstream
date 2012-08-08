@@ -183,6 +183,7 @@ pull requests for new project sources until you've added the appropriate tests
 		<command name="run" path="zeroinstall_downstream/main.py">
 			<runner interface="http://repo.roscidus.com/python/python"/>
 		</command>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
 		<command name="test">
 			<requires interface="http://gfxmonk.net/dist/0install/mocktest.xml">
 				<version not-before="0.6.3"/>
