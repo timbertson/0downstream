@@ -7,6 +7,7 @@ from zeroinstall_downstream.feed import Feed
 import zeroinstall_downstream.feed as feed_module
 from zeroinstall_downstream.project import SOURCES
 from zeroinstall_downstream import archive
+from zeroinstall_downstream.composite_version import CompositeVersion
 
 def dumpxml(xml):
 	xml = str(xml)
@@ -28,14 +29,13 @@ class TestFeed(TestCase):
 			homepage='http://example.com/project',
 			upstream_id='upstream_id',
 			upstream_type='upstream_mock',
-			latest_version='2.5.1',
-			versions=['0.1', '2.5.1'],
+			latest_version=CompositeVersion('2.5.1'),
+			versions=[CompositeVersion('0.1'), CompositeVersion('2.5.1')],
 			summary='the BEST project',
 			description='use it for all your projecty needs!',
-			updated_since = lambda v: v != '2.5.1',
-			implementation_for = lambda v: mock('release ' + v).with_children(
+			implementation_for = lambda v: mock('release ' + v.upstream).with_children(
 				version=v,
-				url='http://example.com/download-' + v,
+				url='http://example.com/download-' + v.upstream,
 				released='2012-01-01',
 				extract = None,
 				archive_type='text/awesome')
@@ -49,13 +49,12 @@ class TestFeed(TestCase):
 			versions=['0.1', '2.5.12'],
 			summary='the BEST project2',
 			description='use it for all your projecty needs!2',
-			implementation_for = lambda v: mock('release ' + v).with_children(
+			implementation_for = lambda v: mock('release ' + v.upstream).with_children(
 				version=v,
-				url='http://example.com/download-' + v,
+				url='http://example.com/download-' + v.upstream,
 				archive_type=None,
 				extract = None,
 				released='2012-01-012'),
-			updated_since = lambda v: v != '2.5.12',
 		)
 		self.clear_buffer()
 	
@@ -84,7 +83,7 @@ class TestFeed(TestCase):
 
 	def assert_impl_matches(self, impl, project, size, manifests, type=None):
 		expected_impl = project.implementation_for(project.latest_version)
-		self.assertEqual(impl['version'], expected_impl.version)
+		self.assertEqual(impl['version'], str(expected_impl.version.derived))
 		self.assertEqual(impl['released'], expected_impl.released)
 		self.assertEqual(impl['id'], "sha1new=%s" % manifests['sha1new'])
 		manifest = impl.find('manifest-digest')
@@ -132,7 +131,7 @@ class TestFeed(TestCase):
 		implementations = output.findAll('implementation')
 		self.assertEqual(len(implementations), 1, repr(implementations))
 		impl = implementations[0]
-		self.assertEqual(impl["version"], self.proj.latest_version)
+		self.assertEqual(impl["version"], str(self.proj.latest_version.derived))
 		self.assert_impl_matches(impl, self.proj, size=1234, manifests={'sha256':'abcd', 'sha1new':'deff'}, type='text/awesome')
 
 	@ignore

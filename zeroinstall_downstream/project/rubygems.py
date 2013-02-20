@@ -5,13 +5,14 @@ import json
 import logging
 
 from .common import cached_property, Implementation, BaseProject, getjson
+from .. import composite_version
 
-class Version(object):
+class Release(object):
 	archive_type = 'application/x-ruby-gem'
 	def __init__(self, project, version_info):
 		self.info = version_info
-		self.version = version_info['number']
-		self.url = 'http://rubygems.org/gems/%s-%s.gem' % (project.id, self.version)
+		self.version = composite_version.try_parse(version_info['number'])
+		self.url = 'http://rubygems.org/gems/%s-%s.gem' % (project.id, self.version.upstream)
 		self.released = version_info['built_at'][:10]
 	
 	@property
@@ -29,7 +30,7 @@ class Rubygems(BaseProject):
 
 	@property
 	def url(self):
-		return "https://rubygems.org/gems" + self.id
+		return "https://rubygems.org/gems/" + self.id
 	
 	@cached_property
 	def _project_info(self):
@@ -54,14 +55,15 @@ class Rubygems(BaseProject):
 
 	@cached_property
 	def versions(self):
-		return map(operator.itemgetter('number'), self._version_info)
+		return list(self._version_objects.keys())
 
 	@cached_property
 	def _version_objects(self):
 		res = {}
 		for v in self._version_info:
-			val = Version(self, v)
-			res[val.version] = val
+			val = Release(self, v)
+			if val.version is not None:
+				res[val.version] = val
 		return res
 
 	def implementation_for(self, version):

@@ -1,9 +1,10 @@
+from __future__ import absolute_import
 import re
 
-import requests
 import logging
 
 from .common import cached_property, Implementation, BaseProject, getjson
+from .. import composite_version
 
 
 #TODO: use this to get readme data
@@ -22,8 +23,11 @@ class Tree(object):
 class Tag(object):
 	archive_type='application/x-compressed-tar'
 	version_re = re.compile('^(v(ersion)?(. -)?)?(?=[0-9])', re.I)
+
 	def __init__(self, info):
+		logging.debug("initting GitHub Tag object with: %r", info)
 		self.info = info
+
 	@property
 	def name(self): return self.info['name']
 
@@ -33,8 +37,11 @@ class Tag(object):
 	@property
 	def is_version(self): return re.match(self.version_re, self.name)
 
-	@property
-	def version(self): return re.sub(self.version_re, '', self.name)
+	@cached_property
+	def version_string(self): return re.sub(self.version_re, '', self.name)
+
+	@cached_property
+	def version(self): return composite_version.try_parse(self.version_string)
 
 	@property
 	def implementation(self):
@@ -79,7 +86,8 @@ class Github(BaseProject):
 	def version_tags(self):
 		d = {}
 		for tag in self.tags:
-			d[tag.version] = tag
+			if tag.version is not None:
+				d[tag.version] = tag
 		return d
 
 	@cached_property

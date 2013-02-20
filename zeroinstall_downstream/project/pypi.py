@@ -28,12 +28,12 @@ class Pypi(BaseProject):
 			raise ValueError("can't parse pypi project from %s" % (uri,))
 
 	@cached_property
-	def versions(self):
+	def version_strings(self):
 		return self.client.package_releases(self.id)
 
 	@cached_property
 	def _release_data(self):
-		return self.client.release_data(self.id, self.latest_version)
+		return self.client.release_data(self.id, self.latest_version.upstream)
 
 	@cached_property
 	def homepage(self): return self._release_data['home_page']
@@ -42,7 +42,7 @@ class Pypi(BaseProject):
 	@cached_property
 	def description(self): return self._release_data['description']
 	def implementation_for(self, version):
-		info = self.client.release_urls(self.id, version)
+		info = self.client.release_urls(self.id, version.upstream)
 		info = filter(lambda x: x['packagetype'] == 'sdist', info)
 		if len(info) == 0:
 			raise ValueError("no `sdist` downloads found")

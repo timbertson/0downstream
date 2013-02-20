@@ -1,10 +1,9 @@
+from __future__ import absolute_import
 import requests
 import sys
 import json
-from version import Version
-
-def parse_version(s):
-	return Version.parse(s, coerce=True)
+import logging
+from .. import composite_version
 
 def cached_property(fn):
 	result = []
@@ -23,27 +22,25 @@ class Implementation(object):
 	def __init__(self, **kw):
 		for k, v in kw.items():
 			setattr(self, k, v)
+		assert isinstance(self.version, composite_version.CompositeVersion), "expected CompositeVersion object, got %s" % (type(self.version),)
 
 class BaseProject(object):
 	@cached_property
 	def latest_version(self):
 		if len(self.versions) == 0:
 			raise RuntimeError("no versions found")
-
-		def parse(s):
-			try:
-				return parse_version(s)
-			except ValueError, e:
-				print >> sys.stderr, "WARNING: ignoring unparseable version %s: %s" % (s, e)
-				return parse_version('0')
-		return max(self.versions, key = parse)
-
-	def updated_since(self, version):
-		return parse_version(version) < parse_version(self.latest_version)
+		return max(self.versions)
 
 	@cached_property
 	def latest_release(self):
 		return self.implementation_for(self.latest_version)
+
+	@cached_property
+	def versions(self):
+		return list(
+			filter(lambda x: x is not None,
+				map(composite_version.try_parse,
+					self.version_strings)))
 
 def getjson(*a, **k):
 	response = requests.get(*a, **k)

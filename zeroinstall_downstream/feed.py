@@ -1,6 +1,6 @@
 from .project import SOURCES, make
-from .project.common import parse_version
 from .archive import Archive
+from .composite_version import CompositeVersion
 from xml.dom import minidom
 from version import Version
 import subprocess
@@ -101,13 +101,16 @@ class Feed(object):
 	def add_implementation(self, version=None, extract=None):
 		if version is None:
 			version = self.project.latest_version
-		assert version in self.project.versions, "no such version: %s" % (version,)
+		else:
+			version = CompositeVersion(version)
+		original_version_string = version
+		assert version in self.available_versions, "no such version: %s" % (version,)
 		assert version in self.unpublished_versions(), "version %s already published" % (version,)
 		log.debug("adding version: %s" % (version,))
 		release = self.project.implementation_for(version)
 		group = self.interface.getElementsByTagName("group")[-1]
 		impl = self._mknode('implementation')
-		impl.setAttribute('version', release.version)
+		impl.setAttribute('version', str(version.derived))
 		impl.setAttribute('released', release.released)
 
 		# release has a default `extract
@@ -139,22 +142,24 @@ class Feed(object):
 	
 	@property
 	def published_versions(self):
-		versions = self.interface.getElementsByTagName("implementation")
-		return map(lambda x: x.getAttribute("version"), versions)
+		implementations = self.interface.getElementsByTagName("implementation")
+		return map(lambda x: CompositeVersion(x.getAttribute("version")), implementations)
+	
+	@property
+	def available_versions(self):
+		return self.project.versions
 
 	def unpublished_versions(self, newest_only=False):
 		versions = self.published_versions
-		versions = map(Version.parse, versions)
-		versions = list(versions)
 		log.debug("published versions: %r" % (versions,))
-		project_versions = map(parse_version, self.project.versions)
+		project_versions = self.available_versions
 		log.debug("project versions: %r" % (project_versions,))
 
 		if newest_only:
 			project_versions = [max(project_versions)]
 		unpublished = set(project_versions).difference(set(versions))
 		log.debug("unpublished versions: %r" % (unpublished,))
-		return set(map(str, unpublished))
+		return set(unpublished)
 
 	@property
 	def xml(self):

@@ -3,7 +3,6 @@ import os, sys
 import argparse
 import logging
 from zeroinstall_downstream.project import guess_project, SOURCES
-from zeroinstall_downstream.project.common import parse_version
 from zeroinstall_downstream.feed import Feed
 
 def run():
@@ -58,14 +57,9 @@ def update(opts):
 		file.seek(0)
 		feed.save(file)
 
-def _format_version(text):
-	try:
-		parsed = parse_version(text)
-	except ValueError:
-		parsed = "unparseable"
-	if text == str(parsed):
-		return text
-	return "%s (%s)" % (text, parsed)
+def _format_version(version):
+	if version.exact: return version.upstream
+	return "%s (%s)" % (version.derived, version.upstream)
 
 def list(opts):
 	if not os.path.exists(opts.feed):
