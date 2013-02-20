@@ -67,7 +67,7 @@ def list(opts):
 			project = guess_project(opts.feed)
 			print "Versions for project %s:" % (opts.feed,)
 			for version in sorted(project.versions):
-				print _format_version(version)
+				print version.pretty()
 			return
 		else:
 			assert os.path.exists(opts.feed)
@@ -92,7 +92,7 @@ def _list_versions(feed):
 		print " %s %s   version %s" % (
 				flag(version in project_versions),
 				flag(version in feed_versions),
-				_format_version(version))
+				version.pretty())
 
 
 import contextlib

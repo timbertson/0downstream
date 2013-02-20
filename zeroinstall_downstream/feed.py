@@ -98,15 +98,21 @@ class Feed(object):
 		assert '/' in self.uri, "Bad URI: %s" % (self.uri,)
 		return self.uri.rstrip('/').rsplit('/', 1)[1].rsplit('.', 1)[0]
 
-	def add_implementation(self, version=None, extract=None):
-		if version is None:
+	def find_version(self, version_string):
+		for version in self.available_versions:
+			if version.fuzzy_match(version_string):
+				return version
+		raise AssertionError("No such version: %s" % (version_string,))
+
+	def add_implementation(self, version_string=None, extract=None):
+		if version_string is None:
 			version = self.project.latest_version
 		else:
-			version = CompositeVersion(version)
-		original_version_string = version
-		assert version in self.available_versions, "no such version: %s" % (version,)
-		assert version in self.unpublished_versions(), "version %s already published" % (version,)
-		log.debug("adding version: %s" % (version,))
+			version = self.find_version(version_string)
+
+		assert version in self.available_versions, "no such version: %s" % (version_string,)
+		assert version in self.unpublished_versions(), "version %s already published" % (version_string,)
+		log.debug("adding version: %s" % (version.pretty(),))
 		release = self.project.implementation_for(version)
 		group = self.interface.getElementsByTagName("group")[-1]
 		impl = self._mknode('implementation')
