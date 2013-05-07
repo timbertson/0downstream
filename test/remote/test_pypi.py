@@ -9,7 +9,7 @@ class PypiTest(TestCase):
 		self.assertEqual(project.homepage, 'http://pypi.python.org/pypi/mandy/')
 		self.assertEqual(project.url, 'http://pypi.python.org/pypi/mandy')
 	def test_project_id(self):
-		self.assertEqual(project.upstream_id, 'mandy')
+		self.assertEqual(project.id, 'mandy')
 	def test_project_type(self):
 		self.assertEqual(project.upstream_type, 'pypi')
 	def test_project_latest_version(self):

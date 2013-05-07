@@ -27,7 +27,7 @@ class TestFeed(TestCase):
 		modify(feed_module).Archive = mkarchive
 		self.proj = mock('project', create_children = False).with_children(
 			homepage='http://example.com/project',
-			upstream_id='upstream_id',
+			id='upstream_id',
 			upstream_type='upstream_mock',
 			latest_version=CompositeVersion('2.5.1'),
 			versions=[CompositeVersion('0.1'), CompositeVersion('2.5.1')],
@@ -43,7 +43,7 @@ class TestFeed(TestCase):
 
 		self.proj2 = mock('project2', create_children = False).with_children(
 			homepage='http://example.com/project2',
-			upstream_id='upstream_id2',
+			id='upstream_id2',
 			upstream_type='upstream_mock2',
 			latest_version='2.5.12',
 			versions=['0.1', '2.5.12'],
@@ -78,7 +78,7 @@ class TestFeed(TestCase):
 		self.assertEqual(saved_dom.find('summary').text, project.summary)
 		self.assertEqual(saved_dom.find('description').text, project.description)
 		upstream_attrs = dict(saved_dom.find('gfxmonk:upstream').attrs)
-		self.assertEqual(upstream_attrs, {'type': project.upstream_type, 'id': project.upstream_id})
+		self.assertEqual(upstream_attrs, {'type': project.upstream_type, 'id': project.id})
 		self.assertNotEqual(saved_dom.find('group'), None)
 
 	def assert_impl_matches(self, impl, project, size, manifests, type=None):

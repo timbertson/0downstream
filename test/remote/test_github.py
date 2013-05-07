@@ -9,7 +9,7 @@ class GithubTest(TestCase):
 		self.assertEqual(project.homepage, 'https://github.com/gfxmonk/pagefeed-android')
 		self.assertEqual(project.url, 'https://github.com/gfxmonk/pagefeed-android')
 	def test_project_id(self):
-		self.assertEqual(project.upstream_id, 'gfxmonk/pagefeed-android')
+		self.assertEqual(project.id, 'gfxmonk/pagefeed-android')
 	def test_project_type(self):
 		self.assertEqual(project.upstream_type, 'github')
 	def test_project_latest_version(self):

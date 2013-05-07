@@ -25,6 +25,9 @@ class Implementation(object):
 		assert isinstance(self.version, composite_version.CompositeVersion), "expected CompositeVersion object, got %s" % (type(self.version),)
 
 class BaseProject(object):
+	def __init__(self, id):
+		self.id = id
+
 	@cached_property
 	def latest_version(self):
 		if len(self.versions) == 0:

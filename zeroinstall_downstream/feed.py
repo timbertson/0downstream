@@ -55,7 +55,7 @@ class Feed(object):
 		summary = self._create_or_update_child_node(self.interface, "summary", self.project.summary)
 		project_info = self._create_or_update_child_node(self.interface, "gfxmonk:upstream", ns=GFXMONK)
 		project_info.setAttribute('type', self.project.upstream_type)
-		project_info.setAttribute('id', self.project.upstream_id)
+		project_info.setAttribute('id', self.project.id)
 		publish = self._create_or_update_child_node(self.interface, "gfxmonk:publish", "third-party", ns=GFXMONK)
 		homepage = self._create_or_update_child_node(self.interface, "homepage", self.project.homepage)
 		description = self._create_or_update_child_node(self.interface, "description", self.project.description)

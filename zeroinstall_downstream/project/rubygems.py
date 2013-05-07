@@ -25,7 +25,6 @@ class Rubygems(BaseProject):
 
 	def __init__(self, id):
 		self.id = id
-		self.upstream_id = id
 		self.api_filename = "%s.json" % (id,)
 
 	@property

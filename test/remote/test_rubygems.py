@@ -9,7 +9,7 @@ class RubyTest(TestCase):
 		self.assertEqual(project.homepage, 'http://rubygems.org/gems/xargs')
 		self.assertEqual(project.url, 'https://rubygems.org/gems/xargs')
 	def test_project_id(self):
-		self.assertEqual(project.upstream_id, 'xargs')
+		self.assertEqual(project.id, 'xargs')
 	def test_project_type(self):
 		self.assertEqual(project.upstream_type, 'rubygems')
 	def test_project_latest_version(self):

@@ -57,10 +57,9 @@ class Tag(object):
 
 class Github(BaseProject):
 	upstream_type = 'github'
-	def __init__(self, id):
-		self.id = id
-		self.upstream_id = id
-		self.base = 'https://api.github.com/repos/' + id
+
+	@cached_property
+	def base(self): return 'https://api.github.com/repos/' + self.id
 	
 	@classmethod
 	def parse_uri(cls, uri):
