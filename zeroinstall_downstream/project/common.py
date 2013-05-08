@@ -19,6 +19,8 @@ def cached_property(fn):
 	return property(get)
 
 class Implementation(object):
+	extract = None
+	archive_type = None
 	def __init__(self, **kw):
 		for k, v in kw.items():
 			setattr(self, k, v)

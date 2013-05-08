@@ -25,6 +25,8 @@ e.g:
       https://github.com/jkbr/httpie \
       httpie.xml
 
+Instead of the URL, you can also just use <type>:<id>, i.e: `github:jkbr/httpie`
+
 This will fill in feed details using the available metadata, and add an
 implementation for the latest implementation of the project, based on
 project releases (or version tags in the case of github). You'll still

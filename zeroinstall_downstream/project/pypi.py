@@ -18,7 +18,7 @@ class Pypi(BaseProject):
 	@classmethod
 	def parse_uri(cls, uri):
 		try:
-			match = re.match('[^:]+://pypi.python.org/pypi/(?P<id>[^/]+)', uri)
+			match = re.match('(pypi:|[^:]+://pypi.python.org/pypi/)(?P<id>[^/]+)', uri)
 			return {
 				'type': cls.upstream_type,
 				'id': match.group('id')
@@ -48,7 +48,7 @@ class Pypi(BaseProject):
 			raise ValueError("no `sdist` downloads found")
 		info = info[0]
 		released = datetime.datetime(*info['upload_time'].timetuple()[:6])
-		return Implementation(version=version, url=info['url'], released=released.strftime("%Y-%m-%d"), archive_type=None, extract=None)
+		return Implementation(version=version, url=info['url'], released=released.strftime("%Y-%m-%d"))
 
 
 

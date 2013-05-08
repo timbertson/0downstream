@@ -65,7 +65,7 @@ class Npm(BaseProject):
 	@classmethod
 	def parse_uri(cls, uri):
 		try:
-			match = re.match('[^:]+://npmjs.org/(?P<id>[^/]+)', uri)
+			match = re.match('(npm:|[^:]+://npmjs.org/package/)(?P<id>[^/]+)', uri)
 			return {
 				'type': cls.upstream_type,
 				'id': match.group('id')

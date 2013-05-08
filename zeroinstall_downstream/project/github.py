@@ -45,7 +45,7 @@ class Tag(object):
 
 	@property
 	def implementation(self):
-		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released, extract=None)
+		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released)
 
 	@cached_property
 	def commit_info(self):
@@ -64,7 +64,7 @@ class Github(BaseProject):
 	@classmethod
 	def parse_uri(cls, uri):
 		try:
-			match = re.match('[^:]+://github.com/(?P<id>[^/]+/[^/]+)', uri)
+			match = re.match('(github:|[^:]+://github.com/)(?P<id>[^/]+/[^/]+)', uri)
 			return {
 				'type': cls.upstream_type,
 				'id': match.group('id')

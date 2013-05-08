@@ -17,7 +17,7 @@ class Release(object):
 	
 	@property
 	def implementation(self):
-		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released, extract=None)
+		return Implementation(version=self.version, url=self.url, archive_type=self.archive_type, released=self.released)
 
 class Rubygems(BaseProject):
 	upstream_type = 'rubygems'
@@ -71,7 +71,7 @@ class Rubygems(BaseProject):
 	@classmethod
 	def parse_uri(cls, uri):
 		try:
-			match = re.match('[^:]+://rubygems.org/gems/(?P<id>[^/]+)', uri)
+			match = re.match('(rubygems:|[^:]+://rubygems.org/gems/)(?P<id>[^/]+)', uri)
 			return {
 				'type': cls.upstream_type,
 				'id': match.group('id')
