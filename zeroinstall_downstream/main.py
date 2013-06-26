@@ -53,7 +53,7 @@ def update(opts):
 	with open(opts.feed, 'r+') as file:
 		feed = Feed.from_file(file)
 		if not opts.just_info:
-			feed.add_implementation(version=opts.version)
+			feed.add_implementation(version_string=opts.version)
 		file.seek(0)
 		feed.save(file)
 
@@ -111,7 +111,8 @@ def check(opts):
 	if new_versions:
 		_list_versions(feed)
 		print ""
-		print "feed %s\nis missing an implementation for version %s" % (opts.feed, ", ".join(sorted(new_versions)))
+		new_upstream_versions = ", ".join(sorted([v.upstream for v in new_versions]))
+		print "feed %s\nis missing an implementation for version %s" % (opts.feed, new_upstream_versions)
 		return 1
 	else:
 		print "feed %s is up to date" % (opts.feed,)
