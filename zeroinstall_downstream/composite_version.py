@@ -21,6 +21,10 @@ class CompositeVersion(object):
 		assert isinstance(derived, Version)
 		self.derived = derived
 	
+	@classmethod
+	def from_derived(cls, derived):
+		return cls(str(derived), derived)
+	
 	# note that two versions are equal if their derived version is equal, regardless
 	# of the upstream text.
 	def __eq__(self, other):
@@ -48,5 +52,14 @@ class CompositeVersion(object):
 		if self.exact: return self.upstream
 		return "%s (%s)" % (self.derived, self.upstream)
 
-	def fuzzy_match(self, version_str):
-		return version_str in (str(self.derived), self.upstream)
+	@property
+	def _version_strings(self):
+		return set([str(self.derived), self.upstream])
+
+	def fuzzy_match(self, version):
+		if isinstance(version, CompositeVersion):
+			return bool(self._version_strings.intersection(version._version_strings))
+
+		if isinstance(version, Version):
+			version = str(version)
+		return version in self._version_strings

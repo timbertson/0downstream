@@ -1,70 +1,113 @@
 import tempfile
 import shutil
 import os
+import re
 import urllib2
 
 from zeroinstall.zerostore import manifest, unpack
 import contextlib
 
+from .tag import Tag
+
 import logging
 log = logging.getLogger(__name__)
 
+_sentinel = object()
+
 class Archive(object):
-	def __init__(self, url, type=None, extract=None, local_file=None):
+	# TODO: remove `document` arg
+	def __init__(self, url, document=None, type=None):
 		self.url = url
-		base = tempfile.mkdtemp()
+		self.recipe_steps = []
+		self.extract = None
+		self.type = type
+		self.id = url
+		self.document = document
+
+	def _archive_tag(self):
+		return Tag("archive", {"href": self.url, "size": str(self.archive_size)})
+
+	def _digest_tag(self):
+		sha1new = get_manifest(self.local, extract=self.extract, algname='sha1new')
+		self.id = "sha1new=%s" % (sha1new,)
+		sha256 = get_manifest(self.local, extract=self.extract, algname='sha256')
+		return Tag('manifest-digest', {"sha256":sha256})
+
+	def add_to(self, impl, doc):
+		archive = self._archive_tag()
+		fetch = archive
+		if self.recipe_steps:
+			recipe = Tag('recipe', children=[archive] + self.recipe_steps)
+			fetch = recipe
+
+		fetch.addTo(impl, doc)
+		self._digest_tag().addTo(impl, doc)
+	
+	def rename(self, source, dest):
+		local_source = os.path.join(self.local, source)
+		local_dest = os.path.join(self.local, dest)
+		os.rename(local_source, local_dest)
+		self.recipe_steps.append(Tag('rename', {'source': source, 'dest':dest}))
+
+	def __enter__(self):
+		cache_dir = os.path.join(os.getcwd(), 'archive-cache')
+		self.local = tempfile.mkdtemp()
 		try:
-			filename = url.rsplit('/', 1)[1]
-			assert filename or local_file
-			dest='root'
-			fetch(url, base=base, filename=filename, dest=dest, type=type, local_file=local_file)
-			if extract is None:
-				files_extracted = os.listdir(os.path.join(base, dest))
-				log.debug("found %s files in archive" % len(files_extracted))
-				if len(files_extracted) == 1 and extract is None:
-					extract = files_extracted[0]
-			if extract is False:
-				extract = None
-			log.debug("extract = %s" % (extract,))
+			self.archive_size = self.archive_size = fetch(self.url, base=self.local, cache_dir=cache_dir, type=self.type)
+		except:
+			self._cleanup()
+			raise
+		return self
+	
+	def _cleanup(self):
+		if not hasattr(self, 'local'): return
+		shutil.rmtree(self.local)
+		del self.local
 
-			def list_toplevel():
-				toplevel_path = os.path.join(base, dest)
-				if extract is not None:
-					toplevel_path = os.path.join(toplevel_path, extract)
-				contents = os.listdir(toplevel_path)
-				sep = "\n  "
-				print "NOTE: Toplevel contents of archive are:" + sep + sep.join(sorted(contents))
-			list_toplevel()
+	def __exit__(self, exc_type, exc_val, tb):
+		self._cleanup()
 
-			self.extract = extract
-			self.manifests = {}
-			self.manifests['sha1new'] = get_manifest(os.path.join(base, dest), extract=extract, algname='sha1new')
-			log.debug("sha1new manifest = %s" % (self.manifests['sha1new'],))
-			self.manifests['sha256']  = get_manifest(os.path.join(base, dest), extract=extract, algname='sha256')
-			log.debug("sha256 manifest = %s" % (self.manifests['sha256'],))
-			self.type = type
-			if local_file is None:
-				local_file = os.path.join(base, filename)
-			self.size = os.stat(local_file).st_size
-		finally:
-			if log.isEnabledFor(logging.DEBUG):
-				log.debug("debug mode enabled - NOT cleaning up directory: %s" % (base,))
-			else:
-				shutil.rmtree(base)
+def fetch(url, base, cache_dir, type=None, local_file=None):
+	'''returns the filesize of the downloaded file'''
+	# import fcntl
+	# filename = re.sub('[^-0-9.a-zA-Z]+', '_', url)
 
-def fetch(url, base, filename, dest, extract=None, type=None, local_file=None):
-	mode = 'w+' if local_file is None else 'r'
-	with open(local_file or os.path.join(base, filename), mode) as data:
-		if local_file is None:
-			log.info("downloading %s -> %s" % (url, os.path.join(base, filename)))
-			with contextlib.closing(urllib2.urlopen(url)) as stream:
-				while True:
-					chunk = stream.read(1024)
-					if not chunk: break
-					data.write(chunk)
-			data.seek(0)
-		os.makedirs(os.path.join(base, dest))
-		unpack.unpack_archive(url, data = data, destdir = os.path.join(base, dest), extract=extract, type=type)
+	# if not os.path.exists(cache_dir):
+	# 	os.makedirs(cache_dir)
+
+	# dest_file = os.path.join(cache_dir, filename)
+	# log.debug("Cache file for %s is at %s" % (url, dest_file,))
+
+
+	# with open(dest_file, 'w+') as data:
+	# 	fcntl.flock(data, fcntl.LOCK_EX)
+	# 	# after acquiring for lock, check whether the cache is already populated
+	# 	already_cached = os.stat(dest_file).st_size > 0
+	# 	if not already_cached:
+	# 		log.info("downloading %s -> %s" % (url, dest_file))
+	# 		with contextlib.closing(urllib2.urlopen(url)) as stream:
+	# 			while True:
+	# 				chunk = stream.read(1024)
+	# 				if not chunk: break
+	# 				data.write(chunk)
+	# 		data.seek(0)
+	# 	unpack.unpack_archive(url, data = data, destdir = base, type=type)
+	import requests
+	import contextlib
+	import shutil
+	with contextlib.closing(tempfile.TemporaryFile()) as f:
+
+		if local_file:
+			with open(local_file, 'r') as local:
+				shutil.copyfileobj(local, f)
+		else:
+			req = requests.get(url, stream=True)
+			req.raise_for_status()
+			shutil.copyfileobj(req.raw, f)
+
+		f.seek(0)
+		unpack.unpack_archive(url, data = f, destdir = base, type=type)
+		return os.fstat(f.fileno()).st_size
 
 def get_manifest(root, extract, algname='sha256'):
 	if extract is not None:

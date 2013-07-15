@@ -1,121 +1,164 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os, sys
 import argparse
 import logging
+import bdb
 from zeroinstall_downstream.project import guess_project, SOURCES
+from zeroinstall_downstream.project import make as make_project
 from zeroinstall_downstream.feed import Feed
+from zeroinstall_downstream.composite_version import CompositeVersion
+from zeroinstall_downstream import actions
+
+prompt = getattr(__builtins__, 'raw_input', input)
 
 def run():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--debug', action='store_true')
 	sub = parser.add_subparsers()
-	parser_new = sub.add_parser('new', help='make a new feed')
-	parser_new.set_defaults(func=new)
-	parser_update = sub.add_parser('update', help='update an existing feed')
-	parser_update.set_defaults(func=update)
+	parser_add = sub.add_parser('add', help='add or update a feed (and all missing dependencies)')
+	parser_add.add_argument('--version', '-v', help='add a specific version, not the newest')
+	parser_add.add_argument('--recursive', help='also update dependencies', action='store_true')
+	parser_add.add_argument('--recreate', help='regenerate feed (republishes each version with the current config)', action='store_true')
+	parser_add.add_argument('--info', action='store_true', dest='just_info', help='update project info (existing feeds only)')
+	parser_add.add_argument('specs', nargs='+', help='feed file or project identifier (upstream URL or <type>:<id>, for type in %s)' % ", ".join(sorted(SOURCES.keys())))
+	parser_add.set_defaults(func=add)
+
 	parser_check = sub.add_parser('check', help='check whether a feed is up to date')
 	parser_check.set_defaults(func=check)
-	parser_list = sub.add_parser('list', help='list project / feed versions')
-	parser_list.set_defaults(func=list)
-
-	parser_new.add_argument('url', help='url of the upstream project\'s page (from one of %s)' % ", ".join(sorted(SOURCES.keys())))
-	parser_new.add_argument('feed', help='local feed file to create (must not exist)')
-	parser_new.add_argument('--prefix', help='prefix location for uploaded feed', required=True)
-	parser_new.add_argument('--force', '-f', help='overwrite any existing feed file', action='store_true')
-	parser_update.add_argument('feed', help='local zeroinstall feed file')
-	parser_update.add_argument('--info', action='store_true', dest='just_info', help='update project info only')
-	parser_update.add_argument('--version', help='publish a specific version, not the newest')
-	parser_check.add_argument('feed', help='local or remote zeroinstall feed file')
 	parser_check.add_argument('--all', action='store_true', help='check for any unpublished versions, not just the newest')
-	parser_list.add_argument('feed', help='local zeroinstall feed file')
+	parser_check.add_argument('specs', nargs='+', help='feed file or project identifier')
+
+	parser_list = sub.add_parser('list', help='list project / feed versions')
+	parser_list.set_defaults(func=list_versions)
+	parser_list.add_argument('specs', nargs='+', help='feed file or project identifier')
 
 	args = parser.parse_args()
 	if args.debug:
 		logging.getLogger().setLevel(logging.DEBUG)
 		logging.debug("debug mode enabled")
-	return args.func(args)
+	else:
+		logging.getLogger('zeroinstall_downstream').setLevel(logging.INFO)
+	
+	args.config = _load_config()
+	try:
+		return args.func(args)
+	except (AssertionError) as e:
+		print('AssertionError: ' + str(e), file=sys.stderr)
+		sys.exit(2)
+	except (AssertionError, bdb.BdbQuit, EOFError, KeyboardInterrupt) as e:
+		if args.debug:
+			logging.error("", exc_info=True)
+		sys.exit(2)
 
-def new(opts):
-	project = guess_project(opts.url)
-	opts.feed = os.path.expanduser(opts.feed)
-	if not opts.force and os.path.exists(opts.feed):
-		print "feed %s already exists - use --force to overwrite it"
-		return 1
-	filename = os.path.basename(opts.feed)
-	destination_url = opts.prefix.rstrip('/') + '/' + filename
-	feed = Feed.from_project(project, destination_url)
-	feed.add_implementation()
-	with open(opts.feed, 'w') as outfile:
-		feed.save(outfile)
+def _resolve(spec, opts):
+	if os.path.isfile(spec):
+		attrs = Feed.from_path(spec).guess_project()
+		location = opts.config.resolve_project(project)
+		assert os.path.samefile(spec, location.path), "feed at %s resolves to a different location: %s" % (spec, location.path)
+	else:
+		try:
+			# if it's a feed URL inside our repo, we can get the project from our config
+			local_path = opts.config.local_path_for(spec)
+			assert local_path is not None and os.path.exists(local_path)
+			project = Feed.from_path(local_path).guess_project()
+		except (AssertionError,KeyError) as e:
+			project = guess_project(spec)
+		location = opts.config.resolve_project(project)
+	assert location
+	return (project, location)
 
-def update(opts):
-	assert os.path.exists(opts.feed)
-	with open(opts.feed, 'r+') as file:
-		feed = Feed.from_file(file)
-		if not opts.just_info:
-			feed.add_implementation(version_string=opts.version)
-		file.seek(0)
-		feed.save(file)
+def _load_config():
+	confname = 'downstream_config'
+	if not os.path.exists(confname + '.py'):
+		assert False, "no %s.py" % confname
+
+	import importlib
+	here = os.path.abspath('.')
+	sys.path.insert(0, here)
+	try:
+		return importlib.import_module(confname)
+	finally:
+		sys.path.remove(here)
+
+def _assert_exists(path):
+	assert os.path.exists(path), "no such file: %s" % path
+
+def add(opts):
+	if opts.recursive:
+		assert not opts.version, "can't specify both --version and --recursive"
+	
+	if len(opts.specs) > 1:
+		assert not opts.version, "can't specify --version with multiple projects"
+	
+	for spec in opts.specs:
+		(project, location) = _resolve(spec, opts)
+		exists = os.path.exists(location.path)
+
+		if opts.version == 'i':
+			for version in sorted(project.versions):
+				print(' - %s' % version.upstream, file=sys.stderr)
+			print()
+			print('Enter version: ', file=sys.stderr, end='')
+			opts.version = raw_input().strip()
+			assert opts.version
+
+		if opts.just_info:
+			assert exists, location.path
+			actions.update_info(project, location, opts.version, opts)
+		else:
+			if opts.recreate:
+				assert exists, location.path
+			action = (actions.update if exists else actions.create)
+			action(project, location, opts.version, opts)
 
 def _format_version(version):
 	if version.exact: return version.upstream
 	return "%s (%s)" % (version.derived, version.upstream)
 
-def list(opts):
-	if not os.path.exists(opts.feed):
-		if opts.feed.startswith('http'):
-			project = guess_project(opts.feed)
-			print "Versions for project %s:" % (opts.feed,)
-			for version in sorted(project.versions):
-				print version.pretty()
-			return
-		else:
-			assert os.path.exists(opts.feed)
-	with open(opts.feed, 'r') as file:
-		feed = Feed.from_file(file)
+def list_versions(opts):
+	for spec in opts.specs:
+		project, location = _resolve(spec, opts)
 
-	print ""
-	print " Version information for %s" % (opts.feed,)
-	print " %s\n" % (feed.project.url,)
-	_list_versions(feed)
+		feed = Feed.from_path(location.path)
 
-def _list_versions(feed):
-	feed_versions = set(feed.published_versions)
-	project_versions = set(feed.project.versions)
+		print("")
+		print(" Version information for %s" % (location.path,))
+		print(" %s\n" % (location.url,))
+		_list_versions(feed, project)
+
+def _list_versions(feed, project):
+	feed_versions = set(map(CompositeVersion.from_derived, feed.published_versions))
+	project_versions = set(project.versions)
 	all_versions = feed_versions.union(project_versions)
-	print " +---- available at project page"
-	print " | +-- published in zeroinstall feed"
-	print " | |"
-	print "------------------------"
+	print(" +---- available at project page")
+	print(" | +-- published in zeroinstall feed")
+	print(" | |")
+	print("------------------------")
 	for version in sorted(all_versions):
 		flag = lambda b: '+' if b else ' '
-		print " %s %s   version %s" % (
+		print(" %s %s   version %s" % (
 				flag(version in project_versions),
 				flag(version in feed_versions),
-				version.pretty())
+				version.pretty()))
 
-
-import contextlib
-def _feed_from_path(path):
-	if os.path.exists(path):
-		ctx = open(path)
-	else:
-		assert '://' in path, "file does not exist (and does not look like a URL): %s" % (path,)
-		ctx = contextlib.closing(urllib.urlopen(path))
-	with ctx as file:
-		return Feed.from_file(file)
 
 def check(opts):
-	feed = _feed_from_path(opts.feed)
-	new_versions = feed.unpublished_versions(newest_only = not opts.all)
-	if new_versions:
-		_list_versions(feed)
-		print ""
-		new_upstream_versions = ", ".join(sorted([v.upstream for v in new_versions]))
-		print "feed %s\nis missing an implementation for version %s" % (opts.feed, new_upstream_versions)
-		return 1
-	else:
-		print "feed %s is up to date" % (opts.feed,)
+	rv = 0
+	for spec in specs:
+		(project, location) = _resolve(opts.spec, opts)
+		feed = Feed.from_path(location.path)
+
+		new_versions = feed.unpublished_versions(project, newest_only = not opts.all)
+		if new_versions:
+			_list_versions(feed, project)
+			print("")
+			new_upstream_versions = ", ".join(sorted([v.upstream for v in new_versions]))
+			print("feed %s\nis missing an implementation for version %s" % (location.path, new_upstream_versions))
+			rv += 1
+		else:
+			print("up to date: %s" % (location.path,))
+	return rv
 
 if __name__ == '__main__':
 	sys.exit(run())

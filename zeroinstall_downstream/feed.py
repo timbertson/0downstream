@@ -1,10 +1,12 @@
+import os
+import subprocess
+import logging
+from xml.dom import minidom
+from version import Version
+
 from .project import SOURCES, make
 from .archive import Archive
 from .composite_version import CompositeVersion
-from xml.dom import minidom
-from version import Version
-import subprocess
-import logging
 
 log = logging.getLogger(__name__)
 
@@ -13,57 +15,72 @@ GFXMONK = "http://gfxmonk.net/dist/0install"
 ZEROCOMPILE = "http://zero-install.sourceforge.net/2006/namespaces/0compile"
 
 class Feed(object):
-	def __init__(self, doc, uri, project=None):
-		self.doc = doc
-		self.uri = uri
-		self.project = project
-		self.interface = doc.documentElement
+	def __init__(self, infile):
+		self.doc = minidom.parse(infile)
+		self.interface = self.doc.documentElement
+	
+	@classmethod
+	def from_path(cls, path):
+		with open(path) as f:
+			return cls(f)
+
+	def update_metadata(self, project, location):
 		self.interface.setAttribute("xmlns", ZI)
 		self.interface.setAttribute("xmlns:gfxmonk", GFXMONK)
 		self.interface.setAttribute("xmlns:compile", ZEROCOMPILE)
 
-	@classmethod
-	def from_project(cls, project, dest_uri):
-		dom = minidom.getDOMImplementation()
-		doc = dom.createDocument(ZI, "interface", None)
-		feed = cls(doc, project=project, uri = dest_uri)
-		feed.update_metadata()
-		group = feed._mknode("group")
-		feed.interface.appendChild(group)
-		return feed
+		feed_for = self.create_or_update_child_node(self.interface, "feed-for")
+		feed_for.setAttribute("interface", location.url)
 
-	@classmethod
-	def from_file(cls, infile):
-		doc = minidom.parse(infile)
-		interface = doc.documentElement
-		uri = interface.getAttribute('uri')
-		project_info = interface.getElementsByTagNameNS(GFXMONK, 'upstream')[0]
-		project_attrs = dict([(attr.name, attr.value) for attr in project_info.attributes.values()])
-		update_metadata = project_attrs.pop('update-metadata', 'true') == 'true'
-		try:
-			project = make(**project_attrs)
-		except TypeError as e:
-			raise ValueError("Can't construct project definition from attributes %r\nOriginal error: %s" % (project_attrs, e))
-		feed = cls(doc, project=project, uri = uri)
-		if update_metadata:
-			feed.update_metadata()
-		return feed
+		name = os.path.splitext(os.path.basename(location.path))[0]
+		self._default_child_node(self.interface, "name", name)
+		self._default_child_node(self.interface, "summary", project.summary)
+		self._default_child_node(self.interface, "homepage", project.homepage)
+		self._default_child_node(self.interface, "description", project.description)
 
-	def update_metadata(self):
-		self.interface.setAttribute('uri', self.uri)
-		name = self._create_or_update_child_node(self.interface, "name", self.name)
-		summary = self._create_or_update_child_node(self.interface, "summary", self.project.summary)
-		project_info = self._create_or_update_child_node(self.interface, "gfxmonk:upstream", ns=GFXMONK)
-		project_info.setAttribute('type', self.project.upstream_type)
-		project_info.setAttribute('id', self.project.id)
-		publish = self._create_or_update_child_node(self.interface, "gfxmonk:publish", "third-party", ns=GFXMONK)
-		homepage = self._create_or_update_child_node(self.interface, "homepage", self.project.homepage)
-		description = self._create_or_update_child_node(self.interface, "description", self.project.description)
+		project_info = self.create_or_update_child_node(self.interface, "gfxmonk:upstream", ns=GFXMONK)
+		project_info.setAttribute('type', project.upstream_type)
+		project_info.setAttribute('id', project.id)
 
-	def _create_or_update_child_node(self, elem, node_name, content=None, ns=None):
+	def make_canonical(self):
+		for node in self.interface.childNodes:
+			if node.nodeType == node.ELEMENT_NODE and node.localName == 'feed-for':
+				break
+		else:
+			raise RuntimeError("no <feed-for> element found")
+		url = node.getAttribute("interface")
+		assert url, 'feed-for has no "interface" attribute'
+		self.interface.setAttribute("uri", url)
+		node.parentNode.removeChild(node)
+		node.unlink()
+	
+	def get_upstream_attrs(self):
+		attrs = {}
+		for node in self.interface.childNodes:
+			if node.nodeType == node.ELEMENT_NODE and node.localName == 'upstream' and node.namespaceURI == GFXMONK:
+				break
+		else:
+			return attrs
+
+		for idx in range(0, node.attributes.length):
+			attr = node.attributes.item(idx)
+			attrs[attr.localName] = attr.value
+		return attrs
+
+	def guess_project(self):
+		attrs = self.get_upstream_attrs()
+		return make(type=attrs['type'], id=attrs['id'])
+	
+	def _default_child_node(self, *a, **k):
+		return self.create_or_update_child_node(*a, create_only=False, **k)
+
+	def create_or_update_child_node(self, elem, node_name, content=None, ns=None, create_only=False):
 		children = elem.childNodes
 		for child in children:
 			if child.nodeType == child.ELEMENT_NODE and child.tagName == node_name:
+				if create_only:
+					log.debug("skipping existing node %s for node type %s" % (child, node_name))
+					return
 				log.debug("using existing node %s for node type %s" % (child, node_name))
 				new_node = child
 				while new_node.hasChildNodes():
@@ -92,80 +109,31 @@ class Feed(object):
 			content = self.doc.createTextNode(content)
 			node.appendChild(content)
 		return node
-
-	@property
-	def name(self):
-		assert '/' in self.uri, "Bad URI: %s" % (self.uri,)
-		return self.uri.rstrip('/').rsplit('/', 1)[1].rsplit('.', 1)[0]
-
-	def find_version(self, version_string):
-		for version in self.available_versions:
-			if version.fuzzy_match(version_string):
-				return version
-		raise AssertionError("No such version: %s" % (version_string,))
-
-	def add_implementation(self, version_string=None, extract=None):
-		if version_string is None:
-			version = self.project.latest_version
-		else:
-			version = self.find_version(version_string)
-
-		assert version in self.available_versions, "no such version: %s" % (version_string,)
-		assert version in self.unpublished_versions(), "version %s already published" % (version_string,)
-		log.debug("adding version: %s" % (version.pretty(),))
-		release = self.project.implementation_for(version)
-		group = self.interface.getElementsByTagName("group")[-1]
-		impl = self._mknode('implementation')
-		impl.setAttribute('version', str(version.derived))
-		impl.setAttribute('released', release.released)
-
-		# release has a default `extract
-		extract = extract or release.extract
-		archive = Archive(release.url, type=release.archive_type, extract=extract)
-		# Archive may guess an `extract` value, if there was only one toplevel
-		# specified and we didn't pass an extract explicitly
-		extract = archive.extract
-
-		archive_tag = self._mknode('archive')
-		def set_archive_attr(attr, val):
-			log.debug("setting archive %s to %r" %(attr, val))
-			archive_tag.setAttribute(attr, val)
-
-		set_archive_attr('href', release.url)
-		if extract is not None:
-			set_archive_attr('extract', extract)
-		if archive.type is not None:
-			set_archive_attr('type', archive.type)
-		set_archive_attr('size', str(archive.size))
-		impl.appendChild(archive_tag)
-
-		manifest_tag = self._mknode('manifest-digest')
-		manifest_tag.setAttribute('sha256', archive.manifests['sha256'])
-		impl.appendChild(manifest_tag)
-
-		impl.setAttribute('id', "sha1new=%s" % (archive.manifests['sha1new']))
-		group.appendChild(impl)
 	
 	@property
 	def published_versions(self):
+		'''returns an enumeration of Version objects'''
 		implementations = self.interface.getElementsByTagName("implementation")
-		return map(lambda x: CompositeVersion(x.getAttribute("version")), implementations)
+		return map(lambda x: Version.parse(x.getAttribute("version")), implementations)
 	
-	@property
-	def available_versions(self):
-		return self.project.versions
-
-	def unpublished_versions(self, newest_only=False):
-		versions = self.published_versions
+	def unpublished_versions(self, project, newest_only=False):
+		'''returns an enumeration of ComponsiteVersion objects'''
+		versions = set(self.published_versions)
 		log.debug("published versions: %r" % (versions,))
-		project_versions = self.available_versions
-		log.debug("project versions: %r" % (project_versions,))
 
 		if newest_only:
 			project_versions = [max(project_versions)]
-		unpublished = set(project_versions).difference(set(versions))
-		log.debug("unpublished versions: %r" % (unpublished,))
-		return set(unpublished)
+		else:
+			project_versions = project.versions
+		log.debug("project versions: %r" % (project_versions,))
+
+		unpublished_versions = set()
+		for version in project_versions:
+			if version.derived not in versions:
+				unpublished_versions.add(version)
+
+		log.debug("unpublished versions: %r" % (unpublished_versions,))
+		return unpublished_versions
 
 	@property
 	def xml(self):
@@ -176,5 +144,10 @@ class Feed(object):
 		return stdout
 
 	def save(self, outfile):
+		outfile.seek(0)
+		outfile.truncate()
 		outfile.write(self.xml)
 
+	def save_to_path(self, path):
+		with open(path, 'w') as f:
+			self.save(f)

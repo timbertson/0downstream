@@ -19,7 +19,6 @@ def cached_property(fn):
 	return property(get)
 
 class Implementation(object):
-	extract = None
 	archive_type = None
 	def __init__(self, **kw):
 		for k, v in kw.items():
@@ -46,6 +45,20 @@ class BaseProject(object):
 			filter(lambda x: x is not None,
 				map(composite_version.try_parse,
 					self.version_strings)))
+
+	def find_version(self, version_string):
+		for version in self.versions:
+			if version.fuzzy_match(version_string):
+				return version
+		raise AssertionError("No such version: %s" % (version_string,))
+	
+	@property
+	def global_id(self): return "%s:%s" % (self.upstream_type, self.id)
+
+	def __eq__(self, other): return type(self) == type(other)
+	def __neq__(self, other): return not self.__eq__(other)
+	def __hash__(self): return hash(self.id)
+	def __cmp__(self, other): return cmp(self.global_id, other.global_id)
 
 def getjson(*a, **k):
 	response = requests.get(*a, **k)
