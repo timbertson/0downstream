@@ -171,9 +171,9 @@ class Feed(object):
 	def xml(self):
 		xml = self.doc.toxml()
 		proc = subprocess.Popen(['xmlformat'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-		stdout, _ = proc.communicate(xml)
+		stdout, _ = proc.communicate(xml.encode('utf-8'))
 		assert proc.returncode == 0, "xmlformat failed!"
-		return stdout
+		return stdout.decode('utf-8')
 
 	def save(self, outfile):
 		outfile.write(self.xml)
