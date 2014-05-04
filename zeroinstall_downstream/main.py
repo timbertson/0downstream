@@ -9,6 +9,7 @@ from zeroinstall_downstream.project import make as make_project
 from zeroinstall_downstream.feed import Feed
 from zeroinstall_downstream.composite_version import CompositeVersion
 from zeroinstall_downstream import actions
+from zeroinstall_downstream import proxy
 
 prompt = getattr(__builtins__, 'raw_input', input)
 
@@ -32,6 +33,11 @@ def run():
 	parser_list = sub.add_parser('list', help='list project / feed versions')
 	parser_list.set_defaults(func=list_versions)
 	parser_list.add_argument('specs', nargs='+', help='feed file or project identifier')
+
+	parser_proxy = sub.add_parser('proxy', help='run a caching HTTP proxy, with unpublished feeds served directly from disk')
+	parser_proxy.set_defaults(func=proxy.run)
+	parser_proxy.add_argument('--max-age', help='max-age of cached resources, in hours. -1 == forever')
+	parser_proxy.add_argument('--port', type=int, help='HTTP proxy port', default=8082)
 
 	args = parser.parse_args()
 	if args.debug:
