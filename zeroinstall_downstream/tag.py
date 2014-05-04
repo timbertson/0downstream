@@ -22,6 +22,20 @@ class Tag(object):
 
 	def __setitem__(self, key, val):
 		self.attrs[key] = val
+	
+	def __hash__(self):
+		return hash(self.tag, self.attrs)
+
+	def __eq__(self, other):
+		return (
+			type(self) == type(other)
+			and self.tag == other.tag
+			and self.namespace == other.namespace
+			and self.attrs == other.attrs
+			and self.children == other.children
+		)
+
+	def __ne__(self, other): return not self.__eq__(other)
 
 	def __hasitem__(self, key, val):
 		return key in self.attrs

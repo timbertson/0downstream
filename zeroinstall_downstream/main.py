@@ -19,7 +19,7 @@ def run():
 	sub = parser.add_subparsers()
 	parser_add = sub.add_parser('add', help='add or update a feed (and all missing dependencies)')
 	parser_add.add_argument('--version', '-v', help='add a specific version, not the newest')
-	parser_add.add_argument('--interactive', '-i', help='select version interactively')
+	parser_add.add_argument('--interactive', '-i', help='select version interactively', action='store_true')
 	parser_add.add_argument('--recursive', help='also update dependencies', action='store_true')
 	parser_add.add_argument('--recreate', help='regenerate feed (republishes each version with the current config)', action='store_true')
 	parser_add.add_argument('--info', action='store_true', dest='just_info', help='update project info (existing feeds only)')
@@ -37,7 +37,7 @@ def run():
 
 	parser_proxy = sub.add_parser('proxy', help='run a caching HTTP proxy, with unpublished feeds served directly from disk')
 	parser_proxy.set_defaults(func=proxy.run)
-	parser_proxy.add_argument('--max-age', help='max-age of cached resources, in hours. -1 == forever')
+	parser_proxy.add_argument('--max-age', '-a', type=int, help='max-age of cached resources, in hours. -1 == forever', default=24 * 7)
 	parser_proxy.add_argument('--port', type=int, help='HTTP proxy port', default=8082)
 
 	args = parser.parse_args()

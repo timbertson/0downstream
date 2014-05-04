@@ -50,10 +50,9 @@ class Archive(object):
 		self.recipe_steps.append(Tag('rename', {'source': source, 'dest':dest}))
 
 	def __enter__(self):
-		cache_dir = os.path.join(os.getcwd(), 'archive-cache')
 		self.local = tempfile.mkdtemp()
 		try:
-			self.archive_size = self.archive_size = fetch(self.url, base=self.local, cache_dir=cache_dir, type=self.type)
+			self.archive_size = self.archive_size = fetch(self.url, base=self.local, type=self.type)
 		except:
 			self._cleanup()
 			raise
@@ -67,31 +66,8 @@ class Archive(object):
 	def __exit__(self, exc_type, exc_val, tb):
 		self._cleanup()
 
-def fetch(url, base, cache_dir, type=None, local_file=None):
+def fetch(url, base, type=None, local_file=None):
 	'''returns the filesize of the downloaded file'''
-	# import fcntl
-	# filename = re.sub('[^-0-9.a-zA-Z]+', '_', url)
-
-	# if not os.path.exists(cache_dir):
-	# 	os.makedirs(cache_dir)
-
-	# dest_file = os.path.join(cache_dir, filename)
-	# log.debug("Cache file for %s is at %s" % (url, dest_file,))
-
-
-	# with open(dest_file, 'w+') as data:
-	# 	fcntl.flock(data, fcntl.LOCK_EX)
-	# 	# after acquiring for lock, check whether the cache is already populated
-	# 	already_cached = os.stat(dest_file).st_size > 0
-	# 	if not already_cached:
-	# 		log.info("downloading %s -> %s" % (url, dest_file))
-	# 		with contextlib.closing(urllib2.urlopen(url)) as stream:
-	# 			while True:
-	# 				chunk = stream.read(1024)
-	# 				if not chunk: break
-	# 				data.write(chunk)
-	# 		data.seek(0)
-	# 	unpack.unpack_archive(url, data = data, destdir = base, type=type)
 	import requests
 	import contextlib
 	import shutil

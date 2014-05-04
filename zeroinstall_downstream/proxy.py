@@ -9,6 +9,7 @@ import threading
 import hashlib
 import re
 import logging
+import time
 
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
@@ -16,7 +17,7 @@ import urllib2
 from SocketServer import ThreadingMixIn
 
 root = os.path.realpath('.')
-cache_root = os.path.join(root, 'http_cache')
+cache_root = os.path.join(root, 'http.cache')
 logger = logging.getLogger(__name__)
 
 try:
@@ -30,7 +31,7 @@ def safe_name(url):
 	digest = hashlib.md5(url).hexdigest()[:12]
 	filename = parsed.path.rstrip('/').split('/')[-1]
 	filename = re.sub('[^-._a-zA-Z0-9]+', '-', filename)
-	print(repr((domain, filename, digest)))
+	# print(repr((domain, filename, digest)))
 	return domain + "-" + filename + "-" + digest + ".cache"
 
 def run(opts):
@@ -43,7 +44,7 @@ def run(opts):
 
 	if not os.path.exists(cache_root):
 		os.path.mkdir(cache_root)
-
+	
 	@contextlib.contextmanager
 	def cached(url):
 		cache_lock[url].acquire()
@@ -61,17 +62,17 @@ def run(opts):
 					# delete old resources
 					max_age = opts.max_age
 					evict = False
-					if max_age > 0:
+					if max_age >= 0:
 						now = time.time()
 						mtime = st.st_mtime
-						if mtime > now:
-							evict = True
-						elif st.st_mtime + (max_age * 60 * 60) < now: # cache + max_age is in the past
+						expiry_date = st.st_mtime + (max_age * 60 * 60)
+						logger.warn("expiry date = %s (now=%s)" % (expiry_date, now))
+						if mtime > now or expiry_date < now:
 							evict = True
 					if evict:
-						logger.debug("evicting cached %s" % path)
+						logger.debug("evicting cached %s" % url)
 					else:
-						logger.debug("serving cached %s" % path)
+						logger.debug("serving cached %s" % url)
 						cached = True
 
 				if not cached:

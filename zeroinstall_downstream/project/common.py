@@ -37,7 +37,7 @@ class BaseProject(object):
 
 	@cached_property
 	def latest_release(self):
-		return self.implementation_for(self.latest_version)
+		return self.get_release(self.latest_version)
 
 	@cached_property
 	def versions(self):

@@ -20,8 +20,6 @@ class Release(object):
 		self.version = composite_version.try_parse(version_info['version'])
 		self.url = version_info['dist']['tarball']
 		self.released = project._project_info['time'][self.version.upstream][:10]
-		self.runtime_dependencies = []
-		self.compile_dependencies = []
 	
 	@property
 	def dependency_names(self):
@@ -53,6 +51,8 @@ class Release(object):
 		return archive
 
 	def detect_dependencies(self, resolver):
+		self.runtime_dependencies = []
+		self.compile_dependencies = []
 		def add_dependency(tagname, name, version_spec, attrs=None, dest=None):
 			location = resolver(Npm(name))
 			if location is None:
@@ -130,9 +130,6 @@ class Npm(BaseProject):
 			if val.version is not None:
 				res[val.version] = val
 		return res
-
-	def implementation_for(self, version):
-		return self._version_objects[version].implementation
 
 	def get_release(self, version):
 		return self._version_objects[version]
