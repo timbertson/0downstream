@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-monotonic-timestamp.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=b27f39a16ce6de42baa646bdcc4337c5ccc150f4" version="0.0.8">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/monotonic-timestamp/-/monotonic-timestamp-0.0.8.tgz" size="2281"/>
+			<rename dest="monotonic-timestamp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4d8935467f9c64222136bce92951d893eedbf370fefdfc5e4960db3942c2d2b7"/>
+	</implementation>
+	<name>node-monotonic-timestamp</name>
+	<summary>monotonic-timestamp npm package</summary>
+	<homepage>https://npmjs.org/package/monotonic-timestamp</homepage>
+	<description>Monotonically increasing timestamp.</description>
+	<gfxmonk:upstream id="monotonic-timestamp" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9dAAoJEOA/kc8tk45WP6YH/0s/291v4/03brXp/0Ka15+OWh3sDFQMJLQF
+rjh92tsRUfowZJjiBitIV9BSvvHK2Iu1+xuzD+bsl33ACjuQz2p2pHZeoS0TN7/pFqMOP+Tv471a
+dN9B19DeEJaRNbxTfjDR1zuOd4nmwdh6pPMTZCYzfA7e1jDiLGYplH9DO26pWkRTdO0CfKxcf+/P
+kc/RCmZENfBHlBZZtzCwkWnKKzGAX+GXKXR8XFHcMBRsV4EIZUYPqvL1fZhS0idauzV4vLivGaSB
+lSnwKjzaHr+s2OMTpUO2lnyqNzUD63KFQ5vAOxyP3F36rjaO2/pMAb7s2WZFMhWyduoB/SBMWqT5
+ZQ0=
+
+-->

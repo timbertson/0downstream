@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-uglify-js.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=a2a44ec15b146850de80e696fbd823c6e8b3a8fe" version="2.4.13">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="uglify-js/bin/uglifyjs">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-source-map.xml">
+			<version before="0.2" not-before="0.1.33"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-async.xml">
+			<version before="0.3" not-before="0.2.6"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-uglify-to-browserify.xml">
+			<version before="1.1" not-before="1.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-optimist.xml">
+			<version before="0.4" not-before="0.3.5"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/uglify-js/-/uglify-js-2.4.13.tgz" size="79587"/>
+			<rename dest="uglify-js" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ae61416ef2f71f3e016e254f13ff7442d4c31152efa06eb63b2c2b86dca141eb"/>
+	</implementation>
+	<name>node-uglify-js</name>
+	<summary>uglify-js npm package</summary>
+	<homepage>https://npmjs.org/package/uglify-js</homepage>
+	<description>JavaScript parser, mangler/compressor and beautifier toolkit</description>
+	<gfxmonk:upstream id="uglify-js" type="npm"/>
+	<implementation id="sha1new=37ed5b8a2582fe7476023346c8c2cf1f52c6dff4" version="1.1.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="uglify-js/bin/uglifyjs">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/uglify-js/-/uglify-js-1.1.1.tgz" size="62620"/>
+			<rename dest="uglify-js" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8206b941c5ed4bc33c3e9f7f5d277acde03ca9e41886f8945bd08a90674ae0e1"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfB7AAoJEOA/kc8tk45WJPYIAISUB3FHC2m6A9YW1xPQYKqAB4DV0TJcPEGx
+J+znk0oJpRFRLNqDY0g1fKAgnc6HlaoFF+WiN4irn1nPVquWzwxAztImYhcYnqyzoHZqmaw1TNo5
+eOCDzsk74rwYjUvi0l0oBUvhJawghcVEhcFaUsqbFZgAksueRpHjARAkHjN3n/nFJb3UYQ+97HsZ
+YG/clmOCrG4J8pmZBKashfIA5yF7fnA1vfUed8esf2ignRK4hCPnvl4WYU6C9qnTUtgxfYMPWtd+
+bLx6nLdU/1kXZb5p2LK4sIcqWdj4PmpbxMkJPWtvVZR07n6xKkcr61hluYKh278e2ujhbCHDh3Zl
+3V0=
+
+-->

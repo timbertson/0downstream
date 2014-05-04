@@ -19,6 +19,7 @@ def run():
 	sub = parser.add_subparsers()
 	parser_add = sub.add_parser('add', help='add or update a feed (and all missing dependencies)')
 	parser_add.add_argument('--version', '-v', help='add a specific version, not the newest')
+	parser_add.add_argument('--interactive', '-i', help='select version interactively')
 	parser_add.add_argument('--recursive', help='also update dependencies', action='store_true')
 	parser_add.add_argument('--recreate', help='regenerate feed (republishes each version with the current config)', action='store_true')
 	parser_add.add_argument('--info', action='store_true', dest='just_info', help='update project info (existing feeds only)')
@@ -59,7 +60,7 @@ def run():
 
 def _resolve(spec, opts):
 	if os.path.isfile(spec):
-		attrs = Feed.from_path(spec).guess_project()
+		project = Feed.from_path(spec).guess_project()
 		location = opts.config.resolve_project(project)
 		assert os.path.samefile(spec, location.path), "feed at %s resolves to a different location: %s" % (spec, location.path)
 	else:
@@ -101,7 +102,7 @@ def add(opts):
 		(project, location) = _resolve(spec, opts)
 		exists = os.path.exists(location.path)
 
-		if opts.version == 'i':
+		if opts.interactive:
 			for version in sorted(project.versions):
 				print(' - %s' % version.upstream, file=sys.stderr)
 			print()

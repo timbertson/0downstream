@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-leveldown.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=0b5993b44d6fbe3a259b086e755dd36171b058ac" version="0.10.2">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-bindings.xml">
+			<version before="1.2" not-before="1.1.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-nan.xml">
+			<version before="0.7" not-before="0.6.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-mkfiletree.xml">
+			<version before="0.1" not-before="0.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-abstract-leveldown.xml">
+			<version before="0.12" not-before="0.11.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-readfiletree.xml">
+			<version before="0.1" not-before="0.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-gyp.xml">
+			<version before="0.13" not-before="0.12.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-rimraf.xml">
+			<version before="2.2" not-before="2.1.4"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-monotonic-timestamp.xml">
+			<version before="0.1" not-before="0.0.8"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-du.xml">
+			<version before="0.1" not-before="0.0.1"/>
+		</requires>
+		<command name="compile">
+			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+				<executable-in-var name="NPM"/>
+			</requires>
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-gyp.xml">
+				<executable-in-var name="NODE_GYP"/>
+			</requires>
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+								cd &quot;$BUILDDIR/leveldown&quot;
+								&quot;$NPM&quot; build .
+								cp -a &quot;$BUILDDIR/leveldown&quot; &quot;$DISTDIR/&quot;
+
+								# remove some common unnecessary files
+								cd &quot;$DISTDIR/leveldown&quot;
+								rm -rf src test deps
+							</arg>
+			</runner>
+			<compile:implementation>
+				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version compile:pin-components="2"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-bindings.xml">
+					<version before="1.2" not-before="1.1.1"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-nan.xml">
+					<version before="0.7" not-before="0.6.0"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/leveldown/-/leveldown-0.10.2.tgz" size="1987277"/>
+			<rename dest="leveldown" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e6cd013eba1a66c0528b0594375161b052ee228cf273acff09f5e95315909487"/>
+	</implementation>
+	<name>node-leveldown</name>
+	<summary>leveldown npm package</summary>
+	<homepage>https://npmjs.org/package/leveldown</homepage>
+	<description>A Node.js LevelDB binding, primary backend for LevelUP</description>
+	<gfxmonk:upstream id="leveldown" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe+fAAoJEOA/kc8tk45WV0QH/0JeViGyZeZ14+RUosMUNEW69xsD33TD7iOJ
+FjT+Lr77f2W1bRRm9O605XTCTEQVbtybEOZqYF06wP095txHwgFq+JufEiiXwO8feoBe49pcPHaI
+ayUkQk1LLz8/fwMHYkA6lIIfFCCelRdP93WGfbUTMtNxgY8Txwsp5RBKLTw4/5OX4d6+5citVray
+F94CHqt3uZez+rDK13xL82alyGq2W+rHTAaLcB4TYUHqIc2YHkBaq65pun+1Lf8lqJKFlmDIX34h
+QsZy/IZBiEWzWOl2TU/O/LYmZiMqD4sgnorvxEUItRkLqV3jJcDHSbnrN6ZiazC4aE/00mRohvkU
+rW0=
+
+-->

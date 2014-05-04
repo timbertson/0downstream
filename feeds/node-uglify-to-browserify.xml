@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-uglify-to-browserify.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c44ffeecac9b2dbc5d696337359895966b7759ea" version="1.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz" size="2417"/>
+			<rename dest="uglify-to-browserify" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c1719cd99121a4ed7ac9d2754959ae022c0d4ede50f0b9e30bbf0843d069afb8"/>
+	</implementation>
+	<name>node-uglify-to-browserify</name>
+	<summary>uglify-to-browserify npm package</summary>
+	<homepage>https://npmjs.org/package/uglify-to-browserify</homepage>
+	<description>A transform to make UglifyJS work in browserify.</description>
+	<gfxmonk:upstream id="uglify-to-browserify" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfBtAAoJEOA/kc8tk45WpsoIAIoCyV4cYfiYcveT6/JgM/sh+ihNAuaxK7mb
+O6YSL7TYzSRKsSMZq1Q35NCa9l+siohx01gjOjy9K49hc8YEjiDzGXUQ9yUX/Ajk+PmVVEq7Bewa
+vkFjJJMKNZeD0K7eVqaoFyNk+YZzvjoE1Y5Z61Evy8QZU9zh+kqefwYqaCZH9v4dOL7En1SL2byc
+RwF3i8g4l2nV3OU5Yurq9QHT5xSqAKCrZ4jjPLr5Q6ot6WTLum7Eauyc2aQf2uAKXzFVuMweMNYV
+bU+JXWHcVKqenB/qwyHWl11x20a4NqSUja0AtZRjkE5QksNc6nzd5X36Ue/DP1ANyJk1209K7iSv
+LCA=
+
+-->

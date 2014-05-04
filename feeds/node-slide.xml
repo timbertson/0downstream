@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-slide.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=f1279e376391227ba02505e281c8727df9bc013d" version="1.1.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/slide/-/slide-1.1.5.tgz" size="4374"/>
+			<rename dest="slide" source="package"/>
+		</recipe>
+		<manifest-digest sha256="a4302b669e47b1eb74f9b5155416557f62b0480d7c1ac599bccb9148ff9393ea"/>
+	</implementation>
+	<name>node-slide</name>
+	<summary>slide npm package</summary>
+	<homepage>https://npmjs.org/package/slide</homepage>
+	<description>A flow control lib small enough to fit on in a slide presentation. Derived live at Oak.JS</description>
+	<gfxmonk:upstream id="slide" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfCSAAoJEOA/kc8tk45WJLIIAI1d0TV/an/peQgWPCpNEnxy2UV7rIh/d+WE
+wrY4x13VxxTHzhAf+680kKwF5KGbs7N5XiGLcS2hSdwkg6MAlqVAleV1B3vyQoP1SiBFZIFyYJLA
+0UsR9GxtbSu78L1FMcwbWdR2HsURrV1M5b8iduGyml+brJyJOsAU6INAJQiDiDdMgirL6Py2Qiqy
+TyDT9W8jcUqcuoJfV2QLm96yvucZxD7ltiA2iHJ8kzV9PQq63R2/sx8k7rlbsOFdeYFnGBH2le9R
+NEAeS4Y329I594UukapKhCC5AAgKdV2xlqnZ0azYAAV3c91L1jmcJY3JgPY2I58jVURQ3/P3l063
+/PY=
+
+-->

@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-burrito.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=dc196d2b018008d31e057dc1209c92194cb706fb" version="0.2.12">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-traverse.xml">
+			<version before="0.6" not-before="0.5.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-uglify-js.xml">
+			<version before="1.2" not-before="1.1.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/burrito/-/burrito-0.2.12.tgz" size="45104"/>
+			<rename dest="burrito" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0cb9b585bf646a7d620bd4127420d042f1386240b998bfa424833cad7db0165b"/>
+	</implementation>
+	<name>node-burrito</name>
+	<summary>burrito npm package</summary>
+	<homepage>https://npmjs.org/package/burrito</homepage>
+	<description>Wrap up expressions with a trace function while walking the AST with rice and beans on the side</description>
+	<gfxmonk:upstream id="burrito" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfB9AAoJEOA/kc8tk45WTr0IAJF4jBLkyYmo76egcOIsJ/ZPCgbzehxoyksh
+7SXap8hQsKT3tEH45yRo8y3O1CvEtP0t5VoJNbDilGi9BMU2fmmhnLl4rDN8KlP6N4+GdPtqkBiB
+jur5bQutZDSLUVvVNCig5R4OY7SbZD0SRhzE9FvPvvs18n7T9AN6OQF0EICfYSF4iBtif9p6ISq+
+L4mWGi5NRSIz94DzpQiixhO/QtuRHY8TgOY+3beqqgpg8uYqbtUMF6rgWp8RbWAXj0JaLbF8E1mn
+dJlwwwXdZDZK3Viyi90YqXjD/h24wtfSLOboSzr+cjSA446nwbmZ73PqEd565R4OKDIjq7StBVZd
+BbQ=
+
+-->

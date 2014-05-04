@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-yamlish.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=d8fa1ada99304b7f777e32516c426d6656c34ea0" version="0.0.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/yamlish/-/yamlish-0.0.5.tgz" size="3501"/>
+			<rename dest="yamlish" source="package"/>
+		</recipe>
+		<manifest-digest sha256="75c9495eae5e6c264d10857f90eeb3da1829f1a92cff647536b9b1eeeb16d91a"/>
+	</implementation>
+	<name>node-yamlish</name>
+	<summary>yamlish npm package</summary>
+	<homepage>https://npmjs.org/package/yamlish</homepage>
+	<description>Parser/encoder for the yamlish format</description>
+	<gfxmonk:upstream id="yamlish" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfCUAAoJEOA/kc8tk45WXC0H/jyfa7TzOhVpP9YJapnO8GhYTjPcjTIkwRU6
+1gwGb7OJ16seHV7l7wKB0eDbCBGO5qdYc6Vvt+ZZTA6vLvlqFdGfwolw3mhYZ7XDkrAm7uwp0yMj
+iLfZUsDmfJ5sDap9CiYNIxoDgyN8KcYSFOQI1w6hsBtOEZ1ahWGdx8y75mesw0PWT3Ubj6xoFNDU
+q4Ahva9dn0SHbUuxQGhKL3Zn3GdSwYNZ4EK8q0ZYMyeFDU1+7skJtO320BPiF8ubrZVA9rtfpz+L
+ZvRrBk1Y8Qd9xeJZntnPEUqKDWHtFWrxbQKB81NUaSQGP84+jwLbvFQewjDh6fs5BF1K7l2Th+qC
+2dQ=
+
+-->

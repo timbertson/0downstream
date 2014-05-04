@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-which.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=f94c45084e2585850316d8cdf1399d7dca908d1f" version="1.0.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="which/bin/which">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/which/-/which-1.0.5.tgz" size="2504"/>
+			<rename dest="which" source="package"/>
+		</recipe>
+		<manifest-digest sha256="818c5d452da2acc0999d3f51cb5adc18cbf0512819a20b8cd18dc2ccf011f126"/>
+	</implementation>
+	<name>node-which</name>
+	<summary>which npm package</summary>
+	<homepage>https://npmjs.org/package/which</homepage>
+	<description>Like which(1) unix command. Find the first instance of an executable in the PATH.</description>
+	<gfxmonk:upstream id="which" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9MAAoJEOA/kc8tk45WUu8H/A1MbnM9DBGzEe3zEdQIZzx5gWlxuXp3iYqt
+XMt5ocL0NAZp7BN6UE5A4QGoRD2cqS7gD7vF4BANeXegOwToW3uPiABdi/qXL90vWKYiNBjj3c5P
+GAX/yb4NwqsvsNINoVfPZgWQcBeRZo29GlhhwlGd86LwavZ9Z1wg1hBGwywKYllutY33VJCurvbd
+JWuahCDHdPaRFZ2ulXxacgpd+bvR/CRcJq5SQ7fGmMsGVV0IxwBEaqw+a5G9P95PNEGv9Gufvsec
+/rQ9ppc8ElYTp5NaJlhphItZxGCGi3gYLLIvidFRRajBWh+kW7eCkqk3ri02lSWwAWayrgBd8iDD
+CiQ=
+
+-->

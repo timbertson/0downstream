@@ -58,7 +58,7 @@ def _release_feed(project, location, version, opts):
 	release = project.get_release(version)
 	project_api = api.Release(project, release, location, opts)
 	with project_api:
-		logger.info("%sprocessing %s:%s v%s" % (INDENT, project.upstream_type, project.id, version.derived))
+		logger.info("%sprocessing %s v%s" % (INDENT, project, version.derived))
 		opts.config.process(project_api)
 		# if that all worked, generate the _real_ feed
 		local = project_api.generate_feed()
@@ -66,7 +66,7 @@ def _release_feed(project, location, version, opts):
 
 def update(project, location, version, opts):
 	if not _visit(location):
-		logger.info("%sskipping already-updated %s" % location)
+		logger.info("%sskipping already-updated %s" % (INDENT, project))
 		return
 
 	logger.info("%sUpdating %s" % (INDENT, location.path))
@@ -78,7 +78,7 @@ def update(project, location, version, opts):
 
 			with tempfile.NamedTemporaryFile() as master:
 				for i, version in enumerate(feed.published_versions):
-					logger.info("adding version %s" % version)
+					logger.info("%sadding %s version %s" % (INDENT, project, version))
 					version = project.find_version(version)
 					with _release_feed(project, location, version, opts) as local:
 						if i == 0:
@@ -86,7 +86,7 @@ def update(project, location, version, opts):
 						else:
 							subprocess.check_call(['0publish', '--add-from', local, master.name])
 				# once we've successfully added every version, save the results
-				_save_feed(Feed(master), location, opts)
+				_save_feed(Feed.from_path(master.name), location, opts)
 		else:
 			try:
 				with _release_feed(project, location, version, opts) as local:

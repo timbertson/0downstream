@@ -59,6 +59,7 @@ class BaseProject(object):
 	def __neq__(self, other): return not self.__eq__(other)
 	def __hash__(self): return hash(self.id)
 	def __cmp__(self, other): return cmp(self.global_id, other.global_id)
+	def __str__(self): return self.global_id
 
 def getjson(*a, **k):
 	response = requests.get(*a, **k)

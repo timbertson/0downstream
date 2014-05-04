@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-runforcover.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=5d433999f1eec49c2bdfe90671fd3b859cba289e" version="0.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-bunker.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/runforcover/-/runforcover-0.0.2.tgz" size="2765"/>
+			<rename dest="runforcover" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0437118231ed0d802b49896f1c88c00ea50bddf5bc14473677f393298c3ca7fa"/>
+	</implementation>
+	<name>node-runforcover</name>
+	<summary>runforcover npm package</summary>
+	<homepage>https://npmjs.org/package/runforcover</homepage>
+	<description>require plugin for js code coverage using bunker</description>
+	<gfxmonk:upstream id="runforcover" type="npm"/>
+	<implementation id="sha1new=f71a941854cc1847861013ed2809115e61f4fbe9" version="0.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-bunker.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/runforcover/-/runforcover-0.0.1.tgz" size="2772"/>
+			<rename dest="runforcover" source="package"/>
+		</recipe>
+		<manifest-digest sha256="98aa7ab034bf8fbcc904c187abe5bff2d5b1029e1114979cec667df523ad1d10"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZfCQAAoJEOA/kc8tk45WP5YH/0nAQDtcT5xSzXetskhlt/tRxdnAqU5yOIb6
+fSxZgufMajpiXSBaqMweW3851JJWyO2kPnIqxux3mdrzkvKL6y1tNrJVMfmR1G8WMvPuy9Wjg6u6
+H4wFuWGTFDbGjj9ODU/Vl5Y+WF03rdrD8Zf+UfOb0+5xXnDU9Yfp8ktiKbM62oY7IEqpdmiSOOCO
+1ne337FITyzqyyWh0Ssn8g+yG4jMSzrq+FDrgNEhYquUn2J1tiskMrPq4Xo4dyE/lWIdSc52sg6f
+BNVH+HjHubutc+lk4kgHexoPz4fbgn99miNoiqbSFcNBshIZ8w+KLDwoCRQI5w1E/Krkz2X2bs6k
+4lI=
+
+-->

@@ -47,9 +47,9 @@ def run(opts):
 	@contextlib.contextmanager
 	def cached(url):
 		cache_lock[url].acquire()
-		local_path = config.local_path_for(url)
+		path = config.local_path_for(url)
 		try:
-			if local_path is None:
+			if path is None:
 				# cache from real location
 				path = os.path.join(cache_root, safe_name(url))
 				cached = False
@@ -84,12 +84,10 @@ def run(opts):
 
 			else:
 				# serve directly from local feeds
-				path = os.path.abspath(local_path)
-				if not local_path.startswith(root):
-					self.send_error(403, "Forbidden: %s" % local_path)
-					raise Exception("Attempt to fetch file outside of '%s': %s'" %
-							(root, local_path))
-				yield local_path
+				path = os.path.abspath(path)
+				if not path.startswith(root):
+					raise Exception("Attempt to fetch file outside of '%s': %s'" % (root, path))
+				yield path
 		finally:
 			cache_lock[url].release()
 

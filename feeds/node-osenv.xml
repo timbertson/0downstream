@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-osenv.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c882b1ad7ae9169b095c7bbdf61f2e49d883237d" version="0.0.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/osenv/-/osenv-0.0.3.tgz" size="3477"/>
+			<rename dest="osenv" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d3c74372760a8651efa9348da017e62538a67b856d1d95f831d79ea504687a14"/>
+	</implementation>
+	<name>node-osenv</name>
+	<summary>osenv npm package</summary>
+	<homepage>https://npmjs.org/package/osenv</homepage>
+	<description>Look up environment settings specific to different operating systems</description>
+	<gfxmonk:upstream id="osenv" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9UAAoJEOA/kc8tk45WI4oH/1uTjKbjQ6D2OkUReOoshv1cq/G+/zgNeU69
+zBMt8JoGFoqRVqWk+LYInyLB/sqk6vwn8cTodN/j66eFJywtwgznvbZM3YB6HjYMh9Jvi8BGnIJI
+AzPyLTjEI50U1U8IyKfiTjlJySFzLv9/H7SX3sB9zK4w6GEES0QtNAQ7Kz/Eodn22uKCtAQxu8s0
+A54zmtR5hz9mvpJR5ql3WTao8R8vDm7cE1coHZ9OJtbCyuwAPYrXQgp+xPfpQZyNs5qy23/hFNxu
+sBQ8aElepKYVGUFnplRrd8HfBMG4hA5sQObfozK6k3M8x0hDARV8Ko6IqFMD4ahNBobV+qlpLF7T
+ruY=
+
+-->

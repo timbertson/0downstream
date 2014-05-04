@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-request.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=24bc2a82e30af2dee34ab3997a15ecf0edaf4ff7" version="2.34.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-uuid.xml">
+			<version before="1.5" not-before="1.4.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-qs.xml">
+			<version before="0.7" not-before="0.6.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-json-stringify-safe.xml">
+			<version before="5.1" not-before="5.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-forever-agent.xml">
+			<version before="0.6" not-before="0.5.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-mime.xml">
+			<version before="1.3" not-before="1.2.9"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/request/-/request-2.34.0.tgz" size="21838"/>
+			<rename dest="request" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d97371837af45ddc99c94f3ee7817be693cdef425694a893443d5fc3d426a9a0"/>
+	</implementation>
+	<name>node-request</name>
+	<summary>request npm package</summary>
+	<homepage>https://npmjs.org/package/request</homepage>
+	<description>Simplified HTTP request client.</description>
+	<gfxmonk:upstream id="request" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9SAAoJEOA/kc8tk45WIEMIAJLRzzhmc58WdcCbrRIGn/kAt4AJ+GzGFYGY
+rutS2yr59ECbZ8hOEcj2WKm4R3IU/m073NDDeeGj4haCiwePJirUp2aWcynEmZpbmjNIDFYVaQHy
+DwQnid9LLjBrudk4+CqJ+ZNmxAF5Zz06kwjgL4ZCy7Q1KPPGtK8IuOhS1CP2mdFo+q/7cPQ7YEaN
+XJswyDqNheoQ2SEzpW5EHZRSmsUN2aEliHnMh1DhC7HQ91fIztcsc+ozAIA9ga/gc3up2Hak/zpF
+9MIwWEt2YD1AAUY7AFfd1IsB47+WGh7yVcCukXLRLiKiUesj4yYdMgOT/C8eP1CtD8fJj0ggxLEw
+0gI=
+
+-->

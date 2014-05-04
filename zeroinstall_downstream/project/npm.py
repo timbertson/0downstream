@@ -195,30 +195,30 @@ def _parse_version_info(spec):
 		v = parse(spec)
 		add('not-before', v)
 		add('before', inc(v))
+	else:
+		assert len(parts) % 2 == 0, "Expected an even number of version parts, got: %r" % (parts,)
+		while len(parts) > 1:
+			op = parts.pop(0)
+			number = parts.pop(0)
 
-	assert len(parts) % 2 == 0, "Expected an even number of version parts, got: %r" % (parts,)
-	while len(parts) > 1:
-		op = parts.pop(0)
-		number = parts.pop(0)
+			if op == '<': add('before', parse(number))
+			elif op == '>': add('not-before', inc(parse(number)))
+			elif op == '<=': add('before', inc(parse(number)))
+			elif op == '>=': add('not-before', parse(number))
+			elif op == '~':
+				v = parse(number)
+				if v is not None:
+					add('not-before', v)
 
-		if op == '<': add('before', parse(number))
-		elif op == '>': add('not-before', inc(parse(number)))
-		elif op == '<=': add('before', inc(parse(number)))
-		elif op == '>=': add('not-before', parse(number))
-		elif op == '~':
-			v = parse(number)
-			if v is not None:
-				add('not-before', v)
-
-				# make sure it's got exactly 2 components,
-				# so that we increment the minor version
-				components = v.components
-				while(len(components) < 2): components.append(VersionComponent(0))
-				upper_version = Version(components = components[:2]).increment()
-				add('before', upper_version)
-		else:
-			logging.warn("Unknown version op: %s" % (op,))
-	
+					# make sure it's got exactly 2 components,
+					# so that we increment the minor version
+					components = v.components
+					while(len(components) < 2): components.append(VersionComponent(0))
+					upper_version = Version(components = components[:2]).increment()
+					add('before', upper_version)
+			else:
+				logging.warn("Unknown version op: %s" % (op,))
+		
 	logger.debug("restrictions: %r" % (restrictions,))
 	return restrictions
 

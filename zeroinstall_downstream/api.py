@@ -11,6 +11,15 @@ logger = logging.getLogger(__name__)
 from .tag import Tag, Attribute
 from .feed import Feed
 
+_default_template = '''
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<implementation version="{version}">
+	</implementation>
+</interface>
+'''.strip()
+
 def _ensureNamespace(doc, prefix, url):
 	root = doc.documentElement
 	if not root.getAttributeNS(XMLNS_NAMESPACE, prefix):
@@ -74,24 +83,8 @@ class Release(object):
 
 	def ensure_template(self):
 		if self.template is None:
-			self.template = self._find_template()
+			self.template = _default_template
 
-	def _find_template(self, template_dir='templates'):
-		possible = [
-			"%s.template" % (os.path.basename(self._location.path),),
-			"default-%s.xml.template" % (self.type,),
-			"default.xml.template",
-		]
-		for name in possible:
-			path = os.path.join(template_dir, name)
-			if os.path.exists(path):
-				return path
-
-		raise RuntimeError("No template found for %s. Tried:\n%s" % (
-			self._location.path,
-			"\n".join([" - %s" % path for path in possible])
-		))
-	
 	def guess_dependencies(self):
 		self._release.detect_dependencies(self._location_resolver)
 	
@@ -136,7 +129,7 @@ class Release(object):
 
 			if os.path.exists(location.path):
 				if self._opts.recursive:
-					actions.update(project, location, self._opts)
+					actions.update(project, location, version=None, opts=self._opts)
 				else:
 					logger.debug("Skipping existing dependency %s (use --recursive to update dependencies)" % project_id)
 			else:
@@ -174,9 +167,8 @@ class Release(object):
 		with tempfile.NamedTemporaryFile(prefix="0downstream-", suffix="-%s.xml" % self._project.id, delete=False) as dest:
 			self._local_feeds.append(dest.name)
 
-			with open(self.template) as template:
-				dest.write(template.read())
-				dest.seek(0)
+			dest.write(self.template)
+			dest.seek(0)
 
 			feed = Feed(dest)
 			feed.update_metadata(self._project, self._location)

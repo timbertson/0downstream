@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-fstream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=d75fecb2031477922c3787a8cf74dcb3c67fc386" version="0.1.25">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-inherits.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-graceful-fs.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-rimraf.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-mkdirp.xml">
+			<version before="0.4" not-before="0.3"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/fstream/-/fstream-0.1.25.tgz" size="17347"/>
+			<rename dest="fstream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c818555f96be1c90ae32d6e1a963aa72e6070524e421b2158c054db945a95c25"/>
+	</implementation>
+	<name>node-fstream</name>
+	<summary>fstream npm package</summary>
+	<homepage>https://npmjs.org/package/fstream</homepage>
+	<description>Advanced file system stream things</description>
+	<gfxmonk:upstream id="fstream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9GAAoJEOA/kc8tk45W1wwH/1AdMSE5WISiCJOJArOZV5/zVNQrWWvqbX2h
+Rks6tVT08gn/s5QGF+8h15R+oLQ6bWl5O7edijefUHeJpaFbodWsc/cS88UY36dRuzdPynhlt6jm
+ELyDZYMDEkgXtO1pM9+KYc3AuSBfd/nce8BrIDLTbxf1QEIdKwPjf9ZsO8rvPDaO/4wn8RbOjzFJ
+9Y9g3/KwSkjPlArHQD9vJQ6sJBGF3qBXG8eJTv+P8CSivslXM4BuTwGATb81ei3cOwkLSbM/XumL
+4RjuzxLpcGRXRZHDFHCvz5DSC199oRsfBg19aKbSiYSb8SqxGIuamYf4z97xnR1Jv/ak8g+KcUSK
+0e0=
+
+-->

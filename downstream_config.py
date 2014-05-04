@@ -19,7 +19,7 @@ type_formats = {
 	'npm':'node-%s.xml',
 }
 
-FEED_URL_ROOT = 'http://gfxmonk.net/dist/0install/'
+FEED_URL_ROOT = 'http://gfxmonk.github.io/0downstream/feeds/'
 FEED_PATH = 'feeds'
 
 NODEJS_FEED = 'http://gfxmonk.net/dist/0install/node.js.xml'
@@ -29,7 +29,7 @@ DEV_NULL = open(os.devnull)
 python3_blacklist = set([])
 
 def feed_modified(path):
-	subprocess.check_call(['0repo', 'update'])
+	subprocess.check_call(['0publish', '--key', '0downstream', '--xmlsign', path])
 
 def resolve_project(project):
 	type = project.upstream_type
@@ -40,9 +40,6 @@ def resolve_project(project):
 
 	#XXX: remove hack
 	if (type, id) == ('npm', 'tap'): return None
-
-	# if project.upstream_type == 'npm' and project.id == 'node-gyp':
-	# 	return api.FeedLocation(NODEJS_FEED, path=None, command='node-gyp')
 
 	filename = type_formats[type] % id
 	return api.FeedLocation(url=FEED_URL_ROOT + filename, path=os.path.join(FEED_PATH, filename))
@@ -66,7 +63,12 @@ def check_validity(project, generated_feed, cleanup):
 	SANDBOX_SUDO_WRAPPER = '--wrapper=' + ' '.join(SANDBOX_SUDO)
 	def _run(cmd, **kw):
 		logger.debug("Running: %s" % (cmd))
-		subprocess.check_call(cmd, stdin=DEV_NULL, **kw)
+		env = kw.get('env', os.environ).copy()
+		try:
+			del env['DISPLAY']
+		except KeyError: pass
+		kw['env'] = env
+		subprocess.check_call(cmd, **kw)
 
 	def current_selections_for(feed, command='run'):
 		with tempfile.NamedTemporaryFile(mode='w+', delete=False) as sels:
@@ -202,7 +204,6 @@ def process(project):
 	elif project.type == 'npm':
 		if project.id == 'mkfiletree':
 			for req in project._release.runtime_dependencies:
-				print(req)
 				if req['interface'].endswith('node-rimraf.xml'):
 					for child in req.children:
 						if child.get('before') == '2.1':

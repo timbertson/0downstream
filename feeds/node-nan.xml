@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/node-nan.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=08b1518c17f6f598dd54480a6b80b029293eb678" version="0.8.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nan/-/nan-0.8.0.tgz" size="18608"/>
+			<rename dest="nan" source="package"/>
+		</recipe>
+		<manifest-digest sha256="9eaef44e97f45a71244b58ab7ffe959c3967253f22144a359de2c9231ddcfa8b"/>
+	</implementation>
+	<name>node-nan</name>
+	<summary>nan npm package</summary>
+	<homepage>https://npmjs.org/package/nan</homepage>
+	<description>Native Abstractions for Node.js: C++ header for Node 0.8-&gt;0.12 compatibility</description>
+	<gfxmonk:upstream id="nan" type="npm"/>
+	<implementation id="sha1new=ccde1b1ab1eea36fb66a789ca05f94f69712926a" version="0.7.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nan/-/nan-0.7.1.tgz" size="18528"/>
+			<rename dest="nan" source="package"/>
+		</recipe>
+		<manifest-digest sha256="73b72ead47c8b9762e6ac8fc7af062f495865d0d898c7276bb4f76524193fcb2"/>
+	</implementation>
+	<implementation id="sha1new=916b7bc62eceb8ce8c2acc08ce7a4886108f11e8" version="0.6.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nan/-/nan-0.6.0.tgz" size="17028"/>
+			<rename dest="nan" source="package"/>
+		</recipe>
+		<manifest-digest sha256="50c8f762053b375bb03f18dd72e8685859270f9d7aec8e53c84e7a6a775b6d3d"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTZe9JAAoJEOA/kc8tk45WZZAH/3zUK1hkfaAgzKMOLEEoMpJdTvGVN8dwm2gD
+09xy9J1FXtSSu9wfc0m4zpRAEuZHqqQFbCDwxoOUPkGF3bvLeWUs3gqeg4mldAzIdlKaPCu0uEBC
+kMmqDCaG7dTXib9Wb/InEncNTVotGBBL2enux9fyUdbfb0py6Vj3qyb8cHHqiYoQGNJQssN2Q66A
+ffqAuc0HQtDkBuiWT6UbotUQUjOek+yzgAYU6e09jPe4IHbXyYoKG9e2QKQGZYRUc5qLuuOXrYX7
+ZPuLAAbq0XtmsreU0gqyTCpTdq0c9icsbmdiYynFmuJyGAtlDi9SRFx3Et01OEYQ8STkfoUkzbDm
+S58=
+
+-->
