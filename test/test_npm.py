@@ -43,3 +43,21 @@ class NpmTest(TestCase):
 			impl.detect_dependencies(resolve_url)
 			self.assertEqual(impl.runtime_dependencies, [requirement('#inherits', '2.0.0', '2.1')])
 			self.assertEqual(impl.compile_dependencies, [requirement('#inherits', '2.0.0', '2.1'), requirement('#tap', '0', '1')])
+	
+	def test_version_parsing(self):
+		p = npm._parse_version_info
+		def t(min=None, max=None):
+			rv = Tag('version')
+			if min is not None: rv['not-before'] = min
+			if max is not None: rv['before'] = max
+			return rv
+
+		self.assertEqual(p('1.2.x'), t('1.2', '1.3'))
+		self.assertEqual(p('=1.2.3'), t('1.2.3', '1.2.4'))
+		self.assertEqual(p('1.2.3'), t('1.2.3', '1.2.4'))
+		self.assertEqual(p('>=1.2.3'), t('1.2.3'))
+		self.assertEqual(p('>1.2.3'), t('1.2.4'))
+		self.assertEqual(p('~1.2.3'), t('1.2.3', '1.3'))
+		self.assertEqual(p('^1.2.3'), t('1.2.3', '2'))
+		self.assertEqual(p('^0.2.3'), t('0.2.3', '0.3'))
+

@@ -178,7 +178,7 @@ def _parse_version_info(spec):
 
 	#strip spaces
 	spec = re.sub(' ','', spec)
-	parts = list(filter(lambda x: x.strip(), re.split('(<=|>=|[<>=~])', spec)))
+	parts = list(filter(lambda x: x.strip(), re.split('(<=|>=|[<>=~^])', spec)))
 	logging.debug("got version spec parts: %r" % (parts,))
 	restrictions = Tag('version')
 	def add(op, ver):
@@ -197,22 +197,30 @@ def _parse_version_info(spec):
 		while len(parts) > 1:
 			op = parts.pop(0)
 			number = parts.pop(0)
+			ver = parse(number)
 
-			if op == '<': add('before', parse(number))
-			elif op == '>': add('not-before', inc(parse(number)))
-			elif op == '<=': add('before', inc(parse(number)))
-			elif op == '>=': add('not-before', parse(number))
+			if op == '^' and ver.components[0] == VersionComponent(0):
+				# prerelease caret acts like tilde
+				op = '~'
+
+			if op == '<': add('before', ver)
+			elif op == '>': add('not-before', inc(ver))
+			elif op == '<=': add('before', inc(ver))
+			elif op == '>=': add('not-before', ver)
 			elif op == '~':
-				v = parse(number)
-				if v is not None:
-					add('not-before', v)
+				add('not-before', ver)
 
-					# make sure it's got exactly 2 components,
-					# so that we increment the minor version
-					components = v.components
-					while(len(components) < 2): components.append(VersionComponent(0))
-					upper_version = Version(components = components[:2]).increment()
-					add('before', upper_version)
+				# make sure it's got exactly 2 components,
+				# so that we increment the minor version
+				components = ver.components
+				while(len(components) < 2): components.append(VersionComponent(0))
+				upper_version = Version(components = components[:2]).increment()
+				add('before', upper_version)
+
+			elif op == '^':
+				add('not-before', ver)
+				upper_version = Version(components = ver.components[:1]).increment()
+				add('before', upper_version)
 			else:
 				logging.warn("Unknown version op: %s" % (op,))
 		
