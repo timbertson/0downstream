@@ -43,7 +43,7 @@ class Release(object):
 			return json.load(json_file)
 	
 	def _enter_archive(self):
-		archive = self.archive = Archive(self.url)
+		archive = self.archive = Archive(self.url, extract=False)
 		archive.__enter__()
 		contents = os.listdir(archive.local)
 		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)

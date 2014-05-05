@@ -2,7 +2,6 @@ import tempfile
 import shutil
 import os
 import re
-import urllib2
 
 from zeroinstall.zerostore import manifest, unpack
 import contextlib
@@ -15,17 +14,15 @@ log = logging.getLogger(__name__)
 _sentinel = object()
 
 class Archive(object):
-	# TODO: remove `document` arg
-	def __init__(self, url, document=None, type=None):
+	def __init__(self, url, extract=_sentinel, type=None):
 		self.url = url
 		self.recipe_steps = []
-		self.extract = None
+		self.extract = extract
 		self.type = type
 		self.id = url
-		self.document = document
 
 	def _archive_tag(self):
-		return Tag("archive", {"href": self.url, "size": str(self.archive_size)})
+		return Tag("archive", {"href": self.url, "size": str(self.size)})
 
 	def _digest_tag(self):
 		sha1new = get_manifest(self.local, extract=self.extract, algname='sha1new')
@@ -52,7 +49,17 @@ class Archive(object):
 	def __enter__(self):
 		self.local = tempfile.mkdtemp()
 		try:
-			self.archive_size = self.archive_size = fetch(self.url, base=self.local, type=self.type)
+			self.size = fetch(self.url, base=self.local, type=self.type)
+
+			# emulate 0publish behaviour when no extact is specified
+			if self.extract is _sentinel:
+				self.extract = None
+				files_extracted = os.listdir(self.local)
+				log.debug("found %s files in archive" % len(files_extracted))
+				if len(files_extracted) == 1:
+					self.extract = files_extracted[0]
+			log.debug("extract = %s" % (self.extract,))
+
 		except:
 			self._cleanup()
 			raise
@@ -66,27 +73,21 @@ class Archive(object):
 	def __exit__(self, exc_type, exc_val, tb):
 		self._cleanup()
 
-def fetch(url, base, type=None, local_file=None):
+def fetch(url, base, type=None):
 	'''returns the filesize of the downloaded file'''
 	import requests
 	import contextlib
 	import shutil
 	with contextlib.closing(tempfile.TemporaryFile()) as f:
-
-		if local_file:
-			with open(local_file, 'r') as local:
-				shutil.copyfileobj(local, f)
-		else:
-			req = requests.get(url, stream=True)
-			req.raise_for_status()
-			shutil.copyfileobj(req.raw, f)
-
+		req = requests.get(url, stream=True)
+		req.raise_for_status()
+		shutil.copyfileobj(req.raw, f)
 		f.seek(0)
 		unpack.unpack_archive(url, data = f, destdir = base, type=type)
 		return os.fstat(f.fileno()).st_size
 
 def get_manifest(root, extract, algname='sha256'):
-	if extract is not None:
+	if extract:
 		root = os.path.join(root, extract)
 	try:
 		alg = manifest.algorithms.get(algname)
