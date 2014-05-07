@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/argparse.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=8883e197d6cf78e209bfabb9a53578127f9ae2b6" version="0.1.15">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/underscore.string.xml">
+			<version before="2.4" not-before="2.3.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/underscore.xml">
+			<version before="1.5" not-before="1.4.3"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/argparse/-/argparse-0.1.15.tgz" size="31039"/>
+			<rename dest="argparse" source="package"/>
+		</recipe>
+		<manifest-digest sha256="bd54b3c33d11aa66a23b028846d2c3b0a7e2417943bbc83662099aa6c069dfc4"/>
+	</implementation>
+	<name>argparse</name>
+	<summary>argparse npm package</summary>
+	<homepage>https://npmjs.org/package/argparse</homepage>
+	<description>Very powerful CLI arguments parser. Native port of argparse - python's options parsing library</description>
+	<gfxmonk:upstream id="argparse" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah0+AAoJEOA/kc8tk45WCaAH/AiJ8M1QMEZfjnqna8xvLea4aIxubhPE0A5o
++zyOip/xhW1lNgMcqs1C+LH8+c1g6ayG8ZozLKBQGQSKAZQ6yceWuEoTOAKEAMP+z57/NRdzhQ2t
+KcHQ/r7e0JHSDFJbE37Ez3k4I8ycj9o0kn1KFDNzcelBWlQkKPa7SNyScofbRdvQKZHkJwu1ds/n
+qDwQab564I7fZdGIi2MWwVU9VVtDPMVAk88uKbhMPdRBjeMVDYR4BiLGkmKv/OIGhnrGOiTRpFho
+TyaNerVpy53BCe0kErLdgW50Th/7YNTL1teH1YejS6z0NyPkZ4cVnoHosvpwPPeCpUsc+ytDM07o
+ozU=
+
+-->

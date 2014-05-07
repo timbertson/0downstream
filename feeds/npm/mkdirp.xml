@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=fac62f49c925188e4f0f99e691bdf0ab7bf5acd0" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="mkdirp/bin/cmd.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/mkdirp/-/mkdirp-0.4.0.tgz" size="4715"/>
+			<rename dest="mkdirp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="93e20e414f17427feb0edfdc520ee794e79571eb084a509d664483803b906370"/>
+	</implementation>
+	<name>mkdirp</name>
+	<summary>mkdirp npm package</summary>
+	<homepage>https://npmjs.org/package/mkdirp</homepage>
+	<description>Recursively mkdir, like `mkdir -p`</description>
+	<gfxmonk:upstream id="mkdirp" type="npm"/>
+	<implementation id="sha1new=f77d4900ee8fc6c9d3d7175203b626da7800b8d2" version="0.3.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz" size="4162"/>
+			<rename dest="mkdirp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="397062a961e238f912b7422942413b0f43e836b17bdd3fdce85a90b533c3d1ae"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2UAAoJEOA/kc8tk45WINMH/1gAJ51SGX1wa9mjDRt0A4nXphxsmuiE9X+J
+Po0PgJ8KO1eFq6iXOIQgC/nUYXsON+6Gjf2JL9wqe1aFq8J3wuhe5jneXCrUJLJ5ZDvHI1r8p4ZA
+flz/rcdJZdsySrxFwi4sTQlsNjMJ7LFq+6xqyAaNI3I7iFTWAPeUERq+U37MvB4bNGsAtSaE8qeR
+yYSyggn/TDjtVQTsyrtTlCt/m9mtZc2aqVUozrxLgi/TEucc4/gsbveHsrzK4bTJwTlAlrwBfOWk
+H7lescipg8ebH196nXAxs5W56a/bCdVMnifZJzRLRa23oOFgPOpgS7hNAYp4DXBN4dBskfeHE050
+xlc=
+
+-->

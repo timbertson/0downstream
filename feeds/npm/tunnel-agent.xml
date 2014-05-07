@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/tunnel-agent.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=39f144e7dce6adce2f96814663ca179d7ab10c56" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/tunnel-agent/-/tunnel-agent-0.4.0.tgz" size="5805"/>
+			<rename dest="tunnel-agent" source="package"/>
+		</recipe>
+		<manifest-digest sha256="85d4ec5824443d4ee213cc10d659f0ed10870892f0f03506002adb91def66b5d"/>
+	</implementation>
+	<name>tunnel-agent</name>
+	<summary>tunnel-agent npm package</summary>
+	<homepage>https://npmjs.org/package/tunnel-agent</homepage>
+	<description>HTTP proxy tunneling agent. Formerly part of mikeal/request, now a standalone module.</description>
+	<gfxmonk:upstream id="tunnel-agent" type="npm"/>
+	<implementation id="sha1new=36cc71dd1e4f77dea20964797a9b57b596057cde" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/tunnel-agent/-/tunnel-agent-0.3.0.tgz" size="5666"/>
+			<rename dest="tunnel-agent" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4f11e27050e3b8daea1580de2363c152672e1ff7759ab954187538422dafa696"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah4CAAoJEOA/kc8tk45WEi4H/0ZPZNMOKlVhW8bsE2W+O3oCYRcpUcP8Nrgq
+Gh0JTxJVVFp0VOrDi0oRQebYnuUv8HszcvlKrZPc5FnNyI8wgT7WYz2uzU7MaK6Nnd3cKee8JB8q
+nu4m5ARjsjSDK2FWNGwco3UYIoRrN9B7kZWlVxtERzzLDUqz/rsVv7OQj3qQjzbj7wRrkeSZ8csh
+QylwqzlensZtmoQWxggKMLhfoos+qk5c+w8c5Qyil4oSRs/AIcaRSljkGNuUeVf82OKYSoi8xG0O
+UOUmG+0JSlPOBUB7l0ThcQRP8hq4XHTRo3KEw7IM2NSE7pqzVo7QnH1xyjNLvpRhQ+VLaFHvjOpM
+rZA=
+
+-->

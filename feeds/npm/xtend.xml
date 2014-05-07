@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/xtend.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=225feb5ce911f1d2d8c2552fd6b67813139940cb" version="3.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/xtend/-/xtend-3.0.0.tgz" size="2445"/>
+			<rename dest="xtend" source="package"/>
+		</recipe>
+		<manifest-digest sha256="eebdcd42b1cec6887c58ae0cab08d08230ecca784199ac8ca52ef8a629909f51"/>
+	</implementation>
+	<name>xtend</name>
+	<summary>xtend npm package</summary>
+	<homepage>https://npmjs.org/package/xtend</homepage>
+	<description>extend like a boss</description>
+	<gfxmonk:upstream id="xtend" type="npm"/>
+	<implementation id="sha1new=5f246810c45d9c2b4a8227529162c73c9ee63f98" version="2.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/object-keys.xml">
+			<version before="0.5" not-before="0.4.0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/xtend/-/xtend-2.1.2.tgz" size="2360"/>
+			<rename dest="xtend" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b705bb5a34c25973baedd7fd48b37ef2bc6b9c218284c067933eb202301be64b"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah0tAAoJEOA/kc8tk45WJjIIAIxOkbXR5G1HdJe107IRSp29P/DQvaINK1/a
+UX6taO3i5Jl1ZOatzvKFeiNtsfxKMVcRi+2ekDze0UGzq0smQdUN+HqDbXi4I/8jm8vkaBTnfwec
+vGgoPas+VpzwmAp/FMOqFKRAtbc8FXMvFqGwIKrIKGYdmwQ4XMjwilsDGjIGJGtXFWuour5Zr1uq
+hwlgb+jPsk/kaJiv/fK3NqWgaUIEr6FMmr8gVFgYey3k2al/Np20E9ZJpyR4tn13cJ0J79OIWbhI
+GY8rr8unsbmbNlTMoAc4gwCr6Z7r+qke+jmlk0YZEEIgB0Wa9ozW2nI1XIygUUG05k0xZBSaOHKX
+pwg=
+
+-->

@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/leveldown.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=0b5993b44d6fbe3a259b086e755dd36171b058ac" version="0.10.2">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/bindings.xml">
+			<version before="1.2" not-before="1.1.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
+			<version before="0.7" not-before="0.6.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkfiletree.xml">
+			<version before="0.1" not-before="0.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/abstract-leveldown.xml">
+			<version before="0.12" not-before="0.11.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/readfiletree.xml">
+			<version before="0.1" not-before="0.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
+			<version before="0.13" not-before="0.12.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="2.2" not-before="2.1.4"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/monotonic-timestamp.xml">
+			<version before="0.1" not-before="0.0.8"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/du.xml">
+			<version before="0.1" not-before="0.0.1"/>
+		</requires>
+		<command name="compile">
+			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+				<executable-in-var name="NPM"/>
+			</requires>
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+				<executable-in-var name="NODE_GYP"/>
+			</requires>
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+								cd &quot;$BUILDDIR/leveldown&quot;
+								&quot;$NPM&quot; build .
+								cp -a &quot;$BUILDDIR/leveldown&quot; &quot;$DISTDIR/&quot;
+
+								# remove some common unnecessary files
+								cd &quot;$DISTDIR/leveldown&quot;
+								rm -rf src test deps
+							</arg>
+			</runner>
+			<compile:implementation>
+				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version compile:pin-components="2"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/bindings.xml">
+					<version before="1.2" not-before="1.1.1"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
+					<version before="0.7" not-before="0.6.0"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/leveldown/-/leveldown-0.10.2.tgz" size="1987277"/>
+			<rename dest="leveldown" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e6cd013eba1a66c0528b0594375161b052ee228cf273acff09f5e95315909487"/>
+	</implementation>
+	<name>leveldown</name>
+	<summary>leveldown npm package</summary>
+	<homepage>https://npmjs.org/package/leveldown</homepage>
+	<description>A Node.js LevelDB binding, primary backend for LevelUP</description>
+	<gfxmonk:upstream id="leveldown" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah84AAoJEOA/kc8tk45W0rQH/369BNLuBIuKCNWWGD3op70/z0nfmz0l2mKB
+mTyqEbF9bTxTCdRFVxyqifJyO1YvllFofmg6jHhr9ZjMmfqWZusKtrgpYtBkTmGBOcEg7HS2hbED
+RCWSiuWm5S3HYzcUkyDhJ7s+9QWpp382AIgR52SSbAk59di7+Zkdq7X1twL301HY4zGHCFuMFxTU
+FNjFQhHAvPVnGhG/LNUaibEbGpod440uNJk3luAW5gJ24V5rfzTo4RWFfnSPTfd9Kpc6r/VzxWhc
+Vx/lsPT9fW1/GvqfAugHaWHVXpeWp3jJjZi58CTFSRH/9oyV5TcSFodfSr6oAAmH4eMQ3n9Vw80k
+FRg=
+
+-->

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/ansi-styles.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=a05f72d5521176d1b5e51a4408df8eb08cf6f47c" version="1.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ansi-styles/-/ansi-styles-1.0.0.tgz" size="1386"/>
+			<rename dest="ansi-styles" source="package"/>
+		</recipe>
+		<manifest-digest sha256="3b8f6ab7fdedf4aebb55825fff0965d56d18ff930271a8b7c290c8bbd511325f"/>
+	</implementation>
+	<name>ansi-styles</name>
+	<summary>ansi-styles npm package</summary>
+	<homepage>https://npmjs.org/package/ansi-styles</homepage>
+	<description>ANSI escape codes for colorizing strings in the terminal</description>
+	<gfxmonk:upstream id="ansi-styles" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah02AAoJEOA/kc8tk45WaLQH/iT5oQeXTXg9y6SZtSFLzPyx/Cx0sSNd4cSN
+5a05hZL5RaRvX5wuUNBZAvMS9sKTSu3PUz7TglkzPWwSV2nN7gxkeMK3bqMiMbyNL8uAp47lKHs6
+B5EFWmeDWVwhcodLwaCFyg0LeYq0XDJFN2tmp84KG5bLPjYzduY3Oa+GdYuWi6W0nQ8wNvTThBYR
+wdHvqyg6XUa/ISLuwcICj222pwrAVioV+H+6x6v+TTf05y/fixHYeQAXbsvvwyQc1zHLiRErUJN5
+VzNmOIyn5RKB0zQp0YAPwFCUuBQjsh1R6u4+6oG8NTRXXmxKwwAxg3cyTPukUIioO8TAqz3+KqTp
+CvQ=
+
+-->

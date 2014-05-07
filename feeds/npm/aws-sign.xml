@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/aws-sign.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=205a374b963346123458eb9c128cc1bc27031c88" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/aws-sign/-/aws-sign-0.3.0.tgz" size="5031"/>
+			<rename dest="aws-sign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="04f7f5e652dae13c7b4be97fc67cca4914f77386e919797239425a0227141266"/>
+	</implementation>
+	<name>aws-sign</name>
+	<summary>aws-sign npm package</summary>
+	<homepage>https://npmjs.org/package/aws-sign</homepage>
+	<description>AWS signing. Originally pulled from LearnBoost/knox, maintained as vendor in request, now a standalone module.</description>
+	<gfxmonk:upstream id="aws-sign" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1KAAoJEOA/kc8tk45WoPgH+gPGh8DFt4jNMaZaDh86ehSyrdWODG3m8Up6
+vDMmD53UagRNSSTgHycEdHqw1Enc300LRxxwvU3WFNUhei7kaFSm9Ec/eMZ0XyZYNh+MJUeOrH52
+nDCiclN4TvScGqI4ViEJH69McUM1L2GRegrc4K+K0TF5upt96pubrav4qb6sLqfnkQIdaTR7Qlfq
+reCg/EJydZtuPzAfCpQ/SpUy01VoCV8WCPB5ji/9rCV16YtPbwT2+iKXPfLUx1KctwWT/5IJIvLC
+ZAxBiZwSqgajKnY3FFIJcNWxA8f8vqGnlqI6/qoEa5OiqfVpYMxeP7LnHXP0NMUl9dJN08sjCD28
+wnw=
+
+-->

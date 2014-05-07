@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/semver.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=fc696ee7253f1d7e22e82731112fec06fc702af1" version="2.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="semver/bin/semver">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/semver/-/semver-2.2.1.tgz" size="32060"/>
+			<rename dest="semver" source="package"/>
+		</recipe>
+		<manifest-digest sha256="035501e9918849ad5014cbf94eeff36ffc4f480c42b002881bada5421789d6af"/>
+	</implementation>
+	<name>semver</name>
+	<summary>semver npm package</summary>
+	<homepage>https://npmjs.org/package/semver</homepage>
+	<description>The semantic version parser used by npm.</description>
+	<gfxmonk:upstream id="semver" type="npm"/>
+	<implementation id="sha1new=f247aae985a5c93fed086c8e9913bd075c07bd47" version="2.1.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="semver/bin/semver">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/semver/-/semver-2.1.0.tgz" size="29078"/>
+			<rename dest="semver" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4b34fed675ed476a84f7244bba7b90142f9f1a8de59b1309af3987e4670bd65f"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3tAAoJEOA/kc8tk45W34QH/jOQIRWniuxGUc5cJb8LoIof6wIS9zRdyTwu
+kfZwaADU3AnOdy5Kubr2FrZZjnpLIf5b0Qdzn8mMEZWp6/RtYMBg213FGccNMbop4qjrR/5CeixT
++t0adAGr+jgIJ9yfsxUea9W/pY/Aalxqs8BVTrPp/3z/BWwvIOTDwltneZ+Vf5hBjFkJYglSf2Nu
+jmsBA1wia4T7CvVOBx15LsQiMuG1cNp1lVdW/CRK3zBcUiA/HWVPM+LTS37XbIZmU25VnnqapBDF
+bTDzoX69jG5xBHLxar9P8MAtwMhfrPMYnyERl9TVqPSrf8ITQA1FmSBS4oOCmBFdp1VFHZqmtbqb
+NVw=
+
+-->

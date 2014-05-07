@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/underscore.string.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=94184127587c5c3afc2a11c9c1cdf2e56dce91d7" version="2.3.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/underscore.string/-/underscore.string-2.3.3.tgz" size="148950"/>
+			<rename dest="underscore.string" source="package"/>
+		</recipe>
+		<manifest-digest sha256="a12f4799bc325b7e8323db7bbc4b44bceb6e469e1044210c7988b095644042bf"/>
+	</implementation>
+	<name>underscore.string</name>
+	<summary>underscore.string npm package</summary>
+	<homepage>https://npmjs.org/package/underscore.string</homepage>
+	<description>String manipulation extensions for Underscore.js javascript library.</description>
+	<gfxmonk:upstream id="underscore.string" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah05AAoJEOA/kc8tk45WeeYH+wbJxD7dl4ffeFXjc4XQHkgA4Cljso2S66wJ
+nUZwu1nn0r+pa/HFAkc7cU4I/ThVklgnjhzQpv+7NwQlTY78mHIkpnAEvr1sXVccfF4uaBnceMDy
++4PuE2NQl454UssO6xwusSCv5XJANAH4fedS/zm+RMh/FuqCKGlCTGemKpHdlKpXH8XtuH5W1J8S
+UKZkSMzSxsCu74/u/3NLiKc5hetSWbbS7InDg9Ws3NBvafUkgooFZrrfGVDIZfStoY76F/XEbWgl
+lWhXywpy+4g0iBqsFdCrndP+ebuqlgFLerRukzemnfN6FO4Y6hUPSM7KDJbunOp2HycnxKzansIY
+fPw=
+
+-->

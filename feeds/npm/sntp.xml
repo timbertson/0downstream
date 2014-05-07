@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/sntp.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=56ca3932f828498abddf47139bc40252cec6f0a0" version="1.0.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/sntp/-/sntp-1.0.6.tgz" size="6614"/>
+			<rename dest="sntp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4e58c58c8c09d0b042f4ce8d2825f585aa99336562e53c4b8d98a510f11918de"/>
+	</implementation>
+	<name>sntp</name>
+	<summary>sntp npm package</summary>
+	<homepage>https://npmjs.org/package/sntp</homepage>
+	<description>SNTP Client</description>
+	<gfxmonk:upstream id="sntp" type="npm"/>
+	<implementation id="sha1new=b43ef452acd0334f35ec452d69e0f910efc73643" version="0.2.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="0.10" not-before="0.9"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/sntp/-/sntp-0.2.4.tgz" size="6413"/>
+			<rename dest="sntp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="6e78cfbbd81b5c690d4db9442d8c381615235350c8308a3b85bd5f256d5b15b8"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3PAAoJEOA/kc8tk45WqYIH/2E9pTqr3U2CglOm5Y045ovsCvM+XhEU4hQk
+WGZenuYLMPa4WSLVuNEL1U9oK5zk/YN+fQ2eVuBnOVdN8isci4Rg8BQWR6ctZkOu0K9nrKiNNJYl
+KzcAHtodBjF8ojzL2o5Yl06hNfcOewFy/pqfYZgfvijsthBgbL7l3r0KGBcb+Dm0GK8Llykim3AH
+QlJz3JSLkwSKc6e8w+N0IW6KCtmTqbNlAOG9p/qZ/ufP8B79wX2xwfuXLKjIh2/lYAfATZ/MS7RM
+j8xR0n9YqrPen1QzkvNVjq6NmkxWL6NcjvT8otsh84guo+ylCdTuLiJiZOLRgGCragFkH7UktNY4
+ZA4=
+
+-->

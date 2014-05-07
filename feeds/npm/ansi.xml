@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/ansi.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=76f40c8059362a075f78a9589e7cbec5c2cebad2" version="0.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="beep" path="ansi/examples/beep/index.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<command name="starwars" path="ansi/examples/starwars.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<command name="clear" path="ansi/examples/clear/index.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ansi/-/ansi-0.2.1.tgz" size="7265"/>
+			<rename dest="ansi" source="package"/>
+		</recipe>
+		<manifest-digest sha256="beccac5c6faae5343597660edba8d621184f02e2df3707418d4ab6fbdc86cf81"/>
+	</implementation>
+	<name>ansi</name>
+	<summary>ansi npm package</summary>
+	<homepage>https://npmjs.org/package/ansi</homepage>
+	<description>Advanced ANSI formatting tool for Node.js</description>
+	<gfxmonk:upstream id="ansi" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah00AAoJEOA/kc8tk45WQxgH/15eQ8rpsSabqlwKfM9Pta9afAOnDEyP2lVv
+DiIcFD7tyAUl4i7DaoOdKMZB7sYGf4azd5y1TbjTiB6rDWkl6T7iquc7ccksuMZ8YoT67pljyzez
+wf2kVqn1oG3IILBN7pdmhPF3fEEpZAe+cfcgOpPGuyC5NlwKJHDF1a38wAVx8aA5GLgF+/h5H7eJ
+DaGthPa2fKxhfHR5+piyoirhLnreN2UiFWmRHJvLyESTvuCawDwRMXs1XEPnhc6gubGCDspNtU4T
+qKa0qk8tROGQOFqiQY7lh0BYT24BnO+cnk6VfoVbuPLGNw7Sf7YpuE20krZG6GgO1KUcSKo7lrIF
+gvs=
+
+-->

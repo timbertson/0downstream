@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/npmlog.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=6b08781faa8f2b2da61836b42edcc1760935ec86" version="0.0.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/ansi.xml">
+			<version before="0.3" not-before="0.2.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/npmlog/-/npmlog-0.0.6.tgz" size="5263"/>
+			<rename dest="npmlog" source="package"/>
+		</recipe>
+		<manifest-digest sha256="7656d46fd175708262eb56876a277e07e5d7e0de3712d8e0099c164e9ef8cec1"/>
+	</implementation>
+	<name>npmlog</name>
+	<summary>npmlog npm package</summary>
+	<homepage>https://npmjs.org/package/npmlog</homepage>
+	<description>logger for npm</description>
+	<gfxmonk:upstream id="npmlog" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah30AAoJEOA/kc8tk45WPx4IAIKk7YR3G7gKJnjXgmqAFkeufwXU5KLtMqDs
+bTuSUCqJjULd6RueoeruOMEX9fjCF+xv+FMmdZNezxQfktH/gkbVDU8+vUdRR8twzkrduVwWBamq
+nunEjBw3uPHm2UWZwvZQJ1cOHrK/F8pp+VdP3bpAtsAGHCtMKYnmwxoBFjtsnzTCVbD5gAgA+q87
+qDGEUIQoTUkwmq4iuS43LZtmueHuPySZFUGwH/4Goy5Jh1IAep/82VedUOOXV0bwV63+xoK9v0DB
+tzR+kSPss/jX0pH0f/C2fCc67fvnmtvOGszahk/+22EgxnqMy9PBFOG+X2wPqryKxqTd9Oy+6xjw
+TbM=
+
+-->

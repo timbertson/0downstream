@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/asn1.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=e93d4eb7a2b71d93b2aac8818b5e8df7c1ea2c3f" version="0.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/asn1/-/asn1-0.2.1.tgz" size="7893"/>
+			<rename dest="asn1" source="package"/>
+		</recipe>
+		<manifest-digest sha256="88d5c28f992f71b6ab44683fd60713e02940e0fb73f2bbc8e4c7ce10753f93b9"/>
+	</implementation>
+	<name>asn1</name>
+	<summary>asn1 npm package</summary>
+	<homepage>https://npmjs.org/package/asn1</homepage>
+	<description>Contains parsers and serializers for ASN.1 (currently BER only)</description>
+	<gfxmonk:upstream id="asn1" type="npm"/>
+	<implementation id="sha1new=cdd1d8a968770bc845dae8d100967c591e96b376" version="0.1.11">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz" size="7855"/>
+			<rename dest="asn1" source="package"/>
+		</recipe>
+		<manifest-digest sha256="30aa0bb875b7bb09ae234b164641fdcb517867ce65778e3e017125ec58498339"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1BAAoJEOA/kc8tk45WfN4H/1ldpepUKBrBPcOo/E26YwQ8Z1+ioENjn17B
+6nEIJiNL51HsYfdLs1KzHKXpGMnTGDZSDCNhGzMT1KtwzwUchdHi0QAtouCTljg6HtUhkcJ+uhxg
+MVlw4wtQDUl62G6MTBdfFxs5zAzdOfSqi5XGN036Yv8Xj4mbzU1vYwytMPb/kFuiPVEj4dZPSglv
+WdtNefjRCjYHI6ttqsAu5nLr4iCemwfn83Nt5FWhXjqOQ3KjUmY4qulGLbZLIr8Fqg5OufMUY4b/
+lcd0UBwHv1P+XbqpOu7n3D5qzmKoaIaInv/1Qvjvz8OKmaeruUhoWiH2obr9VuPubC9B0fFNnz3q
+1Kg=
+
+-->

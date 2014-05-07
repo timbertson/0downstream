@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/mkfiletree.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=834c91677c7c6ffc2c2fbc41ddab01fe1eaae035" version="0.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml">
+			<version before="0.2" not-before="0.1.18"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="2.2" not-before="2.0.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/temp.xml">
+			<version before="0.5" not-before="0.4.0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/mkfiletree/-/mkfiletree-0.0.1.tgz" size="3856"/>
+			<rename dest="mkfiletree" source="package"/>
+		</recipe>
+		<manifest-digest sha256="df47c2b8077f78831a319377435631df47329e7acefaa1a0bf7356a7575902ac"/>
+	</implementation>
+	<name>mkfiletree</name>
+	<summary>mkfiletree npm package</summary>
+	<homepage>https://npmjs.org/package/mkfiletree</homepage>
+	<description>Make a tree of files and directories from data defined in an object</description>
+	<gfxmonk:upstream id="mkfiletree" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah8CAAoJEOA/kc8tk45Wj0sIAISPD7E9TZdO0WQeceX8PBNUjT7xOZIO+4M4
+cInjgNNWdHGKTFRJX0KFSd2GIS7rY071SHJzx5WaM6lrC9K26RRt01t7iGkZ/YIFfMA41sYj9xeW
+5QaAJxDDi3atSCj/LWM1HV/B021zM8CYIqaZEKVvpbDBjwciRba+vNqgdOrMKfbokYdR4gkfapSs
+XEBNFMGXuDJZlm6r9rlovWCAks4krs8KGpw/iV3s4c7WYXiJu/o0C4CYYopRwM1hLuIx8LxjBmGt
+b/y6KCPHAhtIPulXhARu2Gf7OK3JQeJUuAOPMsEhfgcXGoykejCjXnUZTdxXTVz3w56aiN4pGOnY
+718=
+
+-->

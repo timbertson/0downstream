@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/cookie-jar.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=1e999fa91a0835f0e58f8ff6b30437f193fed7d3" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/cookie-jar/-/cookie-jar-0.3.0.tgz" size="5920"/>
+			<rename dest="cookie-jar" source="package"/>
+		</recipe>
+		<manifest-digest sha256="42565f869ad79af66e625b72abe95f24b1be7ebd5c8ce6feb1bf52a18ead0707"/>
+	</implementation>
+	<name>cookie-jar</name>
+	<summary>cookie-jar npm package</summary>
+	<homepage>https://npmjs.org/package/cookie-jar</homepage>
+	<description>Cookie Jar. Originally pulled form tobi, maintained as vendor in request, now a standalone module.</description>
+	<gfxmonk:upstream id="cookie-jar" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2fAAoJEOA/kc8tk45WlMQH/0DLSTA36ODubTC/fKtcKWXVqVoPnEEaPZEb
+c4xOV7bi/3CxSUu8GacG7HLUhrU82/1GSb/umP17ZGzBGQOQ9qbZK9y2wHvMjce35sbipyrahpDS
+VDDMZXkiRqvsIj8JM+isTaU5G7aKDTxCciuktu2YgYcBv7J7894427ZZKB3zv+wDYzVPptCaDU1D
+1VnK7HLHoeihepWGIJk1htDsXgOtqslaG/m5BRcqM52zWm3WVvjLRzDCc00LfVv2FxJ38mf3tHqp
+DAp97jSEf+3lhsUDcwxvZDprhB/GHuqG9qTP3c5tezmfaPJf1EvOwQaIt1j716QKD4F0pi3ScNOR
+xWw=
+
+-->

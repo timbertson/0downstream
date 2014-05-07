@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/combined-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=e16020c07140df35b28a37c1f954e23442af496e" version="0.0.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/delayed-stream.xml">
+			<version before="0.0.6" not-before="0.0.5"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/combined-stream/-/combined-stream-0.0.4.tgz" size="5624"/>
+			<rename dest="combined-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="db0ccf55fe50b7655cfcdd7b17f53ab901a2d1f264af3feb60fc52077fae179f"/>
+	</implementation>
+	<name>combined-stream</name>
+	<summary>combined-stream npm package</summary>
+	<homepage>https://npmjs.org/package/combined-stream</homepage>
+	<description>A stream that emits multiple other streams one after another.</description>
+	<gfxmonk:upstream id="combined-stream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2HAAoJEOA/kc8tk45WGOIH/3YCfHSlcgsy3fGoPf2hx1PJPIW27qcKl73w
+shnQEGhr/MfAge91AjLpFDsTetY6SrefVINbw1Gpi+xM2nHK+W5qwMr45saL7GnltjD0wNsLiOJ/
+UpRWfT3MHtH6SSj2mwgZomD6cwkrKRMxpHk4QsVPSI2L2NKimxeAbroDRKbl7ikKqaFA/yBjZ9MF
+fWavuTcy6Ujlaowcdl/g/XTiL++bDEWDRThgTYxdIlFEXuLMANh37YgwHdxcaiKatkYSrZucJEYn
+NiH5D85RWGR+ScooL4PwEmCP8e7Drh7U93FVNM7GgQeIq2wXwDVpDCbZC4L+9XIwgOpzaMwDqBQm
+NFg=
+
+-->

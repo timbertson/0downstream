@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/delayed-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=961383b87967f4737a2e97164b3dbe47c19557c4" version="0.0.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/delayed-stream/-/delayed-stream-0.0.5.tgz" size="4711"/>
+			<rename dest="delayed-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b007cdfe7badcb9021df26bc19ad0594d8fa97eadb654517f2bcb51b37054393"/>
+	</implementation>
+	<name>delayed-stream</name>
+	<summary>delayed-stream npm package</summary>
+	<homepage>https://npmjs.org/package/delayed-stream</homepage>
+	<description>Buffers events from a stream until you are ready to handle them.</description>
+	<gfxmonk:upstream id="delayed-stream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2FAAoJEOA/kc8tk45WG+sH/icwN3e14d1g1iBAN6M2sq1zh4FOsJz/1ytE
+w1CAs+h9doBFkyksdDgNj5GnljXuLNAZACT/iXRIkxJCsbdKRirjkKSkI14pZbGH+v39oocCyHs1
+cjOkV1p0H5TJW1kOrGywbXEm6igpXIzaOoTcltwavS7cKyrTKm1zHD7X+CS3Rx1rtqQExA/3k5KS
+eeM2kAoN5DWRS05/vF/m5X5nxOjxUvQz0U2y6OdReV6bgU6QZXSDcva7gEzLAUmzlrlV4PtFhSF6
+AYC/BGTeZh2+7l4Q4od+NSSL4vKgrpROwK9J/hyca0muHttezwWPljtzmHh9rAJjST8svxHzoSLm
+nOw=
+
+-->

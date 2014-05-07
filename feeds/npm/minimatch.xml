@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/minimatch.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c2b636beca3fcd33b99719e164b431680a520fab" version="0.2.14">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/sigmund.xml">
+			<version before="1.1" not-before="1.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/lru-cache.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz" size="17587"/>
+			<rename dest="minimatch" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4528eefb5d31195bf855ae0b2fcdbdec73529254f62159ba3eee4a72d434c797"/>
+	</implementation>
+	<name>minimatch</name>
+	<summary>minimatch npm package</summary>
+	<homepage>https://npmjs.org/package/minimatch</homepage>
+	<description>a glob matcher in javascript</description>
+	<gfxmonk:upstream id="minimatch" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3IAAoJEOA/kc8tk45WHnkH/0PjrYnvBqBV7a5VpEanYB4wH4pvTkloX+bX
+xifxy+lY6HfUivVzECwA3ztFU4isSBCgv1vfpljZ6FED4ld4vbCO6ot5s5a8akOgPHgIEDu+/ENJ
+OO1dfnY5SfRt4t32wWRnuxtjgEKqjVVdJYxAZFl/DDyfazfBC+Obn9QsOwwAelwNc2VIdqrVbYw8
+AHbg1cjfVlclBoouU+KmbkhgE2f1CJzCBRPytadPBhaHif2wi0tXMbajq7Mz/i9sbzeyBFu6WPwb
+lym9jftfPl4DA1mjx4iqwgT6xjsstFBHh3C40W9M49Fn9Pj6F2yPsNhjH8nhdt+QAwzI95xKHgjA
+dy0=
+
+-->

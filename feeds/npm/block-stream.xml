@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/block-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=8d970d3e8bce2e6545c5f2dfd8a44693a053e7c9" version="0.0.7">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/block-stream/-/block-stream-0.0.7.tgz" size="5584"/>
+			<rename dest="block-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="6bd3f5c7a04cd37f587443a3dd4e6ff19491bc6f91a9ab240d5ce708811e3307"/>
+	</implementation>
+	<name>block-stream</name>
+	<summary>block-stream npm package</summary>
+	<homepage>https://npmjs.org/package/block-stream</homepage>
+	<description>a stream of blocks</description>
+	<gfxmonk:upstream id="block-stream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1RAAoJEOA/kc8tk45W2Y4H/ReF5JdbUl/EbgBaKx1EcYp1Z+GqMHqxSE6v
+krKMkc9UrEI/nfRvWU7RGPd6VW+puOVQd2sb6WvEDSSalj2vi06bZJYqWJM+JqjWiq62iK1uqaTO
+qUGnkXF1SQf8Po9mO0/wOF3zQnNhyD67VL411/tmUckm5JNYKQaZZ9WNyTg8ybfeAN+NQIejnFex
+0tfAzlcNt+XYKrwOee0+NPNZyQnWbFzCdFs19Sa272PGd7MCo06f3fntpm8Zb4ToCPruz4wdOIpq
+p9nq2zlLxdti4v9k4DsT3PAkowBq3EXDFTGYbZDVv0C4iBkGQk2NwPsFpg0R5SSjhu00Pio/h+yQ
+PtA=
+
+-->

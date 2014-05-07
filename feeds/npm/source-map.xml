@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/source-map.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=8990425a977a59d30f366bc73b7a69302b68ed39" version="0.1.33">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/amdefine.xml">
+			<version not-before="0.0.4"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/source-map/-/source-map-0.1.33.tgz" size="34906"/>
+			<rename dest="source-map" source="package"/>
+		</recipe>
+		<manifest-digest sha256="466e1968fac54c9081e4a77aaa2db9a874840223382429bbf4c5eaf950d1627f"/>
+	</implementation>
+	<name>source-map</name>
+	<summary>source-map npm package</summary>
+	<homepage>https://npmjs.org/package/source-map</homepage>
+	<description>Generates and consumes source maps</description>
+	<gfxmonk:upstream id="source-map" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1kAAoJEOA/kc8tk45WyFIIAJm/4BdYB6/kJ3KMPCleW9oRBhCXFnZjRkIa
+C1jN+bX5K/5MDBz6/TWWaTN5lv+YfQmuWJFVF33hBMV8eo8ZR0+D+unlas8vzUIKq2tctJK4QabI
+p3LAcDZVvc1rS96vz9U2MbMGtOxSafCtGHXdXziEvj1iaK9DqtPJAVSSF1nBihZQNteb3VJiNgVe
+0uz+xiEEoCk2ryrV5JiHgHiBfZvodSoRo7e8XATrZmrWT3Bhcotpt5v9daR69Ycnk3LbhoQFKhxj
+oCbqpIIcOGnGqgbimPNRQ1/kJPtNMnJCqlz83PilD44sc99aJO/hBb9vBUBAAGh+kcv3AxB8wvUD
+RoM=
+
+-->

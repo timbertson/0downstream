@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/readfiletree.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=2ebdc2f9d343124b918ffe03700a0c8ea304a163" version="0.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml">
+			<version before="0.2" not-before="0.1.18"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/readfiletree/-/readfiletree-0.0.1.tgz" size="2584"/>
+			<rename dest="readfiletree" source="package"/>
+		</recipe>
+		<manifest-digest sha256="83332acbdd08db10fbb398b292312566f0f285c56cdba7fc2fb77f6448e21cbc"/>
+	</implementation>
+	<name>readfiletree</name>
+	<summary>readfiletree npm package</summary>
+	<homepage>https://npmjs.org/package/readfiletree</homepage>
+	<description>Serialize a tree of files and directories into object form</description>
+	<gfxmonk:upstream id="readfiletree" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3pAAoJEOA/kc8tk45WkscH/1OWh+yR6ATpzzFjCrsS9E1BfJnSsIM/4uQW
+Btbk71YoAob/Rb94WFZjp/nFptCKYdEhWfLgQO0l1I+a6j/lKxUjYIhvoI/ohnjFfVRoIltONoF/
+BFttgd63B4C8pRmahVpBmSKL+G+eR9vR/sT0X1gzuQ+8jB1FwYv3FYxIQtJ/P7adRXLxpd5UVaqC
+sv02VgTFzAbBp/33XDHCztvs+d0Dxhcj5uw4U21AXnczQ/EzzrahaERwjj1PIXI1V979c/TL2c6K
+NJC4/PudJgd3Y9qy9sgtOgiCEOlF5m1SLcW4yLOErgmYxn4z20I1XrRaeXHpj9+zIfHaextfdzVb
+kXE=
+
+-->

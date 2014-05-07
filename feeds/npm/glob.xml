@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/glob.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=a4d850b138d23f37838a2231f956f8a137cb147e" version="3.2.9">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/minimatch.xml">
+			<version before="0.3" not-before="0.2.11"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/glob/-/glob-3.2.9.tgz" size="16580"/>
+			<rename dest="glob" source="package"/>
+		</recipe>
+		<manifest-digest sha256="a271823143f864c03d6e7a686a2865fe5edcc1b5c3fad9ee07e6da6077e7a0b7"/>
+	</implementation>
+	<name>glob</name>
+	<summary>glob npm package</summary>
+	<homepage>https://npmjs.org/package/glob</homepage>
+	<description>a little globber</description>
+	<gfxmonk:upstream id="glob" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3KAAoJEOA/kc8tk45W0WIH/ih5S6JBgkbInB6dOd+PRZR0I/WzTOEotV9U
+eBNXayi4u1ONfssNl5NqRhNq9K3Niqk/371S9+qUv0OYlhxUS7ncV8OTdbO96muYIlTSOA5/d4G3
+1pPSfAUMej1JHWB5UH+h8zqzyrE6gkLVc4LJAkFLiTxAtcix8+AblzCUuN4xBIeovuYBrXJHtDUJ
+cBy2hZs7OHYdCmwSAFSSDSdFpVtyW5QBOI3PRdhHIiSRnPdsOgE79hfYnnvYX+8iaLoTCIyzLHEr
+LaTq+jo/4Li+IXN9NcIOfXEfKX7+BnOH54uQRjeAD8/1s1j8nGYv5Xa9w6WvY1w6OvhtSbr1LBE/
+En8=
+
+-->

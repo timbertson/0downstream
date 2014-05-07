@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/deep-equal.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=99489630fd747172b38490374c6781eb6f989514" version="0.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/deep-equal/-/deep-equal-0.2.1.tgz" size="3735"/>
+			<rename dest="deep-equal" source="package"/>
+		</recipe>
+		<manifest-digest sha256="53df10f492d0115cedec267e4a74796f48b8b3bedf6b34be76ca025ceb59a921"/>
+	</implementation>
+	<name>deep-equal</name>
+	<summary>deep-equal npm package</summary>
+	<homepage>https://npmjs.org/package/deep-equal</homepage>
+	<description>node's assert.deepEqual algorithm</description>
+	<gfxmonk:upstream id="deep-equal" type="npm"/>
+	<implementation id="sha1new=2be1fe248ec93180b82dce5cdb68cc760ce736cb" version="0.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/deep-equal/-/deep-equal-0.0.0.tgz" size="1926"/>
+			<rename dest="deep-equal" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c4f057a51d9c958c10e0486535e4c515826342242b1d7e87418e756fd3f94d47"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2qAAoJEOA/kc8tk45WEiIH/A2NxLlWOdNryGwtUvCR5xdq+Ao+i38njwRi
+iz+p9ZgEZEEAwTPtMAC/jGMqqIjr6CttmTlobxYljYL6WFSwJQ1lXyvHdmH/OUusj/R0JGIFksMM
+59AtQ+txbRyhfl/UDcQWy5OjQs1XB5Q48EMXXssE794wPNTTDa0idYXMmregy/HCtkD+OvagllTP
+aXDnc+3/W5fzt0y7taYyM0cjYxn9AvUKqhfi3PwN36uOYA+MTuBHHNY/4NxAOSQPjBfUs+k0e0UU
+xp5e42lDrS9dfvSpqZAl2nWOM4EqX1FV4zmzwu41GMB6iMbs2UEaO52o1ipfTvn8rjYS1lx+gmDp
+Px0=
+
+-->

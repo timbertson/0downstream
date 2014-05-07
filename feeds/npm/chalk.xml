@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/chalk.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=754ab5cc8a5736620826e9f5bfb52e7e81be361d" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/strip-ansi.xml">
+			<version before="0.2" not-before="0.1.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/has-color.xml">
+			<version before="0.2" not-before="0.1.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/ansi-styles.xml">
+			<version before="1.1" not-before="1.0.0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/chalk/-/chalk-0.4.0.tgz" size="2534"/>
+			<rename dest="chalk" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e47da705a634e30412714d41d6d8053a5135197f05f082954343868fa619a0ab"/>
+	</implementation>
+	<name>chalk</name>
+	<summary>chalk npm package</summary>
+	<homepage>https://npmjs.org/package/chalk</homepage>
+	<description>Terminal string styling done right. Created because the `colors` module does some really horrible things.</description>
+	<gfxmonk:upstream id="chalk" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2AAAoJEOA/kc8tk45W5ygIAIfFG0YXl//m46qNX1uxcfT3qGdu2EHtANbo
+cCl6Q2Mt3DTUNi49wKMnSH5PoOFkitJ1y1KIM1/9lYtJboMjaO9x8W4PWQslu+QK644IFqCnFrs7
++4HCbG2ZU2F4srS5aGwdl038avlYKnO3bfGGLlVlYdYA3gNy2+8EXpg70XH/+EzGh9ccI2X//W+Q
+yuGpYeLlz7Jef0G0TWINtCMk49prHDrJh3b4KPj/ikfKPM2cAmATXz8QXfXxaEJQ1Nb1aWAL6ujI
+h9Aji9hTU0a7TF6khMmGgouQ5wK7CDgwb5KPKXG8xm9kW1pHU1B+91QlrFngMfFQILk4qM7vU6fK
+BpM=
+
+-->

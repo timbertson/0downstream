@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/ctype.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=efb20fadecbee1b585baee07fb37ec403b4c2ab6" version="0.5.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ctype/-/ctype-0.5.3.tgz" size="37746"/>
+			<rename dest="ctype" source="package"/>
+		</recipe>
+		<manifest-digest sha256="3718de26c6cfba79de1d076850a673428feb9d39f4a7f985677a361c1d46165f"/>
+	</implementation>
+	<name>ctype</name>
+	<summary>ctype npm package</summary>
+	<homepage>https://npmjs.org/package/ctype</homepage>
+	<description>read and write binary structures and data types</description>
+	<gfxmonk:upstream id="ctype" type="npm"/>
+	<implementation id="sha1new=be4db65ec98033086907179cf50514295d83d179" version="0.5.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ctype/-/ctype-0.5.2.tgz" size="50509"/>
+			<rename dest="ctype" source="package"/>
+		</recipe>
+		<manifest-digest sha256="18c79b9604dc965d645ba3a9d619adfd026d7236164b80452a31404b9b5156db"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2nAAoJEOA/kc8tk45W2OAH/1s9WlGSE2TgqUqVYy9rqos6td77GYg6dP8f
+qsx/ACQl6Fve8UNsQN09aAw1mqMSD9ltosGcuW/mR+kEzH72kEzBej9ixZvIgj27s6L5KAAwzanF
+BooI50uP4PrIBg/CfIfIbo6oqxXGPrdqVHGbzJy5E7H75EqdAa7IqjviBBzv/PX8+ZUz2wevaTtS
+VLoLtIBxjQurrW8dCgHHWVY/F3riVPAX3okhrwFiF0LzWuQSf9tJTt74/iQ+9n2i1HqjnaZOM8pG
+u2o38uLaoEi1e9+CSzCcOnuSJLOmCfHYMKQMUp4a2ksNEMTytI0Dfhyqt4sp69fz4359+IAlKwrw
+lA0=
+
+-->

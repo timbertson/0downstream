@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=884e15f094f1e00f40ed44d425690de1e8024163" version="2.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz" size="2122"/>
+			<rename dest="inherits" source="package"/>
+		</recipe>
+		<manifest-digest sha256="87eca042f2e60972834906d0604b42bc17387e13bfb9f7504300bdffa023024f"/>
+	</implementation>
+	<name>inherits</name>
+	<summary>inherits npm package</summary>
+	<homepage>https://npmjs.org/package/inherits</homepage>
+	<description>Browser-friendly inheritance fully compatible with standard node.js inherits()</description>
+	<gfxmonk:upstream id="inherits" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1PAAoJEOA/kc8tk45WEdcIAJk+lVbwDdXLShYSfaDKdzvOzK5/vrfqR2lG
+4hGuM2jrkhuJUtoEI366uQK5QDlh+n2YrcAjKiIE7R19xZfZzEH3sDb4J3+qfc+GtGU3ZdcqSLPF
+AFiuLLz+XywOzY+dBwlmR8G13+pf8VfbAx70s91NfdS2FFzq6mk8Xu3+6OXNedVrE4PYras3vXH8
+vwgE1OqfZMZycYH6DGf5itb8GjyS//v0QHueBJqx4qcoFPclgpb+3SIBI11Q21IsfkAbt1yTBE9F
+B51DI8StkrsMPZ64djVwsq9y1bp0Uu9RFh+L2v78DOC0sHCO18Di4NRo9P5LHTJ7JgUt5eROr3G2
+Wok=
+
+-->

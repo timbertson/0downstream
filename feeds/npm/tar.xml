@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/tar.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=450cb30504c641184f1de655aba682eb6f85face" version="0.1.19">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/block-stream.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/fstream.xml">
+			<version before="0.2" not-before="0.1.8"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/tar/-/tar-0.1.19.tgz" size="43239"/>
+			<rename dest="tar" source="package"/>
+		</recipe>
+		<manifest-digest sha256="05c30f5845aea0181996f3076e117f253c9eeb00317190262f75f8cd2e0e361d"/>
+	</implementation>
+	<name>tar</name>
+	<summary>tar npm package</summary>
+	<homepage>https://npmjs.org/package/tar</homepage>
+	<description>tar for node</description>
+	<gfxmonk:upstream id="tar" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3xAAoJEOA/kc8tk45W1PgH/jp3jFBuC5m/RY/FYPy6aanqF1pbKEp9xriK
+R6cIEQX04MlKidCuP6/R6ZqTO2szsCtwrT72CquLj+aqjqhVDjwsEdI5lLXoV5jpHTVRiSEchf83
+cNfpSOozJy0o5YXGbEMlDT0zQDgbScQ+czTSA1WjBU4DW48qyJ7bjwv34EPWaE+bpb7DYY0U5d1x
+H+A0CI0dSHQi9h2n2p6ZuE4d2EkRU5hRN3jLWpC6WYNVkB9x+7oNRjo7w1wCwsUOHZE3U1c/9Q5s
+tmFXGGWpAuOwYctUIYeDS+cbNrX7/+QuQD22JtCXwuPc4YwNBEiWAPT/728HDzkdoPvyLhxH3Shg
+AZ0=
+
+-->

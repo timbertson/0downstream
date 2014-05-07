@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=3539776971c5f850fde4b16e99f4e789dc973ed6" version="0.12.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="node-gyp/bin/node-gyp.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/minimatch.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/semver.xml">
+			<version before="2.3" not-before="2.2.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/tar.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/npmlog.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/fstream.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/glob.xml">
+			<version before="4" not-before="3"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nopt.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/which.xml">
+			<version before="2" not-before="1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/osenv.xml">
+			<version before="1" not-before="0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/node-gyp/-/node-gyp-0.12.2.tgz" size="319433"/>
+			<rename dest="node-gyp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d5da96e2055fa3d2f4b1318bab24b75dcb483021d41ab1a324eadc55e6ff67c8"/>
+	</implementation>
+	<name>node-gyp</name>
+	<summary>node-gyp npm package</summary>
+	<homepage>https://npmjs.org/package/node-gyp</homepage>
+	<description>Node.js native addon build tool</description>
+	<gfxmonk:upstream id="node-gyp" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah4OAAoJEOA/kc8tk45WD9cH/3GfdS41Swz7ieUpMoYiuX74NptXkOQILXKy
+H+otAOqWSzJ+0WE0KqeYzCEf+fnW0xbNDGBcljSx06y/aTKpZQ5ZnXiE2c/+V5eWZppaF8U+CkHl
+07WlSaOcY8yn4mWRN+kuCXS34K6D2s4++/w7QzPTIs4ZsIYXl1CMh9CXa07rFwlXTCwcxTsdZ4gS
+4p2+ipudBUl4zEnQ75yXAkpvMEpIy4x+38eeJqAPWUBEjYskdCNlKfSUVPthKZERpEyiIEypFffY
+hTY85dG+wFWHdU1HJAh34BVUuh6btVYJUsSkIgxnV9mg+2kVki6RkSIwmUaUwxdr9EEuHy/x9zou
+IuY=
+
+-->

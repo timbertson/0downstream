@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/cryptiles.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=4a8597d6d38dd7c47ca33b39a15400c100b90835" version="2.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/boom.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/cryptiles/-/cryptiles-2.0.1.tgz" size="2881"/>
+			<rename dest="cryptiles" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c51fe4d2d5fb8d444abb5b4dcf301d67e854f92dfdfadc3e828cac5a33e3e780"/>
+	</implementation>
+	<name>cryptiles</name>
+	<summary>cryptiles npm package</summary>
+	<homepage>https://npmjs.org/package/cryptiles</homepage>
+	<description>General purpose crypto utilities</description>
+	<gfxmonk:upstream id="cryptiles" type="npm"/>
+	<implementation id="sha1new=4385f4c2d57b896b0f2fbb03378c074d92978b2f" version="0.2.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/boom.xml">
+			<version before="0.5" not-before="0.4"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/cryptiles/-/cryptiles-0.2.2.tgz" size="2937"/>
+			<rename dest="cryptiles" source="package"/>
+		</recipe>
+		<manifest-digest sha256="546545e9014ac4fb6488bfa1a8b663628678b27686d707d12db90bf9fcd7d7d6"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2kAAoJEOA/kc8tk45WKq8H/2OQQKvP4jpsnirQbx+Ep/H1nzAM8LUavMue
+uq9sVl3/JxRYO/3iPYaH8bnySp9pSnXKj/76FZiYOHG/l4eayHTNolAKZlZMxCxZUGyG1bqGbhVN
+DD82W4XzEHTzlVgJ3Cr5+BB0Hn+jHU7sJoDqdyOe0mlCgJFzEHivvxpLF7Uismws9+8w3q/nbuSt
+X+WUr90bfejsdNhWONsntvFdQJAnDl3X3+D5Pv++9lSzdZ9/HcvWr1ZBoIDL45psns7JDJp42rW/
+yY6prRT9pfxxF60INvu0rijeKZiBj3nWIxl3C87YVpSm9nbkvK5eEl46rJZb3mdsWGVu2meMo1Cq
+LU0=
+
+-->

@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/assert-plus.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=88aa81c8972c3098948cbbe5c71beba6c682b876" version="0.1.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/assert-plus/-/assert-plus-0.1.5.tgz" size="3431"/>
+			<rename dest="assert-plus" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8ef66122e9067cd6f8a7f52a2f9fc6b727ed554c6b46d42601bbd7e9220954ea"/>
+	</implementation>
+	<name>assert-plus</name>
+	<summary>assert-plus npm package</summary>
+	<homepage>https://npmjs.org/package/assert-plus</homepage>
+	<description>Extra assertions on top of node's assert module</description>
+	<gfxmonk:upstream id="assert-plus" type="npm"/>
+	<implementation id="sha1new=4f8432fbad9e361b402b2a3c84d9de22d10ed83c" version="0.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/assert-plus/-/assert-plus-0.1.2.tgz" size="3142"/>
+			<rename dest="assert-plus" source="package"/>
+		</recipe>
+		<manifest-digest sha256="6902298e2ce7217d47f35a90689c8a6e21082b0c50782c0e610eb812ffdec343"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1EAAoJEOA/kc8tk45W4nUH/2Cm08q8K6j0c37GVh0CTJvR6IjI4JSgxjrM
+ypL05LuVSYYYUhexQTG3r8jfue+nqa43MUlBf2155uAdR4GLJNpV7k8/89L+j3fNqDn9GleMwgbC
+zTXHem1lNB9hdIDRWKnh/9+1tHWbVoSI3HMcgTLpX+cHVtNP9Ocqo9+CNspKVYib0WkpVUH5SqCE
+Vn61Y3MUm4Mzli4R6Z0RfD/WsSuV9JJRUCWRLCnNe4lkLaQR350csxfARfwL/RTyWQ9Dc9X6jttr
+ku7PWOJfrsLHIENmr9nJZjil+Nbp2FYLN5R6XF4B1aGNUjTcJk4CrvGJsiM0etgAfxAaBiHerBpT
+VhU=
+
+-->

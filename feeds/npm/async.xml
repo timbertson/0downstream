@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=fb5eb62dd3554a247f214b9cb556f67a48ae7790" version="0.8.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/async/-/async-0.8.0.tgz" size="19375"/>
+			<rename dest="async" source="package"/>
+		</recipe>
+		<manifest-digest sha256="92bcdf0fa3f4c09ddecc4bc5af0631472cf8eb83e25aa624b35ea33bf8065a88"/>
+	</implementation>
+	<name>async</name>
+	<summary>async npm package</summary>
+	<homepage>https://npmjs.org/package/async</homepage>
+	<description>Higher-order functions and common patterns for asynchronous code</description>
+	<gfxmonk:upstream id="async" type="npm"/>
+	<implementation id="sha1new=ddd165bd2dcde4a447824cf967dd1b7b80701991" version="0.1.22">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/async/-/async-0.1.22.tgz" size="12287"/>
+			<rename dest="async" source="package"/>
+		</recipe>
+		<manifest-digest sha256="9f7611ddf1182f77fb09c8d14be258817d13828048c5b97316ead025c9d1fe66"/>
+	</implementation>
+	<implementation id="sha1new=46dad1ee60a3b5300b01a17b3395ca59f82740dc" version="0.2.10">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/async/-/async-0.2.10.tgz" size="15772"/>
+			<rename dest="async" source="package"/>
+		</recipe>
+		<manifest-digest sha256="f0d1bc70336a26aac29e17b8f3133f2dcfad640bf19265c63488ea89294ca98e"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1IAAoJEOA/kc8tk45WswoIAIw+U1exLw0Yb4rgqZWtzpkUKOnmz8CZ+0MS
+PdKt/1sgXmc0zk6+H28d8HFzjY00kbkyhMv4qlRrtSKU1sNMi05eaxLER7VyXw9rsZWjx/MXcIx5
+5BYK3LvSqYK7/HV/K0Cg9M+BWHGuf+kDZNQeeOvXP1lwF1z6IiTgIzm91udWpZ/KGfEjr9fnmoDt
+UDk5ZggU5Qsu38W59qWP160p3qyPmUhJdq8nF9zBvm+YHfyhHwvKB43UaRicdRfnSXD6UeALzf7B
+h+T9KQbB9ndESJDU7LIszS9WciGnDk9a8ksHYdGGKw/ZRldEDVYbHnZ2QbntuXVfhm1lBs/k9vM4
+RoA=
+
+-->

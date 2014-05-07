@@ -7,6 +7,7 @@ import sys
 import tempfile
 import shutil
 import stat
+import json
 
 logger = logging.getLogger('zeroinstall_downstream.conf')
 
@@ -24,6 +25,7 @@ FEED_PATH = 'feeds'
 
 NODEJS_FEED = 'http://gfxmonk.net/dist/0install/node.js.xml'
 BASH_FEED = 'http://repo.roscidus.com/utils/bash'
+PYTHON_FEED = 'http://repo.roscidus.com/python/python'
 DEV_NULL = open(os.devnull)
 
 python3_blacklist = set([])
@@ -35,14 +37,11 @@ def resolve_project(project):
 	type = project.upstream_type
 	id = project.id
 
-	if type == 'npm' and id.startswith('node-'):
-		id = id[5:]
-
 	#XXX: remove hack
 	if (type, id) == ('npm', 'tap'): return None
 
-	filename = type_formats[type] % id
-	return api.FeedLocation(url=FEED_URL_ROOT + filename, path=os.path.join(FEED_PATH, filename))
+	rel_path = os.path.join(type, id + '.xml')
+	return api.FeedLocation(url=FEED_URL_ROOT + rel_path, path=os.path.join(FEED_PATH, rel_path))
 
 def local_path_for(url):
 	if url.startswith(FEED_URL_ROOT):
@@ -124,11 +123,11 @@ def check_validity(project, generated_feed, cleanup):
 			run_feed(oenv, ['-x', SANDBOX_SUDO_WRAPPER, feed, '--console', '--'] + args)
 
 		try:
-			if project.type == 'pypi':
+			if project.upstream_type == 'pypi':
 				run_check(['python', '-c', 'import %s' % (project.id)])
-			elif project.type == 'npm':
+			elif project.upstream_type == 'npm':
 				run_check(['0install', 'run', current_selections_for(NODEJS_FEED), '-e', 'require("%s")' % (project.id)])
-			elif project.type == 'rubygems':
+			elif project.upstream_type == 'rubygems':
 				run_check(['ruby', '-e', 'require("%s")' % (project.id)])
 			else:
 				assert False, "can't check feed validity"
@@ -177,14 +176,31 @@ def check_validity(project, generated_feed, cleanup):
 	
 def process(project):
 	cleanup_actions = []
-	project.template = project.ensure_template()
+
+	if project.upstream_type == 'pypi':
+		# pypi doesn't have project metadata. So run python and extract it
+		info = {}
+		for key, version in [(2, '2..!3'), (3, '3..!4')]:
+			# http://stackoverflow.com/questions/14154756/how-to-extract-dependencies-from-a-pypi-package
+			#XXX run in sandbox
+			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
+			output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, version, detect_feed], cwd=project.working_copy)
+			info[key] = json.loads(output)
+		print(repr(info))
+		assert False, "cancelled"
+	elif project.upstream_type == 'npm':
+		contents = os.listdir(project.working_copy)
+		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
+		project.rename(contents[0], project.id)
+
+	# project is in sane state - try figuring out dependencies
 	project.guess_dependencies()
 	project.create_dependencies()
 	
 	# compilation:
-	if project.type == 'opam':
+	if project.upstream_type == 'opam':
 		assert False, 'todo'
-	elif project.type == 'pypi':
+	elif project.upstream_type == 'pypi':
 		project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
 		portable_feed = project.generate_local_feed()
 
@@ -201,10 +217,10 @@ def process(project):
 					</arg>
 				</command>
 			''')
-	elif project.type == 'npm':
+	elif project.upstream_type == 'npm':
 		if project.id == 'mkfiletree':
 			for req in project._release.runtime_dependencies:
-				if req['interface'].endswith('node-rimraf.xml'):
+				if req['interface'].endswith('rimraf.xml'):
 					for child in req.children:
 						if child.get('before') == '2.1':
 							child['before'] = '2.2'
@@ -230,7 +246,7 @@ def process(project):
 							Tag('executable-in-var', {'name':'NPM'})
 						]),
 
-						Tag('requires', {'interface': FEED_URL_ROOT + 'node-gyp.xml'}, [
+						Tag('requires', {'interface': FEED_URL_ROOT + 'node-node-gyp.xml'}, [
 							Tag('executable-in-var', {'name':'NODE_GYP'})
 						]),
 
@@ -311,3 +327,7 @@ def process(project):
 			if err:
 				raise err
 
+def remove_indent(s):
+	s = s.strip('\n')
+	leading = re.match('( |\t)*', s).span()[1]
+	return '\n'.join([line[leading:] for line in s.splitlines()])

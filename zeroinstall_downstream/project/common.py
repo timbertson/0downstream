@@ -4,6 +4,7 @@ import sys
 import json
 import logging
 from .. import composite_version
+from ..archive import Archive
 
 def cached_property(fn):
 	result = []
@@ -41,10 +42,18 @@ class BaseProject(object):
 
 	@cached_property
 	def versions(self):
-		return list(
-			filter(lambda x: x is not None,
-				map(composite_version.try_parse,
-					self.version_strings)))
+		return list(self.releases.keys())
+	
+	@cached_property
+	def releases(self):
+		rv = {}
+		for v, rel in self._releases:
+			if v is not None:
+				rv[v] = rel
+		return rv
+
+	def get_release(self, v):
+		return self.releases[v]
 
 	def find_version(self, version_string):
 		for version in self.versions:
@@ -65,3 +74,20 @@ def getjson(*a, **k):
 	response = requests.get(*a, **k)
 	assert response.ok, response.content
 	return json.loads(response.content)
+
+class BaseRelease(object):
+	@cached_property
+	def working_copy(self):
+		return self.archive.local
+
+	def __enter__(self):
+		self._enter_archive()
+		return self
+
+	def __exit__(self, *a):
+		self.archive.__exit__(*a)
+
+	def _enter_archive(self, **k):
+		archive = self.archive = Archive(self.url, **k)
+		archive.__enter__()
+		return archive

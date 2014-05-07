@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/amdefine.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=69882fba4e366f77f38e6bb0e6f814798f6afa20" version="0.1.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/amdefine/-/amdefine-0.1.0.tgz" size="7528"/>
+			<rename dest="amdefine" source="package"/>
+		</recipe>
+		<manifest-digest sha256="89ed7da485e80a35c19c1af1eb3ebe99a1991c9c9317c46cfea6b9dc022e7b32"/>
+	</implementation>
+	<name>amdefine</name>
+	<summary>amdefine npm package</summary>
+	<homepage>https://npmjs.org/package/amdefine</homepage>
+	<description>Provide AMD's define() API for declaring modules in the AMD format</description>
+	<gfxmonk:upstream id="amdefine" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah0yAAoJEOA/kc8tk45WA4oH/ifJeTM8EtAVtGQBbPjtYXDVxEJ1BkGE3804
+57k8ILNGMIkdJ7pvY+lObT4Sf6s9P6kDfrSN4U9sz3/NkxFrnkw4V9YoDw86Xr31PULJUO53r6B5
+3iRrhKla4rPaVdHviELRGh05U1UZk/MeEFruhWHWzVHZg27MqrT5kiJARzlfGs/mADw6Xn+DTAUp
+AxHwlIIt8Y2Zbl/JjRxg3YjByexn+OmemdQB3aGILQ4XZFp6TjOHEA/nA5vcNwlKgmvNq21rELZ+
+8oMNYLivMtfnwx2rf8mQaWulv1PGq9JJPpmGvLsSuRTZTx3NIM8nrW95Gl62qHzWHLglr+4E9Fss
+d8s=
+
+-->

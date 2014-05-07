@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/boom.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=005aeef36b240832717553e7f1d3e36c2102a30b" version="2.4.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/boom/-/boom-2.4.1.tgz" size="36208"/>
+			<rename dest="boom" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d3dcbb2c2ca25533fdc0305ecbee2726145708be145cbbfd5ce1912dc3591e3f"/>
+	</implementation>
+	<name>boom</name>
+	<summary>boom npm package</summary>
+	<homepage>https://npmjs.org/package/boom</homepage>
+	<description>HTTP-friendly error objects</description>
+	<gfxmonk:upstream id="boom" type="npm"/>
+	<implementation id="sha1new=60b8dca4935bdeb2e47ee6e8f5afe1cd297d42a6" version="0.4.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="0.10" not-before="0.9"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/boom/-/boom-0.4.2.tgz" size="34685"/>
+			<rename dest="boom" source="package"/>
+		</recipe>
+		<manifest-digest sha256="75bec0d3cdd9daf0d5bb72f97fef8cfa89d1ec6a582076aa316102766d30612e"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1ZAAoJEOA/kc8tk45Wb3YIAJMZcPAvbeDUzznlbGxYOOeUOK09U2ACPWMy
+PgWHvseZQ4vdJy0SuWKKxi4aVKrCNKx1SBNwgR7klYAwgMHNpIvbo1sTuZB0qzuE71GE06m7MOzH
+ihDxUxHuVN78c0AnpPLR2Sm76HGG6ymPcohmuD6hqTF1+brDGL5GruF+Tb9pLvwkHMuWd7a8M8+2
+/ukun9kbzHXFpxfON9tedR0IKjY7oSzrV0T+NSj3US1mnPNsUhHLnAFtOxLsFwsUtUyRxWu/+cFO
+zV1IAhs6mEGXyD7Er1gCEWbA1J+Gk6v5drhKGBLW6YyPWfzWMXNA6cpOD/tzLqVKLTIIMujdLEz6
+Mig=
+
+-->

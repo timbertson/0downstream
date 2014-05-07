@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/buffer-equal.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=881171c27b121d29d95972bada93a28821787d61" version="0.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/buffer-equal/-/buffer-equal-0.0.0.tgz" size="1193"/>
+			<rename dest="buffer-equal" source="package"/>
+		</recipe>
+		<manifest-digest sha256="1a67f8ab24ffd80db5e2c0903778464c88e1e82e74996e3cd719ec1d6d2d6c18"/>
+	</implementation>
+	<name>buffer-equal</name>
+	<summary>buffer-equal npm package</summary>
+	<homepage>https://npmjs.org/package/buffer-equal</homepage>
+	<description>return whether two buffers are equal</description>
+	<gfxmonk:upstream id="buffer-equal" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1bAAoJEOA/kc8tk45WWKoIAI+N5A3RhvtO5l/yO7s47q+AtzYKLj28oHQy
+iH+/+WvnWPUgHxPel1nhwtX7CUVs+gVi8QtGBomZ0SYCJBVVGf/T6kAOSI6BGilaK9sFUYYmzTCb
+e6Zi6U35CszcvlOE7DIJt8zCo8vodqqvlvBVZJi4Kp0Ug9d/C8rsji+MgjzzRav4lb5u5LySGmYl
+9e9TTHfg4DUKy5NL706CFyeFlDCgQOatEmKwQKvjuGS2z17hSOMvkPgPyBA7v6rljMNurch2wC1y
+G3W/qbOsDRLfwhSsKSi9uf2zvk3FDFQTxUcdCz4XkK/1iHjX7/xr5Z8g1XMSv8ccx7Vp/aEMNDFX
+5uw=
+
+-->

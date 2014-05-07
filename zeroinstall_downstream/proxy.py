@@ -35,9 +35,10 @@ def safe_name(url):
 	return domain + "-" + filename + "-" + digest + ".cache"
 
 def run(opts):
-	try:
-		del os.environ['http_proxy']
-	except KeyError: pass
+	for key in ['http_proxy', 'https_proxy']:
+		try:
+			del os.environ[key]
+		except KeyError: pass
 	config = opts.config
 
 	cache_lock = collections.defaultdict(lambda: threading.Lock())
@@ -66,7 +67,6 @@ def run(opts):
 						now = time.time()
 						mtime = st.st_mtime
 						expiry_date = st.st_mtime + (max_age * 60 * 60)
-						logger.warn("expiry date = %s (now=%s)" % (expiry_date, now))
 						if mtime > now or expiry_date < now:
 							evict = True
 					if evict:

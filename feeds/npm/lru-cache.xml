@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/lru-cache.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=821113c342a2e271ae76447d1de0ff1fde35e4af" version="2.5.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/lru-cache/-/lru-cache-2.5.0.tgz" size="6642"/>
+			<rename dest="lru-cache" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b6da11aa288af466f88756b3392ea5478c65efa1ec9c677e43f543d463161e6d"/>
+	</implementation>
+	<name>lru-cache</name>
+	<summary>lru-cache npm package</summary>
+	<homepage>https://npmjs.org/package/lru-cache</homepage>
+	<description>A cache object that deletes the least-recently-used items.</description>
+	<gfxmonk:upstream id="lru-cache" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3GAAoJEOA/kc8tk45Wlx4H/2NFNTtDPrQsnlIbSuMz/nSDBV5uFrBWlhyi
+YhgD1znwG4Qs32TV2Wx2fxlGXEtq3lOqoGswOXpVDkyZwkFMxgGjl2GBfVhTPQY6YcVBuUM1u+fY
+J3RXb8K5BTYWAB7PlIP0Y6TdFkYYQyGqHwAvZmzVUr985Kue0izno64qZz4UF+k80m1LUsxK65Ib
+VgCLWYaBctC04KNft05tomYN6c0vFUiEmYfQG41LJ9U2YLIaqbjxIKKxvkGOocqL2Fyv1IgFFcvj
+80WR+rHQcBNjU/4Iizh+V4AFVdHfmN+BKi0MC2MyzEQqXW49u2FDvP4aPhuqsTyEqaA/2d5csH3z
+TD8=
+
+-->

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/http-signature.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=ff95c3c70524f8bce67941b39316e41a6dca5d83" version="0.10.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/assert-plus.xml">
+			<version before="0.1.3" not-before="0.1.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/ctype.xml">
+			<version before="0.5.3" not-before="0.5.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/asn1.xml">
+			<version before="0.1.12" not-before="0.1.11"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/http-signature/-/http-signature-0.10.0.tgz" size="11938"/>
+			<rename dest="http-signature" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d1fac2bf33e12c20dd17d6ac40f8a92d4c6203a7879ff0255a8eb47f5e5127d2"/>
+	</implementation>
+	<name>http-signature</name>
+	<summary>http-signature npm package</summary>
+	<homepage>https://npmjs.org/package/http-signature</homepage>
+	<description>Reference implementation of Joyent's HTTP Signature Scheme</description>
+	<gfxmonk:upstream id="http-signature" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3VAAoJEOA/kc8tk45WzUIH/36XRO0ILB42eVW3bfECOdrbHibQ2uQIm10U
+7PB8/HyNUpx1hNSZUTU1tj7/UALJZAQFWY5ajCFolPI65412BxTWXd6/Gw6Dq3b7ksMi6DfQ5y+U
+5KSQ7l1sbbXW00BJQeCC+jZhsaM+9rFhVrb2jh1oe0Q8kpVTotpH5kjyHPyAhkTDEGOwbxLWD1jQ
+xMxHyS9F5rw6Z/kD3QpRbP7K90yyvhUbwwSUAuWzVHq8UE3NcLw7ubSTZiSl53/lu44QIg7AgmkY
+DyvnzuQqBup5f4nWCXApFqBEQd37+AWL8gcwKbo+kqDzIoBMOjlnUufNAI84Z/flBWnnrt6Ldi2o
+rYA=
+
+-->

@@ -6,15 +6,17 @@ import logging
 
 from version import Version, VersionComponent
 
-from .common import cached_property, Implementation, BaseProject, getjson
+from .common import cached_property, Implementation, BaseProject, BaseRelease, getjson
 from .. import composite_version
 from ..archive import Archive
 from ..tag import Tag
 
 logger = logging.getLogger(__name__)
 
-class Release(object):
+class Release(BaseRelease):
 	def __init__(self, project, version_info):
+		super(Release, self).__init__()
+
 		self.project = project
 		self.info = version_info
 		self.version = composite_version.try_parse(version_info['version'])
@@ -27,27 +29,13 @@ class Release(object):
 		return set(map(get, self.runtime_dependencies)).union(map(get, self.compile_dependencies))
 	
 	@cached_property
-	def working_copy(self):
-		return self.archive.local
-
-	def __enter__(self):
-		self._enter_archive()
-		return self
-
-	def __exit__(self, *a):
-		self.archive.__exit__(*a)
-
-	@cached_property
 	def release_info(self):
-		with open(os.path.join(self.archive.local, self.project.id, 'package.json')) as json_file:
+		root = os.listdir(self.archive.local)[0]
+		with open(os.path.join(self.archive.local, root, 'package.json')) as json_file:
 			return json.load(json_file)
 	
 	def _enter_archive(self):
-		archive = self.archive = Archive(self.url, extract=False)
-		archive.__enter__()
-		contents = os.listdir(archive.local)
-		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
-		archive.rename(contents[0], self.project.id)
+		archive = super(Release, self)._enter_archive(extract=None)
 		return archive
 
 	def detect_dependencies(self, resolver):

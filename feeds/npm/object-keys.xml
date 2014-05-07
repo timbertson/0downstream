@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/object-keys.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=309252aa68bf7158ecf93f74c5271344c0b35e06" version="0.5.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/object-keys/-/object-keys-0.5.1.tgz" size="5478"/>
+			<rename dest="object-keys" source="package"/>
+		</recipe>
+		<manifest-digest sha256="3f2467c882ce189c4510ac27bd6ced61edee7e9f4e1024340787d6ef1201b0cd"/>
+	</implementation>
+	<name>object-keys</name>
+	<summary>object-keys npm package</summary>
+	<homepage>https://npmjs.org/package/object-keys</homepage>
+	<description>An Object.keys replacement, in case Object.keys is not available. From https://github.com/es-shims/es5-shim</description>
+	<gfxmonk:upstream id="object-keys" type="npm"/>
+	<implementation id="sha1new=1cd84b0748499eeaa202b1c2e7a278c211ce11c0" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/object-keys/-/object-keys-0.4.0.tgz" size="4202"/>
+			<rename dest="object-keys" source="package"/>
+		</recipe>
+		<manifest-digest sha256="91163ac703a16c2f19daf612203d226501d08d7b4997484ecbcbffbda3d0a1f0"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah0qAAoJEOA/kc8tk45WcEgH+QFTYpFtkPdvhg852wT7Fd/1K0hh08VYMler
+AEAZ46nmNEGpoWW/3RcHVAvM61EhswpGspxW+YspimR5d/0Wj5MdyzuQXrPNsNqWbBEKWN8SzuSU
+3/iqRyZdyPJljo2s0PuOfVIIBfFAcdegRefgrvnAk1wKE5Ce28oinErJ/xw9Dpe5hjY7+cvM8VM0
+8auGMpmrsM/TrUePxnAvwBOasn7xAgroFKikbUdz4DR82sWBGkiWtixXmhMC3YLLOjNwul5PyAYP
+2Iz6zgvx1PF235pIR5sRb9U+EoCVUbc1Z+S7lkJsY2OHgqC8XB8Abi7GXske/9YRZBgkg+gpXwFg
+TIg=
+
+-->

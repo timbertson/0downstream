@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/du.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=cea094b88bcb6560ac3d01975a8f859855efe49e" version="0.1.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="du/du.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml">
+			<version before="0.2" not-before="0.1.22"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/du/-/du-0.1.0.tgz" size="3514"/>
+			<rename dest="du" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8a2bbb5e167685f9a9aaf2fe994cf956d152112eeb5c47feaf83f94a378da63e"/>
+	</implementation>
+	<name>du</name>
+	<summary>du npm package</summary>
+	<homepage>https://npmjs.org/package/du</homepage>
+	<description>A simple JavaScript implementation of `du -sb`</description>
+	<gfxmonk:upstream id="du" type="npm"/>
+	<implementation id="sha1new=dad091e8f7982e4be04d398730f3a72881efc521" version="0.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="du/du.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml">
+			<version before="0.2" not-before="0.1.22"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/du/-/du-0.0.2.tgz" size="3439"/>
+			<rename dest="du" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0e853c445a634c0898e881a1ebd28d608ee8d6c8fae1672482ba5b100b2d7334"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2zAAoJEOA/kc8tk45WcjMH/jEXkW1ocbC9Y7X+FjT9h+XH/MxP7FXbnKyq
+viHg0t3oE2POM/g5Ba9Z3TLyPeqABieKA/PufCcFG/yv03ivBeFXRODASOg6HoC7xkoGPjA6zEzX
+2MHebyVnollqPdT4oTF8YkvQeA25xzM0yvyGqSznK3WO0cGrl4eFpLCmtInjWmwKIjHzn93vBNxU
+tM8urNDURKGvt/U3xvMaiCw0lQm2ypl7MoWiHjRrKETh+r9WUdtOms7xa0jPMOtdEVH1/PuXU5jp
+6sfANyMM9G0U93dyHduweCkWMkv74kU+ZdnvMxtVIEEthvmC4JBbTgL9XpMfpyhOOcjb3YsSaEkm
+DkE=
+
+-->

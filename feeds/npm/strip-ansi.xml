@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/strip-ansi.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=9150db1981dafbe8a29367aab56625a0f8abf448" version="0.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="strip-ansi/cli.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/strip-ansi/-/strip-ansi-0.2.1.tgz" size="1316"/>
+			<rename dest="strip-ansi" source="package"/>
+		</recipe>
+		<manifest-digest sha256="afa0c007314ff731169251e02b89c77304df43a4a2dfc5862372a677afdc980c"/>
+	</implementation>
+	<name>strip-ansi</name>
+	<summary>strip-ansi npm package</summary>
+	<homepage>https://npmjs.org/package/strip-ansi</homepage>
+	<description>Strip ANSI escape codes (used for colorizing strings in the terminal)</description>
+	<gfxmonk:upstream id="strip-ansi" type="npm"/>
+	<implementation id="sha1new=318e72969be7f4fb17aefc84823d5702230e27ce" version="0.1.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="strip-ansi/cli.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/strip-ansi/-/strip-ansi-0.1.1.tgz" size="1337"/>
+			<rename dest="strip-ansi" source="package"/>
+		</recipe>
+		<manifest-digest sha256="660a49ad7923b3ea551b7a118cb74cedeb9a6db3383e87cf3a4ea856fac7ce83"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah18AAoJEOA/kc8tk45WYPsH+wZUbAAuy5giOsle6OShyw6cdHOD6W1RAEdB
+VzPabyD9XjKTFOGyQMjukOXF7dcNOONnzZb55J0Z4sk49qdinUy+L28P19J78NIgnJUdD36lAUFe
+riUPV7iTaN2BEi5wFlEiHlxiqgyOjVO+TlsnCDt9u1c7YS5IHfpb5nq28u4otHd66LlrzMIqTMMo
+0A4z6wCWPbsuC/RoDYp8TO062zD7HoXIofqLivaVvGgvwia3JJjM8wYdhrEZR0BVYpvJNvdksHqm
+LFzoIBCUAqSj38Y4iAh+qTh80LaFMF3jNr4XYYIRaR712IBGSlmfW0bji1ZVLu72p9m7rXykQ9Un
+d88=
+
+-->

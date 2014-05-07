@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/temp.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=105ce68d7a03a974e6b329ba200811dd7c8a7cfd" version="0.7.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="2.3" not-before="2.2.6"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/temp/-/temp-0.7.0.tgz" size="6308"/>
+			<rename dest="temp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="bb2a611b2df07b1c19ebda40f60992cca942e47cf41c634406de2ae73755a2af"/>
+	</implementation>
+	<name>temp</name>
+	<summary>temp npm package</summary>
+	<homepage>https://npmjs.org/package/temp</homepage>
+	<description>Temporary files and directories</description>
+	<gfxmonk:upstream id="temp" type="npm"/>
+	<implementation id="sha1new=414c854ca5f18f1dafaf8f7c4ba56dae73c2c9ac" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/temp/-/temp-0.4.0.tgz" size="10240"/>
+			<rename dest="temp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b6fe97f21b8ef96f2897464d04ef9b257614b7657ed7d9dc6926089480531143"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3lAAoJEOA/kc8tk45WE5kH/34F6hDit+oM/ppmbPkx5e3XfyHcNoBJITDs
+MEPhMHE263yvvAlOu5Nj6PHS3yAxSnpnEBoSGZ/XDFzXlIM/CUHlKOPucipd8yi7mlUqDWHPcYMx
+wSqw6Di3exUUgAV+NssBYHKZ/jjbaGsV851DqW02VV20wdW4HBoyVemgxtfV6ztQDN4Uqv/KY5Yk
+UJIn7Rbxbot9jLLS9HlhTmIx498eu+K4MCfwicdQ1dsRsIztShA1UY2WeeZm+97GpuLPKq2fI8Al
+BUiaNOKutYshbIOljkrtI6AMAHyHZpGTjGmtuvMQjxS+mlR0+SD9QL6wc8Ysj4x/kgTNjd5m7yhV
+SqA=
+
+-->

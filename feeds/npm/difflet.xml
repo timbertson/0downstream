@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/difflet.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=4c34a49ec40aa18be6b619be36ad97a8bf492f16" version="0.2.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/deep-is.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/traverse.xml">
+			<version before="0.7" not-before="0.6"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/charm.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/difflet/-/difflet-0.2.6.tgz" size="4789"/>
+			<rename dest="difflet" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b11544b752eeaa84241e8487a08d43b67537acdcc844141a1ba855856ff71dcc"/>
+	</implementation>
+	<name>difflet</name>
+	<summary>difflet npm package</summary>
+	<homepage>https://npmjs.org/package/difflet</homepage>
+	<description>colorful diffs for javascript objects</description>
+	<gfxmonk:upstream id="difflet" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2vAAoJEOA/kc8tk45WBioH/jCVi3mXqELoUnD0JwLNCg0Cz1Nu03ojD72a
+1HtQaf8C7ip8b59qNjv5WnEZ2D4Qq850dg1MpSWKOLY4axOtDFcFY4ETkMM+mEQxAMXQMDuzTZg1
+VbNIwX47taKD8eVpHNMU1TUAD65Um6lOBjtRiBWwk0zELMZCDaOCTj6BRO9fqILqRV/w/4VjyQ1B
+KcUJmRAbpl+IQttVPrjT0za+MjOQh1B8BUcc8/iMzs600flX0hLGDFaIYH2SUcB5l9js2pD6GQF8
+GtJmryGKBq7bGMXhcPnmlVrD4utU1F8Y/8DRRkz3K1Le4/Zn4NFGSSGvSA2fuQwIjq4KPT+Y13Yp
+Kv8=
+
+-->

@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/underscore.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=4579a2ee9d18de6bdebb95b72ba4585cf44e38a9" version="1.6.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz" size="20181"/>
+			<rename dest="underscore" source="package"/>
+		</recipe>
+		<manifest-digest sha256="15cb59956eb29b1387d4ddaab5abc69972e66a4122003c7a205932f3eb87a9aa"/>
+	</implementation>
+	<name>underscore</name>
+	<summary>underscore npm package</summary>
+	<homepage>https://npmjs.org/package/underscore</homepage>
+	<description>JavaScript's functional programming helper library.</description>
+	<gfxmonk:upstream id="underscore" type="npm"/>
+	<implementation id="sha1new=8704ff2620c60048bf76349cd71bf9924dda7725" version="1.4.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz" size="41763"/>
+			<rename dest="underscore" source="package"/>
+		</recipe>
+		<manifest-digest sha256="7f4b1148d24f1f4c57d3fb81dbd0047e808ccb39f24a04836484783e84463cf8"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah07AAoJEOA/kc8tk45W2d8IAIsyQNizBZ1Omba3EmWQ41rOl3x5FuJkeBMh
+PNgMGQTpBI8wNu6UEoeX5C+O69dJGlvw0K06jU31pY30tPqylQvLSSYAu4lGISaZo1M8TUDcY9/K
+vSvlHL+1C6ozfEPvptZWKEpzjcV7X24EJ8+NOA6DT7vLElPeW5uZpdhOBEerv8KBwuW8IjueEWjX
+lobCqrp9bCCWiDt0R6QBYaZZhiINfukphIjdFcVPqYrFOxisiFjmM0o9mtQjdi0Hswn32ke5/bVM
+jppdi+zWzSSa94BdL9XWMmvdScA+xzW8yicyB7TBTOTF3JGgKw4iUWK+hO2nxxuR4iBJvAsBsgNE
+tcg=
+
+-->

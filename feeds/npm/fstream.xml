@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/fstream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=d75fecb2031477922c3787a8cf74dcb3c67fc386" version="0.1.25">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="0.4" not-before="0.3"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/fstream/-/fstream-0.1.25.tgz" size="17347"/>
+			<rename dest="fstream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c818555f96be1c90ae32d6e1a963aa72e6070524e421b2158c054db945a95c25"/>
+	</implementation>
+	<name>fstream</name>
+	<summary>fstream npm package</summary>
+	<homepage>https://npmjs.org/package/fstream</homepage>
+	<description>Advanced file system stream things</description>
+	<gfxmonk:upstream id="fstream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3BAAoJEOA/kc8tk45WhKYH/3bKdeXZqNuXAIw4s8a1xNrJATstMoQn0J48
+AQYbLeFMrDfZdBkjvLCLZe3RX5b+qCB2OH0ZkkbQFjrXNUK7J9iv068MgzlgI2icdzk+Nb1Ny1UN
+Bg86YZA/+f9wpYBJXPo0eL+D2JbRqxHP7w6pm/JZlu/Z9yB7/ZWoB7+pyG6OfodBlgGCCimfJwAr
+V6YO98Ppu1LtsTrJyKJRztroQ5k7U6pkcqTYM4drG301sRT4/w0PQNQ1izRn1xGZeICxcVfTFG1Y
+soq5r0qIG7NkbLLRIzg/G65XuKcxLtIJhUfiB7NEdRU3zMq0er5/fj6jI1rDnOLiBQuijKJCWVWy
+qSM=
+
+-->

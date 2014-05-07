@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/bunker.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=1dbd1a7868277019f1a031454b2463bb42de6b0c" version="0.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/burrito.xml">
+			<version before="0.3" not-before="0.2.5"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/bunker/-/bunker-0.1.2.tgz" size="3227"/>
+			<rename dest="bunker" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b748dc0d57beb9eda2695c864c0cf07ae00b3ddc8ae981417352305e9f41ee26"/>
+	</implementation>
+	<name>bunker</name>
+	<summary>bunker npm package</summary>
+	<homepage>https://npmjs.org/package/bunker</homepage>
+	<description>code coverage in native javascript</description>
+	<gfxmonk:upstream id="bunker" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah14AAoJEOA/kc8tk45WxjUH/23Csn/DAXBkWmKaTwxBSwYqb+Mq/9mVbOPG
+oS/P1TfrNCte5rfEPm1vfUK7xNuezZr4+DiSgLYWfMS9FRD9RM6ldGHSYVS+bkSgsMwBRCyP62cC
+/4xSP7km+m4HKSbEyfVVblGEeD7kNRIi4fbSd95I75gXZQWWkA/V4SU3Hszus1OH3DEUC9RiRDsk
+MmpHE4Ua+ANVYVKWyfY75twfJ4J49L7rII7IgZyFrUEFcFegIrfMHRIbBfhDv8TfrOTEdTpx9Mnb
+ROuQ/o4h1MS+J5r4SrVKB2ZzNcn+dxRfHrn0/jCj3IUiA+B6Ih4UOeY7jnY1+YD70385vUZClpch
+L0o=
+
+-->

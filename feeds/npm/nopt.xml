@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/nopt.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=f6c0c25c1b05cda648a7e3c21fc0573a83a22fa5" version="2.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="nopt/bin/nopt.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/abbrev.xml">
+			<version before="2" not-before="1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nopt/-/nopt-2.2.1.tgz" size="10116"/>
+			<rename dest="nopt" source="package"/>
+		</recipe>
+		<manifest-digest sha256="1e4d2082c3700e516c70f8abf57a6d04b10e9489623b0104ccf561334a970908"/>
+	</implementation>
+	<name>nopt</name>
+	<summary>nopt npm package</summary>
+	<homepage>https://npmjs.org/package/nopt</homepage>
+	<description>Option parsing for Node, supporting types, shorthands, etc. Used by npm.</description>
+	<gfxmonk:upstream id="nopt" type="npm"/>
+	<implementation id="sha1new=e884af5c2a2448ab4a069f3bc951dabc946918df" version="2.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="nopt/bin/nopt.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/abbrev.xml">
+			<version before="2" not-before="1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nopt/-/nopt-2.0.0.tgz" size="9208"/>
+			<rename dest="nopt" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ff3b9dc831af4e4e3af61c82cb4e85520d184ed737ed6852ec47da7659737acf"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah33AAoJEOA/kc8tk45WvFsH/2vYZ5usBLZR7R9zsio4XBrAV+SAcbtp9dQz
+HehP/xs1ygb+lsv0KnH28YX3rUBBuonNSI0iEP+mznkBoO3fkbqyG4cdSg/f/bUpW6CrEcZ08dte
+qh6uiDHQD2Gqb/qmYk4xZQCxLM+r+oFefm+UL60JH97InPgY5NT+GYeK7A7ycOGqozIUugb6Lqdx
+icJwdvgNrr2HwtrPNgbOo1IbhdJUd73Jf+nGqRlBndNTMrjSB1AHOgl0v1zHCqqxm+2XNl3Gr2a1
+Im0l8DlrnKujHh9T0oFS9G8xXYrM7vH97165gIFeJz4GZHRaPNM3Eo1yG9a/eDhurK6IyVldL8Jq
+aug=
+
+-->

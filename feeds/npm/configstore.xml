@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/configstore.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=1307907b29df63e29773dbba4399879c24956a89" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/object-assign.xml">
+			<version before="0.3" not-before="0.2.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/uuid.xml">
+			<version before="1.5" not-before="1.4.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/osenv.xml">
+			<version before="0.1" not-before="0.0.3"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="2.1" not-before="2.0.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="0.4" not-before="0.3.5"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/js-yaml.xml">
+			<version before="3.1" not-before="3.0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/configstore/-/configstore-0.3.0.tgz" size="2139"/>
+			<rename dest="configstore" source="package"/>
+		</recipe>
+		<manifest-digest sha256="977bde52ade079511db1706730e3f8d3161591e8e6f17f8559b0db4996be31b3"/>
+	</implementation>
+	<name>configstore</name>
+	<summary>configstore npm package</summary>
+	<homepage>https://npmjs.org/package/configstore</homepage>
+	<description>Easily load and save config without having to think about where and how</description>
+	<gfxmonk:upstream id="configstore" type="npm"/>
+	<implementation id="sha1new=411cf532219f6945756b24e198a1a98c0d353368" version="0.2.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/object-assign.xml">
+			<version before="0.2" not-before="0.1.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/uuid.xml">
+			<version before="1.5" not-before="1.4.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/osenv.xml">
+			<version before="0.0.4" not-before="0.0.3"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="2.1" not-before="2.0.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="0.4" not-before="0.3.5"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/js-yaml.xml">
+			<version before="3.1" not-before="3.0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/configstore/-/configstore-0.2.3.tgz" size="2093"/>
+			<rename dest="configstore" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ca312178570d068233233fc4a823781d059d81ddb540b725ed160548c0bd5cce"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2eAAoJEOA/kc8tk45WoZQH/08GZF5mRaksFji4HAkodWdUjn2IXdNdr+u4
+BtMSEj4Aaual3av6sT0cRqezZ/4frx32OORNWTdKpxEAqGPSaVUUCL2ZpBAWR+EK81fZqBP0uCOl
+gETgoZvMzzOmnTAJV9dW0FDd0iovs7xcjgKRST77eALjZfhMULM1RjGuIB9uFUNe7tqkdq3IrtFB
+Sl+WWlgm+uRS7CA5aPjbkIQexOwDaHPnQGFz15pznq3SsqAwJVnz4KMq38BJpKbHpdioc5Bfo2AI
+dhLT2pL2eoN9a+f9kCGBKe+vzxsXtqRzIdtA44pzWZGc52g5tNnpxcoMd8be49R0BJFhogJR1eez
+qJY=
+
+-->

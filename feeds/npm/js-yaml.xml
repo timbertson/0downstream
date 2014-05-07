@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/js-yaml.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=ab2b909bda68ece48bb2de90edf17969f1e32328" version="3.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="js-yaml/bin/js-yaml.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/argparse.xml">
+			<version before="0.2" not-before="0.1.11"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/esprima.xml">
+			<version before="1.1" not-before="1.0.2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/js-yaml/-/js-yaml-3.0.2.tgz" size="30718"/>
+			<rename dest="js-yaml" source="package"/>
+		</recipe>
+		<manifest-digest sha256="af1ac7065c36dcfe806d58f6831d72b155f90c34696091bb0b8003e42d7428d9"/>
+	</implementation>
+	<name>js-yaml</name>
+	<summary>js-yaml npm package</summary>
+	<homepage>https://npmjs.org/package/js-yaml</homepage>
+	<description>YAML 1.2 parser and serializer</description>
+	<gfxmonk:upstream id="js-yaml" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2aAAoJEOA/kc8tk45WAFwH/1c796Yj7fbOU0LWfzD0VXeNaXj6iSppeY7Q
+74QtD9Dp0vYvt9LkMHLwKjkSGTezbyfH+UnY0FQgkzgSoo3fxIYPedvYyZRO5I0Vs+ywGpntzjbz
+u3ytmvroGbBw55T22TrzSdC3JW9q1GHvUi6MDFLOvvN8IOyU/+9ulFsczH9c27ZlXzjYQJSEOsHe
+LEGIQwnaX+OmgOdXGXr4nBCD1JTFdNox+ElVh0cnZT6js6T9o0iYyiaxYrPri3E8AB9mDRTTPKk9
+Thgff2/rzufRInBgqMmVHHGvSL2zsPEXL1ZL4HUnIIm2EHvXpndKQKUqCTzj86u0i2i038Hp4bzd
+Txk=
+
+-->

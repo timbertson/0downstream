@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/qs.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=845d5ac39ad306ef9182edfd31618f0db6d10bb5" version="0.6.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/qs/-/qs-0.6.6.tgz" size="3741"/>
+			<rename dest="qs" source="package"/>
+		</recipe>
+		<manifest-digest sha256="1ea02cc524832b3298212130f9d16c3b7a55511bb0d4b4fc96dc27c515cffd17"/>
+	</implementation>
+	<name>qs</name>
+	<summary>qs npm package</summary>
+	<homepage>https://npmjs.org/package/qs</homepage>
+	<description>querystring parser</description>
+	<gfxmonk:upstream id="qs" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah39AAoJEOA/kc8tk45WIuYH/0chT0DoDKYillQunFz/AqPWV4gs6uIJlNv0
+zXfp5lY1EKknvrr02fm7qU0YdsEhVMOcHd5Uvvp6WGYC0rG25G3iVPPLnKBXMvFXlF+r1Y/XDbJe
+6lEN0XDnIqZyKSiWtjAl56jhfafStzT8gZ16x8QDkfRwA3r2li6adfXclFGR/Hca0oOA6LwRTtug
+yEmu/Jamc43Koo0W0PO8t6NHnjU8X+vMOko37NQxBhvxv25M7NP6WeAV1MAZ/z3szjDaAuDM5eGW
+8O30hvaHce0ZWCax5wo1L6jlEm+X+zH+DFaUQQPkACWcaDMpNY8tbrtyX07RD/+6czl5+YLccirN
+4Iw=
+
+-->

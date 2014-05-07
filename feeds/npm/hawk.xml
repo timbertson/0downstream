@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/hawk.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c631f4af7f94bef9ee06e04189a54e0a97582a48" version="2.2.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/sntp.xml">
+			<version before="2" not-before="1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/boom.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/cryptiles.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/hawk/-/hawk-2.2.0.tgz" size="116327"/>
+			<rename dest="hawk" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e3a02a4a8cd539e81d4a34c0593b3e6e5071304455354ff606751ffac7c1a44f"/>
+	</implementation>
+	<name>hawk</name>
+	<summary>hawk npm package</summary>
+	<homepage>https://npmjs.org/package/hawk</homepage>
+	<description>HTTP Hawk Authentication Scheme</description>
+	<gfxmonk:upstream id="hawk" type="npm"/>
+	<implementation id="sha1new=7e3cb469425eb13fc60c65c65fc64f40b93dade8" version="1.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/sntp.xml">
+			<version before="0.3" not-before="0.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/boom.xml">
+			<version before="0.5" not-before="0.4"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/cryptiles.xml">
+			<version before="0.3" not-before="0.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml">
+			<version before="0.10" not-before="0.9"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/hawk/-/hawk-1.0.0.tgz" size="112109"/>
+			<rename dest="hawk" source="package"/>
+		</recipe>
+		<manifest-digest sha256="893659f1ee6b46c277b65ea92b2fa7007c89df5054e22b84f05fad23fd643b64"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3TAAoJEOA/kc8tk45WAlsIAJRMKhGkP/vdICZFsw9Wt0JiE3XU145TNOmt
+HsARqJXDulO1IMrDQ61Dfbem/29tOPMPYQx7C679Q4d1cOmlUeMcmJ1nb+rAaf+WmMCAy8qoLI6p
+Li4g8lnu6scjaIuTsgZ0U+V79cmXH1QKoIKzk30SBnUYr9e2tGi07eanS+JH/Vjs0U7TIPOCFziV
+BkCwLxkn6o3C1J3eog+C1nox0LDLFalQ7T7vYmk1mbsUCw0VRh7DaghAMSvqWuVcf/WUzvFbiRMj
+KHLuPf0vRQhhOcGxiJkHtIvnr8+WA1QIyfzFHYCNThk7TKWRR2tS0YWTAzyIF5DGqiQbL4wZ8D8M
+Y/4=
+
+-->

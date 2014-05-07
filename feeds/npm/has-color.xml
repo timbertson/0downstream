@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/has-color.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c8c78ad44d779a53d5be6f5b0e88c9d3e9a0efd6" version="0.1.7">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/has-color/-/has-color-0.1.7.tgz" size="986"/>
+			<rename dest="has-color" source="package"/>
+		</recipe>
+		<manifest-digest sha256="6f2936ea8d2d5c43c1d5450478f4cd76a8efd940590c03fb1368371a5c4aa974"/>
+	</implementation>
+	<name>has-color</name>
+	<summary>has-color npm package</summary>
+	<homepage>https://npmjs.org/package/has-color</homepage>
+	<description>Detect whether a terminal supports color</description>
+	<gfxmonk:upstream id="has-color" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah19AAoJEOA/kc8tk45WKQAH/i7RZtqY9cA3HEeumCGTbeIfMwDY4QOw26Iy
+qmYDX8THAowttCbj+BNmUen7x3hqsvNW9JLKEDPn3WZhBrkCCJT42AWpe7gVta70Wizatb8PldIn
+hpi1pLg3XfvovGYHd3rWlEIFkTi+voctkrm5km9vCs756diLrK8gwSdclxGWFhmK15CBKqg2z2In
+tlPbhZrqDq32Ox0iBqAPi+onOTgsXHKYHuCtiD/9jBtgjAn3Ep0Rr0F6kcWcTjgRnuxZB70AQbWf
+mYzguwUJFcybqpy/7S2iN1RAox8FNSxHjjrdbIgPRgMfMvhfcfC9YmJ8OQYO5+9ghCNHRJj0qkoi
+PiA=
+
+-->

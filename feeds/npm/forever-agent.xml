@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/forever-agent.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=b6bf6c6413059d8b9bd52b5bf579f87ee1cda6ef" version="0.5.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/forever-agent/-/forever-agent-0.5.2.tgz" size="4875"/>
+			<rename dest="forever-agent" source="package"/>
+		</recipe>
+		<manifest-digest sha256="85dfbc0e7e47f9494db5ac3a5aeb1b3cb00c23395de45280d088efa38b2867b4"/>
+	</implementation>
+	<name>forever-agent</name>
+	<summary>forever-agent npm package</summary>
+	<homepage>https://npmjs.org/package/forever-agent</homepage>
+	<description>HTTP Agent that keeps socket connections alive between keep-alive requests. Formerly part of mikeal/request, now a standalone module.</description>
+	<gfxmonk:upstream id="forever-agent" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah21AAoJEOA/kc8tk45WzLwH/jQcqXIbC/67cQsbgdnSi2TUdbZTWSU5M1hb
+JsmhMi8+71LEjv9U67s+80WY+O9aqt0wkKv6Y1Icyq3BIJI3sMI+5V0wkQoCxMApqe0BSyLui+uH
+JqPvpG72P5aM0zrdAy1W4R1eO7DcgmMmGG1y6gLZR0m7xunsjAim3C3QA1dloEOxZfvYqJUHOrkR
+mNqKWhpvqjMBfRyWg9KaeciUQhVITi4qYJZd0L0gg+oxQR8NrLZWFEvKEximPY4gd5eCXkfEoxtp
+dLxEsH9OlZ69aYLn3TP9xUh8Z2+WoGedN13VsyigoJf8DeFJNSAhQBWTD9kRNY1p09JQCMut1nwm
+Wck=
+
+-->

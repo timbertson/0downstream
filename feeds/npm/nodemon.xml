@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/nodemon.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=0e74d7107e16a5ca510eddc440184af45b1fd605" version="1.0.17">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="nodemon/bin/nodemon.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/minimatch.xml">
+			<version before="0.3" not-before="0.2.14"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/update-notifier.xml">
+			<version before="0.2" not-before="0.1.7"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nodemon/-/nodemon-1.0.17.tgz" size="4504166"/>
+			<rename dest="nodemon" source="package"/>
+		</recipe>
+		<manifest-digest sha256="96ac307dac95a8dc7d471c280dac72ca3774748cd8874daf4ab93039eb1c36a8"/>
+	</implementation>
+	<name>nodemon</name>
+	<summary>nodemon npm package</summary>
+	<homepage>https://npmjs.org/package/nodemon</homepage>
+	<description>Simple monitor script for use during development of a node.js app.</description>
+	<gfxmonk:upstream id="nodemon" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah9IAAoJEOA/kc8tk45WcNUIAIrB2rsfRJwrLdlie0cG2hVUdP+ns3XpKFZg
+huHKYNHh3U58E4jXfJ2tJskqWxq6k76JehfahHzpxLfy1bpjeTJOIHOvQ73kz81Uy+/80BfMQQ6P
+ALDO6oWyvyNo8iNDPKRPPy9mnMyeIXp9kUeFz5EMOLEH5gQ3luN66wX4qyCRQcjnVvFiIihcmvqf
+/uKkyjoRslyTQEVkWYXtbezM5qGueeOhoOo7UsdcDaIavKQkoghuS+eBoJLICkF0hav7dO5XgeqJ
+asXOuJKRelbVBTjyqysWmq8kYcHdP8dry9EHa4nNFFkHZYfq2hYNOzPXVpubD5aD6lMWvCR6jovs
+CQw=
+
+-->

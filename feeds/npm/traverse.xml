@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/traverse.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=54ce07aba5d8a84dce080e70631cb953e8680e2b" version="0.6.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/traverse/-/traverse-0.6.6.tgz" size="11200"/>
+			<rename dest="traverse" source="package"/>
+		</recipe>
+		<manifest-digest sha256="754ac4b2ba4d85ab55e95b3ce22cf200fa6212bc716e89cc10b957c08ec1cb05"/>
+	</implementation>
+	<name>traverse</name>
+	<summary>traverse npm package</summary>
+	<homepage>https://npmjs.org/package/traverse</homepage>
+	<description>traverse and transform objects by visiting every node on a recursive walk</description>
+	<gfxmonk:upstream id="traverse" type="npm"/>
+	<implementation id="sha1new=346db29c9866a5ad52b7eb89beff84bb9a26650f" version="0.5.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/traverse/-/traverse-0.5.2.tgz" size="10388"/>
+			<rename dest="traverse" source="package"/>
+		</recipe>
+		<manifest-digest sha256="a4a055bb31bf039c6ee499404eb4a1ef30746341dd1f61d3d49cba35569d9d73"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1gAAoJEOA/kc8tk45WqCMH/1yj2KbgVKANMwJCB71e2A4ecN0UYwVXXYGd
+TeWXWXmJZ9MDmFkAyiaWaYmownjS4UgsyHQIvl5uB0t7vArj4ZVqx17sH6YtA6kNjWadG7oFSPkO
+hfdAVnz/WUS6amFMIe2D53zvTdQR10SCaOVw6va2CteF6UaqTFLiq9eIirSgO1SJP0MQ8kqyzz14
+SDbcAZCSGNxNuXBfbFCC0j+M4yHvmk/WJ/G5ulRZflt+7idMLUuOjEhxbBWvYs3spoVWusmZEf3W
+eYzlEI4n3wYsWvN1p83024+SDJH43Ovw+aqLLGpX8h9W47EXMSEi/Toa/gkHDFb6yR4AJ9Nw773J
+ZQc=
+
+-->

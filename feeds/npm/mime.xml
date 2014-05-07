@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/mime.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=2c59094562720ae0b3618e4e817bc8050ab5ce26" version="1.2.11">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/mime/-/mime-1.2.11.tgz" size="20312"/>
+			<rename dest="mime" source="package"/>
+		</recipe>
+		<manifest-digest sha256="abb0bc022d4884f96670616f02223322b76eec57dec9af0a26f6632270d2968b"/>
+	</implementation>
+	<name>mime</name>
+	<summary>mime npm package</summary>
+	<homepage>https://npmjs.org/package/mime</homepage>
+	<description>A comprehensive library for mime-type mapping</description>
+	<gfxmonk:upstream id="mime" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah23AAoJEOA/kc8tk45WudYH/A384rE6yOlHQOlTizT5T+qsgYF48ymXKUrj
+m1SHSOfzCHSGjqbs1JAh3qBXq4cIQ81f3qERue6KEVRZY35nmz7Rc7HvvzP1qVr9dO3qtD1MGfJm
+OuQJGww7/THyJEPkpUU1blvuYOc3OJO/pC1rOgND6czaFa1Cjkh2rigCmuZ6BOAkni4vCFbVGJlt
+MIYMZ3tUgqtOqbz2IAv7r9mGcLsmGsIVcaqMmZ6Im+4NqA6sK/GM9mvW5JSncI8UiYfa5pr+ztVe
+3sQjEXgHHqQWMB54UKWI+LnPkCGF0EG92rmw9qZM84EilOwsqD7aClL4uROOjalR+3z4kCDOetzW
+qp4=
+
+-->

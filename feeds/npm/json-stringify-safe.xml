@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/json-stringify-safe.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=85e330e29e0d74425d940c980ba3c15a10332365" version="5.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.0.tgz" size="2653"/>
+			<rename dest="json-stringify-safe" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c9c9d3d821f4f36af0ffa53caf04c0db05cc583dbb330515eed1b9c86df1e7d9"/>
+	</implementation>
+	<name>json-stringify-safe</name>
+	<summary>json-stringify-safe npm package</summary>
+	<homepage>https://npmjs.org/package/json-stringify-safe</homepage>
+	<description>Like JSON.stringify, but doesn't blow up on circular refs</description>
+	<gfxmonk:upstream id="json-stringify-safe" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3XAAoJEOA/kc8tk45WElQH/ReICRpQlPjGViyEJeuGDOFmKkdVzdoo38C3
+z5P7ExLeOeN0I4JOpRQGMezmAf8YugC+KskY/D0IneiJcXDDMopZyGxG+5I62TRU8aeZfVsIIL5b
+7yqZf2tGLNW16d27dvYHjJAHhjqpp1+3T05vtX5FKyoZnQWI44/BSXpKXrMtplOJ/tSWdTpoHJ5f
+GjOnk+otJH43CuoHV1ckJ8QoUtPYyI7i4u03GhaJQwJDEdaiO+C5499K+KJtgnegmvZsTj0YVbAu
+EpdVCNTcKRrBnp70Df33W25Q+ejyVShoCGkktqPDOzShFGnKHSBujcaIfpX81VVqntSZsMfU66bF
+vDM=
+
+-->

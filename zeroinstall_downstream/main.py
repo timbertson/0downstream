@@ -4,6 +4,7 @@ import os, sys
 import argparse
 import logging
 import bdb
+import json
 from zeroinstall_downstream.project import guess_project, SOURCES
 from zeroinstall_downstream.project import make as make_project
 from zeroinstall_downstream.feed import Feed
@@ -12,6 +13,7 @@ from zeroinstall_downstream import actions
 from zeroinstall_downstream import proxy
 
 prompt = getattr(__builtins__, 'raw_input', input)
+EXPORT_VERSION = 1
 
 def run():
 	parser = argparse.ArgumentParser()
@@ -20,7 +22,7 @@ def run():
 	parser_add = sub.add_parser('add', help='add or update a feed (and all missing dependencies)')
 	parser_add.add_argument('--version', '-v', help='add a specific version, not the newest')
 	parser_add.add_argument('--interactive', '-i', help='select version interactively', action='store_true')
-	parser_add.add_argument('--recursive', help='also update dependencies', action='store_true')
+	parser_add.add_argument('--recursive', help='also update dependencies', action='store_const', const=actions.create)
 	parser_add.add_argument('--recreate', help='regenerate feed (republishes each version with the current config)', action='store_true')
 	parser_add.add_argument('--info', action='store_true', dest='just_info', help='update project info (existing feeds only)')
 	parser_add.add_argument('specs', nargs='+', help='feed file or project identifier (upstream URL or <type>:<id>, for type in %s)' % ", ".join(sorted(SOURCES.keys())))
@@ -39,6 +41,16 @@ def run():
 	parser_proxy.set_defaults(func=proxy.run)
 	parser_proxy.add_argument('--max-age', '-a', type=int, help='max-age of cached resources, in hours. -1 == forever', default=24 * 7)
 	parser_proxy.add_argument('--port', type=int, help='HTTP proxy port', default=8082)
+
+	parser_export = sub.add_parser('export', help='export feed state (projects and versions) to JSON')
+	parser_export.set_defaults(func=export_state)
+	parser_export.add_argument('--force', '-f', action='store_true')
+	parser_export.add_argument('dest')
+	parser_export.add_argument('feeds', nargs='+', help='feeds to include in export')
+
+	parser_import = sub.add_parser('import', help='recreate all feeds present in a previously-exported file')
+	parser_import.set_defaults(func=import_state)
+	parser_import.add_argument('file')
 
 	args = parser.parse_args()
 	if args.debug:
@@ -166,6 +178,36 @@ def check(opts):
 		else:
 			print("up to date: %s" % (location.path,))
 	return rv
+
+def export_state(opts):
+	assert opts.force or not os.path.exists(opts.dest), "destination already exists"
+	state = {
+		'version': EXPORT_VERSION,
+	}
+	feeds = []
+	for path in opts.feeds:
+		print("exporting %s" % path)
+		feed = Feed.from_path(path)
+		attrs = feed.get_upstream_attrs()
+		assert make_project(**attrs) # ensure this is enough info to create the project
+		feeds.append({'project': attrs, 'versions':list(map(str, feed.published_versions))})
+	feeds = sorted(feeds, key=lambda info: (info['project']['type'], info['project']['id']))
+	state['feeds'] = feeds
+	with open(opts.dest, 'w') as f:
+		json.dump(state, f, indent=2, sort_keys=True)
+	
+def import_state(opts):
+	opts.recursive = actions.update
+	with open(opts.file) as f:
+		state = json.load(f)
+	assert state['version'] == EXPORT_VERSION, "unsupported version"
+	opts.recreate = state['feeds']
+
+	for item in state['feeds']:
+		project = make_project(**item['project'])
+		location = opts.config.resolve_project(project)
+		assert location is not None, "can't recreate project %r" % project
+		actions.update(project, location, version=None, opts=opts)
 
 if __name__ == '__main__':
 	sys.exit(run())

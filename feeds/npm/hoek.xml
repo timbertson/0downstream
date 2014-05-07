@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/hoek.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=e391ce9e817ac92e7c7b42b07b202aff60129a66" version="2.1.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/hoek/-/hoek-2.1.0.tgz" size="55429"/>
+			<rename dest="hoek" source="package"/>
+		</recipe>
+		<manifest-digest sha256="fdf13f4a2455f2619f48a4c71b876bb97d92e9b2c63c4b0d5346322eb5c010f7"/>
+	</implementation>
+	<name>hoek</name>
+	<summary>hoek npm package</summary>
+	<homepage>https://npmjs.org/package/hoek</homepage>
+	<description>General purpose node utilities</description>
+	<gfxmonk:upstream id="hoek" type="npm"/>
+	<implementation id="sha1new=3c7c7edc9dd5b5c9639697bdbca43174cd3e2e5d" version="0.9.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/hoek/-/hoek-0.9.1.tgz" size="56147"/>
+			<rename dest="hoek" source="package"/>
+		</recipe>
+		<manifest-digest sha256="1b56a6d351b050ed53a2ac1d9434d8a388143c9eb1d41b87a1900bb6b94b637b"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1WAAoJEOA/kc8tk45WZz0H/RpIfcdMpmbL9tUGOfvafCbAwxbArBk6I7fX
+Eob99EgYeafqJC8cn4XogdxmH/u3tel0w51kgQFHRqnMZUQOKFzwAYViJll+RK50b9y+GZ4eJqyE
+eRAntKUtSApLevFzm6ZXCXOZtuVwjIbY4NIWecLiEal+HOjEf7aWKoap9fv0aIZN7Luyg4TA+Sdn
++2/m2tmS2scKsXymv8IlEQGrWOa2JpTcLlRPn1y2hS/Fy8lrvOVOOCCpq3yxynMumZRsEEEzokuO
+joXttARMIIoxhcjaQD6z9zf82p58rWSqtAaeZyYfholQnmLVtQpjU9QCwWePj9fgIlt38jAmPzv+
+/5M=
+
+-->

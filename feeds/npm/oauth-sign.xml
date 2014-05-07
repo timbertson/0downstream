@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/oauth-sign.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=4f35bdaeb05363e78d549cdbb93a9047813ea9f9" version="0.4.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/oauth-sign/-/oauth-sign-0.4.0.tgz" size="5978"/>
+			<rename dest="oauth-sign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="9f760efeca351b03ebd15c1b33d25643cda5f5b597c2352708edadb0b2334375"/>
+	</implementation>
+	<name>oauth-sign</name>
+	<summary>oauth-sign npm package</summary>
+	<homepage>https://npmjs.org/package/oauth-sign</homepage>
+	<description>OAuth 1 signing. Formerly a vendor lib in mikeal/request, now a standalone module.</description>
+	<gfxmonk:upstream id="oauth-sign" type="npm"/>
+	<implementation id="sha1new=f9dd49b8b827631964584e038047aa48e02a1193" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/oauth-sign/-/oauth-sign-0.3.0.tgz" size="5248"/>
+			<rename dest="oauth-sign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ae0f1d546d474e4c92503fb264de04e88dfae27a214527369867db0cce419921"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah4GAAoJEOA/kc8tk45Ww/MH/1vCRLaMtxD2KCbhHgpBt81lQ7/qr7Qi7Nks
+u2gGSy9WpZxL3shmcTc9c8Adb/QwrZj+zWFbcT0TOeydl5C1yBYqAJ2a74QhzaxJ5Abq9GanA2C5
+avI5Do/O4EwjhaoYl3gtQyZbUoOZAV28UAr15HT8aGdr2BZZHLPO8eWAwjcE84pmKGKBLU/IPxiw
+spUm5NViBG+nKfuU2h27iQlVwEwf6brq594iryppFoifU8Bsf8DLaf3AkOvHLstTlKz5YPYuQGWU
+rhA5OuBPYF2YS6aSpecDxfaZiZmUTEB6OVhIFgk55ZMTFvsz9oEkZ1BUatWgm4BeZWRSECM1B73E
+DkM=
+
+-->

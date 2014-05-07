@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/update-notifier.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=87633a54103fb5c14d7569381edab0587e243d38" version="0.1.8">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/chalk.xml">
+			<version before="0.5" not-before="0.4.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/semver.xml">
+			<version before="2.2" not-before="2.1.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml">
+			<version before="2.28" not-before="2.27.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/configstore.xml">
+			<version before="0.3" not-before="0.2.2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/update-notifier/-/update-notifier-0.1.8.tgz" size="4218"/>
+			<rename dest="update-notifier" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4f4414ae297a54ef97d6c77d316cbba40d7503cd19b7b79bb45c170af396a8c7"/>
+	</implementation>
+	<name>update-notifier</name>
+	<summary>update-notifier npm package</summary>
+	<homepage>https://npmjs.org/package/update-notifier</homepage>
+	<description>Update notifier for your package</description>
+	<gfxmonk:upstream id="update-notifier" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah9CAAoJEOA/kc8tk45WY3cIAIOGoWjQEujsOqXwkUZpltveBWrCSo4qy1oH
+v0RLQpZURbIFrp2RynqCQtckuIQF/6qBmJHriRZOMdpc/K2BjSElZHbHcVaiohhpiBpo+BpA1YZQ
+PHS1qQoi1ifesaTQ+oTHP/OF0WViwtCzNvFGd+FMGDI5xr7u2qCJiXz7rYVe7j4OaB9Km0uF4G7H
+jXfDVNBqpQDhf5OP/C+f2ts1GYZnRBEcxKrOwz6/DiETEBjqGU7Dy6OpDc2FsFPuSWdnQ+FaUmdI
+Dv898kEz0cp6wSg26gsL+OTI8fUM8f2mStnHi6Aks8i74cE689BMPcjeVJynG6nsafwrw6Ajkj2q
+Cpw=
+
+-->

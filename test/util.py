@@ -21,7 +21,7 @@ def init_tests():
 	proxy_thread.start()
 
 	# wait until the proxy's ready
-	os.environ['http_proxy'] = 'http://localhost:%d/' % opts.port
+	os.environ['http_proxy'] = os.environ['https_proxy'] = 'http://localhost:%d/' % opts.port
 	s = socket.socket()
 	try:
 		while s.connect_ex(('localhost', opts.port)) != 0:

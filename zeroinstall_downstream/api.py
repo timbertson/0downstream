@@ -50,7 +50,7 @@ class Release(object):
 		self._project = project
 		self._release = release
 		self._location = location
-		self.type = project.upstream_type
+		self.upstream_type = project.upstream_type
 		self.id = project.id
 		self.template = None
 		self.template_vars = {
@@ -77,6 +77,9 @@ class Release(object):
 			children.append(Attribute('compile:dup-src', 'true', namespace=COMPILE_NAMESPACE))
 
 		self._compile_properties = _CompileProperties(command, children)
+	
+	def rename(self, *a):
+		return self._release.archive.rename(*a)
 	
 	def add_to_impl(self, tag):
 		self.interface_children.append(tag)
@@ -129,12 +132,12 @@ class Release(object):
 
 			if os.path.exists(location.path):
 				if self._opts.recursive:
-					actions.update(project, location, version=None, opts=self._opts)
+					self._opts.recursive(project, location, version=None, opts=self._opts)
 				else:
 					logger.debug("Skipping existing dependency %s (use --recursive to update dependencies)" % project_id)
 			else:
 				# TODO: create a version which will satisfy the dependency
-				actions.create(project, location, None, self._opts)
+				(self._opts.recursive or actions.create)(project, location, None, self._opts)
 	
 	@property
 	def release_info(self):
@@ -216,7 +219,9 @@ class Release(object):
 
 	@property
 	def working_copy(self):
-		return self._release.archive.local
+		local = self._release.archive.local
+		extract = self._release.archive.extract
+		return local if extract is None else os.path.join(local,extract)
 
 	def generate_local_feed(self):
 		return self._generate_feed(local=True)

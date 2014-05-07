@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/object-assign.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=b0cb4aed5f576cfdeaf377fc7332770bec69c6d1" version="0.3.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/object-assign/-/object-assign-0.3.1.tgz" size="1354"/>
+			<rename dest="object-assign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="9a36038bcf5eef90546430c38d2ec775e7e315060b55a56a974d7a8ec304ab4f"/>
+	</implementation>
+	<name>object-assign</name>
+	<summary>object-assign npm package</summary>
+	<homepage>https://npmjs.org/package/object-assign</homepage>
+	<description>ES6 Object.assign() ponyfill</description>
+	<gfxmonk:upstream id="object-assign" type="npm"/>
+	<implementation id="sha1new=79cc800f809c51851baca251ca74f5b39ca8f76c" version="0.2.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/object-assign/-/object-assign-0.2.2.tgz" size="1416"/>
+			<rename dest="object-assign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b22e8a08aea5d417bd95f68cae1e91d7d4744e22eccafdc02d46c5d3a90e30e1"/>
+	</implementation>
+	<implementation id="sha1new=9eec6349b1c4120bb448bee01cff439ac4a57549" version="0.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/object-assign/-/object-assign-0.1.2.tgz" size="1401"/>
+			<rename dest="object-assign" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0d059e3f259c3ff5d2c13981ecbe57c59b9ed537c6c7792d31ec2549800ef5fa"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2MAAoJEOA/kc8tk45WW4sH/3VZqz9LI4VahDbDqA0sQdjT42WpYkjae7e6
+HtQgtPn+3CMS5XXJO8DuwYkxHkFr3vEv8ht7lE98PNLzVBq9+fCa8+HeSiHSY4p/3xgqGmGfU/Ok
+j2Y0AZ63o6CKYhx7YeKiH1GBe9YINQJ6YnXhQL2I1GbBVg/Qky4q+TlWv0rjE/PAJjiyF7z2fpoV
+Sf+hJqMkmmDdIy5oTpo5TYwwL30LxViZijc1xTuoFX7nnxrJeaoVzOQpSQEYE2ebppeGcKwrurq0
+5jKcQQ3tkmfUTWReobdUz+1C1SrT8UflYMy07hH/9Lx+9A0aiTRW3PravYsG+VrxitLpOwr3LO1I
+Pqo=
+
+-->

@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/runforcover.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=5d433999f1eec49c2bdfe90671fd3b859cba289e" version="0.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/bunker.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/runforcover/-/runforcover-0.0.2.tgz" size="2765"/>
+			<rename dest="runforcover" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0437118231ed0d802b49896f1c88c00ea50bddf5bc14473677f393298c3ca7fa"/>
+	</implementation>
+	<name>runforcover</name>
+	<summary>runforcover npm package</summary>
+	<homepage>https://npmjs.org/package/runforcover</homepage>
+	<description>require plugin for js code coverage using bunker</description>
+	<gfxmonk:upstream id="runforcover" type="npm"/>
+	<implementation id="sha1new=f71a941854cc1847861013ed2809115e61f4fbe9" version="0.0.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/bunker.xml">
+			<version before="0.2" not-before="0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/runforcover/-/runforcover-0.0.1.tgz" size="2772"/>
+			<rename dest="runforcover" source="package"/>
+		</recipe>
+		<manifest-digest sha256="98aa7ab034bf8fbcc904c187abe5bff2d5b1029e1114979cec667df523ad1d10"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah9NAAoJEOA/kc8tk45WNsQH/31F9JR9Cpp2QWM5c8XMxN7/Hx6UsSaJM2ui
+XjQEsEK6jS4On9uISDnpoGDSPdlunvkHug/8lY9UZKkCObZPfur/NXzsSaHOfn3P0YZi65st+3+V
+2rHNODxlIxJAe4c2SX5zj5hltyDdu5rz9CPUqkBUU7wPGix6UJHXKAvoxDfCA4yVfZXoz9Jo+eGE
+huIBiZrVja9AI57mwIrCnsl8OZcYlhNizrnbKyxoOJcfGxDgP0iEQvHhjI6YRM9qhGjBJa2uVu11
+tXIfle8hh63LSyN8IHlrvbDdM9n5hvZ2usrQdFAHEna+pfTBlWqi3Pd71oBcvPQkKKeBTqCV+w32
+lQw=
+
+-->

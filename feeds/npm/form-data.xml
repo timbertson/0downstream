@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/form-data.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c5f6ef9df9456d47ac0a7781a50be778db2f639f" version="0.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/async.xml">
+			<version before="0.3" not-before="0.2.9"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mime.xml">
+			<version before="1.3" not-before="1.2.11"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/combined-stream.xml">
+			<version before="0.1" not-before="0.0.4"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/form-data/-/form-data-0.1.2.tgz" size="5504"/>
+			<rename dest="form-data" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e10f17f999f730c1f7a1cf5f77c4bcc27ed63653e9dd5bb3e04f75f98cdd2ad0"/>
+	</implementation>
+	<name>form-data</name>
+	<summary>form-data npm package</summary>
+	<homepage>https://npmjs.org/package/form-data</homepage>
+	<description>A module to create readable &quot;multipart/form-data&quot; streams.  Can be used to submit forms and file uploads to other web applications.</description>
+	<gfxmonk:upstream id="form-data" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah26AAoJEOA/kc8tk45WMD4H/AzKTofKzv7IEkJkuDuhZC7HmDDLBlg8Cpyh
+Qz9BEXusp9MSeQiAkyysGmD7XCXlBjmFxFjjc3OVsHffkCylflPs8aEZZPaLS8uhoJv4xhlPwIgT
+g/SOBU61UJj2njg62dC7kNHG8lbNBKOv6f7FxwoVXb5xRpOZsK6NmVvMo0KiBN76OrjCKy0NQtE+
+IjeV0j7ZICdo54LMwqSzNTXjowrztd63fLrIf/DANhijKq/hMItkSG0SeIf2FDUTQ2WFw7XORYAg
+kIcDpWnw997R+K+Ssis6w2Ku2H/HfEGZPOkDVPj4CPcPk3/7aSU276cqRtbWWI8iuR7RjCc3uo6P
+rao=
+
+-->

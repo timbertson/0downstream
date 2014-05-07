@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/abstract-leveldown.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=c822775ae2fecf88ab0d44b1d955a45e4fdcade7" version="0.12.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/xtend.xml">
+			<version before="2.2" not-before="2.1.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/abstract-leveldown/-/abstract-leveldown-0.12.2.tgz" size="16940"/>
+			<rename dest="abstract-leveldown" source="package"/>
+		</recipe>
+		<manifest-digest sha256="32f94e9cb8d946e1afb76f5d92c63f3e6ea7706cc811ee1302c1d9d92de3aec9"/>
+	</implementation>
+	<name>abstract-leveldown</name>
+	<summary>abstract-leveldown npm package</summary>
+	<homepage>https://npmjs.org/package/abstract-leveldown</homepage>
+	<description>An abstract prototype matching the LevelDOWN API</description>
+	<gfxmonk:upstream id="abstract-leveldown" type="npm"/>
+	<implementation id="sha1new=ef08e44478b6dcb48da6ca265ef9c8c5674078ba" version="0.11.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/xtend.xml">
+			<version before="2.2" not-before="2.1.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/abstract-leveldown/-/abstract-leveldown-0.11.4.tgz" size="16937"/>
+			<rename dest="abstract-leveldown" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8ad04318b64fdfd900ee12262996d7a40bd124b5b93cdb91585cd914c06d00f9"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah0wAAoJEOA/kc8tk45WvTUH/jkNP5Z28wHog364CrNN3Q/B4yKtmksnBLGh
+Blu8KZGggkNwjZYE+lbz7hVnDDDpYg6BbhSl+omgbzceH4S5Xr+iQx8xKt3d/mcCtrjGeZKg04Y5
+bL3mWaM0ea9a25y4Gu2GzOM3gUwEih/c+cmc5aKJUzkbYv4aLDaaCEiMhBZV9yesNKAhm1xuJeO5
+fxwpkk/9KnajcUpKU0ghx+n4/cB4e94Tkg9eJyqGT7wOWG07gALGnB5hpdXu150kacmXjwuT0gUP
+VENQ6YzHUwf6gFYOFFJXTHUy4u1FYFLRIPo15Tnfan2Np3T2z55gNmvEdhpevzbho2Yx0w31cLXt
+gCs=
+
+-->

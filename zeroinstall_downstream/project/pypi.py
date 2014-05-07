@@ -1,15 +1,28 @@
 import re
 import logging
-import xmlrpclib
 import datetime
-from .common import cached_property, Implementation, BaseProject
+from .common import cached_property, Implementation, BaseProject, BaseRelease, getjson
+from .. import composite_version
+from ..archive import Archive
+from ..tag import Tag
+
+class Release(BaseRelease):
+	def __init__(self, project, version, info):
+		super(Release, self).__init__()
+		self.version = version
+		self.released = info['upload_time'][:10]
+		self.info = info
+		self.url = info['url']
 
 class Pypi(BaseProject):
 	upstream_type = 'pypi'
 	def __init__(self, id):
 		self.id = id
 		self.upstream_id = id
-		self.client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+
+	@cached_property
+	def _info(self):
+		return getjson('https://pypi.python.org/pypi/' + self.id + '/json')
 
 	@property
 	def url(self):
@@ -27,28 +40,19 @@ class Pypi(BaseProject):
 			logging.debug(e, exc_info=True)
 			raise ValueError("can't parse pypi project from %s" % (uri,))
 
-	@cached_property
-	def version_strings(self):
-		return self.client.package_releases(self.id)
+	@property
+	def _releases(self):
+		for v, info in self._info['releases'].items():
+			info = [i for i in info if i['packagetype'] == 'sdist']
+			if not info:
+				logging.debug("No source release for %s" % v)
+				continue
+			v = composite_version.try_parse(v)
+			yield v, Release(self, v, info[0])
 
 	@cached_property
-	def _release_data(self):
-		return self.client.release_data(self.id, self.latest_version.upstream)
-
+	def homepage(self): return self._info['info']['home_page']
 	@cached_property
-	def homepage(self): return self._release_data['home_page']
+	def summary(self): return self._info['info']['summary']
 	@cached_property
-	def summary(self): return self._release_data['summary']
-	@cached_property
-	def description(self): return self._release_data['description']
-	def implementation_for(self, version):
-		info = self.client.release_urls(self.id, version.upstream)
-		info = filter(lambda x: x['packagetype'] == 'sdist', info)
-		if len(info) == 0:
-			raise ValueError("no `sdist` downloads found")
-		info = info[0]
-		released = datetime.datetime(*info['upload_time'].timetuple()[:6])
-		return Implementation(version=version, url=info['url'], released=released.strftime("%Y-%m-%d"))
-
-
-
+	def description(self): return self._info['info']['description']

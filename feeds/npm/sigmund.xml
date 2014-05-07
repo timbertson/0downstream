@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/sigmund.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=9374e7ff895a399de9fe94ac57c63ad428dc75e8" version="1.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/sigmund/-/sigmund-1.0.0.tgz" size="4027"/>
+			<rename dest="sigmund" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d58fe3c0be469ed5f0b9521b09ad73cb55fe40848aa9c568828f873952da94b6"/>
+	</implementation>
+	<name>sigmund</name>
+	<summary>sigmund npm package</summary>
+	<homepage>https://npmjs.org/package/sigmund</homepage>
+	<description>Quick and dirty signatures for Objects.</description>
+	<gfxmonk:upstream id="sigmund" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah3EAAoJEOA/kc8tk45WALwH/R7T0JFbNxG7iKSSJD/AnPTHQKmO3kT4mDzy
+y/MOV/oj4PoEjLvVAmiydowNulyh4IYyA9nrHxLyGo/pd+vTS1tC74DMv5ClFu+kJfynCzO9iRFy
+mqjuMV7EF3SMBitCH9vrfIktdnbsNWqwnUiCpnqzOALxmljPCV83GQBPdHBBWuJiaNU3Y+j6QSc3
+OgdKUGdbbIId0+hmZTCLJpd/x3QOlp09AL+seHZMQfackSjQgttzEsGtTmfqqb/JhYYJ0fB14w+V
+tkBTkJLudrjLtQ/G+vcoiqpgvwXiJtexcm6c5vihkiImabp+gmtRkWzME8//t8NTtK0bcAMpM/38
+J4Q=
+
+-->

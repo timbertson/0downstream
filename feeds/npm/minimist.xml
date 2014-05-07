@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/minimist.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=613766592a3aba6337cf0a833f6e231303fa73a6" version="0.0.8">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz" size="5990"/>
+			<rename dest="minimist" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b4a133f589b7cc236cb72e06ae98a563431f62fe23d6465540bb757fa2ce63c9"/>
+	</implementation>
+	<name>minimist</name>
+	<summary>minimist npm package</summary>
+	<homepage>https://npmjs.org/package/minimist</homepage>
+	<description>parse argument options</description>
+	<gfxmonk:upstream id="minimist" type="npm"/>
+	<implementation id="sha1new=4484d6455ffe382034ad097756cbf9d9c19926cb" version="0.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/minimist/-/minimist-0.0.0.tgz" size="5687"/>
+			<rename dest="minimist" source="package"/>
+		</recipe>
+		<manifest-digest sha256="5f8d8e3b207e59c3a598d7eabbee65da7f7ba543d9c85823ad9bc3eae6b561ac"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1sAAoJEOA/kc8tk45WK4EH/i0fiuF+U5+7cLoag986rcVE7X32u6fzKahZ
+etNSVDw7vPqjjcSLj3a7djNRnv20FBJPNJW8WM0yh/XxJO/g2HOIe6Z+fXCJ4IQJDJQsCc4SB5oC
+oQuUwwD9cbT/VH85NBgh0tbJowAb5/k4iQGqdjVYXoduW2MwWP8JOhp+hbfv52ir8a/pPGHmXLNn
++m4Qt1tK7S7gfX39/QFvCa4Uwivt4fk2fHC4OX07el58PDK/b+nZ0UH1YjlzNG7JGIINHDHEQN6w
+vgPehM/k57s7myP0UDNTyJud1OH914rbNmVnBWpOd54WgtdcmYt8wy7mX4lXilUCaXIC4YV1Oh25
+r0c=
+
+-->

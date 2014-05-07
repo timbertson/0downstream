@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=60a79faad3eaaeec664d77c2fc4b70e36686d176" version="2.2.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="rimraf/bin.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/rimraf/-/rimraf-2.2.6.tgz" size="3999"/>
+			<rename dest="rimraf" source="package"/>
+		</recipe>
+		<manifest-digest sha256="bb1b3de2270c1853fc17394a332f84a7e9d17e384ef4b770833ec0e9d86f59d3"/>
+	</implementation>
+	<name>rimraf</name>
+	<summary>rimraf npm package</summary>
+	<homepage>https://npmjs.org/package/rimraf</homepage>
+	<description>A deep deletion module for node (like `rm -rf`)</description>
+	<gfxmonk:upstream id="rimraf" type="npm"/>
+	<implementation id="sha1new=907c8421f40788599b0b32249aeeef8254e66e61" version="2.0.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/rimraf/-/rimraf-2.0.3.tgz" size="3398"/>
+			<rename dest="rimraf" source="package"/>
+		</recipe>
+		<manifest-digest sha256="61221218cf12e8a5b1b173e277eff03dc97182837558d2533e861c31628acc82"/>
+	</implementation>
+	<implementation id="sha1new=2c9d7ac12e064a94df90cff7e791081c9fa07f70" version="2.1.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/rimraf/-/rimraf-2.1.4.tgz" size="3301"/>
+			<rename dest="rimraf" source="package"/>
+		</recipe>
+		<manifest-digest sha256="2f022340527a29696b63efc5c2d08c915cdce73ea09efa45600db55b0d72502a"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah7WAAoJEOA/kc8tk45WC7MH/1qc20YN95ZbZLCRGvZD61UWhGX7EMOg5zbj
+tjMQsC7Skde3dOXQkOuMyOBgb0EgkAnQotRoJCym9A2So88M/LNqWZiLCBEtr2u4vLStoXTptiZR
+u1AmJ+y84N8aXXgeUE/KuYTFtYPS8/lQeJxSwLwirJ2VKVTMyjIcXbsQdzc89onFItPDGq0UwB/v
+1yypQ5X7reh1KxO8VUgEQ9oAzuq9HpEVGJuZrwFBycu4z/IL4zkKwAXSQjNpXWBA4jWZh7QR1ZHo
+QTqUdX6gRnHmuSxbqclag1LyJ0G/Ny+aET0lIS41lh/uC+9AMYNvG703+bR8fNTTagjE7eZrVh26
+wUM=
+
+-->

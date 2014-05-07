@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/deep-is.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=af2dcd421318580271d2f4462323bdf59cd37a2b" version="0.1.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/deep-is/-/deep-is-0.1.2.tgz" size="2699"/>
+			<rename dest="deep-is" source="package"/>
+		</recipe>
+		<manifest-digest sha256="60ad4f87bc5c845364e34ec4f4e60f4564d25f2d52e2d84b64b893b0515feb94"/>
+	</implementation>
+	<name>deep-is</name>
+	<summary>deep-is npm package</summary>
+	<homepage>https://npmjs.org/package/deep-is</homepage>
+	<description>node's assert.deepEqual algorithm except for NaN being equal to NaN</description>
+	<gfxmonk:upstream id="deep-is" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah2sAAoJEOA/kc8tk45Ws70H/jrH1+1+fukbbW603SBWJzsJYPr5HjYysBzO
+zTkwl7SOF5gQ3nw3kPF5iEyB/78058Y+w8ZIgWvcAe0etBxlMO0U5GkOXZht500HIMlEsGtD+Xcl
+Vh+XK0gigo+/Kda7lzdW/WYi0kHHhjj30PnqbeFQobO9eQISqLkSmdXcW4ZebMReVYpUhf0m5gj5
+vSgS108aNms9ZcVbbFcbee8lFYHbueizlv7EajhrIvlp1uDdK/YhAZPOz/NfkV51y6vXWgWJukJh
+T3hgAXEWf5X2fjo2oiRPVvkSp3JsCngTKRC4afMCj5mV2IRdav1Vh5DXqrFBjepj5LE99LcBsm/I
+l9M=
+
+-->

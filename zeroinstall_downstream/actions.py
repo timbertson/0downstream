@@ -6,6 +6,7 @@ import subprocess
 
 from . import api
 from .feed import Feed
+from .project import make as make_project
 
 logger = logging.getLogger(__name__)
 
@@ -73,11 +74,22 @@ def update(project, location, version, opts):
 
 	with _indented():
 		if opts.recreate:
-			# create a new master feed that we'll add each previously-published version to:
-			feed = Feed.from_path(location.path)
+			if opts.recreate is True:
+				feed = Feed.from_path(location.path)
+				versions = feed.published_versions
+			else:
+				# recreate is an actual object containing projects & their versions
+				for info in opts.recreate:
+					attrs = info['project']
+					if attrs['type'] == project.upstream_type and attrs['id'] == project.id:
+						versions = info['versions']
+						break
+				else:
+					assert False, "Could not find versions to recreate for project %s"
 
+			# create a new master feed that we'll add each previously-published version to:
 			with tempfile.NamedTemporaryFile() as master:
-				for i, version in enumerate(feed.published_versions):
+				for i, version in enumerate(versions):
 					logger.info("%sadding %s version %s" % (INDENT, project, version))
 					version = project.find_version(version)
 					with _release_feed(project, location, version, opts) as local:
@@ -94,7 +106,6 @@ def update(project, location, version, opts):
 					_feed_modified(location, opts)
 			except AlreadyPublished as e:
 				logger.info("feed %s already contains version %s" % (location.path, e.version))
-				_feed_modified(location, opts)
 
 def create(project, location, version, opts):
 	if not _visit(location):
@@ -107,8 +118,7 @@ def create(project, location, version, opts):
 		with _release_feed(project, location, version, opts) as local:
 			assert not os.path.exists(location.path)
 			feed = Feed.from_path(local)
-			feed.make_canonical()
-			feed.save_to_path(location.path)
+			_save_feed(feed, location, opts)
 
 def update_info(project, location, opts):
 	feed = Feed.from_path(location.path)

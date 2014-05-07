@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/bindings.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=62827e5aca50f468cdf2095e34bd977be26f6062" version="1.2.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/bindings/-/bindings-1.2.0.tgz" size="3587"/>
+			<rename dest="bindings" source="package"/>
+		</recipe>
+		<manifest-digest sha256="83a8407e97b4dbaf3dd834748e54ef1ed6167daa2191bafa71570b90d836a511"/>
+	</implementation>
+	<name>bindings</name>
+	<summary>bindings npm package</summary>
+	<homepage>https://npmjs.org/package/bindings</homepage>
+	<description>Helper module for loading your native module's .node file</description>
+	<gfxmonk:upstream id="bindings" type="npm"/>
+	<implementation id="sha1new=66c8c0ada37912c3aa40ab067c58f8b9dbcec76c" version="1.1.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/bindings/-/bindings-1.1.1.tgz" size="3509"/>
+			<rename dest="bindings" source="package"/>
+		</recipe>
+		<manifest-digest sha256="498df320b408e0b47530d946c7eedbf5944b1f9fce75c7e8930c5e250d962a43"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTah1MAAoJEOA/kc8tk45Wl3IH/3/EqmSipakANwS8clbT2v/KklnZsobaz3tr
+yzpSMGiTkyYjJ46Z1LAuyYFC353gqgbns0gP9MnOn8EpepPuXfezxxlxr3EXq46s+4xsjxAPIrHk
+jjDvs16OLodlh5irxb8JHarl1z9/2ZxQMjDha7ViNdh6A3QmVi1OmeVcPZ1Gdc4PwcYXe+n3fBtV
+2O84ZKTRpk2zBWN7qWEB/cA2fkMkaIHM780STn5ml7aScUBJcDJ82b5tJEJhsjLQoSIObczVavdl
+g4DQgXtn/tNBmbjagRLYBnsQKk9gJDkORy8+toeTwoh1IzCtK8uEHBmpyjfG2yYFo+qg4NZM9Im7
+cyE=
+
+-->
