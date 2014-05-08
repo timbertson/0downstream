@@ -8,6 +8,7 @@ import tempfile
 import shutil
 import stat
 import json
+import shlex
 
 logger = logging.getLogger('zeroinstall_downstream.conf')
 
@@ -229,7 +230,50 @@ def process(project):
 		project.add_to_impl(Tag('environment', {'name': 'NODE_PATH', 'insert':"", 'mode':"prepend"}))
 
 		release_info = project.release_info
-		if release_info.get('gypfile') == True:
+		requires_compilation = release_info.get('gypfile') == True
+		# XXX nonlocal hack
+		_requires_compilation = []
+
+		def add_command(name, path, args=[]):
+			rel_path = os.path.normpath(os.path.join(project.id, path))
+			print(repr(os.listdir(os.path.dirname(os.path.join(project.working_copy, rel_path)))))
+			print(name, path, args)
+			if name == 'install':
+				logger.info("INSTALL@!")
+				# XXX nonlocal hack
+				_requires_compilation.append(True)
+				return
+			assert os.path.exists(os.path.join(project.working_copy, rel_path)), rel_path
+			args = [Tag('arg', text=arg) for arg in args]
+			project.add_to_impl(Tag('command',
+				{
+					'path': rel_path,
+					'name': name
+				},
+				[nodejs_runner] + args
+			))
+
+		scripts = release_info.get('scripts', {})
+		for name, command in scripts.items():
+			args = shlex.split(command)
+			rel_path = args.pop(0)
+			assert name != 'run' # this might conflict with `bins`, below
+			add_command(name, rel_path, args)
+
+		bins = release_info.get('bin', {})
+		if isinstance(bins, basestring):
+			add_command('run', bins)
+		else:
+			for name, path in bins.items():
+				if len(bins) == 1 or name == project.id:
+					# this must be the canonical bin:
+					name = "run"
+				add_command(name, path)
+
+		# XXX nonlocal hack
+		requires_compilation = requires_compilation or bool(_requires_compilation)
+		logger.info("requires_compilation = %r" % requires_compilation)
+		if requires_compilation:
 			project.add_to_impl(
 				Tag('requires', {'interface':NODEJS_FEED}, [
 					Tag('version', None, children=[
@@ -266,23 +310,6 @@ def process(project):
 			)
 			# do this again now that we've marked the feed as needing compilation
 			project.create_dependencies()
-
-		bins = release_info.get('bin', {})
-		if isinstance(bins, basestring):
-			bins = {project.release_info['name']: bins}
-
-		for name, rel_path in bins.items():
-			if len(bins) == 1:
-				name = "run"
-			rel_path = os.path.normpath(os.path.join(project.id, rel_path))
-			assert os.path.exists(os.path.join(project.working_copy, rel_path))
-			project.add_to_impl(Tag('command',
-				{
-					'path': rel_path,
-					'name': name
-				},
-				[nodejs_runner]
-			))
 
 	else:
 		assert False

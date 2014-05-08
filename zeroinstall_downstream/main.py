@@ -58,14 +58,14 @@ def run():
 		logging.debug("debug mode enabled")
 	else:
 		logging.getLogger('zeroinstall_downstream').setLevel(logging.INFO)
+		logging.getLogger('downstream_config').setLevel(logging.INFO)
 	
 	args.config = _load_config()
 	try:
 		return args.func(args)
-	except (AssertionError) as e:
-		print('AssertionError: ' + str(e), file=sys.stderr)
-		sys.exit(2)
 	except (AssertionError, bdb.BdbQuit, EOFError, KeyboardInterrupt) as e:
+		if isinstance(e, AssertionError):
+			print('AssertionError: ' + str(e), file=sys.stderr)
 		if args.debug:
 			logging.error("", exc_info=True)
 		sys.exit(2)
