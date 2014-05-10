@@ -53,14 +53,16 @@ class Release(object):
 		self.upstream_type = project.upstream_type
 		self.id = project.id
 		self.template = None
+		self.version = release.version.derived
 		self.template_vars = {
 			'version': release.version.derived
 		}
 		self._compile_properties = None
-		self.interface_children = []
+		self.implementation_children = []
 		self._local_feeds = []
 		self._opts = opts
 		self._location_resolver = self._opts.config.resolve_project
+		self._peers = []
 	
 	@property
 	def requires_compilation(self):
@@ -82,14 +84,17 @@ class Release(object):
 		return self._release.archive.rename(*a)
 	
 	def add_to_impl(self, tag):
-		self.interface_children.append(tag)
+		self.implementation_children.append(tag)
 
 	def ensure_template(self):
 		if self.template is None:
 			self.template = _default_template
 
-	def guess_dependencies(self):
-		self._release.detect_dependencies(self._location_resolver)
+	def guess_dependencies(self, *a):
+		self._release.detect_dependencies(self._location_resolver, *a)
+	
+	def set_implementation_id(self, id):
+		self.interface_children.push(Attribute('id', id))
 	
 	def create_dependencies(self):
 		from . import actions
@@ -151,7 +156,7 @@ class Release(object):
 			try:
 				os.remove(feed)
 			except OSError as e:
-				if e.code == errno.ENOENT:
+				if e.errno == errno.ENOENT:
 					continue
 				raise
 			logger.debug("cleaned up local feed %s", feed)
@@ -165,6 +170,18 @@ class Release(object):
 			else:
 				logging.debug("Non-existant local feed %s" % (path,))
 
+	def _add_implementation(self, feed):
+		pass
+
+	def fork(self):
+		'''Clones this release and returns the new object
+		When this (main) feed is generated, any forked implementations
+		will also be added to the result'''
+		impl = type(self)(project=self._project, release=self._release, location=self._location, opts=self._opts)
+		impl.template = self.template
+		impl.template_vars = self.template_vars.copy()
+		self._peers.append(impl)
+
 	def _generate_feed(self, local):
 		self.ensure_template()
 		with tempfile.NamedTemporaryFile(prefix="0downstream-", suffix="-%s.xml" % self._project.id, delete=False) as dest:
@@ -176,7 +193,7 @@ class Release(object):
 			feed = Feed(dest)
 			feed.update_metadata(self._project, self._location)
 			impl = feed.create_or_update_child_node(feed.interface, 'implementation')
-			for tag in self.interface_children:
+			for tag in self.implementation_children:
 				tag.addTo(impl, feed.doc)
 
 			for dep in self._release.runtime_dependencies:
@@ -197,13 +214,9 @@ class Release(object):
 
 				self._compile_properties.addTo(impl, feed.doc, impl_template)
 
-			# if local:
-			# 	impl.setAttribute('id', os.path.abspath(self._release.archive.local))
-			# else:
 			self._release.archive.add_to(impl, feed.doc)
 			if not impl.hasAttribute('id'):
 				impl.setAttribute('id', self._release.archive.id)
-
 
 			feed.save(dest)
 			dest.seek(0)
@@ -214,6 +227,15 @@ class Release(object):
 			feed.save(dest)
 			dest.seek(0)
 			logging.debug("local feed XML: %s" % feed.xml)
+
+			if not local:
+				# include feed peers, by simply calling this method on them and
+				# then including them using 0publish.
+				#
+				# There are surely quicker ways, but they're a little awkward to code.
+				for peer in self._peers:
+					peer_feed = peer._generate_feed(local=local)
+					subprocess.check_call(['0publish', '--add-from', peer_feed])
 
 			return dest.name
 

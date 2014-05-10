@@ -63,7 +63,10 @@ def _release_feed(project, location, version, opts):
 		opts.config.process(project_api)
 		# if that all worked, generate the _real_ feed
 		local = project_api.generate_feed()
-		yield local
+		try:
+			yield local
+		finally:
+			os.remove(local)
 
 def update(project, location, version, opts):
 	if not _visit(location):

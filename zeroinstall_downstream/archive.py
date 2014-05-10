@@ -22,7 +22,7 @@ class Archive(object):
 		self.id = url
 
 	def _archive_tag(self):
-		return Tag("archive", {"href": self.url, "size": str(self.size)})
+		return Tag("archive", {"href": self.url, "size": str(self.size), 'extract': self.extract or ''})
 
 	def _digest_tag(self):
 		sha1new = get_manifest(self.local, extract=self.extract, algname='sha1new')

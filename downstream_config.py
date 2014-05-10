@@ -120,12 +120,44 @@ def check_validity(project, generated_feed, cleanup):
 	oenv = 'http://gfxmonk.net/dist/0install/0env.xml'
 	def check(feed):
 		# sels = current_selections_for(feed)
-		def run_check(args):
-			run_feed(oenv, ['-x', SANDBOX_SUDO_WRAPPER, feed, '--console', '--'] + args)
+		def run_check(args, pre_args=[], **kw):
+			# first, dump `env` into a null-separated file
+			with tempfile.NamedTemporaryFile(prefix='0downstream-', suffix='.env') as env_file:
+				# sudo doesn't preserve all envs. So we manually reproduce `env` within sudo.
+				# If something relies on specific userss etc it will fail, but mostly things
+				# should just need a sane $PYTHONPATH, etc.
+				# TODO: there is a lot of potential leakage here (eg `foo` being on $PATH because it's on mine.
+				# consider using docker or some other sandbox to fix this.
+
+				# run_feed(oenv, pre_args + [feed, '-x', SANDBOX_SUDO_WRAPPER, '--console', '--'] + args, **kw)
+				run_feed(oenv, pre_args + [feed, '--console', '--', 'env', '--null'], stdout=env_file)
+				allow_read_access(env_file.name)
+				run_in_sandbox(['python', '-c', '''
+from __future__ import print_function
+import os,sys
+# print(repr(sys.argv))
+args=sys.argv[2:]
+with open(sys.argv[1]) as env:
+	for line in env.read().split('\\0'):
+		if not line: continue
+		k,v=line.split('=', 1)
+		# print("setting %s=%r" % (k,v))
+		os.environ[k]=v
+os.execvp(args[0], args)
+''', env_file.name] + args, **kw)
 
 		try:
 			if project.upstream_type == 'pypi':
-				run_check(['python', '-c', 'import %s' % (project.id)])
+				#XXX: https proxy doesn't work with CONNECT yet
+				env = os.environ.copy()
+				try:
+					del env['https_proxy']
+				except KeyError: pass
+
+				# TODO: PYTHONPATH is not preserved by sudo
+				run_check(['python', '-c', 'import sys;print repr(sys.path);import %s' % (project.id)],
+						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a'],
+						env=env)
 			elif project.upstream_type == 'npm':
 				run_check(['0install', 'run', current_selections_for(NODEJS_FEED), '-e', 'require("%s")' % (project.id)])
 			elif project.upstream_type == 'rubygems':
@@ -177,48 +209,96 @@ def check_validity(project, generated_feed, cleanup):
 	
 def process(project):
 	cleanup_actions = []
+	projects = [project]
 
 	if project.upstream_type == 'pypi':
+		requires_python_tag = Tag('requires', {'interface':PYTHON_FEED})
+
 		# pypi doesn't have project metadata. So run python and extract it
-		info = {}
-		for key, version in [(2, '2..!3'), (3, '3..!4')]:
-			# http://stackoverflow.com/questions/14154756/how-to-extract-dependencies-from-a-pypi-package
+		def get_metadata(python_verspec):
 			#XXX run in sandbox
 			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
-			output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, version, detect_feed], cwd=project.working_copy)
-			info[key] = json.loads(output)
-		print(repr(info))
-		assert False, "cancelled"
+			try:
+				output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, python_verspec, detect_feed], cwd=project.working_copy)
+			except subprocess.CalledProcessError as e:
+				logger.warn("metadata extraction failed:", exc_info=True)
+				return None
+			else:
+				return json.loads(output)
+
+		info_2 = get_metadata('2..!3')
+		project_infos = [info_2]
+
+		if not project._release.supports_python_3:
+			logger.info("project does not support python 3")
+			python2_dep = requires_python_tag.copy()
+			python2_dep.children.append(Tag('version', {'before':'3'}))
+			project.add_to_impl(python2_dep)
+		else:
+			logger.info("project supports python 3")
+			info_3 = get_metadata('3..!4')
+			project_infos.append(info_3)
+			
+			if info_2 is None:
+				if info_3 is None:
+					raise RuntimeError("Couldn't extract project metadata")
+				else:
+					logger.info("Feed appears to only support python 3")
+					# it's the future: we support py3 but not 2
+					python_dep = requires_python_tag.copy()
+					python_dep.children.append(Tag('version', {'not-before':'3'}))
+					project.add_to_impl(python_dep)
+					project_infos = [info_3]
+			else: # info_2 is present
+				if info_2 == info_3 and not info_2['use_2to3']:
+					logger.info("Feed appears to support both python 2 and 3 without compilation")
+					project.add_to_impl(requires_python_tag.copy())
+				else:
+					assert info_3 is not None, "couldn't get python3 metadata"
+					logger.info("Creating separate python 2 & 3 implementations")
+					# we need two different implementations
+					project_3 = project.fork()
+					projects.append(project_3)
+
+					# implement py2 / py3 split
+					project.set_implementation_id("py2_%s" % (project.version))
+					python2_dep = requires_python_tag.copy()
+					python2_dep.children.append(Tag('version', {'before':'3'}))
+					project.add_to_impl(python2_dep)
+
+					project_3.set_implementation_id("py3_%s" % (project.version))
+					python3_dep = requires_python_tag.copy()
+					python3_dep.children.append(Tag('version', {'not-before':'3'}))
+					project_3.add_to_impl(python3_dep)
+
+		for (project, info) in zip(projects, project_infos):
+			project.guess_dependencies(info)
+			project.create_dependencies()
+
+			project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
+			portable_feed = project.generate_local_feed()
+
+			# try running it as a "*-*" portable feed. if it works, we're good
+			requires_build = not check_validity(project, portable_feed, cleanup=cleanup_actions)
+			# if not, assume that it needs compilation. If this assumption is
+			# incorrect, it'll fail later and we'll have to manually fix it anyway
+			if requires_build:
+				project.set_compile_properties(dup_src=True,
+					command=
+						Tag('command',{ 'name': 'compile' }, [
+							Tag('runner', {'interface': 'http://gfxmonk.net/dist/0install/setup_py_0compile.xml'})
+						])
+				)
+
 	elif project.upstream_type == 'npm':
 		contents = os.listdir(project.working_copy)
 		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
 		project.rename(contents[0], project.id)
 
-	# project is in sane state - try figuring out dependencies
-	project.guess_dependencies()
-	project.create_dependencies()
+		# project is in sane state - try figuring out dependencies
+		project.guess_dependencies()
+		project.create_dependencies()
 	
-	# compilation:
-	if project.upstream_type == 'opam':
-		assert False, 'todo'
-	elif project.upstream_type == 'pypi':
-		project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
-		portable_feed = project.generate_local_feed()
-
-		# try running it as a "*-*" portable feed. if it works, we're good
-		requires_build = not check_validity(project, portable_feed, cleanup=cleanup_actions)
-		# if not, assume that it needs compilation. If this assumption is
-		# incorrect, it'll fail later and we'll have to manually fix it anyway
-		if requires_build:
-			project.set_compile_properties(dup_src=True, command='''
-				<command name="compile">
-					<runner interface="http://repo.roscidus.com/utils/bash">
-					<arg>-euxc</arg>
-					python setup.py
-					</arg>
-				</command>
-			''')
-	elif project.upstream_type == 'npm':
 		if project.id == 'mkfiletree':
 			for req in project._release.runtime_dependencies:
 				if req['interface'].endswith('rimraf.xml'):
@@ -229,6 +309,7 @@ def process(project):
 		nodejs_runner = Tag('runner', {'interface':NODEJS_FEED})
 		project.add_to_impl(Tag('environment', {'name': 'NODE_PATH', 'insert':"", 'mode':"prepend"}))
 
+		# figure out compilation:
 		release_info = project.release_info
 		requires_compilation = release_info.get('gypfile') == True
 		# XXX nonlocal hack
@@ -239,7 +320,6 @@ def process(project):
 			print(repr(os.listdir(os.path.dirname(os.path.join(project.working_copy, rel_path)))))
 			print(name, path, args)
 			if name == 'install':
-				logger.info("INSTALL@!")
 				# XXX nonlocal hack
 				_requires_compilation.append(True)
 				return
@@ -317,11 +397,12 @@ def process(project):
 	feed = project.generate_local_feed()
 	while True:
 		try:
-			assert check_validity(project, feed, cleanup=cleanup_actions), "feed check failed"
+			for project in projects:
+				assert check_validity(project, feed, cleanup=cleanup_actions), "feed check failed"
 			break
 		except Exception as e:
 			print("local feed: %s" % feed, file=sys.stderr)
-			print("local extract: %s" % project._release.archive.local, file=sys.stderr)
+			print("local extract: %s" % project.working_copy, file=sys.stderr)
 			print("%s: %s" % (type(e).__name__, e))
 			if not sys.stdin.isatty():
 				raise
