@@ -50,17 +50,7 @@ def local_path_for(url):
 
 def check_validity(project, generated_feed, cleanup):
 	logging.info("Checking validity of local feed: %s" % generated_feed)
-	def allow_read_access(path):
-		st = os.stat(path)
-		os.chmod(path, st.st_mode | stat.S_IROTH)
 
-	def allow_write_access(path):
-		st = os.stat(path)
-		os.chmod(path, st.st_mode | stat.S_IROTH | stat.S_IWOTH | stat.S_IXOTH)
-
-	# SANDBOX_SUDO = ['sudo','-u','sandbox', 'XDG_CACHE_DIRS=%s:/var/cache' % os.path.expanduser('~/.cache')]
-	SANDBOX_SUDO = ['sudo','-u','sandbox', '--preserve-env', '--set-home' ]
-	SANDBOX_SUDO_WRAPPER = '--wrapper=' + ' '.join(SANDBOX_SUDO)
 	def _run(cmd, **kw):
 		logger.debug("Running: %s" % (cmd))
 		env = kw.get('env', os.environ).copy()
@@ -77,81 +67,16 @@ def check_validity(project, generated_feed, cleanup):
 		kw['env'] = env
 		subprocess.check_call(cmd, **kw)
 
-	def current_selections_for(feed, command='run'):
-		with tempfile.NamedTemporaryFile(mode='w+', delete=False) as sels:
-			cleanup.append(lambda: os.remove(sels.name))
-			# from xml.dom import minidom
-			# doc = minidom.parseString(sels)
-			# for sel in doc.documentElement.getElementsByTagName('selection'):
-			# 	local_path = sel.getAttribute('local-path')
-			# 	if local_path:
-			# 		st = os.stat(local_path)
-			# 		assert st.st_mode & stat.S_IROTH, "%s is not readable by the sandbox user" % local_path
-			# print(sels)
-			subprocess.check_call(['0install', 'select', '--command=' + (command or ''), '--xml', feed], stdout=sels)
-			allow_read_access(sels.name)
-			return sels.name
-
-
-	def run_feed_in_sandbox(feed, args, **kw):
-		_run(SANDBOX_SUDO + ['0install', 'run', '--offline', current_selections_for(feed)] + args, **kw)
-			# _run(['0install', 'run', '-v'] + SANDBOX_SUDO_WRAPPER + [feed] + args, **kw)
-
 	def run_feed(feed, args, **kw):
 		_run(['0install', 'run', feed] + args, **kw)
 
 	def run(args, **kw):
 		_run(args, **kw)
 
-	def run_in_sandbox(args, **kw):
-		_run(SANDBOX_SUDO + args, **kw)
-		# #XXX: don't use sandbox user's cache, use mine and then just wrap execution in --wrapper=sudo -u sandbox
-		# proxy_cmd = ['env', 'http_proxy=%s' % (os.environ['http_proxy'])] if 'http_proxy' in os.environ else []
-		# sudo = ['sudo','-u','sandbox', 'env', 'XDG_CACHE_DIRS=%s:/var/cache' % os.path.expanduser('~/.cache')]
-
-		# cmd = []
-		# try:
-		# 	idx = args.index(SUDO_WRAPPER)
-		# except ValueError:
-		# 	cmd = sudo
-		# else:
-		# 	cmd = args[:idx] + ['--wrapper=%s' % ' '.join(sudo)] + args[idx+1] + cmd
-
-		# if proxy:
-		# 	cmd += proxy_cmd
-
-		# cmd.extend(args)
-		# logger.debug("Running: %s" % (sudo + args))
-		# subprocess.check_call(cmd, stdin=DEV_NULL, **kw)
-	
 	oenv = 'http://gfxmonk.net/dist/0install/0env.xml'
 	def check(feed):
-		# sels = current_selections_for(feed)
 		def run_check(args, pre_args=[], **kw):
-			# first, dump `env` into a null-separated file
-			with tempfile.NamedTemporaryFile(prefix='0downstream-', suffix='.env') as env_file:
-				# sudo doesn't preserve all envs. So we manually reproduce `env` within sudo.
-				# If something relies on specific userss etc it will fail, but mostly things
-				# should just need a sane $PYTHONPATH, etc.
-				# TODO: there is a lot of potential leakage here (eg `foo` being on $PATH because it's on mine.
-				# consider using docker or some other sandbox to fix this.
-
-				# run_feed(oenv, pre_args + [feed, '-x', SANDBOX_SUDO_WRAPPER, '--console', '--'] + args, **kw)
-				run_feed(oenv, pre_args + [feed, '--console', '--', 'env', '--null'], stdout=env_file, **kw)
-				allow_read_access(env_file.name)
-				run_in_sandbox(['python', '-c', '''
-from __future__ import print_function
-import os,sys
-# print(repr(sys.argv))
-args=sys.argv[2:]
-with open(sys.argv[1]) as env:
-	for line in env.read().split('\\0'):
-		if not line: continue
-		k,v=line.split('=', 1)
-		# print("setting %s=%r" % (k,v))
-		os.environ[k]=v
-os.execvp(args[0], args)
-''', env_file.name] + args, **kw)
+			run_feed(oenv, pre_args + [feed, '--console', '--'] + args, **kw)
 
 		try:
 			if project.upstream_type == 'pypi':
@@ -179,7 +104,7 @@ if err: raise err
 ''' % sorted(module_names)],
 						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a', fakes_feed, '-a'])
 			elif project.upstream_type == 'npm':
-				run_check(['0install', 'run', current_selections_for(NODEJS_FEED), '-e', 'require("%s")' % (project.id)])
+				run_check(['0install', 'run', NODEJS_FEED, '-e', 'require("%s")' % (project.id)])
 			elif project.upstream_type == 'rubygems':
 				run_check(['ruby', '-e', 'require("%s")' % (project.id)])
 			else:
@@ -187,8 +112,6 @@ if err: raise err
 		except subprocess.CalledProcessError as e:
 			return False
 		return True
-
-	allow_read_access(generated_feed)
 
 	if project.requires_compilation:
 		# first compile it, then run the local feed
@@ -200,13 +123,9 @@ if err: raise err
 		# (delaying it means we can inspect the directory
 		# interactively if something fails)
 		def remove_tempdir():
-			if os.path.exists(dest):
-				# sandbox owns these files, need it to delete them
-				run_in_sandbox(['rm', '-rf', dest])
 			os.rmdir(compile_root)
 		cleanup.append(remove_tempdir)
 
-		# allow_write_access(compile_root)
 		dest = os.path.join(compile_root, '0compile')
 		logging.warn("Building in %s" % dest)
 		run_feed(ocompile, ['setup', generated_feed, dest])
@@ -215,7 +134,7 @@ if err: raise err
 		run(['chgrp', '-R', 'sandbox', compile_root])
 		run(['chmod', '-R', 'g+rwX', compile_root])
 
-		run_feed_in_sandbox(ocompile, ['build'], cwd=dest)
+		run_feed(ocompile, ['build'], cwd=dest)
 		#TODO: we could do a `publish` here, if we plan to upload the binaries somewhere
 
 		files = set(os.listdir(dest))
