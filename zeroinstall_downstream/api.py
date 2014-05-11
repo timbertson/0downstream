@@ -85,6 +85,9 @@ class Release(object):
 	
 	def add_to_impl(self, tag):
 		self.implementation_children.append(tag)
+	
+	def remove_from_impl(self, pred):
+		self.implementation_children = [t for t in self.implementation_children if not pred(t)]
 
 	def ensure_template(self):
 		if self.template is None:
@@ -94,7 +97,7 @@ class Release(object):
 		self._release.detect_dependencies(self._location_resolver, *a)
 	
 	def set_implementation_id(self, id):
-		self.interface_children.push(Attribute('id', id))
+		self.implementation_children.append(Attribute('id', id))
 	
 	def create_dependencies(self):
 		from . import actions
@@ -181,6 +184,7 @@ class Release(object):
 		impl.template = self.template
 		impl.template_vars = self.template_vars.copy()
 		self._peers.append(impl)
+		return impl
 
 	def _generate_feed(self, local):
 		self.ensure_template()
@@ -235,7 +239,8 @@ class Release(object):
 				# There are surely quicker ways, but they're a little awkward to code.
 				for peer in self._peers:
 					peer_feed = peer._generate_feed(local=local)
-					subprocess.check_call(['0publish', '--add-from', peer_feed])
+					logger.info("Adding peer feed: %s" % peer_feed)
+					subprocess.check_call(['0publish', '--add-from', peer_feed, dest.name])
 
 			return dest.name
 

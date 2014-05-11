@@ -17,6 +17,7 @@
 		<requires interface="http://gfxmonk.net/dist/0install/xmlformat.xml"/>
 		<requires interface="http://gfxmonk.net/dist/0install/python-requests.xml"/>
 		<requires interface="http://0install.net/2007/interfaces/ZeroInstall.xml">
+			<version not-before="2.3"/>
 			<environment insert="" mode="prepend" name="PYTHONPATH"/>
 		</requires>
 		<command name="run" path="zeroinstall_downstream/main.py">

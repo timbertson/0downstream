@@ -67,6 +67,13 @@ def check_validity(project, generated_feed, cleanup):
 		try:
 			del env['DISPLAY']
 		except KeyError: pass
+
+		if project.upstream_type == 'pypi':
+			#XXX: https proxy doesn't work with CONNECT yet
+			try:
+				del env['https_proxy']
+			except KeyError: pass
+
 		kw['env'] = env
 		subprocess.check_call(cmd, **kw)
 
@@ -130,7 +137,7 @@ def check_validity(project, generated_feed, cleanup):
 				# consider using docker or some other sandbox to fix this.
 
 				# run_feed(oenv, pre_args + [feed, '-x', SANDBOX_SUDO_WRAPPER, '--console', '--'] + args, **kw)
-				run_feed(oenv, pre_args + [feed, '--console', '--', 'env', '--null'], stdout=env_file)
+				run_feed(oenv, pre_args + [feed, '--console', '--', 'env', '--null'], stdout=env_file, **kw)
 				allow_read_access(env_file.name)
 				run_in_sandbox(['python', '-c', '''
 from __future__ import print_function
@@ -148,16 +155,29 @@ os.execvp(args[0], args)
 
 		try:
 			if project.upstream_type == 'pypi':
-				#XXX: https proxy doesn't work with CONNECT yet
-				env = os.environ.copy()
-				try:
-					del env['https_proxy']
-				except KeyError: pass
+				module_name = getattr(project, 'module_name', None)
+				module_names = set(
+					[module_name] if module_name is not None
+					else [project.id.replace('-','_')]
+				)
 
-				# TODO: PYTHONPATH is not preserved by sudo
-				run_check(['python', '-c', 'import sys;print repr(sys.path);import %s' % (project.id)],
-						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a'],
-						env=env)
+				fakes_feed = os.path.join(os.path.dirname(__file__), 'tools/fakes/python/fakes.xml')
+				module_names.update([n.lower() for n in module_names])
+				module_names.update([re.sub('_?python_?', '', n, flags=re.I) for n in module_names])
+
+				# keep importing stuff until it works
+				run_check(['python', '-c', '''
+import importlib
+err = None
+for mod in %r:
+	try:
+		importlib.import_module(mod)
+		err = None
+	except ImportError as e:
+		err = e
+if err: raise err
+''' % sorted(module_names)],
+						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a', fakes_feed, '-a'])
 			elif project.upstream_type == 'npm':
 				run_check(['0install', 'run', current_selections_for(NODEJS_FEED), '-e', 'require("%s")' % (project.id)])
 			elif project.upstream_type == 'rubygems':
@@ -215,18 +235,21 @@ def process(project):
 		requires_python_tag = Tag('requires', {'interface':PYTHON_FEED})
 
 		# pypi doesn't have project metadata. So run python and extract it
-		def get_metadata(python_verspec):
+		def get_metadata(major_version):
+			spec = '%d..!%d' % (major_version, major_version+1)
 			#XXX run in sandbox
 			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
 			try:
-				output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, python_verspec, detect_feed], cwd=project.working_copy)
+				output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=project.working_copy)
 			except subprocess.CalledProcessError as e:
 				logger.warn("metadata extraction failed:", exc_info=True)
 				return None
 			else:
-				return json.loads(output)
+				info = json.loads(output)
+				info['language_version'] = major_version
+				return info
 
-		info_2 = get_metadata('2..!3')
+		info_2 = get_metadata(2)
 		project_infos = [info_2]
 
 		if not project._release.supports_python_3:
@@ -236,7 +259,7 @@ def process(project):
 			project.add_to_impl(python2_dep)
 		else:
 			logger.info("project supports python 3")
-			info_3 = get_metadata('3..!4')
+			info_3 = get_metadata(3)
 			project_infos.append(info_3)
 			
 			if info_2 is None:
@@ -274,15 +297,28 @@ def process(project):
 		for (project, info) in zip(projects, project_infos):
 			project.guess_dependencies(info)
 			project.create_dependencies()
+			try:
+				project.module_name = min(info['packages'], key=len)
+			except ValueError:
+				pass
 
 			project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
 			portable_feed = project.generate_local_feed()
 
 			# try running it as a "*-*" portable feed. if it works, we're good
-			requires_build = not check_validity(project, portable_feed, cleanup=cleanup_actions)
+			requires_build = any([
+					info['has_c_libraries'],
+					info['has_ext_modules'],
+					info['use_2to3'] and info['language_version'] == 3
+			]) or not check_validity(project, portable_feed, cleanup=cleanup_actions)
 			# if not, assume that it needs compilation. If this assumption is
 			# incorrect, it'll fail later and we'll have to manually fix it anyway
 			if requires_build:
+				logger.info("portable feed failed - assuming compilation is required")
+
+				# compiled implementations have their libs at lib/
+				project.remove_from_impl(lambda t: isinstance(t, Tag) and t.get('name') == 'PYTHONPATH')
+				project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'lib','mode':'prepend'}))
 				project.set_compile_properties(dup_src=True,
 					command=
 						Tag('command',{ 'name': 'compile' }, [
@@ -317,8 +353,6 @@ def process(project):
 
 		def add_command(name, path, args=[]):
 			rel_path = os.path.normpath(os.path.join(project.id, path))
-			print(repr(os.listdir(os.path.dirname(os.path.join(project.working_copy, rel_path)))))
-			print(name, path, args)
 			if name == 'install':
 				# XXX nonlocal hack
 				_requires_compilation.append(True)
@@ -394,10 +428,10 @@ def process(project):
 	else:
 		assert False
 
-	feed = project.generate_local_feed()
 	while True:
 		try:
 			for project in projects:
+				feed = project.generate_local_feed()
 				assert check_validity(project, feed, cleanup=cleanup_actions), "feed check failed"
 			break
 		except Exception as e:
