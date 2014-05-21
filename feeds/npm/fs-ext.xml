@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/fs-ext.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=85c39600556edc3af00b522123e61ac71adcb036" version="0.3.2">
+		<command name="compile">
+			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+				<executable-in-var name="NPM"/>
+			</requires>
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+				<executable-in-var name="NODE_GYP"/>
+			</requires>
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+								cd &quot;$BUILDDIR/fs-ext&quot;
+								&quot;$NPM&quot; build .
+								cp -a &quot;$BUILDDIR/fs-ext&quot; &quot;$DISTDIR/&quot;
+
+								# remove some common unnecessary files
+								cd &quot;$DISTDIR/fs-ext&quot;
+								rm -rf src test deps
+							</arg>
+			</runner>
+			<compile:implementation>
+				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<command name="test" path="fs-ext/run_tests">
+					<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+				</command>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version compile:pin-components="2"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/fs-ext/-/fs-ext-0.3.2.tgz" size="13213"/>
+			<rename dest="fs-ext" source="package"/>
+		</recipe>
+		<manifest-digest sha256="09451ea80cbb554dbf650270bde5d2d02ab41b703a301c29949fe1f32f503acf"/>
+	</implementation>
+	<name>fs-ext</name>
+	<summary>fs-ext npm package</summary>
+	<homepage>https://npmjs.org/package/fs-ext</homepage>
+	<description>Extensions to core 'fs' module.</description>
+	<gfxmonk:upstream id="fs-ext" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTasajAAoJEOA/kc8tk45WHhcH/0ozBMkLQtQenb9VXcWyCwgToiyBYIRwS4c5
+rkWqGTQLjNB1r8l++wZzEK+ay2ivjJFI9vtInp1hzje2Hb59QWhrlEppdBYeKvLLj8Ch8yV2vAnJ
+U/db/UkdqM9QkELA/1WsZ/Sp8wyIlZzfu6SCi3EwwFh7wYxHoiOnmmqMN1nk1vCyr3fpQJZvL8yb
+FiNJdU5va11P1YE5Pm7hx6/er5OUx0wkI97XHuzkKDknllFzqQnLa5ud8dazzSHnSLEWfAYOw7Gj
+mOKKD2u4mipJWINja4uoKCFiTO9DcmU6aNL9LXTXWOnorAfQ35G/6X6r4pA46e31RGBsNPj3Ce3j
+iUk=
+
+-->
