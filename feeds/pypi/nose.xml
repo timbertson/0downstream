@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/nose.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="py2_1.3.3" version="1.3.3">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<environment insert="bin" mode="prepend" name="PATH"/>
+		<command name="run" path="bin/nosetests">
+			<runner interface="http://repo.roscidus.com/python/python"/>
+		</command>
+		<command name="nosetests" path="bin/nosetests">
+			<runner interface="http://repo.roscidus.com/python/python"/>
+		</command>
+		<archive extract="nose-1.3.3" href="https://pypi.python.org/packages/source/n/nose/nose-1.3.3.tar.gz" size="274973"/>
+		<manifest-digest sha256="8b2452a394efda55ee26ab6c37ceca77efdf320d3f4c58d4df9da6d1b7807b16"/>
+	</implementation>
+	<name>nose</name>
+	<summary>nose extends unittest to make testing easier</summary>
+	<homepage>http://readthedocs.org/docs/nose/</homepage>
+	<description>nose extends the test loading and running features of unittest, making
+    it easier to write, find and run tests.
+
+    By default, nose will run tests in files or directories under the current
+    working directory whose names include &quot;test&quot; or &quot;Test&quot; at a word boundary
+    (like &quot;test_this&quot; or &quot;functional_test&quot; or &quot;TestClass&quot; but not
+    &quot;libtest&quot;). Test output is similar to that of unittest, but also includes
+    captured stdout output from failing tests, for easy print-style debugging.
+
+    These features, and many more, are customizable through the use of
+    plugins. Plugins included with nose provide support for doctest, code
+    coverage and profiling, flexible attribute-based test selection,
+    output capture and more. More information about writing plugins may be
+    found on in the nose API documentation, here:
+    http://readthedocs.org/docs/nose/
+
+    If you have recently reported a bug marked as fixed, or have a craving for
+    the very latest, you may want the development version instead:
+    https://github.com/nose-devs/nose/tarball/master#egg=nose-dev</description>
+	<gfxmonk:upstream id="nose" type="pypi"/>
+	<implementation arch="*-src" compile:dup-src="true" id="py3_1.3.3" version="1.3.3">
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version not-before="3"/>
+				</requires>
+				<environment insert="bin" mode="prepend" name="PATH"/>
+				<command name="run" path="bin/nosetests">
+					<runner interface="http://repo.roscidus.com/python/python"/>
+				</command>
+				<command name="nosetests" path="bin/nosetests">
+					<runner interface="http://repo.roscidus.com/python/python"/>
+				</command>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+			</compile:implementation>
+		</command>
+		<archive extract="nose-1.3.3" href="https://pypi.python.org/packages/source/n/nose/nose-1.3.3.tar.gz" size="274973"/>
+		<manifest-digest sha256="8b2452a394efda55ee26ab6c37ceca77efdf320d3f4c58d4df9da6d1b7807b16"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJT51I4AAoJELrnGdQBsyfG0PQIAN56Gicgoi2yB4K4K7GcI8ejup+IhXAodyvr
+qFlfwz6VhjSQ0vHgf2+uMnq92mBDrrPnZ38pQ6kZIUIKyZNzTI72mJ+W3t+08LJsAiziUJEoXHAO
+/9eJkMDFxdSgM6iFHO2BcTCS6KUJzRAmk3W/sKnQgB3h2+mFnjLaQQdXPK5Y102phIDwlDACNx5Z
+mExvNciKOGcPlMR2lJjLHKf4W0/sFAffbwg9PLvHoVdsqeJY8Gcj6dObXzj1cFTJyleuyhRcuy4M
+iWIzi7HwtpFtnTi9xdyMSJqG9FC67EuxZqlVd/kYVu154gyRMeyvS7priBDpI5Mv3C+jguapwHbF
+fYs=
+
+-->

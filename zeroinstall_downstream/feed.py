@@ -114,7 +114,7 @@ class Feed(object):
 	def published_versions(self):
 		'''returns an enumeration of Version objects'''
 		implementations = self.interface.getElementsByTagName("implementation")
-		return map(lambda x: Version.parse(x.getAttribute("version")), implementations)
+		return sorted(set(map(lambda x: Version.parse(x.getAttribute("version")), implementations)))
 	
 	def unpublished_versions(self, project, newest_only=False):
 		'''returns an enumeration of ComponsiteVersion objects'''

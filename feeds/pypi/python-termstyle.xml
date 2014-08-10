@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/python-termstyle.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="py2_0.1.10" version="0.1.10">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml"/>
+		<archive extract="python-termstyle-0.1.10" href="https://pypi.python.org/packages/source/p/python-termstyle/python-termstyle-0.1.10.tar.gz" size="4131"/>
+		<manifest-digest sha256="3582d77ae4a7c71cd0c3cc7025357556ded467ff2d2fa71bfdc8a79662eb0906"/>
+	</implementation>
+	<name>python-termstyle</name>
+	<summary>console colouring for python</summary>
+	<homepage>http://gfxmonk.net/dist/0install/python-termstyle.xml</homepage>
+	<description>**Note**: This package has been built automatically by
+`zero2pypi &lt;http://gfxmonk.net/dist/0install/zero2pypi.xml&gt;`_.
+If possible, you should use the zero-install feed instead:
+http://gfxmonk.net/dist/0install/python-termstyle.xml
+
+----------------
+
+=========
+termstyle
+=========
+
+termstyle is a simple python library for adding coloured output to
+terminal (console) programs.  The definitions come from ECMA-048_, the
+&quot;Control Functions for Coded Character Sets&quot; standard.
+
+Installation:
+-------------
+
+I thoroughly recommend using the zero-install feed (see the project homepage) to manage your dependencies if at all possible. zero-install_ provides a much better system than pip or easy_install, and works with absolutely any language and allows decentralised package management that requires no special privileges to install.
+
+Example Usage:
+--------------
+::
+
+	from termstyle import *
+	print &quot;%s:%s&quot; % (red('Hey'), green('how are you?'))
+	print blue('How ', bold('you'), ' doin?')
+
+or, you can use a colour just as a string::
+
+	print &quot;%sBlue!%s&quot; % (blue, reset)
+
+Styles:
+-------
+::
+
+	reset or default (no colour / style)
+
+colour::
+
+	black
+	red
+	green
+	yellow
+	blue
+	magenta
+	cyan
+	white
+
+background colour::
+
+	bg_black
+	bg_red
+	bg_green
+	bg_yellow
+	bg_blue
+	bg_magenta
+	bg_cyan
+	bg_white
+	bg_default
+
+In terminals supporting transparency ``bg_default`` is often used to set
+the background to transparent [#]_.
+
+weight::
+
+	bold
+	inverted
+
+style::
+
+	italic
+	underscore
+
+Controls:
+---------
+::
+
+	auto() - sets colouring on only if sys.stdout is a terminal
+	disabe() - disable colours
+	enable() - enable colours
+
+.. [#] Supporting terminals include rxvt-unicode_, and Eterm_.
+
+.. _ECMA-048: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf
+.. _rxvt-unicode: http://software.schmorp.de/
+.. _Eterm: http://www.eterm.org/
+.. _zero-install: http://0install.net/</description>
+	<gfxmonk:upstream id="python-termstyle" type="pypi"/>
+	<implementation id="py3_0.1.10" version="0.1.10">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version not-before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml"/>
+		<archive extract="python-termstyle-0.1.10" href="https://pypi.python.org/packages/source/p/python-termstyle/python-termstyle-0.1.10.tar.gz" size="4131"/>
+		<manifest-digest sha256="3582d77ae4a7c71cd0c3cc7025357556ded467ff2d2fa71bfdc8a79662eb0906"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJTbh0vAAoJEOA/kc8tk45WiWgH/joIJbERpPPDOU12RmaH2OYHRfnXoEEu/mOY
+kGkGN6bHs9LIFyZfqoHAwNFGVee/Ql33rJjtsgWFE4ukj5/YpPxpbyN9KIfKYqLOe//8bSBwePu8
+sIZmP2WsAVeT6VkEWRABLsYvJwKuumloqDGvffWs5ScrazON7cf2J9uoOsfDN1t72BlbNS4Dh9qf
+0im4UUHcCZqLEiV4TguXyePrnV8PLoCfhrSn1xTZ6f48e+4U5CEehVZfCdDFpt4+y6/WWWZs4QCv
+HlwXg4CdtEmUHgxZYQP033xixnjVgajym0IZZOFLkO1vwVn3yLJ4Gc+kHTQZLxBofEM5mI7EIzw7
++vo=
+
+-->

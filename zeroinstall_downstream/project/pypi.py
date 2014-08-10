@@ -21,7 +21,7 @@ class Release(BaseRelease):
 		self.dependency_names = set()
 	
 	def detect_dependencies(self, resolver, metadata):
-		print(repr(metadata))
+		logging.debug("extract_depependencies: pypi petadata = %r", metadata)
 		for requirement in metadata['install_requires']:
 			if not re.match('^[-_a-zA-Z.]+$', requirement):
 				raise RuntimeError("Can't yet process pypi version restrictions: %s" % requirement)

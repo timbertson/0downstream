@@ -24,15 +24,19 @@ type_formats = {
 FEED_URL_ROOT = 'http://gfxmonk.github.io/0downstream/feeds/'
 FEED_PATH = 'feeds'
 
+# ZEROINSTALL_BIN = '0install'
+ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/build/ocaml/0install"
+
 NODEJS_FEED = 'http://gfxmonk.net/dist/0install/node.js.xml'
 BASH_FEED = 'http://repo.roscidus.com/utils/bash'
 PYTHON_FEED = 'http://repo.roscidus.com/python/python'
+ZI_PUBLISH = 'http://0install.net/2006/interfaces/0publish'
 DEV_NULL = open(os.devnull)
 
 python3_blacklist = set([])
 
 def feed_modified(path):
-	subprocess.check_call(['0publish', '--key', '0downstream', '--xmlsign', path])
+	subprocess.check_call(['0install', 'run', ZI_PUBLISH , '--key', '0downstream', '--xmlsign', path])
 
 def resolve_project(project):
 	type = project.upstream_type
@@ -68,7 +72,7 @@ def check_validity(project, generated_feed, cleanup):
 		subprocess.check_call(cmd, **kw)
 
 	def run_feed(feed, args, **kw):
-		_run(['0install', 'run', feed] + args, **kw)
+		_run([ZEROINSTALL_BIN, 'run', feed] + args, **kw)
 
 	def run(args, **kw):
 		_run(args, **kw)
@@ -104,7 +108,7 @@ if err: raise err
 ''' % sorted(module_names)],
 						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a', fakes_feed, '-a'])
 			elif project.upstream_type == 'npm':
-				run_check(['0install', 'run', NODEJS_FEED, '-e', 'require("%s")' % (project.id)])
+				run_check([ZEROINSTALL_BIN, 'run', NODEJS_FEED, '-e', 'require("%s")' % (project.id)])
 			elif project.upstream_type == 'rubygems':
 				run_check(['ruby', '-e', 'require("%s")' % (project.id)])
 			else:
@@ -123,7 +127,7 @@ if err: raise err
 		# (delaying it means we can inspect the directory
 		# interactively if something fails)
 		def remove_tempdir():
-			os.rmdir(compile_root)
+			shutil.rmtree(compile_root)
 		cleanup.append(remove_tempdir)
 
 		dest = os.path.join(compile_root, '0compile')
@@ -159,11 +163,12 @@ def process(project):
 			#XXX run in sandbox
 			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
 			try:
-				output = subprocess.check_output(['0install', 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=project.working_copy)
+				output = subprocess.check_output([ZEROINSTALL_BIN, 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=project.working_copy)
 			except subprocess.CalledProcessError as e:
 				logger.warn("metadata extraction failed:", exc_info=True)
 				return None
 			else:
+				# print('JSON OUTPUT: %r' % output)
 				info = json.loads(output)
 				info['language_version'] = major_version
 				return info
@@ -222,6 +227,54 @@ def process(project):
 				pass
 
 			project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
+
+			assert not info['commands'], "TODO: don't know how to process pypi commands (only scripts)"
+			scripts = info['scripts']
+			if scripts:
+				project.add_to_impl(Tag('environment', {'name':'PATH', 'insert':'bin','mode':'prepend'}))
+
+				commands = set()
+				def add_command(name, path):
+					assert name not in commands
+					commands.add(name)
+					project.add_to_impl(
+						Tag('command',{ 'name': name, 'path': path}, [
+							# XXX detect non-python wrapper scripts?
+							Tag('runner', {'interface': PYTHON_FEED})
+						])
+					)
+
+				def basename(path):
+					# strips off prefix & extension
+					return os.path.splitext(os.path.basename(path))[0]
+
+				if len(scripts) > 1:
+					# heuristic: pick the shortest command that
+					# shares the longest prefix with the package name
+					def score(script):
+						base = basename(script)
+						baselen = len(base)
+						common_chars = common_prefix(base, project.id)
+						excess_chars = baselen - common_chars
+						# include baselen as a tiebreaker,
+						# when multiple commands have the same number of excess chars
+						# (presumably 0)
+						rv = (excess_chars, baselen)
+						logger.verbose("score for %s: %r", script, rv)
+						return rv
+					scripts = sorted(scripts, key=score)
+					logger.info("Selecting %s as main command (candidates: %r)", scripts[0], scripts)
+
+				add_command('run', scripts[0])
+
+				for script in scripts:
+					name = basename(script)
+					if name in commands:
+						logger.warn("skipping duplicate %s (%s)" % (name, script))
+					else:
+						logger.info("adding command: %s", name)
+						add_command(name, script)
+
 			portable_feed = project.generate_local_feed()
 
 			# try running it as a "*-*" portable feed. if it works, we're good
@@ -387,6 +440,19 @@ def process(project):
 			cleanup_actions = []
 			if err:
 				raise err
+
+def error_cb(e):
+	import pdb
+	pdb.set_trace()
+
+def common_prefix(*strings):
+	import itertools
+	def all_same(x):
+		return all(x[0] == y for y in x)
+
+	char_tuples = itertools.izip(*strings)
+	prefix_tuples = itertools.takewhile(all_same, char_tuples)
+	return itertools.ilen(prefix_tuples)
 
 def remove_indent(s):
 	s = s.strip('\n')
