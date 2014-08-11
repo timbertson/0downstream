@@ -166,7 +166,6 @@ def process(project):
 			scratch = tempfile.mkdtemp()
 			#NOTE: detection of metadata will often cause the contents of `workdir` to change.
 			# This is horrid, so we copy everything into a tempdir first
-			print("created scratch: " + scratch)
 			try:
 				tmp_dest = os.path.join(scratch, "contents")
 				shutil.copytree(project.working_copy, tmp_dest, symlinks=True)
@@ -178,8 +177,24 @@ def process(project):
 				else:
 					# print('JSON OUTPUT: %r' % output)
 					info = json.loads(output)
-					info['language_version'] = major_version
-					logger.info("Detected metadata: %r", info)
+					# info['language_version'] = major_version
+					# logger.info("Detected metadata: %r", info)
+					if info['use_2to3']:
+						# ignore use_2to3 setting for python2 implementations
+						if language_version != 3:
+							info['use_2to3'] = False
+
+					scripts = info['scripts']
+					script_names = set([script['name'] for script in scripts])
+					for script in scripts[:]:
+						name = script['name']
+						trailing_version = re.search(r'-?\d+(\.\d+)+', name)
+						if trailing_version:
+							if name[:trailing_version.start()] in script_names:
+								logger.info("removing extraneous version-stamped script %s" % (name))
+								scripts.remove(script)
+							else:
+								logger.info("script name %r appears versioned, but there isn't an alternative in %r: %s" % (name, script_names))
 					return info
 			finally:
 				shutil.rmtree(scratch)
@@ -208,12 +223,14 @@ def process(project):
 					project.add_to_impl(python_dep)
 					project_infos = [info_3]
 			else: # info_2 is present
-				if info_2 == info_3 and not info_2['use_2to3']:
+				if info_2 == info_3:
 					logger.info("Feed appears to support both python 2 and 3 without compilation")
 					project.add_to_impl(requires_python_tag.copy())
 				else:
 					assert info_3 is not None, "couldn't get python3 metadata"
-					logger.info("Creating separate python 2 & 3 implementations")
+					logger.info("Creating separate python 2 & 3 implementations, because:")
+					for diff in diff_dicts(info_2, info_3):
+						logger.info(" - " + diff)
 					# we need two different implementations
 					project_3 = project.fork()
 					projects.append(project_3)
@@ -229,6 +246,10 @@ def process(project):
 					python3_dep.children.append(Tag('version', {'not-before':'3'}))
 					project_3.add_to_impl(python3_dep)
 
+					# for k,v in project.__dict__.items():
+					# 	if getattr(project_3, k) is v:
+					# 		logger.warn("SHARED %s: %r" % (k,v))
+
 		for (project, info) in zip(projects, project_infos):
 			project.guess_dependencies(info)
 			project.create_dependencies()
@@ -242,9 +263,9 @@ def process(project):
 			assert not info['commands'], "TODO: don't know how to process pypi commands (only scripts)"
 			scripts = info['scripts']
 			if scripts:
-				project.add_to_impl(Tag('environment', {'name':'PATH', 'insert':'bin','mode':'prepend'}))
-
 				commands = set()
+				script_dirs = set()
+
 				def add_command(name, script):
 					if name in commands:
 						logger.warn("skipping duplicate %s (%r)" % (name, script))
@@ -255,10 +276,16 @@ def process(project):
 
 					if 'path' in script:
 						# plain wrapper script
+						path = script['path']
 						tag = Tag('command',{ 'name': name, 'path': path}, [
 							# XXX detect non-python wrapper scripts?
 							Tag('runner', {'interface': PYTHON_FEED})
 						])
+						dir = os.path.dirname(path)
+						if dir not in script_dirs:
+							script_dirs.add(dir)
+							project.add_to_impl(Tag('environment', {'name':'PATH', 'insert': dir,'mode':'prepend'}))
+
 					else:
 						mod = script['module']
 						fn = script.get('fn', None)
@@ -296,10 +323,11 @@ def process(project):
 						# when multiple commands have the same number of excess chars
 						# (presumably 0)
 						rv = (excess_chars, namelen)
-						logger.verbose("score for %s: %r", name, rv)
+						logger.debug("score for %s: %r", name, rv)
 						return rv
 					scripts = sorted(scripts, key=score)
-					logger.info("Selecting %r as main command (candidates: %r)", scripts[0], scripts)
+					script_names = [script['name'] for script in scripts]
+					logger.info("Selecting %r as main command (candidates: %r)", script_names[0], script_names)
 
 				add_command('run', scripts[0])
 
@@ -312,7 +340,7 @@ def process(project):
 			requires_build = any([
 					info['has_c_libraries'],
 					info['has_ext_modules'],
-					info['use_2to3'] and info['language_version'] == 3
+					info['use_2to3']
 			]) or not check_validity(project, portable_feed, cleanup=cleanup_actions)
 			# if not, assume that it needs compilation. If this assumption is
 			# incorrect, it'll fail later and we'll have to manually fix it anyway
@@ -483,9 +511,23 @@ def common_prefix(*strings):
 
 	char_tuples = itertools.izip(*strings)
 	prefix_tuples = itertools.takewhile(all_same, char_tuples)
-	return itertools.ilen(prefix_tuples)
+	return len(list(prefix_tuples))
 
 def remove_indent(s):
 	s = s.strip('\n')
 	leading = re.match('( |\t)*', s).span()[1]
 	return '\n'.join([line[leading:] for line in s.splitlines()])
+
+def diff_dicts(a,b):
+	diff = []
+	for k in set(a.keys()).union(set(b.keys())):
+		if k in a and k in b:
+			if a[k] != b[k]:
+				diff.append("values for %s differ: %r != %r" % (k,a[k],b[k]))
+		else:
+			if k in a:
+				diff.append("second dictionary lacks a value for %r" % (k,))
+			else:
+				diff.append("first dictionary lacks a value for %r" % (k,))
+	return diff
+

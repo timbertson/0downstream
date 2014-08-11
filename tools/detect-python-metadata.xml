@@ -7,9 +7,8 @@
 	<implementation id="." version="0.1">
 		<command name="run" path="detect_python_metadata.py">
 			<runner interface="http://repo.roscidus.com/python/python"/>
-			<!-- <requires interface="http://gfxmonk.net/dist/0install/python-distribute.xml"/> -->
-			<!-- XXX circular -->
-			<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-setuptools.xml"/>
+			<!-- NOTE: we could use ./feeds/pypi/setuptools, but that might be circular -->
 		</command>
 	</implementation>
 </interface>

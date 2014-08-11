@@ -1,11 +1,21 @@
 <?xml version="1.0" ?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/setuptools.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
-	<implementation id="py2_3.6" version="3.6">
-		<requires interface="http://repo.roscidus.com/python/python">
-			<version before="3"/>
-		</requires>
+	<implementation id="sha1new=afef665e7998bd2d6aba961ff727d9d77c36b69c" version="3.6">
+		<requires interface="http://repo.roscidus.com/python/python"/>
 		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<command name="run">
+			<runner interface="http://repo.roscidus.com/python/python">
+				<arg>-c</arg>
+				<arg>import sys;sys.argv[0] = &quot;easy_install&quot;; import setuptools.command.easy_install as main; sys.exit(main.main())</arg>
+			</runner>
+		</command>
+		<command name="easy_install">
+			<runner interface="http://repo.roscidus.com/python/python">
+				<arg>-c</arg>
+				<arg>import sys;sys.argv[0] = &quot;easy_install&quot;; import setuptools.command.easy_install as main; sys.exit(main.main())</arg>
+			</runner>
+		</command>
 		<archive extract="setuptools-3.6" href="https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz" size="797309"/>
 		<manifest-digest sha256="0fb25b9c8d2ed8178f382d59ea48ed3e75be77934c53f8d89eea0c2d71bdbbbc"/>
 	</implementation>
@@ -2043,21 +2053,13 @@ easy_install
 
  * Initial release.</description>
 	<gfxmonk:upstream id="setuptools" type="pypi"/>
-	<implementation id="py3_3.6" version="3.6">
-		<requires interface="http://repo.roscidus.com/python/python">
-			<version not-before="3"/>
-		</requires>
-		<environment insert="" mode="prepend" name="PYTHONPATH"/>
-		<archive extract="setuptools-3.6" href="https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz" size="797309"/>
-		<manifest-digest sha256="0fb25b9c8d2ed8178f382d59ea48ed3e75be77934c53f8d89eea0c2d71bdbbbc"/>
-	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJT6AW3AAoJELrnGdQBsyfGnRwIALxUJNN36x7yLn4fEm2VVTAgXWUvJaiSr8iY
-14m3K45izwusBiqtACXdtpogWkomPlkjwetLDSP9KUbR6SpS0okawU8HMTlbWAM5lEfWX9KIY2iO
-xAkdKNJCEpk8zI3VmwriXS9VMPepaJy+msRsJedir+8848w1MxCaBDPYpsO040R0du975tAQ+NXT
-ODdw9NB0pcgKJARuYj4vNUDpsiXfMA4o+/BbmOzeqqpK7wtVxayMEvJA2174eaW3P4WkF5MHDf/q
-XR9VGaQrv8SCj/vQS2UG7Mxtdbsrwwsiih6oJEeUkRDPu8Zvo3U7yKhq1U4O3vuBlvt22WXueYYM
-G0w=
+iQEcBAABAgAGBQJT6KBWAAoJELrnGdQBsyfGIFIIAJN3VoH4ALfAC7wnz+agQaJqU4rxVU8CAcYL
+EPmqQQDD8QLnx+73JQYXRKKDYv8WJDTWSteGBPBO9DgVbfLMCAStWooqW0OYUz4FNUDPYDxW2sSa
+W3iVFQqfhNwBPpTmNeLvKLumSwNCr3y/Xeo8bsqxac6xbHz8bL64TKqmaNsRGard78WBhYhZPbPu
+KkFAn36opZcq0G8fQHt5fgNEtgThO5/JKdJ9yX7MZA19luRnMQqhbwKR3QGOtVGy2nHwxCNb14yk
+TnQPod/OlOFBylC5Zyy87McevKivLJldhsv+NeBGCERWQ1seUXuGqBDgWGDwJx4eubzwEah33iBF
+iTk=
 
 -->

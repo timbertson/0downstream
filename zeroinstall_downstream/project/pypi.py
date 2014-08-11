@@ -10,6 +10,8 @@ from ..tag import Tag
 class Release(BaseRelease):
 	def __init__(self, project, version, info, project_metadata):
 		super(Release, self).__init__()
+		self.project = project
+		self.project_metadata = project_metadata
 		self.version = version
 		self.released = info['upload_time'][:10]
 		self.info = info
@@ -19,6 +21,9 @@ class Release(BaseRelease):
 		#TODO: is there a separate source for these?
 		self.compile_dependencies = self.runtime_dependencies
 		self.dependency_names = set()
+	
+	def copy(self):
+		return type(self)(project=self.project, version=self.version, info=self.info, project_metadata=self.project_metadata)
 	
 	def detect_dependencies(self, resolver, metadata):
 		logging.debug("extract_depependencies: pypi petadata = %r", metadata)

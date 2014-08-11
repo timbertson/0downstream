@@ -156,9 +156,11 @@ class Release(object):
 		return self._release.release_info
 	
 	def __enter__(self):
+		self._entered = True
 		self._release.__enter__()
 
 	def __exit__(self, *a):
+		self._entered = False
 		for feed in self._local_feeds:
 			try:
 				os.remove(feed)
@@ -167,6 +169,12 @@ class Release(object):
 					continue
 				raise
 			logger.debug("cleaned up local feed %s", feed)
+
+		# fork() creates entered peers. So exit them when the original
+		# feed is exited. This is rather ugly
+		for peer in self._peers:
+			if peer._entered:
+				peer.__exit__(*a)
 		self._release.__exit__(*a)
 
 	def _local_feed_for(self, url):
@@ -184,9 +192,11 @@ class Release(object):
 		'''Clones this release and returns the new object
 		When this (main) feed is generated, any forked implementations
 		will also be added to the result'''
-		impl = type(self)(project=self._project, release=self._release, location=self._location, opts=self._opts)
+		release = self._release.copy()
+		impl = type(self)(project=self._project, release=release, location=self._location, opts=self._opts)
 		impl.template = self.template
 		impl.template_vars = self.template_vars.copy()
+		if self._entered: impl.__enter__()
 		self._peers.append(impl)
 		return impl
 

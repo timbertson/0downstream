@@ -38,6 +38,9 @@ class Release(BaseRelease):
 		archive = super(Release, self)._enter_archive(extract=None)
 		return archive
 
+	def copy(self):
+		return type(self)(project=self.project, version_info=self.info)
+
 	def detect_dependencies(self, resolver):
 		self.runtime_dependencies = []
 		self.compile_dependencies = []

@@ -31,11 +31,10 @@ else:
 	except (AttributeError, KeyError) as e:
 		pass
 	else:
-		#XXX do scripts always end up in "bin"? Probably...
 		for entry in entry_points:
 			name, modulepath = list(map(lambda s:s.strip(), entry.split('=', 1)))
 			parts = modulepath.split(':')
-			script = {'name':parts[0]}
+			script = {'name':name}
 			assert parts and parts[0], entry
 			script['module'] = parts[0]
 			if len(parts) > 1:
