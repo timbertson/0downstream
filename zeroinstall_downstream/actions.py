@@ -14,8 +14,6 @@ _seen = set()
 indent = 0
 INDENT = ""
 
-ZI_PUBLISH = 'http://0install.net/2006/interfaces/0publish'
-
 def _visit(location):
 	if location in _seen: return False
 	_seen.add(location)
@@ -106,13 +104,13 @@ def update(project, location, version, opts):
 						if i == 0:
 							shutil.copyfile(local, master.name)
 						else:
-							subprocess.check_call(['0install', 'run', ZI_PUBLISH, '--add-from', local, master.name])
+							api.run_0publish(['--add-from', local, master.name])
 				# once we've successfully added every version, save the results
 				_save_feed(Feed.from_path(master.name), location, opts)
 		else:
 			try:
 				with _release_feed(project, location, version, opts) as local:
-					subprocess.check_call(['0install', 'run', ZI_PUBLISH, '--add-from', local, location.path])
+					api.run_0publish(['--add-from', local, location.path])
 					_feed_modified(location, opts)
 			except AlreadyPublished as e:
 				logger.info("feed %s already contains version %s" % (location.path, e.version))

@@ -1,0 +1,1 @@
+raise ImportError("fake GTK")

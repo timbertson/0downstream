@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>python fakes</name>
+	<summary>python fakes</summary>
+	<description>python fakes</description>
+	<implementation id="." version="0.1">
+		<environment name="PYTHONPATH" mode="prepend" insert=""/>
+	</implementation>
+</interface>
+

@@ -54,7 +54,7 @@ class Tag(object):
 		for pair in self.attrs.items():
 			elem.setAttribute(*pair)
 		for child in self.children:
-			if isinstance(child, str):
+			if isinstance(child, str) or isinstance(child, unicode):
 				elem.appendChild(doc.createTextNode(child))
 			else:
 				child.addTo(elem, doc)

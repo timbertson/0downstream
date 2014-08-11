@@ -36,7 +36,7 @@ DEV_NULL = open(os.devnull)
 python3_blacklist = set([])
 
 def feed_modified(path):
-	subprocess.check_call(['0install', 'run', ZI_PUBLISH , '--key', '0downstream', '--xmlsign', path])
+	api.run_0publish(['--key', '0downstream', '--xmlsign', path])
 
 def resolve_project(project):
 	type = project.upstream_type
@@ -162,16 +162,27 @@ def process(project):
 			spec = '%d..!%d' % (major_version, major_version+1)
 			#XXX run in sandbox
 			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
+
+			scratch = tempfile.mkdtemp()
+			#NOTE: detection of metadata will often cause the contents of `workdir` to change.
+			# This is horrid, so we copy everything into a tempdir first
+			print("created scratch: " + scratch)
 			try:
-				output = subprocess.check_output([ZEROINSTALL_BIN, 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=project.working_copy)
-			except subprocess.CalledProcessError as e:
-				logger.warn("metadata extraction failed:", exc_info=True)
-				return None
-			else:
-				# print('JSON OUTPUT: %r' % output)
-				info = json.loads(output)
-				info['language_version'] = major_version
-				return info
+				tmp_dest = os.path.join(scratch, "contents")
+				shutil.copytree(project.working_copy, tmp_dest, symlinks=True)
+				try:
+					output = subprocess.check_output([ZEROINSTALL_BIN, 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=tmp_dest)
+				except subprocess.CalledProcessError as e:
+					logger.warn("metadata extraction failed:", exc_info=True)
+					return None
+				else:
+					# print('JSON OUTPUT: %r' % output)
+					info = json.loads(output)
+					info['language_version'] = major_version
+					logger.info("Detected metadata: %r", info)
+					return info
+			finally:
+				shutil.rmtree(scratch)
 
 		info_2 = get_metadata(2)
 		project_infos = [info_2]
@@ -234,46 +245,66 @@ def process(project):
 				project.add_to_impl(Tag('environment', {'name':'PATH', 'insert':'bin','mode':'prepend'}))
 
 				commands = set()
-				def add_command(name, path):
-					assert name not in commands
+				def add_command(name, script):
+					if name in commands:
+						logger.warn("skipping duplicate %s (%r)" % (name, script))
+						return False
+					else:
+						logger.info("adding command: %s", name)
 					commands.add(name)
-					project.add_to_impl(
-						Tag('command',{ 'name': name, 'path': path}, [
+
+					if 'path' in script:
+						# plain wrapper script
+						tag = Tag('command',{ 'name': name, 'path': path}, [
 							# XXX detect non-python wrapper scripts?
 							Tag('runner', {'interface': PYTHON_FEED})
 						])
-					)
+					else:
+						mod = script['module']
+						fn = script.get('fn', None)
+						if fn:
+							# ugh, setuptools. We need to import a module *and* call a specific function,
+							# which isn't supported by the regular python interpreter.
+							# XXX if this is too hacky we could write a wrapper, or use setuptools itself
+							# (but I suspect setuptools is way more pain than gain)
+							tag = Tag('command',{ 'name': name}, [
+								Tag('runner', {'interface': PYTHON_FEED}, [
+									Tag('arg', text='-c'),
+									Tag('arg', text='import sys;sys.argv[0] = "' + script['name'] + '"; import ' + mod + ' as main; sys.exit(main.'+fn+'())'),
+								])
+							])
+						else:
+							# easy: a plain module runner
+							tag = Tag('command',{ 'name': name}, [
+								Tag('runner', {'interface': PYTHON_FEED}, [
+									Tag('arg', text='-m'),
+									Tag('arg', text=module),
+								])
+							])
+					project.add_to_impl(tag)
 
-				def basename(path):
-					# strips off prefix & extension
-					return os.path.splitext(os.path.basename(path))[0]
 
 				if len(scripts) > 1:
 					# heuristic: pick the shortest command that
 					# shares the longest prefix with the package name
 					def score(script):
-						base = basename(script)
-						baselen = len(base)
-						common_chars = common_prefix(base, project.id)
-						excess_chars = baselen - common_chars
-						# include baselen as a tiebreaker,
+						name = script['name']
+						namelen = len(name)
+						common_chars = common_prefix(name, project.id)
+						excess_chars = namelen - common_chars
+						# include namelen as a tiebreaker,
 						# when multiple commands have the same number of excess chars
 						# (presumably 0)
-						rv = (excess_chars, baselen)
-						logger.verbose("score for %s: %r", script, rv)
+						rv = (excess_chars, namelen)
+						logger.verbose("score for %s: %r", name, rv)
 						return rv
 					scripts = sorted(scripts, key=score)
-					logger.info("Selecting %s as main command (candidates: %r)", scripts[0], scripts)
+					logger.info("Selecting %r as main command (candidates: %r)", scripts[0], scripts)
 
 				add_command('run', scripts[0])
 
 				for script in scripts:
-					name = basename(script)
-					if name in commands:
-						logger.warn("skipping duplicate %s (%s)" % (name, script))
-					else:
-						logger.info("adding command: %s", name)
-						add_command(name, script)
+					add_command(script['name'], script)
 
 			portable_feed = project.generate_local_feed()
 
