@@ -2,12 +2,14 @@ from .pypi import Pypi
 from .github import Github
 from .rubygems import Rubygems
 from .npm import Npm
+from .opam import Opam
 
 SOURCES = {
 	'pypi': Pypi,
 	'github': Github,
 	'rubygems': Rubygems,
-	'npm': Npm
+	'npm': Npm,
+	'opam': Opam,
 }
 
 def make(**k):

@@ -75,6 +75,11 @@ def getjson(*a, **k):
 	assert response.ok, response.content
 	return json.loads(response.content)
 
+def get(*a, **k):
+	response = requests.get(*a, **k)
+	assert response.ok
+	return response.content
+
 class BaseRelease(object):
 	@cached_property
 	def working_copy(self):

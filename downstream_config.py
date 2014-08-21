@@ -456,17 +456,20 @@ def process(project):
 			# do this again now that we've marked the feed as needing compilation
 			project.create_dependencies()
 
+	elif project.upstream_type == "opam":
+		logger.info("TODO: process opam!")
 	else:
-		assert False
+		assert False, "unknown project type!"
 
 	while True:
+		feed = None
 		try:
 			for project in projects:
 				feed = project.generate_local_feed()
 				assert check_validity(project, feed, cleanup=cleanup_actions), "feed check failed"
 			break
 		except Exception as e:
-			print("local feed: %s" % feed, file=sys.stderr)
+			if feed is not None: print("local feed: %s" % feed, file=sys.stderr)
 			print("local extract: %s" % project.working_copy, file=sys.stderr)
 			print("%s: %s" % (type(e).__name__, e))
 			if not sys.stdin.isatty():

@@ -1,0 +1,10 @@
+comp += [ "-warn-error" "A" ]
+
+begin program "opam-to-json"
+  files = [
+    "opam_to_json.ml"
+  ]
+  requires = [ "opam-client"; "opam-core" ]
+end
+
+
