@@ -15,14 +15,11 @@ logger = logging.getLogger('zeroinstall_downstream.conf')
 from zeroinstall_downstream import api
 from zeroinstall_downstream.api import Tag, Attribute, COMPILE_NAMESPACE
 
-type_formats = {
-	'pypi':'python-%s.xml',
-	'rubygems':'rubygems-%s.xml',
-	'npm':'node-%s.xml',
-}
-
-FEED_URL_ROOT = 'http://gfxmonk.github.io/0downstream/feeds/'
-FEED_PATH = 'feeds'
+URL_ROOT = 'http://gfxmonk.github.io/0downstream/'
+FILES_URL_ROOT = URL_ROOT + 'files/'
+FEED_URL_ROOT = URL_ROOT + 'feeds/'
+ROOT_PATH = os.path.join(os.path.dirname(__file__))
+FEED_PATH = os.path.join(ROOT_PATH, 'feeds')
 
 # ZEROINSTALL_BIN = '0install'
 ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/build/ocaml/0install"
@@ -31,9 +28,15 @@ NODEJS_FEED = 'http://gfxmonk.net/dist/0install/node.js.xml'
 BASH_FEED = 'http://repo.roscidus.com/utils/bash'
 PYTHON_FEED = 'http://repo.roscidus.com/python/python'
 ZI_PUBLISH = 'http://0install.net/2006/interfaces/0publish'
+COMPILE_OPAM_FEED = os.path.abspath(os.path.join(os.path.dirname(__file__), 'tools','opam-src-build','opam-src-build.xml')) #XXX make public
+OCAML_RUNTIME_FEED = 'http://repo.roscidus.com/ocaml/ocaml-runtime'
+OCAML_COMPILER_FEED = 'http://gfxmonk.net/dist/0install/ocaml.xml'
 DEV_NULL = open(os.devnull)
 
 python3_blacklist = set([])
+
+def pin_components(n):
+	Attribute('compile:pin-components', str(n), namespace=COMPILE_NAMESPACE)
 
 def feed_modified(path):
 	api.run_0publish(['--key', '0downstream', '--xmlsign', path])
@@ -49,10 +52,10 @@ def resolve_project(project):
 	return api.FeedLocation(url=FEED_URL_ROOT + rel_path, path=os.path.join(FEED_PATH, rel_path))
 
 def local_path_for(url):
-	if url.startswith(FEED_URL_ROOT):
-		return os.path.join(FEED_PATH, url[len(FEED_URL_ROOT):])
+	if url.startswith(URL_ROOT):
+		return os.path.join(ROOT_PATH, url[len(URL_ROOT):])
 
-def check_validity(project, generated_feed, cleanup):
+def check_validity(project, generated_feed, cleanup, post_compile_hook=None):
 	logging.info("Checking validity of local feed: %s" % generated_feed)
 
 	def _run(cmd, **kw):
@@ -111,6 +114,10 @@ if err: raise err
 				run_check([ZEROINSTALL_BIN, 'run', NODEJS_FEED, '-e', 'require("%s")' % (project.id)])
 			elif project.upstream_type == 'rubygems':
 				run_check(['ruby', '-e', 'require("%s")' % (project.id)])
+			elif project.upstream_type == 'opam':
+				# there's no generic test we can do here, but if it's
+				# successfully compiled then that's a good start.
+				return True
 			else:
 				assert False, "can't check feed validity"
 		except subprocess.CalledProcessError as e:
@@ -127,6 +134,7 @@ if err: raise err
 		# (delaying it means we can inspect the directory
 		# interactively if something fails)
 		def remove_tempdir():
+			# XXX make this work for readonly files!
 			shutil.rmtree(compile_root)
 		cleanup.append(remove_tempdir)
 
@@ -145,7 +153,10 @@ if err: raise err
 		# exclude expected file to get the output dir
 		files.difference_update(set(['src','build','0compile.properties']))
 		assert len(files) == 1, "expected 1 remaining file, got: %r" % (files,)
-		built_feed = os.path.join(dest, files.pop(), '0install', 'feed.xml')
+		install_dir = files.pop()
+		if post_compile_hook:
+			post_compile_hook(os.path.join(dest, install_dir))
+		built_feed = os.path.join(dest, install_dir, '0install', 'feed.xml')
 		return check(built_feed)
 	else:
 		return check(generated_feed)
@@ -153,6 +164,7 @@ if err: raise err
 def process(project):
 	cleanup_actions = []
 	projects = [project]
+	post_compile_hook = None
 
 	if project.upstream_type == 'pypi':
 		requires_python_tag = Tag('requires', {'interface':PYTHON_FEED})
@@ -161,7 +173,7 @@ def process(project):
 		def get_metadata(major_version):
 			spec = '%d..!%d' % (major_version, major_version+1)
 			#XXX run in sandbox
-			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata.xml')
+			detect_feed = os.path.join(os.path.dirname(__file__), 'tools/detect-python-metadata/detect-python-metadata.xml')
 
 			scratch = tempfile.mkdtemp()
 			#NOTE: detection of metadata will often cause the contents of `workdir` to change.
@@ -337,19 +349,35 @@ def process(project):
 			portable_feed = project.generate_local_feed()
 
 			# try running it as a "*-*" portable feed. if it works, we're good
+			has_native_code = any([
+				info['has_c_libraries'],
+				info['has_ext_modules'],
+			])
 			requires_build = any([
-					info['has_c_libraries'],
-					info['has_ext_modules'],
-					info['use_2to3']
-			]) or not check_validity(project, portable_feed, cleanup=cleanup_actions)
-			# if not, assume that it needs compilation. If this assumption is
-			# incorrect, it'll fail later and we'll have to manually fix it anyway
-			if requires_build:
+				has_native_code,
+				info['use_2to3'],
+			])
+			
+			if not requires_build and not check_validity(project, portable_feed, cleanup=cleanup_actions):
+				# if the feed doesn't work as-is, assume that it needs compilation.
+				# If this assumption is incorrect, it'll fail later and we'll have
+				# to manually fix it anyway
 				logger.info("portable feed failed - assuming compilation is required")
+				requires_build = True
 
+			if requires_build:
 				# compiled implementations have their libs at lib/
 				project.remove_from_impl(lambda t: isinstance(t, Tag) and t.get('name') == 'PYTHONPATH')
 				project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'lib','mode':'prepend'}))
+				if has_native_code:
+					# pin python version used to e.g. 2.7.*
+					# this will duplicate the dependency on python, but that should be fine
+					Tag('requires', {'interface':PYTHON_FEED}, [
+						Tag('version', None, children=[
+							pin_components(2),
+						])
+					])
+
 				project.set_compile_properties(dup_src=True,
 					command=
 						Tag('command',{ 'name': 'compile' }, [
@@ -422,7 +450,7 @@ def process(project):
 			project.add_to_impl(
 				Tag('requires', {'interface':NODEJS_FEED}, [
 					Tag('version', None, children=[
-						Attribute('compile:pin-components', '2', namespace=COMPILE_NAMESPACE)
+						pin_components(2),
 					])
 				])
 			)
@@ -457,7 +485,65 @@ def process(project):
 			project.create_dependencies()
 
 	elif project.upstream_type == "opam":
-		logger.info("TODO: process opam!")
+		contents = os.listdir(project.working_copy)
+		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
+		project.rename(contents[0], 'src')
+
+		# add opam files:
+		repo_path = 'opam'
+		with open(os.path.join(os.path.dirname(__file__), 'files','opam-local-src'), 'rb') as f:
+			opam_local_src_contents = f.read()
+
+		project._release.add_opam_files(repo_path,
+				src_url=FILES_URL_ROOT + 'opam-local-src',
+				src_contents=opam_local_src_contents)
+
+		project.set_compile_properties(dup_src=True,
+			command=
+				Tag('command',{ 'name': 'compile' }, [
+					Tag('runner', {'interface': COMPILE_OPAM_FEED}),
+					Tag('arg', text=project.id),
+				]),
+			children=[
+				Tag('environment', {'name': 'OPAM_PKG_PATH', 'insert':repo_path, 'mode':"prepend"})
+			],
+		)
+
+		def add_bins(root):
+			blacklist = set(['safe_camlp4'])
+			bindir = os.path.join(root, 'bin')
+			if not os.path.exists(bindir):
+				return
+
+			bins = [f for f in os.listdir(bindir)
+				if os.path.isfile(os.path.join(bindir,f)) and f not in blacklist
+			]
+			if not bins:
+				return 
+
+			commands = set()
+			def add(name, filename):
+				if name in commands: return
+				commands.add(name)
+				project.add_to_impl(Tag('command',
+					{
+						'path': 'bin/'+filename,
+						'name': name
+					},
+				))
+
+			for name in bins:
+				filename = name
+				if len(bins) == 1 or name == project.id:
+					# this must be the canonical bin:
+					name = "run"
+				add(name, filename)
+
+		post_compile_hook = add_bins
+
+		# assert False, repr(project.release_info)
+
+		# XXX process dependencies
 	else:
 		assert False, "unknown project type!"
 
@@ -466,7 +552,9 @@ def process(project):
 		try:
 			for project in projects:
 				feed = project.generate_local_feed()
-				assert check_validity(project, feed, cleanup=cleanup_actions), "feed check failed"
+				assert check_validity(
+					project, feed, cleanup=cleanup_actions, post_compile_hook=post_compile_hook
+				), "feed check failed"
 			break
 		except Exception as e:
 			if feed is not None: print("local feed: %s" % feed, file=sys.stderr)
@@ -504,6 +592,7 @@ def process(project):
 				raise err
 
 def error_cb(e):
+	logger.error(e, exc_info=True)
 	import pdb
 	pdb.set_trace()
 

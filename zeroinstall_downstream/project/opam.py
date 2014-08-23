@@ -15,6 +15,11 @@ from ..tag import Tag
 
 logger = logging.getLogger(__name__)
 
+class FakeFileEntry(object):
+	def __init__(self, url, contents):
+		self.url = url
+		self.contents = contents
+
 class FileEntry(object):
 	def __init__(self, repo, fields):
 		self.repo = repo
@@ -26,6 +31,7 @@ class FileEntry(object):
 	def url(self):
 		return self.repo.root + self.path
 
+	@cached_property
 	def contents(self):
 		url = self.url
 		c = get(url)
@@ -74,7 +80,12 @@ class Release(BaseRelease):
 
 		self._url_path = ['packages', self.project.id, self.id]
 		self.runtime_dependencies = [] #XXX
+		self.compile_dependencies = [] #XXX
 	
+	def _enter_archive(self):
+		archive = super(Release, self)._enter_archive(extract=None)
+		return archive
+
 	@property
 	def url(self):
 		info = self.release_info
@@ -84,6 +95,28 @@ class Release(BaseRelease):
 	@property
 	def info_page(self):
 		return self.project.repo.root + '/'.join(self._url_path) + '/'
+
+	def add_opam_files(self, base, src_url, src_contents):
+		for file in self.project.repo.files_at(*self._url_path):
+			relative_path = os.path.join(*file.parts[len(self._url_path):])
+
+			if relative_path == 'url':
+				continue
+
+			self.archive.add_file(
+				source=file.url,
+				dest='/'.join([base, self.id, relative_path]),
+				contents=file.contents,
+			)
+
+		# Add a "src" file, which is read/understood by opam-src-build.
+		# This is very hacky, but prevents an entire compile step just to get
+		# around a hard-coded path
+		self.archive.add_file(
+			source=src_url,
+			dest='/'.join([base, self.id, 'src']),
+			contents=src_contents
+		)
 	
 	@cached_property
 	def release_info(self):
@@ -98,7 +131,7 @@ class Release(BaseRelease):
 			logger.warn("No %s file found for %s" % (kind, self.id))
 			return None
 		assert len(meta_files) == 1, "%s %s files found for %s" % (len(meta_files), kind, self.id)
-		content = meta_files[0].contents()
+		content = meta_files[0].contents
 		# print(repr(content))
 		cmd = [ '0install', 'run', detect_opam_metadata, '--type', kind ]
 		logger.debug("Running: %r" % (cmd,))

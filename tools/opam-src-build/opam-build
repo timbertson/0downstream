@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# An opam-build wrapper for use by 0compile. The setup is:
+# $SRCDIR:   A read-only unpacked directory containing the source code
+# $BUILDDIR: A writeable temp dir
+# $DESTDIR:  A writeable destination dir which will become the published artifact.
+#            It is CRITICAL that no files in here reference $DESTDIR, as it must
+#            be relocatable.
+#
+# The process should *not* touch (or even read) ~/.opam/*
+
+set -eux
+# cd "$SRCDIR"
+
+# use a throwaway opam dir
+export OPAMROOT="$BUILDDIR/_opam_build/state"
+repo_dir="$BUILDDIR/_opam_build/repo"
+export OPAMCURL=false
+export OPAMYES=1
+# export OPAMDEBUG=1
+mkdir -p "$OPAMROOT"
+mkdir -p "$repo_dir"
+
+OPAM="${OPAM:-opam}"
+PYTHON="${PYTHON:-python}"
+export HOME="$BUILDDIR/fake_homedir" # make sure opam doesn't mess with our home dir
+
+which "$OPAM"
+"$OPAM" init --no-setup default "$repo_dir"
+
+# construct an opam package repo just for this build:
+python -m opam_repo "$repo_dir"
+"$OPAM" update default
+
+installed_files="$OPAMROOT/system"
+
+"$OPAM" install --strict --deps-only "$@"
+(cd "$installed_files" && find . > "$BUILDDIR/_installed.deps")
+
+"$OPAM" install --strict "$@"
+chmod -R u+w "$OPAMROOT" # to aid cleanup
+
+
+# we don't include lib/ or other dirs like that, since they're full of useless
+# unrelocatable dependencies. We might need to special case this for file types
+# that _are_ needed at runtime, though
+(cd "$installed_files" && find ./{bin,man} > "$BUILDDIR/_installed")
+
+python -m copy_new_files "$BUILDDIR/_installed.deps" "$BUILDDIR/_installed" "$installed_files" "$DISTDIR"
+
+set +x
+if [ -e "$HOME" ]; then
+	echo "WARNING: $HOME was populated! This shouldn't happen"
+fi

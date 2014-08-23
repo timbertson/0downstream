@@ -11,6 +11,10 @@ from .tag import Tag
 import logging
 log = logging.getLogger(__name__)
 
+def mkdirp(p):
+	if not os.path.exists(p):
+		os.makedirs(p)
+
 _sentinel = object()
 
 class Archive(object):
@@ -45,6 +49,14 @@ class Archive(object):
 		local_dest = os.path.join(self.local, dest)
 		os.rename(local_source, local_dest)
 		self.recipe_steps.append(Tag('rename', {'source': source, 'dest':dest}))
+
+	def add_file(self, source, dest, contents):
+		local_dest = os.path.join(self.local, dest)
+		mkdirp(os.path.dirname(local_dest))
+		with open(local_dest, 'wb') as out:
+			out.write(contents)
+		os.utime(local_dest, (0, 0))
+		self.recipe_steps.append(Tag('file', {'href': source, 'dest':dest, 'size': str(len(contents))}))
 
 	def __enter__(self):
 		self.local = tempfile.mkdtemp()

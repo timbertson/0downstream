@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.net/dist/0install/opam-src-build.xml">
+	<name>opam-build</name>
+	<summary>0install builder for opam</summary>
+	<publish xmlns="http://gfxmonk.net/dist/0install" mode="0tools"/>
+	<description>
+		Wrapper script to build an opam source package in a
+		0install-compatible way.
+	</description>
+	<group main="opam-build">
+		<command name="run" path="opam-build">
+			<runner interface="http://repo.roscidus.com/utils/bash"/>
+		</command>
+		<requires interface="/home/tim/dev/0install/zi-ocaml/opam.0compile/opam-linux-x86_64/0install/feed.xml"> <!-- XXX -->
+			<executable-in-var name="OPAM"/>
+		</requires>
+		<!-- <requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/> -->
+		<requires interface="http://repo.roscidus.com/python/python"/>
+		<environment insert="" mode="prepend" name="PATH"/>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<implementation id="." version="0.1">
+		</implementation>
+	</group>
+</interface>

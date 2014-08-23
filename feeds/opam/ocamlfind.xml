@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=642df65214a2ea497602883a25c5dc96110e77cd" version="1.5.2">
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<command name="compile">
+			<runner interface="/home/tim/dev/python/0downstream/tools/opam-src-build/opam-src-build.xml"/>
+			<arg>ocamlfind</arg>
+			<compile:implementation>
+				<command name="run" path="bin/ocamlfind"/>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive extract="" href="http://download.camlcity.org/download/findlib-1.5.2.tar.gz" size="235561"/>
+			<rename dest="src" source="findlib-1.5.2"/>
+			<file dest="opam/ocamlfind.1.5.2/opam" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/opam" size="425"/>
+			<file dest="opam/ocamlfind.1.5.2/files/ocamlfind.install" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/files/ocamlfind.install" size="151"/>
+			<file dest="opam/ocamlfind.1.5.2/descr" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/descr" size="317"/>
+			<file dest="opam/ocamlfind.1.5.2/src" href="http://gfxmonk.github.io/0downstream/files/opam-local-src" size="10"/>
+		</recipe>
+		<manifest-digest sha256="13625973838cfaf53d330bf76f68a4a434d513fb86950c9d733d817409012480"/>
+	</implementation>
+	<name>ocamlfind</name>
+	<summary>ocamlfind opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/</homepage>
+	<description>A library manager for OCaml
+Findlib is a library manager for OCaml. It provides a convention how
+to store libraries, and a file format (&quot;META&quot;) to describe the
+properties of libraries. There is also a tool (ocamlfind) for
+interpreting the META files, so that it is very easy to use libraries
+in programs and scripts.
+</description>
+	<gfxmonk:upstream id="ocamlfind" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJT+HtnAAoJEOA/kc8tk45W8oMH/RuzmXKMc7rsRjdmVvYjKku3Sds/N0PugGtn
+xE0Zu/daXdlwUaHtQDHMtlkIPF4uaWBKmnehlA3z3N4gxUm2R1y9c0BJs4qS7tJNyEO5WW7jPxFY
++hk7qGs915RUAnMSpgBqAijZrOVvrt2ptSePQLoxME/jzbV89Td1lYZSJNIZ/byJD6NsEN2TSxwq
+oy07+bIfEnMf/m/LsimR/vbUZlb+VE7txBUEYof0W76A848sNn2wMZdkxTg7Gol9MqFXir9YSHbe
+qSYwRSrtxn4BMHSakhU4myQaeKK7kR/skPZKSEU9ke5fJ9HYrERaAkrowDu8VgYqUnTCGvpEskeM
+Bas=
+
+-->

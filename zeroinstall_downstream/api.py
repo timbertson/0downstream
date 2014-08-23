@@ -75,9 +75,13 @@ class Release(object):
 	def set_compile_properties(self,
 		command=None,
 		dup_src=False,
+		children=None,
 	):
 		assert command is not None, "command required"
-		children = []
+		if children is None:
+			children = []
+		else:
+			children = children[:]
 
 		if dup_src:
 			children.append(Attribute('compile:dup-src', 'true', namespace=COMPILE_NAMESPACE))
@@ -86,7 +90,7 @@ class Release(object):
 	
 	def rename(self, *a):
 		return self._release.archive.rename(*a)
-	
+
 	def add_to_impl(self, tag):
 		self.implementation_children.append(tag)
 	
@@ -244,7 +248,7 @@ class Release(object):
 
 			feed.save(dest)
 			dest.seek(0)
-			logging.debug("local feed XML: %s" % feed.xml)
+			logging.debug("local feed XML (saved in %s): %s" % (dest.name, feed.xml,))
 
 			if not local:
 				# include feed peers, by simply calling this method on them and
