@@ -11,42 +11,50 @@ let dump_json data =
 	let json_str = OpamJson.to_string data in
 	print_endline json_str
 
-let json_of_os_constr cons : OpamJson.t =
+type json_obj = [`O of (string * OpamJson.t) list]
+
+let json_of_os_constr cons : json_obj =
 	let (bool, str) = cons in
-	`A [
-		`Bool bool;
-		`String str;
+	`O [
+		("type", `String "os_constraint");
+		("value", `A [
+			`Bool bool;
+			`String str;
+		]);
 	]
 
-let json_of_compiler_version_constraint cons : OpamJson.t =
+let json_of_compiler_version_constraint cons : json_obj =
 	let (relop, ver) = cons in
-	`A [
-		`String (OpamFormula.string_of_relop relop);
-		OpamCompiler.Version.to_json ver
+	`O [
+		("type", `String "version");
+		("op", `String (OpamFormula.string_of_relop relop));
+		("version", OpamCompiler.Version.to_json ver);
 	]
 
-let json_of_version_constraint (cons:OpamFormula.version_constraint) : OpamJson.t =
+let json_of_version_constraint (cons:OpamFormula.version_constraint) : json_obj =
 	let (relop, ver) = cons in
-	`A [
-		`String (OpamFormula.string_of_relop relop);
-		OpamPackage.Version.to_json ver
+	`O [
+		("type", `String "version");
+		("op", `String (OpamFormula.string_of_relop relop));
+		("version", OpamPackage.Version.to_json ver);
 	]
 
 type dep = (OpamPackage.Name.t * OpamFormula.version_formula)
-let rec json_of_dependency (dep:dep) : OpamJson.t =
+let rec json_of_dependency (dep:dep) : json_obj =
 	let (name, version) = dep in
 	`O [
+		("type", `String "dependency");
 		("name", OpamPackage.Name.to_json name);
 		("constraints", json_of_formula json_of_version_constraint version);
 	]
 
-and json_of_formula : 'a . ('a -> OpamJson.t) -> 'a OpamFormula.formula -> OpamJson.t =
+and json_of_formula : 'a . ('a -> json_obj) -> 'a OpamFormula.formula -> OpamJson.t =
 	fun atom_to_json formula ->
 	let recurse = json_of_formula atom_to_json in
 	let open OpamFormula in
 	match formula with
 		| Empty -> `Null
-		| Atom f -> atom_to_json f
+		| Atom f -> ((atom_to_json f):>OpamJson.t)
 		| Block f -> recurse f
 		| And (a,b) -> `A [`String "&&"; (recurse a); (recurse b)]
 		| Or (a,b) -> `A [`String "||"; (recurse a); (recurse b)]

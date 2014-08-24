@@ -101,8 +101,8 @@ class Release(object):
 		if self.template is None:
 			self.template = _default_template
 
-	def guess_dependencies(self, *a):
-		self._release.detect_dependencies(self._location_resolver, *a)
+	def guess_dependencies(self, *a, **k):
+		self._release.detect_dependencies(self._location_resolver, *a, **k)
 	
 	def set_implementation_id(self, id):
 		self.implementation_children.append(Attribute('id', id))
@@ -285,4 +285,11 @@ class FeedLocation(object):
 	def __ne__(self, other): return not self.__eq__(other)
 	def __hash__(self): return hash(self._key())
 	def __repr__(self): return "<FeedLocation %r>" % (self._key(),)
+
+	def require_tag(self, tagname='requires'):
+		assert tagname in ('requires', 'restricts'), "Unknown tagname: %s" % (tagname,)
+		tag = Tag(tagname, {'interface': self.url})
+		if self.command is not None:
+			tag.attr('command', self.command)
+		return tag
 

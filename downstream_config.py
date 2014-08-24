@@ -485,6 +485,8 @@ def process(project):
 			project.create_dependencies()
 
 	elif project.upstream_type == "opam":
+		project.guess_dependencies(ocaml_feed=OCAML_COMPILER_FEED)
+
 		contents = os.listdir(project.working_copy)
 		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
 		project.rename(contents[0], 'src')
@@ -505,9 +507,13 @@ def process(project):
 					Tag('arg', text=project.id),
 				]),
 			children=[
-				Tag('environment', {'name': 'OPAM_PKG_PATH', 'insert':repo_path, 'mode':"prepend"})
+				Tag('environment', {'name': 'OPAM_PKG_PATH', 'insert':repo_path, 'mode':"prepend"}),
+				Tag('requires', {'interface': OCAML_COMPILER_FEED }),
 			],
 		)
+
+		# needs to happen after we mark the implementation as compilable
+		project.create_dependencies()
 
 		def add_bins(root):
 			blacklist = set(['safe_camlp4'])

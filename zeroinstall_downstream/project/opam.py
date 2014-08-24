@@ -79,8 +79,6 @@ class Release(BaseRelease):
 		self.id = project.id + '.' + version.upstream
 
 		self._url_path = ['packages', self.project.id, self.id]
-		self.runtime_dependencies = [] #XXX
-		self.compile_dependencies = [] #XXX
 	
 	def _enter_archive(self):
 		archive = super(Release, self)._enter_archive(extract=None)
@@ -89,8 +87,11 @@ class Release(BaseRelease):
 	@property
 	def url(self):
 		info = self.release_info
-		print(repr(info['url']))
-		return info['url']['url']
+		# print(repr(info['url']))
+		urlinfo = info['url']
+		urlkind = urlinfo['kind']
+		assert urlkind in (None, 'http'), "Unsupported URL kind: %s" % (urlkind,)
+		return urlinfo['url']
 
 	@property
 	def info_page(self):
@@ -123,6 +124,7 @@ class Release(BaseRelease):
 		rv = {}
 		for kind in ('opam', 'descr', 'url'):
 			rv[kind] = self._metadata(kind)
+		logger.debug("Release info for %s: %r" % (self.id, rv))
 		return rv
 
 	def _metadata(self, kind):
@@ -142,59 +144,138 @@ class Release(BaseRelease):
 		# print('GOT: ' + repr(out))
 		return json.loads(out)
 	
-	# @property
-	# def dependency_names(self):
-	# 	get = lambda dep: dep.upstream_id
-	# 	return set(map(get, self.runtime_dependencies)).union(map(get, self.compile_dependencies))
-	#
-	# @cached_property
-	# def release_info(self):
-	# 	root = os.listdir(self.archive.local)[0]
-	# 	with open(os.path.join(self.archive.local, root, 'package.json')) as json_file:
-	# 		return json.load(json_file)
-	
 	def copy(self):
 		return type(self)(project=self.project, version=self.version)
 
-	# def detect_dependencies(self, resolver):
-	# 	self.runtime_dependencies = []
-	# 	self.compile_dependencies = []
-	# 	def add_dependency(tagname, name, version_spec, attrs=None, dest=None):
-	# 		location = resolver(Npm(name))
-	# 		if location is None:
-	# 			logger.info("Skipping dependency: %s" % (name,))
-	# 			return
+	def detect_dependencies(self, resolver, ocaml_feed):
+		self.runtime_dependencies = []
+		self.compile_dependencies = []
+		self.dependency_names = set()
+		def add_dependency(tagname, name, attrs=None):
+			self.dependency_names.add(name)
+			location = resolver(Opam(name))
+			if location is None:
+				logger.info("Skipping dependency: %s" % (name,))
+				return
 
-	# 		url = location.url
-	# 		tag = Tag(tagname, {'interface': url})
-	# 		if location.command is not None:
-	# 			tag.attr('command', location.command)
-	# 		tag.upstream_id = name
-	# 		if attrs is not None:
-	# 			for k,v in attrs.items():
-	# 				tag.attr(k, v)
+			tag = location.require_tag(tagname)
+			if attrs is not None:
+				for k,v in attrs.items():
+					tag.attr(k, v)
 
-	# 		version = _parse_version_info(version_spec)
-	# 		if version:
-	# 			tag.children.append(version)
-	# 		if dest is None:
-	# 			self.runtime_dependencies.append(tag)
-	# 			self.compile_dependencies.append(tag)
-	# 		else:
-	# 			dest.append(tag)
+			# XXX do any opam packages have runtime dependencies?
+			self.compile_dependencies.append(tag)
 
-	# 	package_info = self.release_info
-	# 	for (name, version_spec) in package_info.get('dependencies', {}).items():
-	# 		add_dependency('requires', name, version_spec)
+		# see zeroinstall_downstream/project/opam/opam_to_json.ml
+		def version_visitor(attrs, invert=False):
+			not_before = 'not-before'
+			before = 'before'
+			if invert:
+				# swap the meaning of `before` and `not-before`
+				# (invert means we're parsing a `conflicts`, which is implemented
+				# in ZI using a <restricts> element with the negation of the conflict
+				before, not_before = not_before, before
 
-	# 	# for (name, version_spec) in package_info.get('optionalDependencies', {}).items():
-	# 	# 	add_dependency('requires', name, version_spec, {'importance': 'recommended'})
+			def attr(name, val):
+				assert name not in attrs, "Attribute %s set multiple times" % (name,)
 
-	# 	for (name, version_spec) in package_info.get('peerDependencies', {}).items():
-	# 		add_dependency('restricts', name, version_spec)
+			def visit_version(node):
+				assert node['type'] == 'version', repr(node)
+				op = node['op']
+				ver = node['version']
+				try:
+					ver = Version.parse(ver, coerce=True)
+				except StandardError as e:
+					logger.debug("Couldn't parse version string: %s" % (ver,), exc_info=True)
+					logger.warn("Couldn't parse version string: %s" % (ver,))
+					return
+				if op == "=":
+					attr(not_before, ver)
+					attr(before, ver.next())
+				elif op == '!=':
+					# XXX we should allow `before` this version as well,
+					# but that'd be more awkward to implement
+					attr(not_before, ver.increment())
+				elif op == ">=":
+					attr(not_before, ver)
+				elif op == ">":
+					attr(not_before, ver.increment())
+				elif op == "<=":
+					attr(before, ver.increment())
+				elif op == "<":
+					attr(before, ver)
+			return visit_version
 
-	# 	for (name, version_spec) in package_info.get('devDependencies', {}).items():
-	# 		add_dependency('requires', name, version_spec, dest=self.compile_dependencies)
+		def visit(node, delegate):
+			if node is None: return
+
+			if isinstance(node, list):
+				# composite formula
+				# tuple, one of:
+				# && (a,b)
+				# || (a,b)
+				op, a, b = node
+				if op == '&&':
+					visit(a, delegate)
+					visit(b, delegate)
+				elif op == '||':
+					logger.warn("Unable to process boolean OR, taking first branch only")
+					visit(a, delegate)
+				else:
+					assert False, "Unknown op: %s" % (op,)
+
+			elif isinstance(node, dict):
+				# base-level atom, pass it to delegate
+				delegate(node)
+			else:
+				assert False, "Unknown dependency type: %r" % (node,)
+
+		def visit_toplevel(node, tagname, invert=False):
+			def visit_dep(node):
+				assert node['type'] == 'dependency'
+				constraints = node['constraints']
+				name = node['name']
+
+				attrs = {}
+				visit_version = version_visitor(attrs, invert=invert)
+				visit(constraints, visit_version)
+				if invert and not attrs:
+					# if we have no constraints and invert=True, that means
+					# we don't want _any_ version to be selected. So just make
+					# an impossible constraint
+					# NOTE: we use literal 'before' here because we don't want this to be affected by invert
+					attr('before', '0-pre')
+
+				add_dependency(tagname, name, attrs)
+			visit(node, visit_dep)
+
+		def visit_compiler_version(node):
+			attrs = {}
+			constraints = None
+			visit_version = version_visitor(attrs)
+			visit(node, visit_version)
+			if attrs:
+				self.compile_dependencies.add(
+					Tag('requires', {'interface':ocaml_feed}, children=[
+						Tag('version', attrs)
+					])
+				)
+
+		package_info = self.release_info['opam']
+		visit_toplevel(package_info['depends'], 'requires')
+		visit_toplevel(package_info['depends_optional'], 'requires')
+		visit_toplevel(package_info['conflicts'], 'restricts', invert=True)
+		visit_compiler_version(package_info['ocaml_version'])
+
+		def warn_unhandled(key):
+			val = package_info[key]
+			if val:
+				logger.warn("Don't yet know how to handle %s: %r" % (key, val))
+
+		# XXX handle these
+		warn_unhandled('depends_external') # a set of strings
+
+		logger.debug("After processing deps, compile_dependencies = %r" %(self.compile_dependencies,))
 
 class Opam(BaseProject):
 	upstream_type = 'opam'
