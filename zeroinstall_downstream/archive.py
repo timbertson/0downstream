@@ -26,7 +26,10 @@ class Archive(object):
 		self.id = url
 
 	def _archive_tag(self):
-		return Tag("archive", {"href": self.url, "size": str(self.size), 'extract': self.extract or ''})
+		attrs = {"href": self.url, "size": str(self.size)}
+		if self.extract:
+			attrs['extract'] = self.extract
+		return Tag("archive", attrs)
 
 	def _digest_tag(self):
 		sha1new = get_manifest(self.local, extract=self.extract, algname='sha1new')

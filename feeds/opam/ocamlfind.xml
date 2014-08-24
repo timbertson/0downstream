@@ -11,7 +11,7 @@
 			</compile:implementation>
 		</command>
 		<recipe>
-			<archive extract="" href="http://download.camlcity.org/download/findlib-1.5.2.tar.gz" size="235561"/>
+			<archive href="http://download.camlcity.org/download/findlib-1.5.2.tar.gz" size="235561"/>
 			<rename dest="src" source="findlib-1.5.2"/>
 			<file dest="opam/ocamlfind.1.5.2/opam" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/opam" size="425"/>
 			<file dest="opam/ocamlfind.1.5.2/files/ocamlfind.install" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/files/ocamlfind.install" size="151"/>
@@ -33,11 +33,11 @@ in programs and scripts.
 	<gfxmonk:upstream id="ocamlfind" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJT+HtnAAoJEOA/kc8tk45W8oMH/RuzmXKMc7rsRjdmVvYjKku3Sds/N0PugGtn
-xE0Zu/daXdlwUaHtQDHMtlkIPF4uaWBKmnehlA3z3N4gxUm2R1y9c0BJs4qS7tJNyEO5WW7jPxFY
-+hk7qGs915RUAnMSpgBqAijZrOVvrt2ptSePQLoxME/jzbV89Td1lYZSJNIZ/byJD6NsEN2TSxwq
-oy07+bIfEnMf/m/LsimR/vbUZlb+VE7txBUEYof0W76A848sNn2wMZdkxTg7Gol9MqFXir9YSHbe
-qSYwRSrtxn4BMHSakhU4myQaeKK7kR/skPZKSEU9ke5fJ9HYrERaAkrowDu8VgYqUnTCGvpEskeM
-Bas=
+iQEcBAABAgAGBQJT+VP/AAoJEOA/kc8tk45WKwkH/jIr/2037509j812MVvlAouhcgSayFMywZmN
+qUkHtnDXYSnSJpaIy7vbi9XnvjO1GVSofwDlgMAmaxUgcWU61Cxg0/PSB8m3a6DyoKYm7x0mkFbN
+75apn+sFwLlX2Bgh4pgTblSC0AXIpeZn3i2iP1zAdqgonM9U0xqwDXmfud0kCCH54qi34skrG4vO
+3Ot50l55clpqddpmN+hEoyuT0j3EyM9Xbfz5LtmVK7zg4XPSljZ8xKJkVCy5HuzsoZTRWOTcwCRl
+0CkW/aB+tNzrV9HSBL2XordF34S04cB27IfZ1FTE3VXwMG+AzkB2OnRqvRI838zbDRbjLYfSS+kg
+J4o=
 
 -->
