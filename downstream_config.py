@@ -15,6 +15,30 @@ logger = logging.getLogger('zeroinstall_downstream.conf')
 from zeroinstall_downstream import api
 from zeroinstall_downstream.api import Tag, Attribute, COMPILE_NAMESPACE
 
+def ro_rmtree(root):
+	"""
+	From zeroinstall.support
+	"""
+	import shutil
+	import platform
+	if (os.getcwd() + os.path.sep).startswith(root + os.path.sep):
+		import warnings
+		warnings.warn("Removing tree ({tree}) containing the current directory ({cwd}) - this will not work on Windows".format(cwd = os.getcwd(), tree = root), stacklevel = 2)
+
+	if os.path.isfile(root):
+		os.chmod(root, 0o700)
+		os.remove(root)
+	else:
+		if platform.system() == 'Windows':
+			for main, dirs, files in os.walk(root):
+				for i in files + dirs:
+					os.chmod(os.path.join(main, i), 0o700)
+			os.chmod(root, 0o700)
+		else:
+			for main, dirs, files in os.walk(root):
+				os.chmod(main, 0o700)
+		shutil.rmtree(root)
+
 URL_ROOT = 'http://gfxmonk.github.io/0downstream/'
 FILES_URL_ROOT = URL_ROOT + 'files/'
 FEED_URL_ROOT = URL_ROOT + 'feeds/'
@@ -126,27 +150,34 @@ if err: raise err
 
 	if project.requires_compilation:
 		# first compile it, then run the local feed
-		ocompile = 'http://0install.net/2006/interfaces/0compile.xml'
-
 		compile_root = tempfile.mkdtemp()
 
 		# add a `finally` block to the enclosing scope
 		# (delaying it means we can inspect the directory
 		# interactively if something fails)
 		def remove_tempdir():
-			# XXX make this work for readonly files!
-			shutil.rmtree(compile_root)
+			ro_rmtree(compile_root)
 		cleanup.append(remove_tempdir)
 
 		dest = os.path.join(compile_root, '0compile')
+		sels = os.path.join(compile_root, 'src-sels.xml')
+
+		logging.warn("Ensuring dependencies are built")
+		with open(sels, 'w') as output:
+			# generate a selections document containing the source for `generated_feed`
+			# as well as any (auto-compiled) build dependencies
+			_run([ZEROINSTALL_BIN, "select", "--xml", "--source", "--compile", generated_feed], stdout=output)
+
+		run_feed(api.COMPILE_FEED, ['autocompile', '--selections', sels])
+
 		logging.warn("Building in %s" % dest)
-		run_feed(ocompile, ['setup', generated_feed, dest])
+		run_feed(api.COMPILE_FEED, ['setup', generated_feed, dest])
 
 		# transfer to `sandbox` group, so sandbox user can write it
-		run(['chgrp', '-R', 'sandbox', compile_root])
-		run(['chmod', '-R', 'g+rwX', compile_root])
+		# run(['chgrp', '-R', 'sandbox', compile_root])
+		# run(['chmod', '-R', 'g+rwX', compile_root])
 
-		run_feed(ocompile, ['build'], cwd=dest)
+		run_feed(api.COMPILE_FEED, ['build'], cwd=dest)
 		#TODO: we could do a `publish` here, if we plan to upload the binaries somewhere
 
 		files = set(os.listdir(dest))
@@ -209,7 +240,7 @@ def process(project):
 								logger.info("script name %r appears versioned, but there isn't an alternative in %r: %s" % (name, script_names))
 					return info
 			finally:
-				shutil.rmtree(scratch)
+				ro_rmtree(scratch)
 
 		info_2 = get_metadata(2)
 		project_infos = [info_2]
@@ -525,7 +556,11 @@ def process(project):
 				if os.path.isfile(os.path.join(bindir,f)) and f not in blacklist
 			]
 			if not bins:
-				return 
+				return
+
+			project.add_to_impl(
+				Tag('environment', {'name': 'PATH', 'insert':'bin', 'mode':"prepend"}),
+			)
 
 			commands = set()
 			def add(name, filename):

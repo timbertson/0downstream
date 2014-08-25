@@ -6,9 +6,13 @@ import subprocess
 from xml.dom import XMLNS_NAMESPACE
 COMPILE_NAMESPACE='http://zero-install.sourceforge.net/2006/namespaces/0compile'
 
+PUBLISH_FEED = 'http://0install.net/2006/interfaces/0publish'
 def run_0publish(args, *a, **k):
-	PUBLISH_FEED = 'http://0install.net/2006/interfaces/0publish'
 	return subprocess.check_call(['0install', 'run', PUBLISH_FEED] + args, *a, **k)
+
+COMPILE_FEED = 'http://0install.net/2006/interfaces/0compile.xml'
+def run_0compile(args, *a, **k):
+	return subprocess.check_call(['0install', 'run', COMPILE_FEED] + args, *a, **k)
 
 logger = logging.getLogger(__name__)
 

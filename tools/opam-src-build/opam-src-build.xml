@@ -15,6 +15,7 @@
 		<requires interface="/home/tim/dev/0install/zi-ocaml/opam.0compile/opam-linux-x86_64/0install/feed.xml"> <!-- XXX -->
 			<executable-in-var name="OPAM"/>
 		</requires>
+		<requires interface="http://gfxmonk.net/dist/0install/m4.xml"/>
 		<!-- <requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/> -->
 		<requires interface="http://repo.roscidus.com/python/python"/>
 		<environment insert="" mode="prepend" name="PATH"/>

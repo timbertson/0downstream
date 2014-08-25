@@ -5,8 +5,8 @@
 	<summary>util</summary>
 	<description>util</description>
 	<implementation id="." version="0.1">
-		<command name="run" path="opam-to-json.byte">
-			<!-- XXX why doesn't this worl? -->
+		<command name="run" path="opam-to-json">
+			<!-- XXX why doesn't this work? -->
 			<!-- <runner interface="http://repo.roscidus.com/ocaml/ocaml-runtime"/> -->
 		</command>
 	</implementation>

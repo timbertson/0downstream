@@ -25,7 +25,6 @@ OPAM="${OPAM:-opam}"
 PYTHON="${PYTHON:-python}"
 export HOME="$BUILDDIR/fake_homedir" # make sure opam doesn't mess with our home dir
 
-which "$OPAM"
 "$OPAM" init --no-setup default "$repo_dir"
 
 # construct an opam package repo just for this build:
