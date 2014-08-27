@@ -128,6 +128,13 @@ def create(project, location, version, opts):
 			feed = Feed.from_path(local)
 			_save_feed(feed, location, opts)
 
+def create_or_update(project, location, version, opts):
+	if not _visit(location):
+		logger.info("%sskipping already-updated %s" % (INDENT, location))
+		return
+	fn = update if os.path.exists(location.path) else create
+	return fn(project,location,version,opts)
+
 def update_info(project, location, opts):
 	feed = Feed.from_path(location.path)
 	feed.update_metadata(project, location)

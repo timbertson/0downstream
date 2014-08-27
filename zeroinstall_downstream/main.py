@@ -22,7 +22,7 @@ def run():
 	parser_add = sub.add_parser('add', help='add or update a feed (and all missing dependencies)')
 	parser_add.add_argument('--version', '-v', help='add a specific version, not the newest')
 	parser_add.add_argument('--interactive', '-i', help='select version interactively', action='store_true')
-	parser_add.add_argument('--recursive', help='also update dependencies', action='store_const', const=actions.create)
+	parser_add.add_argument('--recursive', help='also update dependencies', action='store_const', const=actions.create_or_update)
 	parser_add.add_argument('--recreate', help='regenerate feed (republishes each version with the current config)', action='store_true')
 	parser_add.add_argument('--info', action='store_true', dest='just_info', help='update project info (existing feeds only)')
 	parser_add.add_argument('specs', nargs='+', help='feed file or project identifier (upstream URL or <type>:<id>, for type in %s)' % ", ".join(sorted(SOURCES.keys())))

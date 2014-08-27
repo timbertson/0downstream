@@ -171,7 +171,7 @@ if err: raise err
 		run_feed(api.COMPILE_FEED, ['autocompile', '--selections', sels])
 
 		logging.warn("Building in %s" % dest)
-		run_feed(api.COMPILE_FEED, ['setup', generated_feed, dest])
+		run_feed(api.COMPILE_FEED, ['setup', sels, dest])
 
 		# transfer to `sandbox` group, so sandbox user can write it
 		# run(['chgrp', '-R', 'sandbox', compile_root])

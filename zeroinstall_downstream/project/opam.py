@@ -79,6 +79,9 @@ class Release(BaseRelease):
 		self.id = project.id + '.' + version.upstream
 
 		self._url_path = ['packages', self.project.id, self.id]
+
+		self.runtime_dependencies = []
+		self.compile_dependencies = []
 	
 	def _enter_archive(self):
 		archive = super(Release, self)._enter_archive(extract=None)
@@ -159,6 +162,7 @@ class Release(BaseRelease):
 				return
 
 			tag = location.require_tag(tagname)
+			tag.attr('arch','src')
 			if attrs is not None:
 				for k,v in attrs.items():
 					tag.attr(k, v)
