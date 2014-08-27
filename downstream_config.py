@@ -515,7 +515,7 @@ def process(project):
 			# do this again now that we've marked the feed as needing compilation
 			project.create_dependencies()
 
-	elif project.upstream_type == "opam":
+	elif project.upstream_type == 'opam':
 		project.guess_dependencies(ocaml_feed=OCAML_COMPILER_FEED)
 
 		contents = os.listdir(project.working_copy)

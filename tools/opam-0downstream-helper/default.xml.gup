@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+set -eu
+
+. ./build-env
+gup -u "$2.template"
+vars="$(grep -E -o '^\s*version=.*' "$2.template" || echo "")"
+if fgrep -q '{arch}' "$2.template"; then
+	gup -u ARCH
+	vars="$vars arch=$(cat ARCH)"
+fi
+0template -o "$1" "$2.template" $vars

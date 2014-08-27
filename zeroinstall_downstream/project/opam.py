@@ -67,8 +67,8 @@ class Repo(object):
 		version_strings = map(lambda s: remove_leading(s, name + "."), full_versions)
 		return filter(None, map(composite_version.try_parse, version_strings))
 
-detect_opam_metadata = os.path.join(
-	os.path.dirname(__file__), '..', '..', 'tools', 'detect-opam-metadata.xml'
+opam_helper = os.path.join(
+	os.path.dirname(__file__), '..', '..', 'tools', 'opam-0downstream-helper', 'run.xml'
 )
 
 class Release(BaseRelease):
@@ -135,7 +135,7 @@ class Release(BaseRelease):
 		assert len(meta_files) == 1, "%s %s files found for %s" % (len(meta_files), kind, self.id)
 		content = meta_files[0].contents
 		# print(repr(content))
-		cmd = [ '0install', 'run', detect_opam_metadata, '--type', kind ]
+		cmd = [ '0install', 'run', '--command', 'to-json', opam_helper, '--type', kind ]
 		logger.debug("Running: %r" % (cmd,))
 		proc = subprocess.Popen(cmd, stdin = subprocess.PIPE, stdout=subprocess.PIPE)
 		out, _err = proc.communicate(content)

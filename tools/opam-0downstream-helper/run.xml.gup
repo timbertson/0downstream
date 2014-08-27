@@ -1,0 +1,4 @@
+#!bash -eu
+. ./build-env
+gup -u ARCH opam-0downstream-helper.0compile run.xml.template
+env ARCH="$(cat ARCH)" 0install run http://gfxmonk.net/dist/0install/template.xml run.xml.template "$1"

@@ -8,3 +8,9 @@ begin program "opam-to-json"
 end
 
 
+begin program "opam-install-only"
+  files = [
+    "opam_install_only.ml"
+  ]
+  requires = [ "opam-client"; "opam-core" ]
+end

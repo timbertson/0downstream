@@ -1,0 +1,6 @@
+gup -u build-env
+alias 0template="0install run --not-before=0.1-post http://0install.net/tools/0template.xml"
+alias 0compile="0install run http://0install.net/2006/interfaces/0compile.xml"
+if [ -n "${GUP_XTRACE:-}" ]; then
+	set -x
+fi

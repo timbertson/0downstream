@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface
+	xmlns="http://zero-install.sourceforge.net/2004/injector/interface"
+	xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile">
+
+	<name>opam-to-json</name>
+	<summary>opam-to-json</summary>
+	<description>
+	</description>
+	<!--
+version=1.1.1 archive=https://github.com/ocaml/opam/archive/1.1.1.tar.gz CUDF=cudf-0.6.3 EXTLIB=extlib-1.5.3 DOSE=dose3-3.1.2 CMDLINER=cmdliner-0.9.3 GRAPH=ocamlgraph-1.8.1 RE=ocaml-re-1.2.0
+	-->
+
+	<group compile:dup-src="true" arch="*-src">
+		<command name="compile">
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+					# hax:
+					cd "$BUILDDIR/src/scripts"
+					PATCHES=/home/tim/dev/python/0downstream/tools/opam-0downstream-helper/src
+					ln -sfn $$PATCHES/opam_to_json.ml
+					ln -sfn $$PATCHES/opam_install_only.ml
+					ln -sfn $$PATCHES/scripts.ocp
+
+					cd "$BUILDDIR"
+					if [ ! -e config.status ]; then
+						./configure --prefix="$DISTDIR"
+					fi
+					make FETCH=false # fail if we are missing any external sources
+
+					mkdir -p "$DISTDIR/bin"
+					cp -a _obuild/opam-to-json/opam-to-json.asm "$DISTDIR/bin/opam-to-json"
+					cp -a _obuild/opam-to-json/opam-to-json.byte "$DISTDIR/bin/opam-to-json.byte"
+
+					cp -a _obuild/opam-install-only/opam-install-only.asm "$DISTDIR/bin/opam-install-only"
+					cp -a _obuild/opam-install-only/opam-install-only.byte "$DISTDIR/bin/opam-install-only.byte"
+				</arg>
+			</runner>
+			<compile:implementation>
+				<requires interface="http://gfxmonk.net/dist/0install/ncurses-libs.xml"/>
+				<requires interface="http://gfxmonk.net/dist/0install/ncurses-dev.xml"/>
+				<command name="to-json" path="bin/opam-to-json"/>
+				<command name="build" path="bin/opam-install-only"/>
+			</compile:implementation>
+		</command>
+		<implementation version="{version}">
+			<manifest-digest/>
+			<recipe>
+				<archive href="{archive}"/>
+				<file dest="src_ext/{CUDF}.tar.gz" href="https://gforge.inria.fr/frs/download.php/31910/{CUDF}.tar.gz"/>
+				<file dest="src_ext/{EXTLIB}.tar.gz" href="http://ocaml-extlib.googlecode.com/files/{EXTLIB}.tar.gz"/>
+				<file dest="src_ext/{DOSE}.tar.gz" href="https://gforge.inria.fr/frs/download.php/31595/{DOSE}.tar.gz"/>
+				<file dest="src_ext/{CMDLINER}.tbz" href="http://erratique.ch/software/cmdliner/releases/{CMDLINER}.tbz"/>
+				<file dest="src_ext/{GRAPH}.tar.gz" href="http://ocamlgraph.lri.fr/download/{GRAPH}.tar.gz"/>
+				<file dest="src_ext/{RE}.tar.gz" href="https://github.com/ocaml/ocaml-re/archive/{RE}.tar.gz"/>
+			</recipe>
+		</implementation>
+	</group>
+
+</interface>
+

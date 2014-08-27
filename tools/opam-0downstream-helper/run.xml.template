@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>opam-to-json</name>
+	<summary>opam-to-json</summary>
+	<description/>
+	<feed-for interface="/home/tim/dev/python/0downstream/tools/opam-0downstream-helper/opam-0downstream-helper.xml"/>
+	<group>
+		<implementation id="./opam-0downstream-helper.0compile/opam-0downstream-helper-{{ARCH}}" version="1.1.1">
+			<requires interface="http://gfxmonk.net/dist/0install/ncurses-libs.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/ncurses-dev.xml"/>
+			<command name="to-json" path="bin/opam-to-json"/>
+			<command name="build" path="bin/opam-install-only"/>
+		</implementation>
+	</group>
+</interface>

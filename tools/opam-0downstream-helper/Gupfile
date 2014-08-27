@@ -1,0 +1,5 @@
+default.0compile.gup:
+	*.0compile
+
+default.xml.gup:
+	*.xml

@@ -1,0 +1,42 @@
+#!/usr/bin/bash
+set -eu
+
+output="/tmp/0compile-out-$$"
+rm -f "$output"
+function dump {
+	if [ "$?" -ne 0 -a -f "$output" ]; then
+		cat "$output" >&2
+	fi
+	rm -f "$output"
+}
+
+trap dump exit
+
+if [ -z "${GUP_XTRACE:-}" ]; then
+	exec >"$output"
+else
+	set -x
+fi
+. ./build-env
+base="$(basename "$2" ".0compile")"
+gup -u "$base.xml"
+
+assumed_deps="$(cat "$base.xml" | grep -Eo "<requires interface=\"\./[^/ ]+\.(0compile|xml)" | cut -d / -f 2)"
+if [ -n "$assumed_deps" ]; then
+	gup -u $assumed_deps
+fi
+
+if [ -f "$base.deps" ]; then
+	gup -u $(cat "$base.deps")
+else
+	gup --ifcreate "$base.deps"
+fi
+
+gup -u src/all
+
+if [ ! -d "$2" ]; then
+	0compile setup "$base.xml" "$2"
+else
+	chmod -R u+w "$2"
+fi
+(cd "$2" && 0compile build --force --clean) 2>&1
