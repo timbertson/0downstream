@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.net/dist/0install/opam-src-build.xml">
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml">
 	<name>opam-build</name>
 	<summary>0install builder for opam</summary>
-	<publish xmlns="http://gfxmonk.net/dist/0install" mode="0tools"/>
 	<description>
 		Wrapper script to build an opam source package in a
 		0install-compatible way.
@@ -16,14 +15,13 @@
 			<executable-in-var name="OPAM"/>
 		</requires>
 		<requires interface="http://gfxmonk.net/dist/0install/m4.xml"/>
-		<requires interface="../opam-0downstream-helper/run.xml">
-			<executable-in-var command="build" name="OPAM_BUILD"/>
-		</requires>
 		<!-- <requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/> -->
 		<requires interface="http://repo.roscidus.com/python/python"/>
 		<environment insert="" mode="prepend" name="PATH"/>
 		<environment insert="" mode="prepend" name="PYTHONPATH"/>
-		<implementation id="." version="0.1">
+		<implementation version="{version}">
+			<manifest-digest/>
+			<archive href="{archive}"/>
 		</implementation>
 	</group>
 </interface>

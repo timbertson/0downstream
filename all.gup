@@ -1,2 +1,2 @@
 #!bash -eu
-gup -u tools/all
+gup -u tools/all files/all

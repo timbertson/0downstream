@@ -5,7 +5,7 @@
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
-			<runner interface="/opt/0downstream/tools/opam-src-build/opam-src-build.xml"/>
+			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
 			<arg>ocamlfind</arg>
 			<compile:implementation>
 				<environment insert="bin" mode="prepend" name="PATH"/>
@@ -35,11 +35,11 @@ in programs and scripts.
 	<gfxmonk:upstream id="ocamlfind" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJT+8YLAAoJELrnGdQBsyfGDQ4H/0qohoSPQGMSJbZlPZOha7EXMDkdTqP7Jiop
-YqSqp+61i3ojw4cwx3ly7jF/fWPzTOD8OoY3VlGMkqjKkz42rpQImXRsLQ/p9t7sSWggDxjx3Z7u
-fx8HPbnEJ5hfoXK+mQ6HUalXk6DM/9xN45ed89UJmK+TLpP+0aqO0CbI/GTbp/s/qs5jv0uUggSS
-q4u4edRIecHFdLUTrU9tTPyJOraloJKuG/3LF03xhz65t9ACstsMiptqvXELmOFmcTb6PIBJazzq
-5V7m9d/k4kxa6dqpie0ifk5MwipJrgzjZHbP7ZjW5mpm2TAuZAvoPiNeZvpWlPev3nAqS7Sj11n5
-fvQ=
+iQEcBAABAgAGBQJUAA03AAoJELrnGdQBsyfGRVAH/3BbDQf8prItCer7ctdWerOPUVAeIbqHNmQC
+7zl+vlMNAQtDeMOuuPXr5ZC7UFyVzj1EAkRO9EjfZRnuAjzO13LsRZ3BK25CImD5LwUxgTxg+z//
+lRiri3r4Ynx72uJ0T5EyKQrJiq02ytHRNFT46F/EYnZsCUHsLTMtah8OJnEWP+0nXXfRgEHON+rR
+TAvFrad0vHxdqcMyv628k1/tsw/p0//dDFVnjimx9oxOu6rynKXC0UOujhjuAJPG39RbEAI4AmrM
+bI276avfb0MjMHJ/6OeQvH9oWDPclaZR3eYMskOndYtvKHJepoNez47KgbrwG0r2PLRSY1pRtQUo
+vAE=
 
 -->

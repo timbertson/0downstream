@@ -1,0 +1,22 @@
+#!bash -eu
+# XXX this currently overwrites the current version
+gupdir="$(dirname "$0")"
+root=../tools/opam-src-build
+
+gup -u "$root/VERSION"
+version="$(cat "$root/VERSION")"
+
+archive="opam-src-build/opam-src-build-$version.tgz"
+template="$gupdir/$2.template"
+gup -u "$archive" "$template"
+
+cached="$gupdir/$(basename "$archive")"
+# remove 0template's cached opam-src-build-*.xml (it's being proxied locally, so the cache only gets in the way)
+rm -f "$cached"
+0template "$template" version="$version" archive="http://gfxmonk.github.io/0downstream/files/$archive" -o "$1"
+rm "$cached"
+0publish --xmlsign "$1"
+
+# a bit hacky: we need 0install to update the feed, but it needs to live at the right location for that:
+mv "$1" "$2"
+0install update "http://gfxmonk.github.io/0downstream/files/$2"
