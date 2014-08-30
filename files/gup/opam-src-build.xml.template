@@ -11,7 +11,7 @@
 		<command name="run" path="opam-build">
 			<runner interface="http://repo.roscidus.com/utils/bash"/>
 		</command>
-		<requires interface="/home/tim/dev/0install/zi-ocaml/opam.0compile/opam-linux-x86_64/0install/feed.xml"> <!-- XXX -->
+		<requires interface="http://gfxmonk.net/dist/0install/opam.xml">
 			<executable-in-var name="OPAM"/>
 		</requires>
 		<requires interface="http://gfxmonk.net/dist/0install/m4.xml"/>

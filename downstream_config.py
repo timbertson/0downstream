@@ -162,13 +162,19 @@ if err: raise err
 		dest = os.path.join(compile_root, '0compile')
 		sels = os.path.join(compile_root, 'src-sels.xml')
 
-		logging.warn("Ensuring dependencies are built")
-		with open(sels, 'w') as output:
-			# generate a selections document containing the source for `generated_feed`
-			# as well as any (auto-compiled) build dependencies
-			_run([ZEROINSTALL_BIN, "select", "--xml", "--source", "--compile", generated_feed], stdout=output)
+		def do_select():
+			with open(sels, 'w') as output:
+				# generate a selections document containing the source for `generated_feed`
+				# as well as any (auto-compiled) build dependencies
+				_run([ZEROINSTALL_BIN, "select", "--xml", "--source", "--compile", generated_feed], stdout=output)
 
+		logging.warn("Ensuring dependencies are built")
+
+		do_select()
 		run_feed(api.COMPILE_FEED, ['autocompile', '--selections', sels])
+
+		#XXX get 0compile to dump its post-compiled selections?
+		do_select()
 
 		logging.warn("Building in %s" % dest)
 		run_feed(api.COMPILE_FEED, ['setup', sels, dest])
