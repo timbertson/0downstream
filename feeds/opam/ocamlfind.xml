@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
-	<implementation arch="*-src" compile:dup-src="true" id="sha1new=642df65214a2ea497602883a25c5dc96110e77cd" version="1.5.2">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=9ae337ae52f915c1fafb9b93a73681b79654281d" version="1.5.2">
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
@@ -16,11 +16,12 @@
 			<archive href="http://download.camlcity.org/download/findlib-1.5.2.tar.gz" size="235561"/>
 			<rename dest="src" source="findlib-1.5.2"/>
 			<file dest="opam/ocamlfind.1.5.2/opam" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/opam" size="425"/>
+			<file dest="opam/ocamlfind.1.5.2/findlib" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/findlib" size="108"/>
 			<file dest="opam/ocamlfind.1.5.2/files/ocamlfind.install" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/files/ocamlfind.install" size="151"/>
 			<file dest="opam/ocamlfind.1.5.2/descr" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/descr" size="317"/>
 			<file dest="opam/ocamlfind.1.5.2/src" href="http://gfxmonk.github.io/0downstream/files/opam-local-src" size="10"/>
 		</recipe>
-		<manifest-digest sha256="13625973838cfaf53d330bf76f68a4a434d513fb86950c9d733d817409012480"/>
+		<manifest-digest sha256="ac68c84032acc56759b3368f63ab2cecaf6aeeb859fa171cde35edeb87ef7ec4"/>
 	</implementation>
 	<name>ocamlfind</name>
 	<summary>ocamlfind opam package</summary>
@@ -35,11 +36,11 @@ in programs and scripts.
 	<gfxmonk:upstream id="ocamlfind" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUAA03AAoJELrnGdQBsyfGRVAH/3BbDQf8prItCer7ctdWerOPUVAeIbqHNmQC
-7zl+vlMNAQtDeMOuuPXr5ZC7UFyVzj1EAkRO9EjfZRnuAjzO13LsRZ3BK25CImD5LwUxgTxg+z//
-lRiri3r4Ynx72uJ0T5EyKQrJiq02ytHRNFT46F/EYnZsCUHsLTMtah8OJnEWP+0nXXfRgEHON+rR
-TAvFrad0vHxdqcMyv628k1/tsw/p0//dDFVnjimx9oxOu6rynKXC0UOujhjuAJPG39RbEAI4AmrM
-bI276avfb0MjMHJ/6OeQvH9oWDPclaZR3eYMskOndYtvKHJepoNez47KgbrwG0r2PLRSY1pRtQUo
-vAE=
+iQEcBAABAgAGBQJUCvWFAAoJELrnGdQBsyfGgacH/A99FHQ48lJW9wZ4wbPiLZ4488pA86pLHYCU
+zftbv1jazhn2fON082Q3CzxQbPuuFJ5LOC6Qw44z/yHP5t4pBWvkzf2tkGcbrXu/e0VZUBWKojo0
+DGB4yKkKz8ajoQo+4UcyI4Z58V+x5VjFI6wfwlcbjtffmXzz6RDjiJ7ppKVhu9kyyjT+FfK81N71
+9wdVkZBgffIXapgL312p5k1vcfhX1Vzy600Cvunq5U++Ndm4KHcBM9BmDaB7Yc6VCPqxRKJts9pr
+j7K/yY3jd/veM/BPh8K9aCAyMGhmL9P4EB0/eiaUlF7DE3EsI4lp2OfLrkIaUpRM1EgW83BQu3DE
+0n4=
 
 -->
