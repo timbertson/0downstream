@@ -234,9 +234,10 @@ def process(project):
 							info['use_2to3'] = False
 
 					scripts = info['scripts']
-					script_names = set([script['name'] for script in scripts])
+					def get_name(script): return script['name']
+					script_names = set(map(get_name, scripts))
 					for script in scripts[:]:
-						name = script['name']
+						name = get_name(script)
 						trailing_version = re.search(r'-?\d+(\.\d+)+', name)
 						if trailing_version:
 							if name[:trailing_version.start()] in script_names:
@@ -304,7 +305,7 @@ def process(project):
 			project.create_dependencies()
 			try:
 				project.module_name = min(info['packages'], key=len)
-			except ValueError:
+			except (TypeError, ValueError):
 				pass
 
 			project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
@@ -316,6 +317,7 @@ def process(project):
 				script_dirs = set()
 
 				def add_command(name, script):
+					assert isinstance(name, basestring), repr(name)
 					if name in commands:
 						logger.warn("skipping duplicate %s (%r)" % (name, script))
 						return False

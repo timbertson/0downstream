@@ -21,7 +21,7 @@ info = distutils.core._setup_distribution
 scripts = info.scripts
 if scripts:
 	#XXX should we append .exe to script names on windows here?
-	scripts = [{"path":script, "name": os.path.splitext(os.path.basename(script))} for script in scripts ]
+	scripts = [{"path":script, "name": os.path.splitext(os.path.basename(script))[0]} for script in scripts ]
 else:
 	scripts = []
 	try:
