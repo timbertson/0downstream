@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/protobuf.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=b030b6a1c00c476426151c88527f5e8feccc3c62" version="0.11.0">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
+			<version before="1.1" not-before="1.0.0"/>
+		</requires>
+		<command name="compile">
+			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+				<executable-in-var name="NPM"/>
+			</requires>
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+				<executable-in-var name="NODE_GYP"/>
+			</requires>
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+								cd &quot;$BUILDDIR/protobuf&quot;
+								&quot;$NPM&quot; build .
+								cp -a &quot;$BUILDDIR/protobuf&quot; &quot;$DISTDIR/&quot;
+
+								# remove some common unnecessary files
+								cd &quot;$DISTDIR/protobuf&quot;
+								rm -rf src test deps
+							</arg>
+			</runner>
+			<compile:implementation>
+				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version compile:pin-components="2"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
+					<version before="1.1" not-before="1.0.0"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/protobuf/-/protobuf-0.11.0.tgz" size="658528"/>
+			<rename dest="protobuf" source="package"/>
+		</recipe>
+		<manifest-digest sha256="c97833b1d0a057c1fc38b00515c69a598473b58e5523a28b4af9be4b93ad007b"/>
+	</implementation>
+	<name>protobuf</name>
+	<summary>protobuf npm package</summary>
+	<homepage>https://npmjs.org/package/protobuf</homepage>
+	<description>Protocol Buffers for NodeJS</description>
+	<gfxmonk:upstream id="protobuf" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUI7mmAAoJELrnGdQBsyfG7nMIAJcMXEYKiLKlbNRzFwReZO9JU/knM/AMW4mS
+UjBi7b0zyohxIA5+/Oco+TRp4/0yhhcyTefB3KudrdloQ0C1/Mao5WeSZJbdwPFi9J8ryCHWTZ0j
+fNFi3PBkNlKGejJA8GkjcRjwa1GTYadKcaj3FWXdU3mOGxUAqUofVRxkTSdabHz47/CYcuX1n5Aj
+89GpJ0NTKHr42ASD974T1c8TyRVLCBL3FD1M6hulR0ICloKT5ZN5Q8TBsiTUHCKYVT6oXJl2DRYa
+BVxY/cJIxjgHACEZ+iSLB/b4n78Ozi7cb+xHGP2aGVdoECQ/7IvZTD3hGACw9L2zCWHL8NuzxcFs
+XD8=
+
+-->
