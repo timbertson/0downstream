@@ -60,7 +60,7 @@ DEV_NULL = open(os.devnull)
 python3_blacklist = set([])
 
 def pin_components(n):
-	Attribute('compile:pin-components', str(n), namespace=COMPILE_NAMESPACE)
+	return Attribute('compile:pin-components', str(n), namespace=COMPILE_NAMESPACE)
 
 def feed_modified(path):
 	api.run_0publish(['--key', '0downstream', '--xmlsign', path])
@@ -445,7 +445,13 @@ def process(project):
 
 		# figure out compilation:
 		release_info = project.release_info
-		requires_compilation = release_info.get('gypfile') == True
+		logger.debug("release_info: %r", release_info)
+		working_basedir = os.path.join(project.working_copy, project.id)
+		requires_compilation = (
+				release_info.get('gypfile') == True or
+				os.path.exists(os.path.join(working_basedir, 'binding.gyp'))
+		)
+
 		# XXX nonlocal hack
 		_requires_compilation = []
 
@@ -455,8 +461,16 @@ def process(project):
 				# XXX nonlocal hack
 				_requires_compilation.append(True)
 				return
-			assert os.path.exists(os.path.join(project.working_copy, rel_path)), rel_path
+
+			# ignore spurious `node` runner arg
+			if args and args[0] == 'node':
+				args = args[1:]
+
 			args = [Tag('arg', text=arg) for arg in args]
+
+			assert os.path.exists(os.path.join(project.working_copy, rel_path)), \
+				"Impl path does not exist: %s (in %s)" % (rel_path,project.working_copy)
+
 			project.add_to_impl(Tag('command',
 				{
 					'path': rel_path,
@@ -465,12 +479,12 @@ def process(project):
 				[nodejs_runner] + args
 			))
 
-		scripts = release_info.get('scripts', {})
-		for name, command in scripts.items():
-			args = shlex.split(command)
-			rel_path = args.pop(0)
-			assert name != 'run' # this might conflict with `bins`, below
-			add_command(name, rel_path, args)
+		# scripts = release_info.get('scripts', {})
+		# for name, command in scripts.items():
+		# 	args = shlex.split(command)
+		# 	rel_path = args.pop(0)
+		# 	assert name != 'run' # this might conflict with `bins`, below
+		# 	add_command(name, rel_path, args)
 
 		bins = release_info.get('bin', {})
 		if isinstance(bins, basestring):
@@ -611,6 +625,8 @@ def process(project):
 			print("%s: %s" % (type(e).__name__, e))
 			if not sys.stdin.isatty():
 				raise
+
+			logging.debug("Caught exception:", exc_info=True)
 
 			# before we go cleaning everything up,
 			# give the user a chance to inspect / fix things manually

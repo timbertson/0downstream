@@ -1,25 +1,6 @@
 <?xml version="1.0" ?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/esprima.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
-	<implementation id="sha1new=b3609ab0841c605e2d654a4bc6948384d5bdbd0b" version="1.2.1">
-		<environment insert="" mode="prepend" name="NODE_PATH"/>
-		<command name="esvalidate" path="esprima/bin/esvalidate.js">
-			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
-		</command>
-		<command name="esparse" path="esprima/bin/esparse.js">
-			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
-		</command>
-		<recipe>
-			<archive href="http://registry.npmjs.org/esprima/-/esprima-1.2.1.tgz" size="78138"/>
-			<rename dest="esprima" source="package"/>
-		</recipe>
-		<manifest-digest sha256="57e036249f8e498549edd5dc43a739382c1eb506818cad1a07205a3fb17c0e46"/>
-	</implementation>
-	<name>esprima</name>
-	<summary>esprima npm package</summary>
-	<homepage>https://npmjs.org/package/esprima</homepage>
-	<description>ECMAScript parsing infrastructure for multipurpose analysis</description>
-	<gfxmonk:upstream id="esprima" type="npm"/>
 	<implementation id="sha1new=2340cceb56e16361ce0f5566bfb56921f5b21b8d" version="1.0.4">
 		<environment insert="" mode="prepend" name="NODE_PATH"/>
 		<command name="esvalidate" path="esprima/bin/esvalidate.js">
@@ -34,13 +15,32 @@
 		</recipe>
 		<manifest-digest sha256="176ffb4caddfc77643a53024ec4334acce500e2866cfc86385f367c6ce346c29"/>
 	</implementation>
+	<name>esprima</name>
+	<summary>esprima npm package</summary>
+	<homepage>https://npmjs.org/package/esprima</homepage>
+	<description>ECMAScript parsing infrastructure for multipurpose analysis</description>
+	<gfxmonk:upstream id="esprima" type="npm"/>
+	<implementation id="sha1new=b3609ab0841c605e2d654a4bc6948384d5bdbd0b" version="1.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="esvalidate" path="esprima/bin/esvalidate.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<command name="esparse" path="esprima/bin/esparse.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/esprima/-/esprima-1.2.1.tgz" size="78138"/>
+			<rename dest="esprima" source="package"/>
+		</recipe>
+		<manifest-digest sha256="57e036249f8e498549edd5dc43a739382c1eb506818cad1a07205a3fb17c0e46"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah2YAAoJEOA/kc8tk45WgFMH/1vScEGHN6+9Q828sAlAZMLH18i6vxFzp+vn
-5bEEGH72dIkjUiabLt+GjhxABrAWkBIy3meNL4uBtEXL67IxrlvDcZnDIn2VHc+mvtcCSWR6MJeW
-QXJRQGTrzVGruQfQRRfwQFXb2ys27B8XPDRuLsx/UW6BB7RaXd3b37KLq/Jw5BPjJw7FG4EyopH3
-LECyXFp2y91BAB/Z7ND0O4cRyE/GnFJx3RW7LBs3di47RWdFU7ysP9TUjaO4KpfRMI2pKSyN0DJW
-3sfg18PtoV1hlx7Wr/kI8uxeEFuB/6udT8f1XO8vVQHsRw8Nn9q2ufpcim8lXgPOQc9sXKQu6dSC
-S5s=
+iQEcBAABAgAGBQJUI41wAAoJELrnGdQBsyfGXo8IAJrCWqBYmVB0pgDsfDFup7bj3SbF2agMxD99
+SutSE2uY6Kk8s2fmxv3wMxQ1trGToP7pKvKxcizw2gNMJdTnXjQucYCITsZh7Lzx1uYLDenujcAQ
+hG0EFsvy1oID3CeqPE4n+chIH1mTsODxSyhwN9vmgsX/MW1cM7fTkhVWr9UnVBK9p/j0tXnBC3WE
+zVnGmIQuCZi8jz7lvCYMaUar69H4/DC0QwE4x1xI6KdL1t5SRxUFRRydOMLI1QtQR2XwqtOErMk3
+aADqigHJLusA39ZiEJg02l03dKbt67VZoKFvM0p+px9lsz2nedWcC9b8R1+tdCnL/Cfw8/NKe22Z
+N4U=
 
 -->

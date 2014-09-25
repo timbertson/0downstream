@@ -30,13 +30,29 @@
 		</recipe>
 		<manifest-digest sha256="50c8f762053b375bb03f18dd72e8685859270f9d7aec8e53c84e7a6a775b6d3d"/>
 	</implementation>
+  <implementation id="sha1new=67d691c44279f57a9202e885c89b9b9a1654b406" version="1.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nan/-/nan-1.3.0.tgz" size="25507"/>
+			<rename dest="nan" source="package"/>
+		</recipe>
+		<manifest-digest sha256="fa95dbfc73099f86ca46e3aaf3773bafef3a8e9dc82e9ede29b61421053ee13c"/>
+	</implementation>
+  <implementation id="sha1new=e52d09e6f9d6ad88eafaab127b772b214ff9d80c" version="1.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nan/-/nan-1.0.0.tgz" size="22564"/>
+			<rename dest="nan" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4e6fc141517fbdf7eec3b139460c0ef6119052c997f002b774ac85597f509e30"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah3gAAoJEOA/kc8tk45WUtMH/iVoEZU0YXA4c3CFFAhLxb7Rb6HI848oLJwh
-RWOLz8WouhZetTFjWH8AnwEeQpeQFSqmLBkLgWZof2uYRv6RabkeuuoY0ClAXSv75LZwXeNRiRL6
-zjiV40yefSrmuKmPW8Z7CvSt8kcyhz+jEGLcvf4zVYujMTHwB/KAoVaYg/ZDWe2f4WTOYNqUoIHE
-3EFiwBZWTaVQWFBRO+jNUJor15hEMBBsUXLLhLuwLy5hqFpn4vBM88S/PtrRUXiVjNBODkd+wuzo
-bPfWWVD4mw6UIOHPYO4f4jy4kH45d4yLHGpUstHuCwuicUceN4QGClSQy4tgGPcnRDoSqilEQRgm
-PWA=
+iQEcBAABAgAGBQJUI5/IAAoJELrnGdQBsyfG4/gH/AxL6GY7H/j+l5qPm8p3hSpu/zMXFwcoeoeJ
+8WTNvkNI9/qF5XCB3ajiycGj3BfVKBtGP4a1DLFYH2EuYIsfmGdK1yKVdZxG7XklW9m7HuVvS6cx
+KQWk/+NhGMZKS99wIM9qLWRwIu6T/WOW2ZNQZjVq8VUY2RPcV3b7JE3noW9qKydnqQM1Rwz3l3cH
+Mcm8++sq50DYPP2U87RkrYVEMuP++Iq+Kro7tlDaSwGd0AUMJ5HkeufsRT9282cutTNqeLfIrDaV
+f5jpA0+kvfTr2Ky/dWRpMv9FKj7NrgFWIs9sdFrR07DPbGw9PSdNIwKnJakf03Ng4nuxyAGOgMfL
+dS0=
 
 -->
