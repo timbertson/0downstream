@@ -44,6 +44,7 @@ FILES_URL_ROOT = URL_ROOT + 'files/'
 FEED_URL_ROOT = URL_ROOT + 'feeds/'
 ROOT_PATH = os.path.join(os.path.dirname(__file__))
 FEED_PATH = os.path.join(ROOT_PATH, 'feeds')
+FILES_PATH = os.path.join(ROOT_PATH, 'files')
 
 # ZEROINSTALL_BIN = '0install'
 ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/build/ocaml/0install"
@@ -546,12 +547,14 @@ def process(project):
 
 		# add opam files:
 		repo_path = 'opam'
-		with open(os.path.join(os.path.dirname(__file__), 'files','opam-local-src'), 'rb') as f:
-			opam_local_src_contents = f.read()
 
-		project._release.add_opam_files(repo_path,
-				src_url=FILES_URL_ROOT + 'opam-local-src',
-				src_contents=opam_local_src_contents)
+		project._release.add_opam_files(prefix=repo_path,
+				src_path=os.path.join(FILES_PATH, 'opam-local-src'),
+				base=(
+					os.path.join(FILES_PATH, 'opam-meta', project.id),
+					FILES_URL_ROOT + 'opam-meta/' + project.id,
+				),
+		)
 
 		project.set_compile_properties(dup_src=True,
 			command=

@@ -2,6 +2,7 @@ import tempfile
 import shutil
 import os
 import re
+import subprocess
 
 from zeroinstall.zerostore import manifest, unpack
 import contextlib
@@ -60,6 +61,10 @@ class Archive(object):
 			out.write(contents)
 		os.utime(local_dest, (0, 0))
 		self.recipe_steps.append(Tag('file', {'href': source, 'dest':dest, 'size': str(len(contents))}))
+
+	def add_archive(self, source, local_file):
+		subprocess.check_call(['tar', 'xzf', local_file, '-C', self.local])
+		self.recipe_steps.append(Tag('archive', {'href': source, 'size': str(os.stat(local_file).st_size)}))
 
 	def __enter__(self):
 		self.local = tempfile.mkdtemp()

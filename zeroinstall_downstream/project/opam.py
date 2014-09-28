@@ -5,6 +5,7 @@ import json
 import logging
 import hashlib
 import subprocess
+import tarfile
 
 from version import Version, VersionComponent
 
@@ -100,27 +101,50 @@ class Release(BaseRelease):
 	def info_page(self):
 		return self.project.repo.root + '/'.join(self._url_path) + '/'
 
-	def add_opam_files(self, base, src_url, src_contents):
-		for file in self.project.repo.files_at(*self._url_path):
-			relative_path = os.path.join(*file.parts[len(self._url_path):])
+	def add_opam_files(self, prefix, src_path, base):
+		base_path, base_url = base
+		archive_name = self.id + ".tar.gz"
+		archive_path = os.path.join(base_path, archive_name)
+		archive_url = base_url + '/' + archive_name
+		if not os.path.exists(base_path):
+			os.makedirs(base_path)
 
-			if relative_path == 'url':
-				continue
+		# opam repos change opam files whenever they like, so
+		# we need to mirror them on feed creation
 
-			self.archive.add_file(
-				source=file.url,
-				dest='/'.join([base, self.id, relative_path]),
-				contents=file.contents,
-			)
+		with tarfile.open(archive_path, 'w:gz') as archive:
+			try:
+				def add_file(relative_path, contents):
+					from StringIO import StringIO
+					filecontents = StringIO(contents)
 
-		# Add a "src" file, which is read/understood by opam-src-build.
-		# This is very hacky, but prevents an entire compile step just to get
-		# around a hard-coded path
-		self.archive.add_file(
-			source=src_url,
-			dest='/'.join([base, self.id, 'src']),
-			contents=src_contents
+					info = tarfile.TarInfo(name = "%s/%s/%s" % (prefix, self.id, relative_path))
+					info.size=len(filecontents.buf)
+					archive.addfile(tarinfo=info, fileobj=filecontents)
+
+				for file in self.project.repo.files_at(*self._url_path):
+					relative_path = os.path.join(*file.parts[len(self._url_path):])
+
+					if relative_path == 'url':
+						continue
+
+					add_file(relative_path, get(file.url))
+
+				# Add a "src" file, which is read/understood by opam-src-build.
+				# This is very hacky, but prevents an entire compile step just to get
+				# around a hard-coded path
+				with open(src_path) as src_file:
+					add_file('src', src_file.read())
+
+			except Exception as e:
+				os.remove(archive_path)
+				raise e
+
+		self.archive.add_archive(
+			source=archive_url,
+			local_file = archive_path,
 		)
+
 	
 	@cached_property
 	def release_info(self):

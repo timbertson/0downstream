@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
-	<implementation arch="*-src" compile:dup-src="true" id="sha1new=9ae337ae52f915c1fafb9b93a73681b79654281d" version="1.5.2">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=4cc565ca8e653ec88fb0abda80625e909bbe0eda" version="1.5.2">
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
@@ -15,17 +15,13 @@
 		<recipe>
 			<archive href="http://download.camlcity.org/download/findlib-1.5.2.tar.gz" size="235561"/>
 			<rename dest="src" source="findlib-1.5.2"/>
-			<file dest="opam/ocamlfind.1.5.2/opam" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/opam" size="425"/>
-			<file dest="opam/ocamlfind.1.5.2/findlib" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/findlib" size="108"/>
-			<file dest="opam/ocamlfind.1.5.2/files/ocamlfind.install" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/files/ocamlfind.install" size="151"/>
-			<file dest="opam/ocamlfind.1.5.2/descr" href="http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/descr" size="317"/>
-			<file dest="opam/ocamlfind.1.5.2/src" href="http://gfxmonk.github.io/0downstream/files/opam-local-src" size="10"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-meta/ocamlfind/ocamlfind.1.5.2.tar.gz" size="825"/>
 		</recipe>
-		<manifest-digest sha256="ac68c84032acc56759b3368f63ab2cecaf6aeeb859fa171cde35edeb87ef7ec4"/>
+		<manifest-digest sha256="6102bf3db539af22ac050333da94085b89ac3f4783590989b09acd7abcb87e6a"/>
 	</implementation>
 	<name>ocamlfind</name>
 	<summary>ocamlfind opam package</summary>
-	<homepage>http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.2/</homepage>
+	<homepage>http://opam.ocaml.org/packages/ocamlfind/ocamlfind.1.5.3/</homepage>
 	<description>A library manager for OCaml
 Findlib is a library manager for OCaml. It provides a convention how
 to store libraries, and a file format (&quot;META&quot;) to describe the
@@ -36,11 +32,11 @@ in programs and scripts.
 	<gfxmonk:upstream id="ocamlfind" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUCvWFAAoJELrnGdQBsyfGgacH/A99FHQ48lJW9wZ4wbPiLZ4488pA86pLHYCU
-zftbv1jazhn2fON082Q3CzxQbPuuFJ5LOC6Qw44z/yHP5t4pBWvkzf2tkGcbrXu/e0VZUBWKojo0
-DGB4yKkKz8ajoQo+4UcyI4Z58V+x5VjFI6wfwlcbjtffmXzz6RDjiJ7ppKVhu9kyyjT+FfK81N71
-9wdVkZBgffIXapgL312p5k1vcfhX1Vzy600Cvunq5U++Ndm4KHcBM9BmDaB7Yc6VCPqxRKJts9pr
-j7K/yY3jd/veM/BPh8K9aCAyMGhmL9P4EB0/eiaUlF7DE3EsI4lp2OfLrkIaUpRM1EgW83BQu3DE
-0n4=
+iQEcBAABAgAGBQJUJ3AbAAoJELrnGdQBsyfGztkH/RZE845hU3vvjfbn34G616JHwV0tACdWwGi0
+Sp+xfzXRE8y/ZWWvpeaR+upsfWDACTtE6sA17Ir/er1npmehSx65Q7M7yF9VCOLYU5lDZ+3imhnF
+poQoz171h7JpVcZ6Kp3oPkZYqKf38hAcKPUJ1D69pfkzdbNb8qoU4cyoI+Sib6AnERLIHmRFsVp9
+jb5QvIcqkYNxGixyz1UfZbIlZM/fwe/cJbpwDtJsZT3j7qpuh/PgF+r/7mLq3KOvVbqyxg+jxoV5
+Zo5vea5ALs0iQTXorfnv8IfoRXZP3fuaOkGpxcyF6518C+JnOU71Q6nBFkZEwfruWjVTW/P2NicX
+rZg=
 
 -->

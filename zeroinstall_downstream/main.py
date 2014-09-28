@@ -127,7 +127,7 @@ def add(opts):
 			actions.update_info(project, location, opts.version, opts)
 		else:
 			if opts.recreate:
-				assert exists, location.path
+				assert exists, "--recreate specified but feed doesn't exist: " + location.path
 			action = (actions.update if exists else actions.create)
 			action(project, location, opts.version, opts)
 
