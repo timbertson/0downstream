@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/camlp4.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=111629368710207fd3829fc1c8b5612d568a94fa" version="4.1.0">
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<arg>camlp4</arg>
+			<compile:implementation/>
+		</command>
+		<recipe>
+			<archive href="http://gfxmonk.github.io/0downstream/files/empty.tar.gz" size="45"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-meta/camlp4/camlp4.4.01.0.tar.gz" size="613"/>
+		</recipe>
+		<manifest-digest sha256="d5d25443cb5077c02ad61a66da0027eaacb55490fe9b71f7e8b9706be1fff45a"/>
+	</implementation>
+	<name>camlp4</name>
+	<summary>camlp4 opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/camlp4/camlp4.4.03.0/</homepage>
+	<description>Camlp4 is a system for writing extensible parsers for programming languages
+
+It provides a set of OCaml libraries that are used to define grammars as well
+as loadable syntax extensions of such grammars. Camlp4 stands for Caml
+Preprocessor and Pretty-Printer and one of its most important applications is
+the definition of domain-specific extensions of the syntax of OCaml.
+
+Camlp4 was part of the official OCaml distribution until its version 4.01.0.
+Since then it has been replaced by a simpler system which is easier to maintain
+and to learn: ppx rewriters and extension points.
+</description>
+	<gfxmonk:upstream id="camlp4" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUJ6iSAAoJELrnGdQBsyfGgtMH/2f14a6udDT39v5KCv1enh9LyvBQTCw0cah0
+tzLnGoA5jEbtzrB+tBOz1FZJoC6VYeYitI+iyUEQoyGYYoRyuVhTRzJ1nPfuNlGK9Tev+0n/1S52
+EU8WwDn2Tyfgp4VhyqdiLHweOm6p3DDA8d1L8MRDr81oshdbqfooq4AuPIEmkFYSVb9CpCiSZ3wZ
+9NkURfrKoiW6LCsb+hR6765YFgpPq2I8NTaeYM0b85mPUgAPyy95dCWsz6M06X4u09gLks2BIMSw
+81izCLn66u8MXXJvR3xiBbsgMUz0hrxo8OxkMaq45lf0w7NBgR6UHpAO9nEwJwmUzptvtWlS8nUU
+E/8=
+
+-->

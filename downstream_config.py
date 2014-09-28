@@ -58,6 +58,8 @@ OCAML_RUNTIME_FEED = 'http://repo.roscidus.com/ocaml/ocaml-runtime'
 OCAML_COMPILER_FEED = 'http://gfxmonk.net/dist/0install/ocaml.xml'
 DEV_NULL = open(os.devnull)
 
+empty_archive_url = FILES_URL_ROOT + 'empty.tar.gz'
+
 python3_blacklist = set([])
 
 def pin_components(n):
@@ -542,14 +544,23 @@ def process(project):
 		project.guess_dependencies(ocaml_feed=OCAML_COMPILER_FEED)
 
 		contents = os.listdir(project.working_copy)
-		assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
-		project.rename(contents[0], 'src')
+
+		if project.archive.url is None:
+			project.archive.url = FILES_URL_ROOT + 'empty.tar.gz'
+
+		if len(contents) == 0:
+			# special case (e.g camlp4), it's actually included with the distribution already.
+			src_path = None
+		else:
+			assert len(contents) == 1, "Expected 1 file in root of archive, got: %r" % (contents,)
+			project.rename(contents[0], 'src')
+			src_path = os.path.join(FILES_PATH, 'opam-local-src')
 
 		# add opam files:
 		repo_path = 'opam'
 
 		project._release.add_opam_files(prefix=repo_path,
-				src_path=os.path.join(FILES_PATH, 'opam-local-src'),
+				src_path=src_path,
 				base=(
 					os.path.join(FILES_PATH, 'opam-meta', project.id),
 					FILES_URL_ROOT + 'opam-meta/' + project.id,

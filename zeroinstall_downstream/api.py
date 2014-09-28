@@ -272,6 +272,10 @@ class Release(object):
 		extract = self._release.archive.extract
 		return local if extract is None else os.path.join(local,extract)
 
+	@property
+	def archive(self):
+		return self._release.archive
+
 	def generate_local_feed(self):
 		return self._generate_feed(local=True)
 

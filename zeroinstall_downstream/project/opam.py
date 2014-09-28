@@ -93,6 +93,13 @@ class Release(BaseRelease):
 		info = self.release_info
 		# print(repr(info['url']))
 		urlinfo = info['url']
+		if urlinfo is None:
+			from zeroinstall_downstream import main
+			config = main._load_config()
+			urlinfo = {
+				'kind': 'http',
+				'url': config.empty_archive_url,
+			}
 		urlkind = urlinfo['kind']
 		assert urlkind in (None, 'http'), "Unsupported URL kind: %s" % (urlkind,)
 		return urlinfo['url']
@@ -133,8 +140,9 @@ class Release(BaseRelease):
 				# Add a "src" file, which is read/understood by opam-src-build.
 				# This is very hacky, but prevents an entire compile step just to get
 				# around a hard-coded path
-				with open(src_path) as src_file:
-					add_file('src', src_file.read())
+				if src_path is not None:
+					with open(src_path) as src_file:
+						add_file('src', src_file.read())
 
 			except Exception as e:
 				os.remove(archive_path)
