@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/ms.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=803b3565d49fb7b278621b43edced8bbd11aa395" version="0.6.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ms/-/ms-0.6.2.tgz" size="1477"/>
+			<rename dest="ms" source="package"/>
+		</recipe>
+		<manifest-digest sha256="7596a201c46032bb7fdd43b9b15db6dc80ebc78425fb1961215bf5922e7c050b"/>
+	</implementation>
+	<name>ms</name>
+	<summary>ms npm package</summary>
+	<homepage>https://npmjs.org/package/ms</homepage>
+	<description>Tiny ms conversion utility</description>
+	<gfxmonk:upstream id="ms" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKKqqAAoJELrnGdQBsyfGygsIAI17b0p1k6hgIGXsPg6/IBbSm89yZjbzfRtz
+TAlwBW39GwFAIXBKkiWh34r5SujJI21miWgNH08nv4ZYM8Mdl2WhUHRKSUmol1Gal0+egkyH0h8+
+l0mHu6VOeVPki1aKTDmvC4ZXmlisXkd852BZ+DvDbFSMKjGZVlmC4KXOx/yhkj7njOsNR2rKESp+
+WCVFDTJvZ3nM0iSXMBsmTuhh6Bwu+M63ClmE8t5p+8tFcLW5+E6A81LGahrKXeMAPVQEsoUTw92f
+3CIMtcWpTGfpD/jlbdtdzwgfjvTEbpqCliFQ2y1IZs2cSnEA64cjh9EzUJlE/uGJEgjJOLTd15/e
+rLo=
+
+-->

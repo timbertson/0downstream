@@ -28,7 +28,7 @@ else:
 		# maybe they're using setuptools scripts...
 		entry_points = info.entry_points['console_scripts']
 		#XXX what about gui scripts?
-	except (AttributeError, KeyError) as e:
+	except (AttributeError, KeyError, TypeError) as e:
 		pass
 	else:
 		for entry in entry_points:

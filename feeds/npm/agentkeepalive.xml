@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/agentkeepalive.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=2ac57992dcf28833db39eb0632fb591ea889865f" version="0.1.5">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/agentkeepalive/-/agentkeepalive-0.1.5.tgz" size="13042"/>
+			<rename dest="agentkeepalive" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0e429325516a754aa461a243a49e61048e4e07797a679b98154a7894f560da78"/>
+	</implementation>
+	<name>agentkeepalive</name>
+	<summary>agentkeepalive npm package</summary>
+	<homepage>https://npmjs.org/package/agentkeepalive</homepage>
+	<description>Missing keepalive http.Agent</description>
+	<gfxmonk:upstream id="agentkeepalive" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKLmcAAoJELrnGdQBsyfG9lYH/iGxc8J6cYTVAkhJ7Gol2I5tByeWkCMpdTqz
+1yGj7BXjc9mVTX9IyQ6NIk+srdG8ORZVtHj8fn8/RmiW2Rb1ytWuyJ+qDWjWLUVB7B8M65o5K6rD
+F0WAX1rJN/iYWZXmEyE+z0Nwg/PNGRRj9FuQRXmY9/C7GzBqjRbZX+8HxG9Ywt+aBAoUFPzDfrBx
+zzpaRkuTZK+h3S6/YtGqRrrNWCNh75Bh6yVIqn7hCX7Xi9mo93m5MDJSEeX+ohzDV278OsIZN9wU
+Hkc59Xvd4fyCtqdw7loWehaF+bZT4i8qb+Oux3OepJQlFHGQM1+rfLLEotzDbmSi67UjxcJN808D
+ess=
+
+-->

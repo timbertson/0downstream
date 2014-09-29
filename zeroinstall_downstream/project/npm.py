@@ -25,8 +25,12 @@ class Release(BaseRelease):
 	
 	@property
 	def dependency_names(self):
-		get = lambda dep: dep.upstream_id
-		return set(map(get, self.runtime_dependencies)).union(map(get, self.compile_dependencies))
+		def get(source):
+			names = map(lambda dep: dep.upstream_id, source)
+			names = filter(lambda name: name is not None, names)
+			return set(names)
+
+		return get(self.runtime_dependencies).union(get(self.compile_dependencies))
 	
 	@cached_property
 	def release_info(self):
@@ -41,7 +45,7 @@ class Release(BaseRelease):
 	def copy(self):
 		return type(self)(project=self.project, version_info=self.info)
 
-	def detect_dependencies(self, resolver):
+	def detect_dependencies(self, resolver, nodejs_feed):
 		self.runtime_dependencies = []
 		self.compile_dependencies = []
 		def add_dependency(tagname, name, version_spec, attrs=None, dest=None):
@@ -80,6 +84,18 @@ class Release(BaseRelease):
 
 		for (name, version_spec) in package_info.get('devDependencies', {}).items():
 			add_dependency('requires', name, version_spec, dest=self.compile_dependencies)
+
+		for (name, version_spec) in package_info.get('engines', {}).items():
+			if name == 'node':
+				version = _parse_version_info(version_spec)
+				tag = Tag('restricts', {'interface':nodejs_feed})
+				tag.upstream_id = None
+				if version:
+					tag.children.append(version)
+				for dest in [self.runtime_dependencies, self.compile_dependencies]:
+					dest.append(tag)
+			else:
+				logger.warn("Unknown engine: %s", name)
 
 class Npm(BaseProject):
 	upstream_type = 'npm'

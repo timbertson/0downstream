@@ -2,11 +2,14 @@
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/fs-ext.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation arch="*-src" compile:dup-src="true" id="sha1new=85c39600556edc3af00b522123e61ac71adcb036" version="0.3.2">
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.8.0"/>
+		</restricts>
 		<command name="compile">
 			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
 				<executable-in-var name="NPM"/>
 			</requires>
-			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
 				<executable-in-var name="NODE_GYP"/>
 			</requires>
 			<runner interface="http://repo.roscidus.com/utils/bash">
@@ -23,12 +26,13 @@
 			</runner>
 			<compile:implementation>
 				<environment insert="" mode="prepend" name="NODE_PATH"/>
-				<command name="test" path="fs-ext/run_tests">
-					<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
-				</command>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
 				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
 					<version compile:pin-components="2"/>
 				</requires>
+				<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version not-before="0.8.0"/>
+				</restricts>
 			</compile:implementation>
 		</command>
 		<recipe>
@@ -44,11 +48,11 @@
 	<gfxmonk:upstream id="fs-ext" type="npm"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTasajAAoJEOA/kc8tk45WHhcH/0ozBMkLQtQenb9VXcWyCwgToiyBYIRwS4c5
-rkWqGTQLjNB1r8l++wZzEK+ay2ivjJFI9vtInp1hzje2Hb59QWhrlEppdBYeKvLLj8Ch8yV2vAnJ
-U/db/UkdqM9QkELA/1WsZ/Sp8wyIlZzfu6SCi3EwwFh7wYxHoiOnmmqMN1nk1vCyr3fpQJZvL8yb
-FiNJdU5va11P1YE5Pm7hx6/er5OUx0wkI97XHuzkKDknllFzqQnLa5ud8dazzSHnSLEWfAYOw7Gj
-mOKKD2u4mipJWINja4uoKCFiTO9DcmU6aNL9LXTXWOnorAfQ35G/6X6r4pA46e31RGBsNPj3Ce3j
-iUk=
+iQEcBAABAgAGBQJUKL0VAAoJELrnGdQBsyfGR8YH/AqFxJOt8rH1C1RxglyhuHtJZfRxbIdCuQkk
+KhUukbkXugRClg0fuFNrd/h4zU8ZVlLpxeIWDz4gvYUwOJ1ICvoB70SwUhFfRU5V1EGrZQ0ds6co
+Jvd4j68nVm3zREzWFQcC/8qBTxHY5ewfenKeIqFOFHsiLcYO2eo0N0I4TivfYJMryW/NlNhdcl8x
+cQOGN8osu9OtF7OzPpVvATpmvWoa8ElGewe38NXUGY2AjtCt8YPpMYXNY0Rwvbr7yg3F/cloCLYf
+iIG37HdT4QEeqCBaYaFQ1lN1Ad0MtH3ZCFPViTbMBOD0w+mv0CxkyFR/YdgmeYVyLl1un7swC7ih
+tvA=
 
 -->

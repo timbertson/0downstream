@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/google-oauth-jwt.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=f9e96ad6ea752995a41806ee8adb12d4d47f1e9f" version="0.1.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/debug.xml">
+			<version before="0.8" not-before="0.7.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/google-oauth-jwt/-/google-oauth-jwt-0.1.4.tgz" size="11872"/>
+			<rename dest="google-oauth-jwt" source="package"/>
+		</recipe>
+		<manifest-digest sha256="6a0753dbacf31748e6a12943ba9a39c60131b824db4c4e6ed5e576b61e9df30b"/>
+	</implementation>
+	<name>google-oauth-jwt</name>
+	<summary>google-oauth-jwt npm package</summary>
+	<homepage>https://npmjs.org/package/google-oauth-jwt</homepage>
+	<description>Implementation of Google OAuth 2.0 for server-to-server interactions, allowing secure use of Google APIs without interaction from an end-user.</description>
+	<gfxmonk:upstream id="google-oauth-jwt" type="npm"/>
+  <implementation id="sha1new=069a01d03a79c2ff2a9955fd84e562b12dd9247f" version="0.0.7">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/google-oauth-jwt/-/google-oauth-jwt-0.0.7.tgz" size="5741"/>
+			<rename dest="google-oauth-jwt" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d0a71b02cf5e41bce4ecedde104b60bf97af9c071fdc65ae6a5d21d21afdb1a5"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKLFzAAoJELrnGdQBsyfGIVwH/RIlG82BnHN+3eQB/sPlf5TBQ3XTWlrFKxMS
+0hlFp5EHbctJA9KZW4Xb+YI+MG5SwjDnIXn/+x8ATMbz/lkoNEARVrlW5Vs4lrG+5MHjwzksr7mC
+aIEGqdtXw5RkL+JTlnqaFo5HWOLBwRFRFjSTGR8uQe0kx/tzm8SYtmu7rcplVnyMQPHUj3B02s51
+hoDVRCBR4TZs4aNa3ayTBiBcbY6e3S2U3gFrSkcvoBYW7L1Wq/waSMACC9HZTM5QmnHCX6BRAVCd
+pLnkQZixGygqjyi0WYJzi5sl/TJhzHP+SVH+U0JqKFEtkDXo7bkl9yt1hehmTuzqNSxd2TKYv7fG
+CCU=
+
+-->

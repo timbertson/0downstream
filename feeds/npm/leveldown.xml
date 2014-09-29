@@ -33,7 +33,7 @@
 			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
 				<executable-in-var name="NPM"/>
 			</requires>
-			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
 				<executable-in-var name="NODE_GYP"/>
 			</requires>
 			<runner interface="http://repo.roscidus.com/utils/bash">
@@ -50,6 +50,7 @@
 			</runner>
 			<compile:implementation>
 				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
 				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
 					<version compile:pin-components="2"/>
 				</requires>
@@ -74,11 +75,11 @@
 	<gfxmonk:upstream id="leveldown" type="npm"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah84AAoJEOA/kc8tk45W0rQH/369BNLuBIuKCNWWGD3op70/z0nfmz0l2mKB
-mTyqEbF9bTxTCdRFVxyqifJyO1YvllFofmg6jHhr9ZjMmfqWZusKtrgpYtBkTmGBOcEg7HS2hbED
-RCWSiuWm5S3HYzcUkyDhJ7s+9QWpp382AIgR52SSbAk59di7+Zkdq7X1twL301HY4zGHCFuMFxTU
-FNjFQhHAvPVnGhG/LNUaibEbGpod440uNJk3luAW5gJ24V5rfzTo4RWFfnSPTfd9Kpc6r/VzxWhc
-Vx/lsPT9fW1/GvqfAugHaWHVXpeWp3jJjZi58CTFSRH/9oyV5TcSFodfSr6oAAmH4eMQ3n9Vw80k
-FRg=
+iQEcBAABAgAGBQJUKLzPAAoJELrnGdQBsyfGeoUH/35q8RWUdO2goUWtqjoQMFBuU7h7c9z1lUsi
+Za+w8po5RJzMlrnmMR3MC0TqvRf2QgW5J+LN6J9Uomb6MXrBWE49f8NhwLnDNnmZkIOh0pvArkmB
+xMxyUR8l0dVplXOyaH/Db+vLQ0fDNL72jjULLE01xQHXSIv8U8esZw72zy5lUX9NmNr+4BCymWJx
+5nDSVaRv1GPIsWBNKFTwy4Vget69+RnnpNAv13xq/iWTvOzFe2F6blbDya7KtvqOSjQy+ZWezulT
+HcFe/TIN/K5fCgN1wQLhs44woLBJSgs4fg1IQiT/fHk7Qk0espNG69x94UX1cjeS64H30GNJQAeu
+874=
 
 -->

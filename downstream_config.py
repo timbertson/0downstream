@@ -433,9 +433,10 @@ def process(project):
 		project.rename(contents[0], project.id)
 
 		# project is in sane state - try figuring out dependencies
-		project.guess_dependencies()
+		project.guess_dependencies(nodejs_feed=NODEJS_FEED)
 		project.create_dependencies()
 	
+		# XXX HACK
 		if project.id == 'mkfiletree':
 			for req in project._release.runtime_dependencies:
 				if req['interface'].endswith('rimraf.xml'):
@@ -445,6 +446,7 @@ def process(project):
 
 		nodejs_runner = Tag('runner', {'interface':NODEJS_FEED})
 		project.add_to_impl(Tag('environment', {'name': 'NODE_PATH', 'insert':"", 'mode':"prepend"}))
+		project.add_to_impl(Tag('requires', {'interface': NODEJS_FEED}))
 
 		# figure out compilation:
 		release_info = project.release_info
@@ -519,7 +521,7 @@ def process(project):
 							Tag('executable-in-var', {'name':'NPM'})
 						]),
 
-						Tag('requires', {'interface': FEED_URL_ROOT + 'node-node-gyp.xml'}, [
+						Tag('requires', {'interface': FEED_URL_ROOT + 'npm/node-gyp.xml'}, [
 							Tag('executable-in-var', {'name':'NODE_GYP'})
 						]),
 

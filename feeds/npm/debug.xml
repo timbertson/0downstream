@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/debug.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=44b1f47cdafdc20281ad23652127bc8bd521a6c2" version="2.0.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/ms.xml">
+			<version before="0.6.3" not-before="0.6.2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/debug/-/debug-2.0.0.tgz" size="8469"/>
+			<rename dest="debug" source="package"/>
+		</recipe>
+		<manifest-digest sha256="14029dd4ea0283ccb324c877fe569cb16db64c4941621e1895c6611041d10119"/>
+	</implementation>
+	<name>debug</name>
+	<summary>debug npm package</summary>
+	<homepage>https://npmjs.org/package/debug</homepage>
+	<description>small debugging utility</description>
+	<gfxmonk:upstream id="debug" type="npm"/>
+  <implementation id="sha1new=64985839bde1e4ebe11cdbfb0576eb6a17ae1137" version="0.7.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/debug/-/debug-0.7.4.tgz" size="4211"/>
+			<rename dest="debug" source="package"/>
+		</recipe>
+		<manifest-digest sha256="e4d2c16f93a0c6ecad933bd0ec7a114d37a386033ae68817638d7b98f1fc1a3e"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKKrKAAoJELrnGdQBsyfGPpcH/22J7QZguyX+rHbMUw1t5BcWMOarzGK6ynNb
+ohoVKm0Rm8HKYCfx4TtxP0Gyrsq8eF7X0SD9H0nNPJfLzBhVh7/Y8YX2hxQFypMEtRRof9QeS/zB
+8S6qSiPq6IedNlen1bxtwVLxl8upNhwPYZWqVXTkOIIO9T4Jp1fd5sFnE/bWK4+tXFAR2NR7b2xU
+UfEuuaYSNSBOBj6OX+eWBVfwVc2cQKUFWqwfGxJmqDBqk4OfK73JGLJZIcH31waReOcJqU05O6Sm
+cVKGunG8lpiG9tuRFgIfedh1K93JvgXvvAPlMIYozkCgcews7s6gOqDQNXtwQu2uv7K8hVQ8POvv
+l1w=
+
+-->

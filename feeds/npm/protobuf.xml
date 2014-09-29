@@ -5,11 +5,14 @@
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
 			<version before="1.1" not-before="1.0.0"/>
 		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version before="0.12" not-before="0.8.0"/>
+		</restricts>
 		<command name="compile">
 			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
 				<executable-in-var name="NPM"/>
 			</requires>
-			<requires interface="http://gfxmonk.github.io/0downstream/feeds/node-node-gyp.xml">
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
 				<executable-in-var name="NODE_GYP"/>
 			</requires>
 			<runner interface="http://repo.roscidus.com/utils/bash">
@@ -26,12 +29,16 @@
 			</runner>
 			<compile:implementation>
 				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
 				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
 					<version compile:pin-components="2"/>
 				</requires>
 				<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/nan.xml">
 					<version before="1.1" not-before="1.0.0"/>
 				</requires>
+				<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version before="0.12" not-before="0.8.0"/>
+				</restricts>
 			</compile:implementation>
 		</command>
 		<recipe>
@@ -45,13 +52,53 @@
 	<homepage>https://npmjs.org/package/protobuf</homepage>
 	<description>Protocol Buffers for NodeJS</description>
 	<gfxmonk:upstream id="protobuf" type="npm"/>
+  <implementation arch="*-src" compile:dup-src="true" id="sha1new=24c66fc1c324925a4399f308f3d2af805c5cb5cd" version="0.8.8">
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version before="0.11.0" not-before="0.8.0"/>
+		</restricts>
+		<command name="compile">
+			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+				<executable-in-var name="NPM"/>
+			</requires>
+			<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
+				<executable-in-var name="NODE_GYP"/>
+			</requires>
+			<runner interface="http://repo.roscidus.com/utils/bash">
+				<arg>-euxc</arg>
+				<arg>
+								cd &quot;$BUILDDIR/protobuf&quot;
+								&quot;$NPM&quot; build .
+								cp -a &quot;$BUILDDIR/protobuf&quot; &quot;$DISTDIR/&quot;
+
+								# remove some common unnecessary files
+								cd &quot;$DISTDIR/protobuf&quot;
+								rm -rf src test deps
+							</arg>
+			</runner>
+			<compile:implementation>
+				<environment insert="" mode="prepend" name="NODE_PATH"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+				<requires interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version compile:pin-components="2"/>
+				</requires>
+				<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+					<version before="0.11.0" not-before="0.8.0"/>
+				</restricts>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://registry.npmjs.org/protobuf/-/protobuf-0.8.8.tgz" size="658267"/>
+			<rename dest="protobuf" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4d5d81677649b405572b4bb1c0502dc6f9b2fbc4465a7db175f3503cecc3d037"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUI7mmAAoJELrnGdQBsyfG7nMIAJcMXEYKiLKlbNRzFwReZO9JU/knM/AMW4mS
-UjBi7b0zyohxIA5+/Oco+TRp4/0yhhcyTefB3KudrdloQ0C1/Mao5WeSZJbdwPFi9J8ryCHWTZ0j
-fNFi3PBkNlKGejJA8GkjcRjwa1GTYadKcaj3FWXdU3mOGxUAqUofVRxkTSdabHz47/CYcuX1n5Aj
-89GpJ0NTKHr42ASD974T1c8TyRVLCBL3FD1M6hulR0ICloKT5ZN5Q8TBsiTUHCKYVT6oXJl2DRYa
-BVxY/cJIxjgHACEZ+iSLB/b4n78Ozi7cb+xHGP2aGVdoECQ/7IvZTD3hGACw9L2zCWHL8NuzxcFs
-XD8=
+iQEcBAABAgAGBQJUKL95AAoJELrnGdQBsyfGg0MH/i7IAl/7UXs4iB6tRpo86WbmJ3heb8fKuoOS
+POmnAwapbDo3vE3qMv9Q+3YkQTJx2oM6R3mHhfK0Zxmdo83gYvDVb/ISKplzBZDsSE7i6aC7WGlV
+zIH6Swu3V9+zg0f1jixOxYtH2I/XM1BnJbrOuWCeUJ4Ii9HXdR9etTuVqC4SHabSa7qnDIOYUTCm
+CgbI5hy34ATE90qqqhVEZ6QJdWEcEIBK/SOgGWDJ5NkuLlS4eM+2GBItOv/KmPqSOzqCVzbzRZTU
+tMZ3HWjQv/t3DCGbz1RCI7FQTeyvm9Fi70G0OeO3mB0KO37LamvGGTF0uGd4hmxMTt2SgkBUm9KU
+gqA=
 
 -->
