@@ -3,8 +3,12 @@ import requests
 import sys
 import json
 import logging
+from version import Version, VersionComponent
 from .. import composite_version
 from ..archive import Archive
+from ..tag import Attribute
+
+logger = logging.getLogger(__name__)
 
 def cached_property(fn):
 	result = []
@@ -96,3 +100,28 @@ class BaseRelease(object):
 		archive = self.archive = Archive(self.url, **k)
 		archive.__enter__()
 		return archive
+
+def try_parse_dep_version(v):
+	try:
+		return Version.parse(v, coerce=True)
+	except StandardError as e:
+		logger.debug("Couldn't parse version string: %s" % (v,), exc_info=True)
+		logger.warn("Couldn't parse version string: %s" % (v,))
+		return None
+
+def add_version_op(op, ver, add):
+	attr = None
+	def maybe_add(attr, v):
+		if v is None: return
+		return add(attr, v)
+
+	if op == '==' or op == '=':
+		add('not-before', ver)
+		add('before', inc(ver))
+	elif op == '<': add('before', ver)
+	elif op == '>': add('not-before', inc(ver))
+	elif op == '<=': add('before', inc(ver))
+	elif op == '>=': add('not-before', ver)
+	elif op == '!=': add('not-before', ver) # Not correct, but generally sufficient
+	else:
+		raise RuntimeError("Unknown version op: %s" % op)

@@ -47,7 +47,7 @@ FEED_PATH = os.path.join(ROOT_PATH, 'feeds')
 FILES_PATH = os.path.join(ROOT_PATH, 'files')
 
 # ZEROINSTALL_BIN = '0install'
-ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/build/ocaml/0install"
+ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/dist/files/0install"
 
 NODEJS_FEED = 'http://gfxmonk.net/dist/0install/node.js.xml'
 BASH_FEED = 'http://repo.roscidus.com/utils/bash'
@@ -229,11 +229,11 @@ def process(project):
 				else:
 					# print('JSON OUTPUT: %r' % output)
 					info = json.loads(output)
-					# info['language_version'] = major_version
+					info['language_version'] = major_version
 					# logger.info("Detected metadata: %r", info)
 					if info['use_2to3']:
 						# ignore use_2to3 setting for python2 implementations
-						if language_version != 3:
+						if major_version != 3:
 							info['use_2to3'] = False
 
 					scripts = info['scripts']
@@ -390,11 +390,13 @@ def process(project):
 
 			portable_feed = project.generate_local_feed()
 
-			# try running it as a "*-*" portable feed. if it works, we're good
 			has_native_code = any([
 				info['has_c_libraries'],
 				info['has_ext_modules'],
 			])
+			if project.id == 'cffi':
+				has_native_code = True
+
 			requires_build = any([
 				has_native_code,
 				info['use_2to3'],
@@ -420,12 +422,16 @@ def process(project):
 						])
 					])
 
-				project.set_compile_properties(dup_src=True,
-					command=
-						Tag('command',{ 'name': 'compile' }, [
-							Tag('runner', {'interface': 'http://gfxmonk.net/dist/0install/setup_py_0compile.xml'})
-						])
-				)
+				compile_command = Tag('command',{ 'name': 'compile' }, [
+					Tag('runner', {'interface': 'http://gfxmonk.net/dist/0install/setup_py_0compile.xml'})
+				])
+
+				if has_native_code:
+					language_version = info['language_version']
+					compile_command.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/python-devel.xml'}, children=[
+						Tag('version', {'not-before':str(language_version), 'before':str(language_version+1)}),
+					]))
+				project.set_compile_properties(dup_src=True, command=compile_command)
 
 	elif project.upstream_type == 'npm':
 		contents = os.listdir(project.working_copy)

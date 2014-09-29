@@ -2,10 +2,11 @@ from __future__ import print_function
 import re
 import logging
 import datetime
-from .common import cached_property, Implementation, BaseProject, BaseRelease, getjson
+from .common import cached_property, Implementation, BaseProject, BaseRelease, getjson, try_parse_dep_version, add_version_op
 from .. import composite_version
 from ..archive import Archive
 from ..tag import Tag
+logger = logging.getLogger(__name__)
 
 class Release(BaseRelease):
 	def __init__(self, project, version, info, project_metadata):
@@ -26,23 +27,32 @@ class Release(BaseRelease):
 		return type(self)(project=self.project, version=self.version, info=self.info, project_metadata=self.project_metadata)
 	
 	def detect_dependencies(self, resolver, metadata):
-		logging.debug("extract_depependencies: pypi petadata = %r", metadata)
+		logger.debug("extract_depependencies: pypi petadata = %r", metadata)
 		for requirement in metadata['install_requires']:
-			if not re.match('^[-_a-zA-Z.]+$', requirement):
-				raise RuntimeError("Can't yet process pypi version restrictions: %s" % requirement)
+			match = re.match(r'^(?P<id>[-_a-zA-Z.]+)(\[(?P<extras>)\])?(?P<version_spec>.*)$', requirement)
+			if not match:
+				raise RuntimeError("Can't parse %s" % (requirement,))
+			groups = match.groupdict()
+			name = groups['id']
+			extras = groups['extras']
+			if extras:
+				logger.warn("Can't handle extras: %s" % (extras,))
+			version_spec = groups['version_spec'] or ""
 
-			name = requirement
 			self.dependency_names.add(name)
 
 			location = resolver(Pypi(name))
 			if location is None:
-				logging.info("Skipping dependency: %s" % (name,))
+				logger.info("Skipping dependency: %s" % (name,))
 				return
 
 			url = location.url
 			tag = Tag('requires', {'interface': url})
 			if location.command is not None:
 				tag.attr('command', location.command)
+			version_tag = _parse_version_info(version_spec)
+			if version_tag is not None:
+				tag.append(version_tag)
 			self.runtime_dependencies.append(tag)
 
 
@@ -69,7 +79,7 @@ class Pypi(BaseProject):
 				'id': match.group('id')
 			}
 		except StandardError as e:
-			logging.debug(e, exc_info=True)
+			logger.debug(e, exc_info=True)
 			raise ValueError("can't parse pypi project from %s" % (uri,))
 
 	@property
@@ -77,7 +87,7 @@ class Pypi(BaseProject):
 		for v, info in self._info['releases'].items():
 			info = [i for i in info if i['packagetype'] == 'sdist']
 			if not info:
-				logging.debug("No source release for %s" % v)
+				logger.debug("No source release for %s" % v)
 				continue
 			v = composite_version.try_parse(v)
 			yield v, Release(self, v, info[0], self._info)
@@ -88,3 +98,26 @@ class Pypi(BaseProject):
 	def summary(self): return self._info['info']['summary']
 	@cached_property
 	def description(self): return self._info['info']['description']
+
+def _parse_version_info(spec):
+	# http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
+	specs = map(lambda x: x.strip(), spec.split(','))
+	specs = filter(None, specs)
+	specs = list(specs)
+
+	if not specs: return None
+
+	restrictions = Tag('version')
+	def add(attr, val):
+		restrictions.attr(attr, str(val))
+
+	for spec in specs:
+		op, v = re.match(r'^([!=<>]+)\s*(\S+)$', spec).groups()
+		v = try_parse_dep_version(v)
+		if v is None:
+			return None
+
+		add_version_op(op, v, add=add)
+	logger.debug("restrictions: %r" % (restrictions,))
+	return restrictions
+

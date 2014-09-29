@@ -40,6 +40,9 @@ class Tag(object):
 	def __hasitem__(self, key, val):
 		return key in self.attrs
 	
+	def append(self, child):
+		self.children.append(child)
+	
 	def get(self, key, default=None):
 		return self.attrs.get(key, default)
 	

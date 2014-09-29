@@ -1,14 +1,24 @@
 from __future__ import print_function
 # http://stackoverflow.com/questions/14154756/how-to-extract-dependencies-from-a-pypi-package
 
-#XXX depend on setuptools, distribute is dead
+import os, sys, distutils, setuptools, re
+try:
+	from StringIO import StringIO
+except ImportError:
+	from io import StringIO
 
-import os, sys, distutils
 setup_file = os.path.abspath('setup.py')
+
+# fakes
+_real_stdout = sys.stdout
+sys.stdout = StringIO()
 __file__ = setup_file
 sys.path.insert(0, os.getcwd()) # for crazy packages that import themselves during setup
+sys.argv = [setup_file, '--dry-run'] # try and stop setuptools from being so mental
 with open(setup_file) as f:
 	d = f.read()
+	d = re.sub(r'setup_requires\s*=[_a-zA-Z]+,', '', d) # Hackiest of hacks
+
 try:
 	exec(d, globals(), globals())
 except SystemExit:
@@ -51,4 +61,4 @@ info = {
 	'has_c_libraries': info.has_c_libraries(),
 	'has_ext_modules': info.has_ext_modules(),
 }
-json.dump(info, sys.stdout)
+json.dump(info, _real_stdout)
