@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/pycparser.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=877c38ad15315a8f4567966a92877a59fb7c3bdb" version="2.10">
+		<requires interface="http://repo.roscidus.com/python/python"/>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="pycparser-2.10" href="https://pypi.python.org/packages/source/p/pycparser/pycparser-2.10.tar.gz" size="206166"/>
+		<manifest-digest sha256="164d44781f3ea48612d3ba5754d4ad072318731cc6a265b3dc7002f7c2b08f1b"/>
+	</implementation>
+	<name>pycparser</name>
+	<summary>C parser in Python</summary>
+	<homepage>https://github.com/eliben/pycparser</homepage>
+	<description>pycparser is a complete parser of the C language, written in
+        pure Python using the PLY parsing library.
+        It parses C code into an AST and can serve as a front-end for
+        C compilers or analysis tools.</description>
+	<gfxmonk:upstream id="pycparser" type="pypi"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKTg3AAoJELrnGdQBsyfGRF8IANZ2nzxV6YM3sZqWhuZZfCoRtZDa5rRb9mgo
+KLcZwt5tDT5Wxn3gOS00A8RwkihraCF7qZ2zAvIyT7Uyq94tenxeazvu/eYJL2V0/z2YayIdYFJK
+NoFhy8+YFEK+kXnpS6CjhGYicQnWCZEzYRhKWjtlkrn6QAv81E7P24Cy0f45nxw7vlhHkVNeu+oA
+1G/9XuMP7G3+QwEAsdYqgrM79tNlwTL2WylvD7aWDoSro6uzB22H5zd2qSQeo3VGBBgSyOvYmCat
+MynumnrjObntaQQY5JAnUI96uCe/n+38Fm3WE/B36PHIgYXwiZTjL6EC6+BRyC1zqqVe/jLB0fas
+kO0=
+
+-->

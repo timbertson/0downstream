@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="py2_1.8.0" version="1.8.0">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="six-1.8.0" href="https://pypi.python.org/packages/source/s/six/six-1.8.0.tar.gz" size="26925"/>
+		<manifest-digest sha256="41bf1e19c77a0364b6475a50207bbaaf911f3f5bf6d6dee4bc6feaf19d63da69"/>
+	</implementation>
+	<name>six</name>
+	<summary>Python 2 and 3 compatibility utilities</summary>
+	<homepage>http://pypi.python.org/pypi/six/</homepage>
+	<description>Six is a Python 2 and 3 compatibility library.  It provides utility functions
+for smoothing over the differences between the Python versions with the goal of
+writing Python code that is compatible on both Python versions.  See the
+documentation for more information on what is provided.
+
+Six supports every Python version since 2.5.  It is contained in only one Python
+file, so it can be easily copied into your project. (The copyright and license
+notice must be retained.)
+
+Online documentation is at http://pythonhosted.org/six/.
+
+Bugs can be reported to http://bitbucket.org/gutworth/six.  The code can also be
+found there.
+
+For questions about six or porting in general, email the python-porting mailing
+list: http://mail.python.org/mailman/listinfo/python-porting</description>
+	<gfxmonk:upstream id="six" type="pypi"/>
+	<implementation id="py3_1.8.0" version="1.8.0">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version not-before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="six-1.8.0" href="https://pypi.python.org/packages/source/s/six/six-1.8.0.tar.gz" size="26925"/>
+		<manifest-digest sha256="41bf1e19c77a0364b6475a50207bbaaf911f3f5bf6d6dee4bc6feaf19d63da69"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKUsnAAoJELrnGdQBsyfG/SMIAJVX7oxZY5mgNFELr4azoCc2T/ijpDeg6c9g
+so7eiqsz/v5pwFyg+ZrxtepXzZqnBesd8r7E6Fe81AXHNL86fgLA0D8eevJyc9YAZ9NJjui7fGbu
+UNfFKUsVYHjHjLcC8A54dXbUAeKeJFXtfjQGrfsOHakPl8pHkwcsAMFHXfWITz4T+MLDR0xCnbTd
+bFzLglyIuFzUNjC1rz/77XokpLiv65gl4+oi1ALoTikhGlW6RqovQuxxBPB+H8hhBMB9Yo245Qum
+2HQtvF2pH5Y+eihmPtX9XmCtLTSOGB8VeypyV19lj4das1OL1ax2LbrqSGkJFsLvPyo/jSUNmYFv
+y0A=
+
+-->

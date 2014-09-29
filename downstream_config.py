@@ -390,12 +390,14 @@ def process(project):
 
 			portable_feed = project.generate_local_feed()
 
+			extra_build_deps = []
 			has_native_code = any([
 				info['has_c_libraries'],
 				info['has_ext_modules'],
 			])
 			if project.id == 'cffi':
 				has_native_code = True
+				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/libffi-devel.xml'}))
 
 			requires_build = any([
 				has_native_code,
@@ -431,6 +433,10 @@ def process(project):
 					compile_command.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/python-devel.xml'}, children=[
 						Tag('version', {'not-before':str(language_version), 'before':str(language_version+1)}),
 					]))
+
+				for dep in extra_build_deps:
+					compile_command.append(dep)
+
 				project.set_compile_properties(dup_src=True, command=compile_command)
 
 	elif project.upstream_type == 'npm':

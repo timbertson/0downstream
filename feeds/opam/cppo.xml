@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/cppo.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=2d67d4d9fd5573955c24249c23b6c9bb1e747d35" version="0.9.4">
+		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
+		<command name="compile">
+			<runner interface="/opt/0downstream/tools/opam-src-build/opam-src-build.xml"/>
+			<arg>cppo</arg>
+			<compile:implementation>
+				<environment insert="bin" mode="prepend" name="PATH"/>
+				<command name="run" path="bin/cppo"/>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://mjambon.com/releases/cppo/cppo-0.9.4.tar.gz" size="21419"/>
+			<rename dest="src" source="cppo-0.9.4"/>
+			<file dest="opam/cppo.0.9.4/opam" href="http://opam.ocaml.org/packages/cppo/cppo.0.9.4/opam" size="270"/>
+			<file dest="opam/cppo.0.9.4/files/cppo.install" href="http://opam.ocaml.org/packages/cppo/cppo.0.9.4/files/cppo.install" size="14"/>
+			<file dest="opam/cppo.0.9.4/descr" href="http://opam.ocaml.org/packages/cppo/cppo.0.9.4/descr" size="52"/>
+			<file dest="opam/cppo.0.9.4/src" href="http://gfxmonk.github.io/0downstream/files/opam-local-src" size="10"/>
+		</recipe>
+		<manifest-digest sha256="2c976c534083b99feffa26e97f32f09faed90b640b283d7676464d90df467cc7"/>
+	</implementation>
+	<name>cppo</name>
+	<summary>cppo opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/cppo/cppo.0.9.4/</homepage>
+	<description>Equivalent of the C preprocessor for OCaml programs
+</description>
+	<gfxmonk:upstream id="cppo" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJT/clPAAoJELrnGdQBsyfGuBwIAM6HAPO9aZ8hCJ0Kl7T6ObpgCelxOv6l9ycr
+W7rHWF4vgNmstN7DDgbJxKwxUo6HCDuGUbDI6561GfsG1rK20512yD2TBJICpndqpGSwF+o1tmKt
+koeUxEuwvp4AiGJawh8qiQLHKpDor77YRaMCuGx8RFM2KbwXWRM6ZnGX/IJosDPj3KudfIRJ1JiD
+cNZ7y9QwJIAnfWkgw49FLMGHy6uX+rHXwyqpyZzNNul8PgLzwhEYl8Df05KvDGVcyipLX9sBwhjk
+jE9paaajuT0w+pTzJucAB9j7+xuJlkhoS7soU67Isr+L6AKwACZpeb1P0Yj2cHD20821iYd+WCbh
+qXs=
+
+-->

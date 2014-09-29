@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/cffi.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="py2_0.8.6" version="0.8.6">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pycparser.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml">
+				<version before="3" not-before="2"/>
+			</requires>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version before="3"/>
+				</requires>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pycparser.xml"/>
+			</compile:implementation>
+		</command>
+		<archive extract="cffi-0.8.6" href="https://pypi.python.org/packages/source/c/cffi/cffi-0.8.6.tar.gz" size="196835"/>
+		<manifest-digest sha256="7aa96462ac77b633018ce2e22b37c90dea4ce37ad56c5c8655801ebd9f0723fb"/>
+	</implementation>
+	<name>cffi</name>
+	<summary>Foreign Function Interface for Python calling C code.</summary>
+	<homepage>http://cffi.readthedocs.org</homepage>
+	<description>CFFI
+====
+
+Foreign Function Interface for Python calling C code.
+Please see the `Documentation &lt;http://cffi.readthedocs.org/&gt;`_.
+
+Contact
+-------
+
+`Mailing list &lt;https://groups.google.com/forum/#!forum/python-cffi&gt;`_</description>
+	<gfxmonk:upstream id="cffi" type="pypi"/>
+	<implementation arch="*-src" compile:dup-src="true" id="py3_0.8.6" version="0.8.6">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pycparser.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml">
+				<version before="4" not-before="3"/>
+			</requires>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version not-before="3"/>
+				</requires>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pycparser.xml"/>
+			</compile:implementation>
+		</command>
+		<archive extract="cffi-0.8.6" href="https://pypi.python.org/packages/source/c/cffi/cffi-0.8.6.tar.gz" size="196835"/>
+		<manifest-digest sha256="7aa96462ac77b633018ce2e22b37c90dea4ce37ad56c5c8655801ebd9f0723fb"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKUsjAAoJELrnGdQBsyfGlJMIAN+wCvvQCfslc0RY9QWfLJoMJqK1CaeFUeyY
+4i3oUvLgamZnW0QScwBuoz9Q3mIAV5+uf6qE9AZdedccvLp1XdYJnSpvoBYFhoqaccqTvOPCZ7X3
+N5oT2+hqYwJ0MqeU5o/cEi9n/ibj5sg0gdx6UFvN0HxZ9HkdpvQZg6HOvCh+EdeDIlWYQsp4lEaY
+42uhFjfM3Q23LhdXvf37gliNF3AOUBIABkzHR9Pghd4V76yJuCSccU58MJ35SGBVEzjOAFzEiMSM
+JRKYQ3A/iTDCz7NOikGxwpZ0EUVtw7wSgK4/9FMNSdJ8E87lWxlIZMfYMfQXy9auLi82gVsLJKWW
+FmM=
+
+-->

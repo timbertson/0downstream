@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=e18f6e7ac6a1811258107541f55ad9dace5a8eb4" version="1.0.2">
+		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<arg>easy-format</arg>
+			<compile:implementation/>
+		</command>
+		<recipe>
+			<archive href="http://mjambon.com/releases/easy-format/easy-format-1.0.2.tar.gz" size="13679"/>
+			<rename dest="src" source="easy-format-1.0.2"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-meta/easy-format/easy-format.1.0.2.tar.gz" size="387"/>
+		</recipe>
+		<manifest-digest sha256="b874902c06f7ad7d3a898d2c9369230886b59d379c285ef7b946ecfa56613fc8"/>
+	</implementation>
+	<name>easy-format</name>
+	<summary>easy-format opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/easy-format/easy-format.1.0.2/</homepage>
+	<description>High-level and functional interface to the Format module of the OCaml standard library
+</description>
+	<gfxmonk:upstream id="easy-format" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKP/qAAoJELrnGdQBsyfGX0QH/jB/Huhz2p4Iuv7PPwXa28VHilyt3PVtf3Lk
+p5DP5hNUYOkBaHJo4Pe8Z9LvPH1yte19Hq49fnlqxcGTRixq9+C1BmYe8moNf0flrfwemWE/TR9T
+deJL0fjTXSWg4UoLrMurz6SBxBxGmWaMVCXf77LmF4+ro0DSBWzAsE1cjkytg/5vm+CYrYyS2C0n
+HnO39v3vPYyR7AKC7sMi/SImXN0xpUbG7Ye0CTtLBED4TSScw7LG1s91sk6yHI4P6cUI5/KrXOG6
+vOTzobVKNeTYSUEWaaOiYvqLwzTS7hFc2b4hVSFmsedBFTfzUGEOlU6+7MKkOEfBcUvRu9MAxEv6
+Y34=
+
+-->
