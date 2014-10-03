@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/cryptography.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="py2_0.5.4" version="0.5.4">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/cffi.xml">
+			<version not-before="0.8"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml">
+			<version not-before="1.4.1"/>
+		</requires>
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml">
+				<version before="3" not-before="2"/>
+			</requires>
+			<requires interface="http://gfxmonk.net/dist/0install/openssl-dev.xml"/>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version before="3"/>
+				</requires>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/cffi.xml">
+					<version not-before="0.8"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml">
+					<version not-before="1.4.1"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<archive extract="cryptography-0.5.4" href="https://pypi.python.org/packages/source/c/cryptography/cryptography-0.5.4.tar.gz" size="320104"/>
+		<manifest-digest sha256="791876151f51ed95b6b6e411f538f2f4a704c97cdb993b3952aed2489199cf18"/>
+	</implementation>
+	<name>cryptography</name>
+	<summary>cryptography is a package which provides cryptographic recipes and primitives to Python developers.</summary>
+	<homepage>https://github.com/pyca/cryptography</homepage>
+	<description>Cryptography
+============
+
+.. image:: https://pypip.in/version/cryptography/badge.svg
+    :target: https://pypi.python.org/pypi/cryptography/
+    :alt: Latest Version
+
+.. image:: https://travis-ci.org/pyca/cryptography.svg?branch=master
+    :target: https://travis-ci.org/pyca/cryptography
+
+.. image:: https://coveralls.io/repos/pyca/cryptography/badge.png?branch=master
+    :target: https://coveralls.io/r/pyca/cryptography?branch=master
+
+
+``cryptography`` is a package which provides cryptographic recipes and
+primitives to Python developers.  Our goal is for it to be your &quot;cryptographic
+standard library&quot;. It supports Python 2.6-2.7, Python 3.2+, and PyPy.
+
+``cryptography`` includes both high level recipes, and low level interfaces to
+common cryptographic algorithms such as symmetric ciphers, message digests and
+key derivation functions. For example, to encrypt something with
+``cryptography``'s high level symmetric encryption recipe:
+
+.. code-block:: pycon
+
+    &gt;&gt;&gt; from cryptography.fernet import Fernet
+    &gt;&gt;&gt; # Put this somewhere safe!
+    &gt;&gt;&gt; key = Fernet.generate_key()
+    &gt;&gt;&gt; f = Fernet(key)
+    &gt;&gt;&gt; token = f.encrypt(b&quot;A really secret message. Not for prying eyes.&quot;)
+    &gt;&gt;&gt; token
+    '...'
+    &gt;&gt;&gt; f.decrypt(token)
+    'A really secret message. Not for prying eyes.'
+
+You can find more information in the `documentation`_.
+
+Discussion
+~~~~~~~~~~
+
+If you run into bugs, you can file them in our `issue tracker`_.
+
+We maintain a `cryptography-dev`_ mailing list for development discussion.
+
+You can also join ``#cryptography-dev`` on Freenode to ask questions or get
+involved.
+
+
+.. _`documentation`: https://cryptography.io/
+.. _`issue tracker`: https://github.com/pyca/cryptography/issues
+.. _`cryptography-dev`: https://mail.python.org/mailman/listinfo/cryptography-dev</description>
+	<gfxmonk:upstream id="cryptography" type="pypi"/>
+	<implementation arch="*-src" compile:dup-src="true" id="py3_0.5.4" version="0.5.4">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/cffi.xml">
+			<version not-before="0.8"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml">
+			<version not-before="1.4.1"/>
+		</requires>
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml">
+				<version before="4" not-before="3"/>
+			</requires>
+			<requires interface="http://gfxmonk.net/dist/0install/openssl-dev.xml"/>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version not-before="3"/>
+				</requires>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/cffi.xml">
+					<version not-before="0.8"/>
+				</requires>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml">
+					<version not-before="1.4.1"/>
+				</requires>
+			</compile:implementation>
+		</command>
+		<archive extract="cryptography-0.5.4" href="https://pypi.python.org/packages/source/c/cryptography/cryptography-0.5.4.tar.gz" size="320104"/>
+		<manifest-digest sha256="791876151f51ed95b6b6e411f538f2f4a704c97cdb993b3952aed2489199cf18"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUKzKLAAoJELrnGdQBsyfGaIQIAI0JZjCKnHu18eJhKlnQz00Zgm7HEoeEbNrZ
+ZIz1VP/GEVENdy7rQUy4/2HNy5sg5VP+HLjHBRh1ooKcz8DP4W3wtQgoXki2qwgGUg55PpnT2onD
++7uOujzo19Ej5Tkg2/q54lR0lwGbtmL36KaFTkaBhM8szP02e6pwOqBTn7VsFznlS9mO/G0dNh5/
+jtvCEy0On9YmQ6hl8X01bdpqLYLWdEiYNPr+pHKp2qFKk/LcelHvhYumA2yTfNShyExqruDRXTsZ
+gVwwXSckOzws6ggr+zZy5r0kgehjs7eVEm1JQL5+rcB0/2jH1lWHFiksQjggWRnDkro/6KJAjajo
+mxA=
+
+-->

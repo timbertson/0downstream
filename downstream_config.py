@@ -399,6 +399,10 @@ def process(project):
 			if project.id == 'cffi':
 				has_native_code = True
 				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/libffi-devel.xml'}))
+			elif project.id == 'cryptography':
+				# this imports fine without compilation, but ultimately fails
+				has_native_code = True
+				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/openssl-dev.xml'}))
 
 			requires_build = any([
 				has_native_code,
