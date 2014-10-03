@@ -14,14 +14,14 @@
 		<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
 			<executable-in-var name="NPM"/>
 		</requires>
-		<implementation id="sha1new=f03562ff5fa7951737d4b0e4136df2fc9397a72f" released="2014-10-03" version="0.1">
-			<manifest-digest sha256new="IQFLHSGZDNOJH6USKWTKVC2GPSLDYPML3GMSYI5IDWHHBQTWZHBQ"/>
-			<archive href="http://gfxmonk.github.io/0downstream/files/npm-build/npm-build-0.1.tgz" size="512"/>
+		<implementation id="sha1new=9a793a90319f7280bb1a1f7d36f206f10961681e" released="2014-10-03" version="0.1">
+			<manifest-digest sha256new="MXU6Y7RBMEG6E4K57IRVCEQ3VRCG7FXIQGNUZUNHBT763AX4VCUA"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/npm-build/npm-build-0.1.tgz" size="780"/>
 		</implementation>
 	</group>
 </interface>
 <!-- Base64 Signature
-iEYEABECAAYFAlQuUIwACgkQ/lhgK1iJTtLLjwCgxVmn9XKU4Vv0BLmc1moMj9nZvwsAn3XVPD2H
-jGLKoRhYSXhVktrGAj0l
+iEYEABECAAYFAlQuWoEACgkQ/lhgK1iJTtJr5gCeNpEH1jX2v+3WCjKi/GWeyvCyazcAn2XNDDUu
+DUjRCP/1NU3h6x46gEHl
 
 -->

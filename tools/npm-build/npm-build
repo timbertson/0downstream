@@ -15,14 +15,32 @@ subprocess.check_call([os.environ['NPM'], 'build', '.'])
 print("Build successful, copying files to %s" % (DEST_ROOT,))
 shutil.copytree(BUILD_ROOT, path.join(os.environ['DISTDIR'], project_id), symlinks=True)
 
-def rm_rf(p):
-	if path.exists(p):
-		if path.isfile(p):
-			os.remove(p)
+def ro_rmtree(root):
+	"""
+	From zeroinstall.support
+	"""
+	import shutil
+	import platform
+	if (os.getcwd() + os.path.sep).startswith(root + os.path.sep):
+		import warnings
+		warnings.warn("Removing tree ({tree}) containing the current directory ({cwd}) - this will not work on Windows".format(cwd = os.getcwd(), tree = root), stacklevel = 2)
+
+	if os.path.isfile(root):
+		os.chmod(root, 0o700)
+		os.remove(root)
+	else:
+		if platform.system() == 'Windows':
+			for main, dirs, files in os.walk(root):
+				for i in files + dirs:
+					os.chmod(os.path.join(main, i), 0o700)
+			os.chmod(root, 0o700)
 		else:
-			shutil.rmtree(p)
+			for main, dirs, files in os.walk(root):
+				os.chmod(main, 0o700)
+		shutil.rmtree(root)
 
 # remove some common unnecessary files
 os.chdir(DEST_ROOT)
 for item in ('src', 'test', 'deps'):
-	rm_rf(item)
+	if path.exists(item):
+		ro_rmtree(item)
