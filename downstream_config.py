@@ -54,6 +54,7 @@ BASH_FEED = 'http://repo.roscidus.com/utils/bash'
 PYTHON_FEED = 'http://repo.roscidus.com/python/python'
 ZI_PUBLISH = 'http://0install.net/2006/interfaces/0publish'
 COMPILE_OPAM_FEED = FILES_URL_ROOT + 'opam-src-build.xml'
+COMPILE_NPM_FEED = FILES_URL_ROOT + 'npm-build.xml'
 OCAML_RUNTIME_FEED = 'http://repo.roscidus.com/ocaml/ocaml-runtime'
 OCAML_COMPILER_FEED = 'http://gfxmonk.net/dist/0install/ocaml.xml'
 DEV_NULL = open(os.devnull)
@@ -528,26 +529,8 @@ def process(project):
 				dup_src=True,
 				command=
 					Tag('command', {'name':'compile'}, [
-
-						Tag('requires', {'interface': 'http://gfxmonk.net/dist/0install/npm.xml'}, [
-							Tag('executable-in-var', {'name':'NPM'})
-						]),
-
-						Tag('requires', {'interface': FEED_URL_ROOT + 'npm/node-gyp.xml'}, [
-							Tag('executable-in-var', {'name':'NODE_GYP'})
-						]),
-
-						Tag('runner', {'interface': BASH_FEED}, [
-							Tag('arg', text='-euxc'),
-							Tag('arg', text='''
-								cd "$BUILDDIR/{project_id}"
-								"$NPM" build .
-								cp -a "$BUILDDIR/{project_id}" "$DISTDIR/"
-
-								# remove some common unnecessary files
-								cd "$DISTDIR/{project_id}"
-								rm -rf src test deps
-							'''.format(project_id=project.id)),
+						Tag('runner', {'interface': COMPILE_NPM_FEED}, [
+							Tag('arg', text=project.id),
 						])
 					]),
 			)

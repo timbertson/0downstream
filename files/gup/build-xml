@@ -1,17 +1,18 @@
 #!bash -eu
 # XXX this currently overwrites the current version
 gupdir="$(dirname "$0")"
-root=../tools/opam-src-build
+tool="$(basename "$2" .xml)"
+root=../tools/"$tool"
 
 gup -u "$root/VERSION"
 version="$(cat "$root/VERSION")"
 
-archive="opam-src-build/opam-src-build-$version.tgz"
+archive="$tool/$tool-$version.tgz"
 template="$gupdir/$2.template"
 gup -u "$archive" "$template"
 
 cached="$gupdir/$(basename "$archive")"
-# remove 0template's cached opam-src-build-*.xml (it's being proxied locally, so the cache only gets in the way)
+# remove 0template's cached $tool-*.xml (it's being proxied locally, so the cache only gets in the way)
 rm -f "$cached"
 0template "$template" version="$version" archive="http://gfxmonk.github.io/0downstream/files/$archive" -o "$1"
 rm "$cached"

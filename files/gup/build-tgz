@@ -1,0 +1,13 @@
+#!bash -eux
+if [ -e "$2" ]; then
+	echo "WARN: not overwriting existing $2" >&2
+	touch "$2"
+	exit 0
+fi
+base="$(basename "$(dirname "$2")")"
+root=../tools/"$base"
+cd "$root"
+gup -u "$base.dist"
+inputs="$(cat "$base.dist")"
+gup -u $inputs
+tar czf "$1" $inputs

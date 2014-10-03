@@ -1,7 +1,0 @@
-#!bash -eu
-root=../../tools/opam-src-build
-cd "$root"
-gup -u opam-src-build.dist
-inputs="$(cat opam-src-build.dist)"
-gup -u $inputs
-tar czf "$1" $inputs

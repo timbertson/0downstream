@@ -1,0 +1,6 @@
+build-tgz:
+	opam-src-build/*.tgz
+	npm-build/*.tgz
+build-xml:
+	opam-src-build.xml
+	npm-build.xml

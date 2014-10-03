@@ -11,7 +11,7 @@
 		<command name="run" path="opam-build">
 			<runner interface="http://repo.roscidus.com/utils/bash"/>
 		</command>
-		<requires interface="http://gfxmonk.net/dist/0install/opam.xml">
+		<requires interface="http://tools.ocaml.org/opam.xml">
 			<executable-in-var name="OPAM"/>
 		</requires>
 		<requires interface="http://gfxmonk.net/dist/0install/m4.xml"/>
@@ -19,14 +19,14 @@
 		<requires interface="http://repo.roscidus.com/python/python"/>
 		<environment insert="" mode="prepend" name="PATH"/>
 		<environment insert="" mode="prepend" name="PYTHONPATH"/>
-		<implementation id="sha1new=89b3a26325853ae51425c0a74d84e010d208e05f" released="2014-08-30" version="0.1">
+		<implementation id="sha1new=89b3a26325853ae51425c0a74d84e010d208e05f" released="2014-10-03" version="0.1">
 			<manifest-digest sha256new="5RBHF6ZRH73XCHKCDQ7J3JNDQ5NVOF6EMYJQC63FKAT2UTBQ6QIA"/>
 			<archive href="http://gfxmonk.github.io/0downstream/files/opam-src-build/opam-src-build-0.1.tgz" size="2384"/>
 		</implementation>
 	</group>
 </interface>
 <!-- Base64 Signature
-iEYEABECAAYFAlQBS+EACgkQ/lhgK1iJTtJl9gCeJC5/7l2bFKp5WiY9Ao3wMhZLFFkAmwcsBNxZ
-yy619Yq/vg69SxIkuooG
+iEYEABECAAYFAlQuUIkACgkQ/lhgK1iJTtK82QCcDkc6yRxkhWA5D8NN+5RZHR9ATz0An3BxLX6H
+c9JvQLaoOp2obxkYaYVZ
 
 -->

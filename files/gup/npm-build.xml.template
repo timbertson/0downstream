@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.github.io/0downstream/files/npm-build.xml">
+	<name>npm-build</name>
+	<summary>0install builder for npm</summary>
+	<description>
+		Wrapper script to build an npm source package in a
+		0install-compatible way.
+	</description>
+	<group main="npm-build">
+		<command name="run" path="npm-build">
+			<runner interface="http://repo.roscidus.com/python/python"/>
+		</command>
+		<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
+			<executable-in-var name="NPM"/>
+		</requires>
+		<implementation version="{version}">
+			<manifest-digest/>
+			<archive href="{archive}"/>
+		</implementation>
+	</group>
+</interface>

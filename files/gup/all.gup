@@ -1,2 +1,2 @@
 #!bash -eu
-gup -u opam-src-build.xml
+gup -u opam-src-build.xml npm-build.xml

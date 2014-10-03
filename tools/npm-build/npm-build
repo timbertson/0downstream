@@ -1,0 +1,28 @@
+from __future__ import print_function
+import sys, os, subprocess, shutil
+path = os.path
+
+project_id, = sys.argv[1:]
+
+BUILD_ROOT = path.join(os.environ['BUILDDIR'], project_id)
+DEST_ROOT = path.join(os.environ['DISTDIR'], project_id)
+
+os.chdir(BUILD_ROOT)
+
+print("Running `npm build .` from %s" % (BUILD_ROOT,))
+subprocess.check_call([os.environ['NPM'], 'build', '.'])
+
+print("Build successful, copying files to %s" % (DEST_ROOT,))
+shutil.copytree(BUILD_ROOT, path.join(os.environ['DISTDIR'], project_id), symlinks=True)
+
+def rm_rf(p):
+	if path.exists(p):
+		if path.isfile(p):
+			os.remove(p)
+		else:
+			shutil.rmtree(p)
+
+# remove some common unnecessary files
+os.chdir(DEST_ROOT)
+for item in ('src', 'test', 'deps'):
+	rm_rf(item)

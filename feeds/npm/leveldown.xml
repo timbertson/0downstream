@@ -30,23 +30,8 @@
 			<version before="0.1" not-before="0.0.1"/>
 		</requires>
 		<command name="compile">
-			<requires interface="http://gfxmonk.net/dist/0install/npm.xml">
-				<executable-in-var name="NPM"/>
-			</requires>
-			<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-gyp.xml">
-				<executable-in-var name="NODE_GYP"/>
-			</requires>
-			<runner interface="http://repo.roscidus.com/utils/bash">
-				<arg>-euxc</arg>
-				<arg>
-								cd &quot;$BUILDDIR/leveldown&quot;
-								&quot;$NPM&quot; build .
-								cp -a &quot;$BUILDDIR/leveldown&quot; &quot;$DISTDIR/&quot;
-
-								# remove some common unnecessary files
-								cd &quot;$DISTDIR/leveldown&quot;
-								rm -rf src test deps
-							</arg>
+			<runner interface="http://gfxmonk.github.io/0downstream/files/npm-build.xml">
+				<arg>leveldown</arg>
 			</runner>
 			<compile:implementation>
 				<environment insert="" mode="prepend" name="NODE_PATH"/>
@@ -75,11 +60,11 @@
 	<gfxmonk:upstream id="leveldown" type="npm"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUKLzPAAoJELrnGdQBsyfGeoUH/35q8RWUdO2goUWtqjoQMFBuU7h7c9z1lUsi
-Za+w8po5RJzMlrnmMR3MC0TqvRf2QgW5J+LN6J9Uomb6MXrBWE49f8NhwLnDNnmZkIOh0pvArkmB
-xMxyUR8l0dVplXOyaH/Db+vLQ0fDNL72jjULLE01xQHXSIv8U8esZw72zy5lUX9NmNr+4BCymWJx
-5nDSVaRv1GPIsWBNKFTwy4Vget69+RnnpNAv13xq/iWTvOzFe2F6blbDya7KtvqOSjQy+ZWezulT
-HcFe/TIN/K5fCgN1wQLhs44woLBJSgs4fg1IQiT/fHk7Qk0espNG69x94UX1cjeS64H30GNJQAeu
-874=
+iQEcBAABAgAGBQJULlKLAAoJELrnGdQBsyfGMu4H/0R4Br2Frf11Zz2TVTlwi0Gi9gZwr2caKiIl
+32PI/EqEXKlmjArDYDFzj/zZNCSY+qNZ9TweTOaM1XqyqS6KOBxUfDcOUdoWMcdAUz3ZWc2EkcbR
+oTax2dTX/t5c9Qz6aUzbO+Iq6zD55pm1dIxbIZbUnZLM1KCpVqRnzMypNGuWv0RQQ6eYeKCidlBc
+5r9pvItJnSHPCzCX6QFdDByH1ajoXKA34WMlvdbTsdqtK3zbP5KNDRV57n53Vr9tUancHliJOt5z
+Ugl7rNM2IEj125iiKFXZEIeOGArDuRNRlVvbXF2st/JC/2bNUc0UyUlu0fg5xJyVCQueAV8sNn7O
+P3I=
 
 -->
