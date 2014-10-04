@@ -117,26 +117,30 @@ def check_validity(project, generated_feed, cleanup, post_compile_hook=None):
 			if project.upstream_type == 'pypi':
 				module_name = getattr(project, 'module_name', None)
 				module_names = set(
-					[module_name] if module_name is not None
-					else [project.id.replace('-','_')]
+					[module_name] if module_name is not None else []
 				)
+				module_names.add(project.id.replace('-','_'))
 
 				fakes_feed = os.path.join(os.path.dirname(__file__), 'tools/fakes/python/fakes.xml')
 				module_names.update([n.lower() for n in module_names])
+				module_names.update([re.sub('_', '.', n, flags=re.I) for n in module_names])
 				module_names.update([re.sub('_?python_?', '', n, flags=re.I) for n in module_names])
+				module_names.update([re.sub('^py?', '', n, flags=re.I) for n in module_names])
 
 				# keep importing stuff until it works
 				run_check(['python', '-c', '''
-import importlib
-err = None
-for mod in %r:
+from __future__ import print_function
+import sys, importlib
+for mod in {module_names!r}:
+	print("Trying to import: %s" % (mod,))
 	try:
 		importlib.import_module(mod)
-		err = None
+		print("Success: %s" % (mod,))
+		sys.exit(0)
 	except ImportError as e:
-		err = e
-if err: raise err
-''' % sorted(module_names)],
+		print("ImportError: %s" % (e,))
+sys.exit(1)
+'''.format(module_names=sorted(module_names))],
 						pre_args = [PYTHON_FEED, '--executable-in-path=python', '-a', fakes_feed, '-a'])
 			elif project.upstream_type == 'npm':
 				run_check([ZEROINSTALL_BIN, 'run', NODEJS_FEED, '-e', 'require("%s")' % (project.id)])
@@ -408,7 +412,11 @@ def process(project):
 				has_native_code,
 				info['use_2to3'],
 			])
-			
+
+			if info['namespace_packages']:
+				# XXX really only python<3.3 should depend on setuptools, but that's hard to express
+				project.add_to_impl(Tag('requires', {'interface': 'http://gfxmonk.net/dist/0install/python-setuptools.xml'}))
+
 			if not requires_build and not check_validity(project, portable_feed, cleanup=cleanup_actions):
 				# if the feed doesn't work as-is, assume that it needs compilation.
 				# If this assumption is incorrect, it'll fail later and we'll have

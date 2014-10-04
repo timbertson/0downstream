@@ -58,6 +58,7 @@ info = {
 	'commands': info.commands,
 	'scripts': scripts,
 	'packages': info.packages,
+	'namespace_packages': getattr(info, 'namespace_packages', []),
 	'has_c_libraries': info.has_c_libraries(),
 	'has_ext_modules': info.has_ext_modules(),
 }
