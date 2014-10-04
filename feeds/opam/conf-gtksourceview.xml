@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/conf-gtksourceview.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=1cbe7c2567b5a687b3a438b994e086bc374a0c53" version="2">
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
+		<requires interface="http://gfxmonk.net/dist/0install/gtksourceview2-dev.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<arg>conf-gtksourceview</arg>
+			<compile:implementation/>
+		</command>
+		<recipe>
+			<archive href="http://gfxmonk.github.io/0downstream/files/empty.tar.gz" size="45"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-meta/conf-gtksourceview/conf-gtksourceview.2.tar.gz" size="612"/>
+		</recipe>
+		<manifest-digest sha256="9b6b9e2d534b5f174e57a4d50a1c2a564b2f99e3ceab74822a43245fcc6ed6ec"/>
+	</implementation>
+	<name>conf-gtksourceview</name>
+	<summary>conf-gtksourceview opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/conf-gtksourceview/conf-gtksourceview.2/</homepage>
+	<description>Virtual package relying on a GtkSourceView system installation.
+This package can only install if libgtksourceview2.0-dev is installed on the system.
+</description>
+	<gfxmonk:upstream id="conf-gtksourceview" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUL4wIAAoJELrnGdQBsyfG48EH/2bzy+gtwNHcSAaMOJeNHs2+mW2j/CuYJy+R
+r4+P+PXEzue6P6k18gASS6dDJVU1UVkh9MCoQ5JvMpzggiRO8DM7plGRW5dYSGtnpACstr3npC6x
+f/iYamPlmTsZXESKgMeI1bfM2INcl2W6NIdncnD0YoGfjGl9qB45RhxSSVZZv11Fr17hATETYR52
+1mRnhduclyxNPwxv8lhNXiChk2yJqwdBSx7DX1nXdL+1qhJFzkoZSXCfldlfXemnKloaAni5OrGh
+4h+d1ULtewbOQsscwRbPLHRVfOB1PzaTMuKiv73dbPrIkZRbsk1W32jMmQ53G45vVbzvzrpkhymS
+XSg=
+
+-->
