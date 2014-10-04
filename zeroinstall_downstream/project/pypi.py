@@ -27,13 +27,24 @@ class Release(BaseRelease):
 		return type(self)(project=self.project, version=self.version, info=self.info, project_metadata=self.project_metadata)
 	
 	def detect_dependencies(self, resolver, metadata):
-		logger.debug("extract_depependencies: pypi petadata = %r", metadata)
-		for requirement in metadata['install_requires']:
-			match = re.match(r'^(?P<id>[-_a-zA-Z.]+)(\[(?P<extras>)\])?(?P<version_spec>.*)$', requirement)
+		logger.debug("extract_depependencies: pypi metadata = %r", metadata)
+		def requirements():
+			for requirement in metadata['install_requires']:
+				yield (None, requirement)
+			for extra, requirements in metadata['extras_requires'].items():
+				# XXX we could make these commands, but that's not a very natural mapping
+				# (and then we'd have to duplicate existing commands like <extra_name>_<command>)
+				logger.debug("Treating deps in extras[%s] as optional dependencies: %r" % (extra, requirements))
+				assert isinstance(requirements, list), 'Not a list: ' + repr(requirements)
+				for requirement in requirements:
+					yield ("recommended", requirement)
+
+		for importance, requirement in requirements():
+			match = re.match(r'^(?P<id>[-_a-zA-Z.0-9]+)(\[(?P<extras>)\])?(?P<version_spec>.*)$', requirement)
 			if not match:
 				raise RuntimeError("Can't parse %s" % (requirement,))
 			groups = match.groupdict()
-			name = groups['id']
+			name = groups['id'].lower()
 			extras = groups['extras']
 			if extras:
 				logger.warn("Can't handle extras: %s" % (extras,))
@@ -50,15 +61,17 @@ class Release(BaseRelease):
 			tag = Tag('requires', {'interface': url})
 			if location.command is not None:
 				tag.attr('command', location.command)
+			if importance:
+				tag.attr('importance', importance)
 			version_tag = _parse_version_info(version_spec)
 			if version_tag is not None:
 				tag.append(version_tag)
 			self.runtime_dependencies.append(tag)
 
-
 class Pypi(BaseProject):
 	upstream_type = 'pypi'
 	def __init__(self, id):
+		id = id.lower() # pypi is case-insensitive
 		self.id = id
 		self.upstream_id = id
 
@@ -112,7 +125,10 @@ def _parse_version_info(spec):
 		restrictions.attr(attr, str(val))
 
 	for spec in specs:
-		op, v = re.match(r'^([!=<>]+)\s*(\S+)$', spec).groups()
+		match = re.match(r'^([!=<>]+)\s*(\S+)$', spec)
+		if not match:
+			raise ValueError("Can't parse version spec %s" % (spec,))
+		op, v = match.groups()
 		v = try_parse_dep_version(v)
 		if v is None:
 			return None

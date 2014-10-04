@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/pyopenssl.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=d7ddaf4133b850801c1df614f1ef5dfb7e9ff6ac" version="0.14">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/cryptography.xml">
+			<version not-before="0.2.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/six.xml">
+			<version not-before="1.5.2"/>
+		</requires>
+		<archive extract="pyOpenSSL-0.14" href="https://pypi.python.org/packages/source/p/pyOpenSSL/pyOpenSSL-0.14.tar.gz" size="128005"/>
+		<manifest-digest sha256="5fd34f20a629910b6ab39733e3128f9b3bafd9166f3ae23b42052e9eef5c7725"/>
+	</implementation>
+	<name>pyopenssl</name>
+	<summary>Python wrapper module around the OpenSSL library</summary>
+	<homepage>https://github.com/pyca/pyopenssl</homepage>
+	<description>High-level wrapper around a subset of the OpenSSL library, includes
+ * SSL.Connection objects, wrapping the methods of Python's portable
+   sockets
+ * Callbacks written in Python
+ * Extensive error-handling mechanism, mirroring OpenSSL's error codes
+...  and much more ;)</description>
+	<gfxmonk:upstream id="pyopenssl" type="pypi"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUL3vdAAoJELrnGdQBsyfGlasH/2FHO0u1mHapsh6k6PEqRM60/ShAup1+OVrJ
+RcO9z+zDoHPwLigTwgLMpRn+H5PZF0brhBa2O48RAr3Z2F/APowY4YYg2641DPfw5XwwNz3e1GKg
+QyDnwG3kke9jy806DIspx1QA6Ai9OYXrtM9sbHTV8Dpt1KgIAlCxEpF7acu3BlmoVOyprNPD1Y2Q
+ymO5qK6VYuZjd+cI/ejKwYPa+yXkIlGMIlLCnAEhxaGpNHhelUOWDvQId6BToh0xGJui1Ax4i3O+
+3xWX31PqMUkOPjs4P9E2C/nS7xlfX/XRxN+8nQ9L+p8v8Yr/FOQb5topb9oXSvraDxPsanNSB+6K
+eT4=
+
+-->

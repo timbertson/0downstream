@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/pyasn1.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="py2_0.1.7" version="0.1.7">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="pyasn1-0.1.7" href="https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.7.tar.gz" size="68120"/>
+		<manifest-digest sha256="658c8d9ca5a78c1522381b32c6543555cd71e179f71ffbe454d9f3a79f680e81"/>
+	</implementation>
+	<name>pyasn1</name>
+	<summary>ASN.1 types and codecs</summary>
+	<homepage/>
+	<description>ASN.1 library for Python
+------------------------
+
+This is an implementation of ASN.1 types and codecs in Python programming
+language. It has been first written to support particular protocol (SNMP)
+but then generalized to be suitable for a wide range of protocols
+based on ASN.1 specification.
+
+FEATURES
+--------
+
+* Generic implementation of ASN.1 types (X.208)
+* Fully standard compliant BER/CER/DER codecs
+* 100% Python, works with Python 2.4 up to Python 3.3
+* MT-safe
+
+MISFEATURES
+-----------
+
+* No ASN.1 compiler (by-hand ASN.1 spec compilation into Python code required)
+* Codecs are not restartable
+
+INSTALLATION
+------------
+
+The pyasn1 package uses setuptools/distutils for installation. Thus do
+either:
+
+$ easy_install pyasn1
+
+or
+
+$ tar zxf pyasn1-0.1.7.tar.gz
+
+$ cd pyasn1-0.1.7
+
+$ python setup.py install
+
+$ python setup.py test   # run unit tests
+
+OPERATION
+---------
+
+Perhaps a typical use would involve [by-hand] compilation of your ASN.1
+specification into pyasn1-backed Python code at your application.
+
+For more information on pyasn1 APIs, please, refer to the 
+doc/pyasn1-tutorial.html file in the distribution.
+
+Also refer to example modules. Take a look at pyasn1-modules package -- maybe
+it already holds something useful to you.
+
+AVAILABILITY
+------------
+
+The pyasn1 package is distributed under terms and conditions of BSD-style
+license. See LICENSE file in the distribution. Source code is freely
+available from:
+
+http://pyasn1.sf.net
+
+
+FEEDBACK
+--------
+
+Please, send your comments and fixes to mailing lists at project web site.</description>
+	<gfxmonk:upstream id="pyasn1" type="pypi"/>
+	<implementation id="py3_0.1.7" version="0.1.7">
+		<requires interface="http://repo.roscidus.com/python/python">
+			<version not-before="3"/>
+		</requires>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="pyasn1-0.1.7" href="https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.7.tar.gz" size="68120"/>
+		<manifest-digest sha256="658c8d9ca5a78c1522381b32c6543555cd71e179f71ffbe454d9f3a79f680e81"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJULnfmAAoJELrnGdQBsyfG5d8IAKbsdN+w4SPG7J7CBTTcEBp40uwX3x644hpw
+m4zA2QMKpRrucSw8yBE0ZrDDMDCIuTp6WVq1/T1hwpWbNk5rDtym4Quhy9LsSk4qz8l5RvNcP+Ox
+LFfiX1pXffw96P2Jm7yhq/S/sSQwHPj72T6AzLwRmoU4qGiCkZDeTuTkTBq3OpN71GMI4mrWFi7C
+U/ISQk4cRUnixwWQ5pGVxTICKCA/dz3NjM2RM3gV0PhKHVyTwrsYCJkhxo+aT7ScqmEI192DI5p0
+9TmzTHVniVw4sgyi30FAvJawJouLc1snrs+acx8EEb0Qcg0XJ6KD8u94+F/iRhpOSSjanSPheIxG
+R8Y=
+
+-->

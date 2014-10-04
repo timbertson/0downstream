@@ -26,7 +26,8 @@ except SystemExit:
 import json
 info = distutils.core._setup_distribution
 
-# print(repr(info.__dict__), file=sys.stderr)
+if os.environ.get('VERBOSE', '0' == '1'):
+	print(repr(info.__dict__), file=sys.stderr)
 
 scripts = info.scripts
 if scripts:
@@ -52,8 +53,16 @@ else:
 				script['fn'] = parts[1]
 			scripts.append(script)
 
+def process_extras_requires(req):
+	# make sure requirements are a list (sometimes it's a string for single dependencies)
+	for key,val in req.items():
+		if not isinstance(val, list):
+			req[key] = [val]
+	return req
+
 info = {
 	'install_requires': getattr(info, 'install_requires', None) or [],
+	'extras_requires': process_extras_requires(getattr(info, 'extras_require', None) or {}),
 	'use_2to3': getattr(info, 'use_2to3', None),
 	'commands': info.commands,
 	'scripts': scripts,

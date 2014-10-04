@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/ndg-httpsclient.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=a6b398deb362658fad0df9ddb86646d80cc81cd8" version="0.3.2">
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyopenssl.xml"/>
+		<requires importance="recommended" interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyasn1.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.net/dist/0install/setup_py_0compile.xml"/>
+			<compile:implementation>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version before="3"/>
+				</requires>
+				<command name="run">
+					<runner interface="http://repo.roscidus.com/python/python">
+						<arg>-c</arg>
+						<arg>import sys;sys.argv[0] = &quot;ndg_httpclient&quot;; import ndg.httpsclient.utils as main; sys.exit(main.main())</arg>
+					</runner>
+				</command>
+				<command name="ndg_httpclient">
+					<runner interface="http://repo.roscidus.com/python/python">
+						<arg>-c</arg>
+						<arg>import sys;sys.argv[0] = &quot;ndg_httpclient&quot;; import ndg.httpsclient.utils as main; sys.exit(main.main())</arg>
+					</runner>
+				</command>
+				<requires interface="http://gfxmonk.net/dist/0install/python-setuptools.xml"/>
+				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyopenssl.xml"/>
+				<requires importance="recommended" interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyasn1.xml"/>
+			</compile:implementation>
+		</command>
+		<archive extract="ndg_httpsclient-0.3.2" href="https://pypi.python.org/packages/source/n/ndg-httpsclient/ndg_httpsclient-0.3.2.tar.gz" size="21514"/>
+		<manifest-digest sha256="c0dbe7f5daefefacc3fa1334f36ecdcd5439bcde051a56596256b6cfeb2ce00f"/>
+	</implementation>
+	<name>ndg-httpsclient</name>
+	<summary>Provides enhanced HTTPS support for httplib and urllib2 using PyOpenSSL</summary>
+	<homepage>http://ndg-security.ceda.ac.uk/wiki/ndg_httpsclient/</homepage>
+	<description>This is a HTTPS client implementation for httplib and urllib2 based on
+        PyOpenSSL.  PyOpenSSL provides a more fully featured SSL implementation over the
+        default provided with Python and importantly enables full verification of the
+        SSL peer.
+        
+        Releases
+        ========
+        0.3.2
+        -----
+         * Fix to SubjectAltNames support check - should only be enabled if pyasn1 is 
+           installed.
+         * Fix to open_url: HTTP Request object was being created inside if headers is 
+           None block - now corrected to create regardless.
+         * Added http basic auth support to script. (Thanks to Willem van Engen)
+         
+        0.3.1
+        -----
+         * extended utils functions to support keyword for passing additional urllib2
+           handlers.
+        
+        0.3.0
+        -----
+         * Added ndg.httpsclient.utils.fetch_stream_from_url function and added
+           parameter for data to post in open_url and fetch_* methods.
+         * fix to ndg.httpsclient.utils module _should_use_proxy and open_url functions
+        
+        0.2.0
+        -----
+         * added support for SSL verification with subjectAltNames using pyasn1
+         * fixed minor bug - SSL cert DN prefix matching
+        
+        0.1.0
+        -----
+        Initial release
+        
+        Prerequisites
+        =============
+        This has been developed and tested for Python 2.6 and 2.7 with pyOpenSSL 0.13.
+        Note that proxy support is only available from Python 2.6.2 onwards.  pyasn1 is
+        required for correct SSL verification with subjectAltNames.
+        
+        Installation
+        ============
+        Installation can be performed using easy_install or pip.
+        
+        Running ndg_httpclient
+        ======================
+        A simple script for fetching data using HTTP or HTTPS GET from a specified URL.
+        
+        Parameter:
+        
+        ``url``
+          The URL of the resource to be fetched
+        
+        Options:
+        
+        ``-h, --help``
+          Show help message and exit.
+        
+        ``-c FILE, --certificate=FILE``
+          Certificate file - defaults to ``$HOME/credentials.pem``
+        
+        ``-k FILE, --private-key=FILE``
+          Private key file - defaults to the certificate file
+        
+        ``-t DIR, --ca-certificate-dir=DIR``
+          Trusted CA certificate file directory.
+        
+        ``-d, --debug``
+          Print debug information - this may be useful in solving problems with HTTP or 
+          HTTPS access to a server.
+            
+        ``-p FILE, --post-data-file=FILE``
+          POST data file
+            
+        ``-f FILE, --fetch=FILE``
+          Output file
+            
+        ``-n, --no-verify-peer``
+          Skip verification of peer certificate.</description>
+	<gfxmonk:upstream id="ndg-httpsclient" type="pypi"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUL39HAAoJELrnGdQBsyfG1VoIALySfjh5Y5ra7irD3YIMUthFl33BS8/unEk4
+d+w4zYbHl5frKV7X0zbFmsgW8oWLDlWt7STuwFXS0sNaWNVE/VXRmTJ9ymjeI+k0UhuVbiabQeD6
+siR9lzAF3ivQ8i3eZaWTKwjExDbVu0cqXzdEb1af4fB4rniQ4KUW7SMyeG81uOP4mRJpYGBHYe31
+YU1KVnhOfKclloAUuEfDq1Vy3UsA3Ts8OyUzb6bpRKi6z6k4Un5xcX9WaW4iKRYqAWXLMNTOP5SH
+AnW0kzU8I6Joh1/LodlRDsThN5MbphJMHEZYbaArMHlcyoyef5ya5PNt6k8FChuCMV/7M0/vHRxx
+nhs=
+
+-->

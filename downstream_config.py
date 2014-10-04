@@ -214,6 +214,13 @@ def process(project):
 	if project.upstream_type == 'pypi':
 		requires_python_tag = Tag('requires', {'interface':PYTHON_FEED})
 
+		def get_has_native_code(info):
+			return any([
+				info['has_c_libraries'],
+				info['has_ext_modules'],
+				project.id in ('cffi', 'cryptography'),
+			])
+
 		# pypi doesn't have project metadata. So run python and extract it
 		def get_metadata(major_version):
 			spec = '%d..!%d' % (major_version, major_version+1)
@@ -226,15 +233,22 @@ def process(project):
 			try:
 				tmp_dest = os.path.join(scratch, "contents")
 				shutil.copytree(project.working_copy, tmp_dest, symlinks=True)
+				env = os.environ.copy()
+				if logger.isEnabledFor(logging.DEBUG):
+					env['VERBOSE'] = '1'
 				try:
-					output = subprocess.check_output([ZEROINSTALL_BIN, 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=tmp_dest)
+					output = subprocess.check_output([ZEROINSTALL_BIN, 'run', '--version-for=' + PYTHON_FEED, spec, detect_feed], cwd=tmp_dest, env=env)
 				except subprocess.CalledProcessError as e:
 					logger.warn("metadata extraction failed:", exc_info=True)
 					return None
 				else:
 					# print('JSON OUTPUT: %r' % output)
 					info = json.loads(output)
-					info['language_version'] = major_version
+					info['language_version'] = None # Overridden later if we split impls
+					if get_has_native_code(info):
+						# make sure we split impls, as we need to depend on a specific python-devel
+						info['language_version'] = major_version
+
 					# logger.info("Detected metadata: %r", info)
 					if info['use_2to3']:
 						# ignore use_2to3 setting for python2 implementations
@@ -262,6 +276,7 @@ def process(project):
 
 		if not project._release.supports_python_3:
 			logger.info("project does not support python 3")
+			info_2['language_version'] = 2
 			python2_dep = requires_python_tag.copy()
 			python2_dep.children.append(Tag('version', {'before':'3'}))
 			project.add_to_impl(python2_dep)
@@ -276,6 +291,7 @@ def process(project):
 				else:
 					logger.info("Feed appears to only support python 3")
 					# it's the future: we support py3 but not 2
+					info_3['language_version'] = 3
 					python_dep = requires_python_tag.copy()
 					python_dep.children.append(Tag('version', {'not-before':'3'}))
 					project.add_to_impl(python_dep)
@@ -292,6 +308,8 @@ def process(project):
 					# we need two different implementations
 					project_3 = project.fork()
 					projects.append(project_3)
+					info_2['language_version'] = 2
+					info_3['language_version'] = 3
 
 					# implement py2 / py3 split
 					project.set_implementation_id("py2_%s" % (project.version))
@@ -396,16 +414,10 @@ def process(project):
 			portable_feed = project.generate_local_feed()
 
 			extra_build_deps = []
-			has_native_code = any([
-				info['has_c_libraries'],
-				info['has_ext_modules'],
-			])
+			has_native_code = get_has_native_code(info)
 			if project.id == 'cffi':
-				has_native_code = True
 				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/libffi-devel.xml'}))
-			elif project.id == 'cryptography':
-				# this imports fine without compilation, but ultimately fails
-				has_native_code = True
+			if project.id == 'cryptography':
 				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/openssl-dev.xml'}))
 
 			requires_build = any([
@@ -443,7 +455,8 @@ def process(project):
 
 				if has_native_code:
 					language_version = info['language_version']
-					compile_command.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/python-devel.xml'}, children=[
+					assert language_version is not None, "has_native_code is true, but language_version is None!"
+					compile_command.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/python-devel.xml', 'os':'Linux'}, children=[
 						Tag('version', {'not-before':str(language_version), 'before':str(language_version+1)}),
 					]))
 

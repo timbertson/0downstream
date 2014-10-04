@@ -117,10 +117,7 @@ class Release(object):
 
 		for dep in deps:
 			url = dep['interface']
-
-			if dep.get('importance') == 'recommended':
-				logger.info("skipping optional dependency: %s" % (url,))
-				continue
+			importance = dep.get('importance')
 
 			project_id = None
 			# see if it's an existing feed
@@ -150,14 +147,22 @@ class Release(object):
 				logger.info("Ignoring dependency %s" % (project_id,))
 				continue
 
-			if os.path.exists(location.path):
-				if self._opts.recursive:
-					self._opts.recursive(project, location, version=None, opts=self._opts)
+			try:
+				if os.path.exists(location.path):
+					if self._opts.recursive:
+						self._opts.recursive(project, location, version=None, opts=self._opts)
+					else:
+						logger.debug("Skipping existing dependency %s (use --recursive to update dependencies)" % project_id)
 				else:
-					logger.debug("Skipping existing dependency %s (use --recursive to update dependencies)" % project_id)
-			else:
-				# TODO: create a version which will satisfy the dependency
-				(self._opts.recursive or actions.create)(project, location, None, self._opts)
+					# TODO: create a version which will satisfy the dependency
+					(self._opts.recursive or actions.create)(project, location, None, self._opts)
+			except Exception as e:
+				if importance == 'recommended':
+					logger.info("ignoring failed optional dependency: %s" % (url,))
+					continue
+				else:
+					raise e
+
 	
 	@property
 	def release_info(self):
