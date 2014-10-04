@@ -1,0 +1,7 @@
+#!bash
+set -eux
+gup -u Dockerfile docker-service
+#rsync -a --copy-links /etc/yum.repos.d/ "./resources"
+tag="0downstream"
+docker build -t "$tag" .
+echo "$tag" > "$1"

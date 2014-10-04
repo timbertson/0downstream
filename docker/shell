@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eux
+here="$(realpath "$(dirname "$0")")"
+exec "$here/exec" bash -i

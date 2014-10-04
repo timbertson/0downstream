@@ -1,0 +1,24 @@
+#!bash -eux
+if [ -e "$2/secring.gpg" ]; then
+	echo "WARN: GPG Key already exists! remove $PWD/$2 to generate new GPG key"
+	touch "$2"
+else
+	mkdir "$1"
+	rm -rf '.gnupg'
+	pushd "$1"
+	gpg --batch --gen-key <(cat <<-EOF
+			%echo Generating a basic OpenPGP key
+			Key-Type: RSA
+			Key-Length: 2048
+			Name-Real: Automated 0downstream release key
+			Name-Email: noreply@0downstream.gfxmonk.github.com
+			Expire-Date: 0
+			%pubring pubring.gpg
+			%secring secring.gpg
+			%commit
+			%echo done
+	EOF
+	)
+	popd
+fi
+ln -sfn "$2" ".gnupg"

@@ -1,0 +1,24 @@
+#!/bin/bash
+set -eux
+here="$(realpath "$(dirname "$0")")"
+imgfile="$here/img"
+gup -j9 -u "$here/docker-service" "$imgfile" "$here/../0downstream-local.xml" "$here/sandbox/gpg"
+# needs docker 0.11+
+exec docker run --rm \
+	--volume "$HOME/.cache/0install.net/:/var/cache/0install.net:ro" \
+	--volume "$HOME/.local/share/0install.net/site-packages:/usr/share/0install.net/site-packages:ro" \
+	--volume "$HOME/.config/0install.net/injector/interfaces:$HOME/.config/0install.net/injector/interfaces:ro" \
+	--volume "$here/../:/opt/0downstream" \
+	--volume "$here/../:$here/../:ro" \
+	--volume "$here/sandbox:/home/sandbox" \
+	--volume "$HOME/dev/0install:$HOME/dev/0install:ro" \
+	--volume "/tmp:/tmp" \
+	--user sandbox \
+	--net host \
+	--env http_proxy="${http_proxy:-}" \
+	--env https_proxy="${https_proxy:-}" \
+	--env OCAMLRUNPARAM="b" \
+	--env HOME="/home/sandbox" \
+	-ti \
+	"$(cat "$imgfile")" bash -c 'args=("$@"); shift "$#"; . /etc/profile; set -eux; cd /opt/0downstream; export PATH="$PATH:$PWD/tools"; exec "${args[@]}"' "$1" "$@"
+

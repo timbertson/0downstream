@@ -1,0 +1,17 @@
+#!/bin/bash
+set -eu
+gup --always
+sock="/var/run/docker.sock"
+
+if [ ! -e "$sock" ]; then
+	systemctl status docker >/dev/null || (
+		echo "starting docker ..." >&2
+		sudo systemctl start docker
+	)
+fi
+
+while [ ! -e "$sock" ]; do
+	echo "waiting for $sock ..." >&2
+	sleep 2
+done
+echo 1 | gup --contents # mark as never changed (i.e don't rebuild things just because they depend on this task)
