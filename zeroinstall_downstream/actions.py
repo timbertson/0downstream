@@ -110,6 +110,7 @@ def update(project, location, version, opts):
 		else:
 			try:
 				with _release_feed(project, location, version, opts) as local:
+					api.run_0publish(['--unsign', location.path])
 					api.run_0publish(['--add-from', local, location.path])
 					_feed_modified(location, opts)
 			except AlreadyPublished as e:

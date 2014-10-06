@@ -22,6 +22,9 @@ class Tag(object):
 
 	def __setitem__(self, key, val):
 		self.attrs[key] = val
+
+	def __contains__(self, key):
+		return key in self.attrs
 	
 	def __hash__(self):
 		return hash(self.tag, self.attrs)
@@ -37,9 +40,6 @@ class Tag(object):
 
 	def __ne__(self, other): return not self.__eq__(other)
 
-	def __hasitem__(self, key, val):
-		return key in self.attrs
-	
 	def append(self, child):
 		self.children.append(child)
 	
@@ -54,8 +54,8 @@ class Tag(object):
 			elem = doc.createElement(self.tag)
 		else:
 			elem = doc.createElementNS(self.namespace, self.tag)
-		for pair in self.attrs.items():
-			elem.setAttribute(*pair)
+		for name, val in self.attrs.items():
+			elem.setAttribute(name, str(val))
 		for child in self.children:
 			if isinstance(child, str) or isinstance(child, unicode):
 				elem.appendChild(doc.createTextNode(child))

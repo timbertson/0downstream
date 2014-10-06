@@ -14,13 +14,25 @@
 	<homepage>https://npmjs.org/package/graceful-fs</homepage>
 	<description>A drop-in replacement for fs, making various improvements.</description>
 	<gfxmonk:upstream id="graceful-fs" type="npm"/>
+  <implementation id="sha1new=f6f22ef023b9ad3d9f0d0071e0075e4a47e1e9b8" version="3.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.4.0"/>
+		</restricts>
+		<recipe>
+			<archive href="http://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.2.tgz" size="5485"/>
+			<rename dest="graceful-fs" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0aebb36159a350ab3bf6e69fd384ea601542d6edef94c3dc1f5dba851ff57d75"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah2RAAoJEOA/kc8tk45WpyoH/j2Jo/8i9B4we018pIh1mSewNsKYi4DQsI+m
-bwGcyWab2iJJVbc6wwVK0JZ3EgphyjjV1mfynryMv/Z+ndNFrxsUFaSJn8OBVtorTj+b63+0HRfH
-E3s6wvaWPNwBH4w+3NYvoE81UVl1vn+bzN9yEMbhfYuTSXNeIV5lZnA9ory+drkCWTPAitGD7hlJ
-r20qRLD8NNj6xiNxudRTNg6jiETZy9iWYy1KFeeTCvUAu+2DKHY3lFfj2HrZS7aMCa3baNe1Y6yD
-RM0mEruLsPt7RfuP9yWkejG6ihszF1ZxGBu/eJsIdte/ILKawwfeA7c6+qG7t7dELaTZJgQE/GCy
-0rc=
+iQEcBAABAgAGBQJUMgJAAAoJELrnGdQBsyfGdH4IALC+589iesQUED5c6KMIByGdnTLyHp8OB6nw
+tCP1rRNmDefOypO2ofDXHSngraMHZqNjQ55b52EmhVf1Sq1fT5BWeyeP9ezP6GPV/1KxMsBq6396
+hj4UqU+DC0owTHYJD7x2PV2CGzSJ36Z3VmP1cATXIiDHop1GgokcaeBgdhvvEEIGbaxcYkNUuqWr
++vMzleXGBTlh0gsX1IktHetQvUrEPMB8f/nVugWZ5Bh+/0JczPG5UXg1PCPg5Hy9XC2Uz36jHdDO
+HtWnHUCpkRChUKlXfsNNnvBX3kpojq4TUd2Ud3RZQuX2Md8o7IHG8rDWL/Np8HdWwj5TrxfQFZq8
+j5U=
 
 -->

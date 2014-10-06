@@ -21,13 +21,29 @@
 	<homepage>https://npmjs.org/package/tar</homepage>
 	<description>tar for node</description>
 	<gfxmonk:upstream id="tar" type="npm"/>
+  <implementation id="sha1new=41dbfd637d8ef0099ff750c1bcbd4a613a8ace82" version="0.1.20">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/block-stream.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/fstream.xml">
+			<version before="0.2" not-before="0.1.28"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/tar/-/tar-0.1.20.tgz" size="43409"/>
+			<rename dest="tar" source="package"/>
+		</recipe>
+		<manifest-digest sha256="f8684c16f845e9c620f1c9d938583a23483b495333244ec4f5503a086f94326f"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah3xAAoJEOA/kc8tk45W1PgH/jp3jFBuC5m/RY/FYPy6aanqF1pbKEp9xriK
-R6cIEQX04MlKidCuP6/R6ZqTO2szsCtwrT72CquLj+aqjqhVDjwsEdI5lLXoV5jpHTVRiSEchf83
-cNfpSOozJy0o5YXGbEMlDT0zQDgbScQ+czTSA1WjBU4DW48qyJ7bjwv34EPWaE+bpb7DYY0U5d1x
-H+A0CI0dSHQi9h2n2p6ZuE4d2EkRU5hRN3jLWpC6WYNVkB9x+7oNRjo7w1wCwsUOHZE3U1c/9Q5s
-tmFXGGWpAuOwYctUIYeDS+cbNrX7/+QuQD22JtCXwuPc4YwNBEiWAPT/728HDzkdoPvyLhxH3Shg
-AZ0=
+iQEcBAABAgAGBQJUMgutAAoJELrnGdQBsyfG55EH/2a2O/OpxKG2DFP5hOWMWdFR3zhuE6Q3NjXD
+uT48f7cZb01blfPTprCEHkx0snAA5To2Rcotyipsrtmeb21kPSHSTR+3F9hmMol/F1mc8Q7QKBl8
+4rtcL6D/gjBS/ZqP+8YzL/4H/IkNYHKcxn0AIvPUFZKXIffhJBGGtpE59C6RDJexG5npmmMWYUfB
+YnffnCJHBO3jr1e9j37tLCk+PrQ0QozyyriS0bijUBLrS4Pgyjbae21j3IMkoIUrIh50rO2zMazZ
+Pw2iaxGH7+na6OJViLyEJBDJ7/+59xn13DJVdEOAzPBP+9s2PmmibHrE12bGaAbJgVRH+273reCi
+Cqk=
 
 -->

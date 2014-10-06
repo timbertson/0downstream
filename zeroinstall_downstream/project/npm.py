@@ -183,53 +183,67 @@ def _parse_version_info(spec):
 
 	# OK, we have a potentially-parseable dependency spec:
 
-	#strip spaces
-	spec = re.sub(' ','', spec)
-	parts = list(filter(lambda x: x.strip(), re.split('(<=|>=|[<>=~^])', spec)))
+	parts = []
+	logging.debug("parsing version spec %s" % (spec,))
+	for part in filter(lambda x: x.strip(), re.split(r'(<=|>=|[<>=~^])', spec)):
+		numbers = part.split()
+		for i, number in enumerate(numbers):
+			if i > 0:
+				parts.append('=')
+			parts.append(number)
+
 	logging.debug("got version spec parts: %r" % (parts,))
 	restrictions = Tag('version')
 	def add(op, ver):
 		if ver is not None:
-			restrictions.attr(op, str(ver))
-
-	if len(parts) == 1 or parts[0] == '=':
-		number = parts.pop(0)
-		# assume it's an exact version number
-		if spec.startswith('='): spec = spec[1:]
-		v = parse(spec)
-		add('not-before', v)
-		add('before', inc(v))
-	else:
-		assert len(parts) % 2 == 0, "Expected an even number of version parts, got: %r" % (parts,)
-		while len(parts) > 1:
-			op = parts.pop(0)
-			number = parts.pop(0)
-			ver = parse(number)
-
-			if op == '^' and ver.components[0] == VersionComponent(0):
-				# prerelease caret acts like tilde
-				op = '~'
-
-			if op == '<': add('before', ver)
-			elif op == '>': add('not-before', inc(ver))
-			elif op == '<=': add('before', inc(ver))
-			elif op == '>=': add('not-before', ver)
-			elif op == '~':
-				add('not-before', ver)
-
-				# make sure it's got exactly 2 components,
-				# so that we increment the minor version
-				components = ver.components
-				while(len(components) < 2): components.append(VersionComponent(0))
-				upper_version = Version(components = components[:2]).increment()
-				add('before', upper_version)
-
-			elif op == '^':
-				add('not-before', ver)
-				upper_version = Version(components = ver.components[:1]).increment()
-				add('before', upper_version)
+			if op in restrictions:
+				# use the most-restrictive version
+				best = {
+					'before':min,
+					'not-before':max
+				}[op]
+				restrictions[op] = best(ver, restrictions[op])
 			else:
-				logging.warn("Unknown version op: %s" % (op,))
+				restrictions.attr(op, ver)
+
+	if len(parts) == 1:
+		# assume it's an exact version number
+		parts.insert(0, '=')
+
+	assert len(parts) % 2 == 0, "Expected an even number of version parts, got: %r" % (parts,)
+
+	while len(parts) > 1:
+		op = parts.pop(0)
+		number = parts.pop(0)
+		ver = parse(number)
+
+		if op == '^' and ver.components[0] == VersionComponent(0):
+			# prerelease caret acts like tilde
+			op = '~'
+
+		if op == '=':
+			add('not-before', ver)
+			add('before', inc(ver))
+		elif op == '<': add('before', ver)
+		elif op == '>': add('not-before', inc(ver))
+		elif op == '<=': add('before', inc(ver))
+		elif op == '>=': add('not-before', ver)
+		elif op == '~':
+			add('not-before', ver)
+
+			# make sure it's got exactly 2 components,
+			# so that we increment the minor version
+			components = ver.components
+			while(len(components) < 2): components.append(VersionComponent(0))
+			upper_version = Version(components = components[:2]).increment()
+			add('before', upper_version)
+
+		elif op == '^':
+			add('not-before', ver)
+			upper_version = Version(components = ver.components[:1]).increment()
+			add('before', upper_version)
+		else:
+			logging.warn("Unknown version op: %s" % (op,))
 		
 	logger.debug("restrictions: %r" % (restrictions,))
 	return restrictions

@@ -484,7 +484,7 @@ def process(project):
 
 		nodejs_runner = Tag('runner', {'interface':NODEJS_FEED})
 		project.add_to_impl(Tag('environment', {'name': 'NODE_PATH', 'insert':"", 'mode':"prepend"}))
-		project.add_to_impl(Tag('requires', {'interface': NODEJS_FEED}))
+		# project.add_to_impl(Tag('requires', {'interface': NODEJS_FEED}))
 
 		# figure out compilation:
 		release_info = project.release_info
@@ -544,7 +544,7 @@ def process(project):
 		logger.info("requires_compilation = %r" % requires_compilation)
 		if requires_compilation:
 			project.add_to_impl(
-				Tag('requires', {'interface':NODEJS_FEED}, [
+				Tag('restricts', {'interface':NODEJS_FEED}, [
 					Tag('version', None, children=[
 						pin_components(2),
 					])
@@ -589,6 +589,12 @@ def process(project):
 				),
 		)
 
+		native_deps = []
+		if project.id == 'lablgtk2':
+			native_deps.append('http://gfxmonk.net/dist/0install/gtk2-dev.xml')
+		if project.id == 'conf-gtksourceview':
+			native_deps.append('http://gfxmonk.net/dist/0install/gtksourceview2-dev.xml')
+
 		project.set_compile_properties(dup_src=True,
 			command=
 				Tag('command',{ 'name': 'compile' }, [
@@ -598,7 +604,7 @@ def process(project):
 			children=[
 				Tag('environment', {'name': 'OPAM_PKG_PATH', 'insert':repo_path, 'mode':"prepend"}),
 				Tag('requires', {'interface': OCAML_COMPILER_FEED }),
-			],
+			] + [Tag('requires', {'interface': uri }) for uri in native_deps],
 		)
 
 		# needs to happen after we mark the implementation as compilable

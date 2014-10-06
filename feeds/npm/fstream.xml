@@ -3,6 +3,7 @@
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/fstream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation id="sha1new=d75fecb2031477922c3787a8cf74dcb3c67fc386" version="0.1.25">
 		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
 			<version before="2.1" not-before="2.0.0"/>
 		</requires>
@@ -15,6 +16,9 @@
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
 			<version before="0.4" not-before="0.3"/>
 		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.6"/>
+		</restricts>
 		<recipe>
 			<archive href="http://registry.npmjs.org/fstream/-/fstream-0.1.25.tgz" size="17347"/>
 			<rename dest="fstream" source="package"/>
@@ -26,13 +30,61 @@
 	<homepage>https://npmjs.org/package/fstream</homepage>
 	<description>Advanced file system stream things</description>
 	<gfxmonk:upstream id="fstream" type="npm"/>
+	<implementation id="sha1new=405ae85dc7520e6a553a8ac75c00c2000892d3a9" version="1.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="4" not-before="3"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="1" not-before="0.5"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.6"/>
+		</restricts>
+		<recipe>
+			<archive href="http://registry.npmjs.org/fstream/-/fstream-1.0.2.tgz" size="17380"/>
+			<rename dest="fstream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8313c5af3e6995d3eaae256cbc13dccab35aaf9b6b456c4f3b54fbf677f3b174"/>
+	</implementation>
+  <implementation id="sha1new=dbcf4f243313316e5cbc45ce7a23043f822ca82d" version="0.1.31">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/inherits.xml">
+			<version before="2.1" not-before="2.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/graceful-fs.xml">
+			<version before="3.1" not-before="3.0.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mkdirp.xml">
+			<version before="0.6" not-before="0.5"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/rimraf.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.6"/>
+		</restricts>
+		<recipe>
+			<archive href="http://registry.npmjs.org/fstream/-/fstream-0.1.31.tgz" size="17352"/>
+			<rename dest="fstream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="085b3b7773ee8cfe23f32ecc57af015968ee4d5e2e91aad0e64585c188d88ccb"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah3BAAoJEOA/kc8tk45WhKYH/3bKdeXZqNuXAIw4s8a1xNrJATstMoQn0J48
-AQYbLeFMrDfZdBkjvLCLZe3RX5b+qCB2OH0ZkkbQFjrXNUK7J9iv068MgzlgI2icdzk+Nb1Ny1UN
-Bg86YZA/+f9wpYBJXPo0eL+D2JbRqxHP7w6pm/JZlu/Z9yB7/ZWoB7+pyG6OfodBlgGCCimfJwAr
-V6YO98Ppu1LtsTrJyKJRztroQ5k7U6pkcqTYM4drG301sRT4/w0PQNQ1izRn1xGZeICxcVfTFG1Y
-soq5r0qIG7NkbLLRIzg/G65XuKcxLtIJhUfiB7NEdRU3zMq0er5/fj6jI1rDnOLiBQuijKJCWVWy
-qSM=
+iQEcBAABAgAGBQJUMguQAAoJELrnGdQBsyfGrcQIAIeCp6/J4T3JKoezXWMsc9scb0CjR9JmWwkV
+TydS+CcekK53mj75FgMEUHdfNEV9nC2bt5D1d21l0MfQHUrNvmJ5uJBhxBO/3gTitZ1vERUjz2Jp
+6Cx79Jy8subN6AF95qC8ptq8S+c/kpg/pi6Je+1iglajim1lR+okdwL7tKptQUKRutHMGs1mvaL4
+9sImJN2KSY3u/ShsMX4Eb3hjxNQupYbk8WboXp7D57hSECOVoSi/U0cHepGLyw/yn0QcVY8IGNyl
+xUB5eJ3f/0nrDapGVSx1r65Vw0MVvDKm3qwan6H3VeMOPKniukh3N4pa0Oi7UKhy8ZSoNMmmzjuO
+4V8=
 
 -->

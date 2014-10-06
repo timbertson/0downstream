@@ -25,13 +25,28 @@
 		</recipe>
 		<manifest-digest sha256="397062a961e238f912b7422942413b0f43e836b17bdd3fdce85a90b533c3d1ae"/>
 	</implementation>
+  <implementation id="sha1new=21f7a94f671e9b16e95d4bd8ed820cd2aad3b3e6" version="0.5.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<command name="run" path="mkdirp/bin/cmd.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/minimist.xml">
+			<version before="0.0.9" not-before="0.0.8"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.0.tgz" size="5090"/>
+			<rename dest="mkdirp" source="package"/>
+		</recipe>
+		<manifest-digest sha256="f1d0dc67f14808a861c6860d96efbd6119b5770050fc3573370f4c1851074cf6"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah2UAAoJEOA/kc8tk45WINMH/1gAJ51SGX1wa9mjDRt0A4nXphxsmuiE9X+J
-Po0PgJ8KO1eFq6iXOIQgC/nUYXsON+6Gjf2JL9wqe1aFq8J3wuhe5jneXCrUJLJ5ZDvHI1r8p4ZA
-flz/rcdJZdsySrxFwi4sTQlsNjMJ7LFq+6xqyAaNI3I7iFTWAPeUERq+U37MvB4bNGsAtSaE8qeR
-yYSyggn/TDjtVQTsyrtTlCt/m9mtZc2aqVUozrxLgi/TEucc4/gsbveHsrzK4bTJwTlAlrwBfOWk
-H7lescipg8ebH196nXAxs5W56a/bCdVMnifZJzRLRa23oOFgPOpgS7hNAYp4DXBN4dBskfeHE050
-xlc=
+iQEcBAABAgAGBQJUMgNwAAoJELrnGdQBsyfGLWMIAKfxlFkCcFXT9TnnVuEPqVmKslwh7U1gNUnv
+YX9dxP7lCydpEJL90s6vqA+FprPf5PD3F5rdL+JBIJEobqEFICLzAYwiPPTBg+giMXpmd5obyNFE
+566caDksZvmLl/ZTSE9UPlZmcaj/I+d2oWEQya1vULLW2z0+6LcMYXe17TkboHqjOuWpFBP2G6vo
+AiWg0qzTWD7aMjGC0mlGsNrE+CgL99v60qlNfewtcJKM63uNbJNlPNNZZgQjCqnIm8AmKLOOcRT9
+5W01myfig4r1oyz2QG6DndfxcJ07/NUcleDy3K0pinEglysO/+vqip0DmNuQGT6DmT3HqthB8yVQ
+pjY=
 
 -->
