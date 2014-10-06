@@ -1,2 +1,2 @@
 #!/bin/bash
-exec 0install run 0downstream-local.xml "$@"
+exec 0install run "$(dirname "$0")/feed.xml" "$@"

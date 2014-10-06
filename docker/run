@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
 here="$(realpath "$(dirname "$0")")"
-exec "$here/exec" 0install run 0downstream-local.xml "$@"
+exec "$here/exec" 0downstream "$@"

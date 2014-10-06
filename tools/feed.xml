@@ -1,10 +1,6 @@
-<?xml version="1.0"?>
-<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+<?xml version="1.0" ?><?xml-stylesheet type='text/xsl' href='interface.xsl'?><interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
 	<name>0downstream</name>
 	<summary>maintain a zeroinstall feed based on an upstream project</summary>
-	<publish xmlns="http://gfxmonk.net/dist/0install" mode="0tools"/>
-	<feed-for interface="http://gfxmonk.net/dist/0install/0downstream.xml"/>
 	<description>
 	</description>
 	<group main="zeroinstall_downstream/main.py">
@@ -39,9 +35,6 @@
 			<requires interface="http://gfxmonk.net/dist/0install/python-beautifulsoup.xml"/>
 			<runner command="notebook" interface="http://gfxmonk.net/dist/0install/ipython.xml"/>
 		</command>
-		<implementation version="{version}">
-			<manifest-digest/>
-			<archive href="{archive}"/>
-		</implementation>
-	</group>
+		
+	<implementation id=".." version="0.1"/></group>
 </interface>

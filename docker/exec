@@ -2,7 +2,7 @@
 set -eux
 here="$(realpath "$(dirname "$0")")"
 imgfile="$here/img"
-gup -j9 -u "$here/docker-service" "$imgfile" "$here/../0downstream-local.xml" "$here/sandbox/gpg"
+gup -j9 -u "$here/docker-service" "$imgfile" "$here/sandbox/gpg"
 # needs docker 0.11+
 exec docker run --rm \
 	--volume "$HOME/.cache/0install.net/:/var/cache/0install.net:ro" \
