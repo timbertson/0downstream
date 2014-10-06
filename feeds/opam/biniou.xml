@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/biniou.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation arch="*-src" compile:dup-src="true" id="sha1new=a536fd1be17d33c566f1897dc0f5a8bc23a193e9" version="1.0.9">
+		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
+		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml"/>
+		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
+		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
+		<command name="compile">
+			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<arg>biniou</arg>
+			<compile:implementation>
+				<environment insert="bin" mode="prepend" name="PATH"/>
+				<command name="run" path="bin/bdump"/>
+			</compile:implementation>
+		</command>
+		<recipe>
+			<archive href="http://mjambon.com/releases/biniou/biniou-1.0.9.tar.gz" size="23963"/>
+			<rename dest="src" source="biniou-1.0.9"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-meta/biniou/biniou.1.0.9.tar.gz" size="481"/>
+		</recipe>
+		<manifest-digest sha256="86a79229a362653e2464527bc5ab1cfec8edb126bced1841fd0586aa675d0f5e"/>
+	</implementation>
+	<name>biniou</name>
+	<summary>biniou opam package</summary>
+	<homepage>http://opam.ocaml.org/packages/biniou/biniou.1.0.9/</homepage>
+	<description>Binary data format designed for speed, safety, ease of use and backward compatibility as protocols evolve
+</description>
+	<gfxmonk:upstream id="biniou" type="opam"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMjkkAAoJELrnGdQBsyfGd6gIALmwUPPxNmcmlVk/ETlxsnfLRDqtNDEuxQCQ
+4C8+lTDN1q/t42jl7eaRmOYT4E0cNCVPDL2PtIMrZSeMk6CEsmFJ31YTUnKFWSWq8pwUwwa0xl7G
+UkAztlwuzkL4aZpeGlgQAeISlJ1O1wUVqp/PXTPy82LQRkk+xxRK6w9hFoYtwEN/JrQK4O2nziGt
+e0ASpaVO8eZPZjWj6nCQ9M6YzaVLhAyCU+mkM6xd5aopaShyqX8Byw6OQa/K61wWwTYG1G0+p+C2
+W3bh0BwpDEEwJ/MvQhCqiy6kOtnxIlxU5lbh5sEbRKLGIFS/RIzo+8lfraIKFfVaLVAliHcOB+Of
+SPo=
+
+-->
