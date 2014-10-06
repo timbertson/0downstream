@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/map-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=9e4bebf9539aadfa5c41b31cce58007b178b4047" version="0.1.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/map-stream/-/map-stream-0.1.0.tgz" size="5052"/>
+			<rename dest="map-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="f6ad814c703ef360e2dfdb643eb5e6ee5f3ba87503cdb60378d52abfcf42447c"/>
+	</implementation>
+	<name>map-stream</name>
+	<summary>map-stream npm package</summary>
+	<homepage>https://npmjs.org/package/map-stream</homepage>
+	<description>construct pipes of streams of events</description>
+	<gfxmonk:upstream id="map-stream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMgziAAoJELrnGdQBsyfG74AH/i72L0k6GckR/bVmyI/V6eaqoPikliIr+Mvs
+aj08ZCjnOA1qEIQyC2cmyU/jTgpJtuYseuwcoGwLhXPhSVaK8gc94KmQLN7ofbm4+gnuVfaXS0+R
+4mfznS+76THKZ+dYpSaJVYeQA4Uvody8OBiU5Yf7y/ErVCltX4edCDKPocAy/DQYGhh4vKr/JnQf
+Nsb+A60bK3eUHue7P2D5LwYKrQxh0hwlnAMwyJ2b1V9D8uyEP8q7ooNXUCkBiOXTmDYh9/f4M9qL
+CdfG1TGAF5aBQ3gt/xQkvf50ncQf3cbzBRygBp9AWAGWy4aw76BHr0qWQMilGf1TZTBksbkYC2Ar
+NBU=
+
+-->

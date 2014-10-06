@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/stream-combiner.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=38c15868d1a824616df672cde4658c14ddaa044a" version="0.2.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml">
+			<version before="2.4" not-before="2.3.4"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/duplexer.xml">
+			<version before="0.2" not-before="0.1.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/stream-combiner/-/stream-combiner-0.2.1.tgz" size="2391"/>
+			<rename dest="stream-combiner" source="package"/>
+		</recipe>
+		<manifest-digest sha256="f360689c91c00c1e6bd23637464adc4d8c0d05189f6c3ab9e388eae5fb9ec150"/>
+	</implementation>
+	<name>stream-combiner</name>
+	<summary>stream-combiner npm package</summary>
+	<homepage>https://npmjs.org/package/stream-combiner</homepage>
+	<description>&lt;img src=https://secure.travis-ci.org/dominictarr/stream-combiner.png?branch=master&gt;</description>
+	<gfxmonk:upstream id="stream-combiner" type="npm"/>
+  <implementation id="sha1new=7053308b3417c2be0a397de39800f64a50327e03" version="0.0.4">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/duplexer.xml">
+			<version before="0.2" not-before="0.1.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/stream-combiner/-/stream-combiner-0.0.4.tgz" size="2262"/>
+			<rename dest="stream-combiner" source="package"/>
+		</recipe>
+		<manifest-digest sha256="0ffa414ea6d06e3ec0119d8c41de328d20cf0699b330dfe2ac4fd51d69d7d9c9"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMg1FAAoJELrnGdQBsyfGk+0H/jx1et+qeX8Isk1bfM6ZauRZUUeiHXiMe1FD
+ud2V/O2eM50sEHHsfF4Ed64ofYpWe4PojYTHaBAjGmNXHy5S+aAEuwoNsMZux2xDTQOv4KsPaOi0
+rwO4uX6kzWlcczlF1Fdf2EYS2iqCEAUPbSuCdspD8DvC7KxXgTA1bje4J/nQfcTGKVdH4oTzi2mQ
+c0VAuW2yzBL7NIg3aW49rZAE1iQwZ2gbUvDz+x/47IYtxSfnEAUGipAlszOrnGBdLIXzcTRNQX0s
+udnND1WQRRSE7y+1P4vs9y7+0no4xRuPi4GOecG5padudQVq4uh0tK6IIKJ7IeHkpuUCyiGPeASo
+KnM=
+
+-->

@@ -23,13 +23,33 @@
 	<homepage>https://npmjs.org/package/nodemon</homepage>
 	<description>Simple monitor script for use during development of a node.js app.</description>
 	<gfxmonk:upstream id="nodemon" type="npm"/>
+  <implementation id="sha1new=20d6783095ed7f6ac04434eba6876798f467f2bc" version="1.0.20">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<command name="run" path="nodemon/bin/nodemon.js">
+			<runner interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		</command>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/minimatch.xml">
+			<version before="0.3" not-before="0.2.14"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/ps-tree.xml">
+			<version before="0.0.4" not-before="0.0.3"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/update-notifier.xml">
+			<version before="0.2" not-before="0.1.8"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/nodemon/-/nodemon-1.0.20.tgz" size="33667"/>
+			<rename dest="nodemon" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ddddc8127ff02376ba6d7be8a5a170c9fd73f18e92ea52df8761796a794085af"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah9IAAoJEOA/kc8tk45WcNUIAIrB2rsfRJwrLdlie0cG2hVUdP+ns3XpKFZg
-huHKYNHh3U58E4jXfJ2tJskqWxq6k76JehfahHzpxLfy1bpjeTJOIHOvQ73kz81Uy+/80BfMQQ6P
-ALDO6oWyvyNo8iNDPKRPPy9mnMyeIXp9kUeFz5EMOLEH5gQ3luN66wX4qyCRQcjnVvFiIihcmvqf
-/uKkyjoRslyTQEVkWYXtbezM5qGueeOhoOo7UsdcDaIavKQkoghuS+eBoJLICkF0hav7dO5XgeqJ
-asXOuJKRelbVBTjyqysWmq8kYcHdP8dry9EHa4nNFFkHZYfq2hYNOzPXVpubD5aD6lMWvCR6jovs
-CQw=
+iQEcBAABAgAGBQJUMg3EAAoJELrnGdQBsyfGgp8H/2mvv93UMTcTjmQYI+F5Qt8OR2pC8AzDRoXe
+EyA+4R0pNgS95perKwPo97CbULBK9BTOVzbXL36/fWQ25HC5NrEAydxv8/YSP4fEDF4AaC7PfIIh
+ozPNbRbJxPDrSPWiarOf9bVtA3t7ALj2ZCnB8LQe3mIiq9EqoJFmLKMhCO/1E6BqOZOnEHtoSx1r
+AfT0rlUWmhWqr+qD0SFwRJAnI8Tajsd6qM+rKk+C44ZrVNp4CZTnvnn//1gygrF5BAHug/eYB3P6
+SUXilOQcPyCi2n2vVfluNwRUTC7wskrD3/M7npQqJ0EzIzcJyErlhIUbNqo7N/WldfLLdTMgIh3X
+J+c=
 
 -->

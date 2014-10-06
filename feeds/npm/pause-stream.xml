@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/pause-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=a84b90bcd20b1b1e880ba6546681e7935e47e1b3" version="0.0.11">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml">
+			<version before="2.4" not-before="2.3"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/pause-stream/-/pause-stream-0.0.11.tgz" size="5843"/>
+			<rename dest="pause-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="b3142c98d49260f62ce21f7ac312f47ddd812e3493fa4792638224e744fbd8dd"/>
+	</implementation>
+	<name>pause-stream</name>
+	<summary>pause-stream npm package</summary>
+	<homepage>https://npmjs.org/package/pause-stream</homepage>
+	<description>a ThroughStream that strictly buffers all readable events when paused.</description>
+	<gfxmonk:upstream id="pause-stream" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMgzZAAoJELrnGdQBsyfG4n8H/iay4dMScvEnRcN6c+XzBYJjG7eW5mWRcx96
+4BzieKvGUENiJUu91cGpwUdDIqT5+7JAO6pts44sjSxo9CptIdun+fE14EcJG3pcqxUVylnme9OZ
+1X71K3SKp8JXYRHcxOYxYzp9VR689xERQwiwZgncLDlGt2IukevcUHd0+j3OamiYS9t4ifa2MUzr
+z9NCJrUKKH5bACH5c1FWkeV2600iJMQ+dlnuThnbZLMTo2uvnhlayuXI0l4vkF8pei0s+OjDdMIe
+ZCSXNjWft1i36mH95GJLJPVQb6ToVPbFqaLaQ7Fy9eUoMvnyfvXQ13hrbqMOI/apkCyKM7ZMXcFF
+ATk=
+
+-->

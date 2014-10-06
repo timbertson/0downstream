@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/event-stream.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=10fdff5a455a6af8f1349201c1859d4a63f0a4dc" version="3.1.7">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/pause-stream.xml">
+			<version before="0.0.12" not-before="0.0.11"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/from.xml">
+			<version before="0.1" not-before="0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/stream-combiner.xml">
+			<version before="0.1" not-before="0.0.4"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml">
+			<version before="2.4" not-before="2.3.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/split.xml">
+			<version before="0.3" not-before="0.2"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/duplexer.xml">
+			<version before="0.2" not-before="0.1.1"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/map-stream.xml">
+			<version before="0.2" not-before="0.1.0"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/event-stream/-/event-stream-3.1.7.tgz" size="12879"/>
+			<rename dest="event-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="88a88fb5e0846935b3330f31fc5a1ecfe43a889cd092d406af83ac560463f60f"/>
+	</implementation>
+	<name>event-stream</name>
+	<summary>event-stream npm package</summary>
+	<homepage>https://npmjs.org/package/event-stream</homepage>
+	<description>construct pipes of streams of events</description>
+	<gfxmonk:upstream id="event-stream" type="npm"/>
+  <implementation id="sha1new=efb226360b4cea2a7524664b1a057f13ef7cd9dd" version="0.5.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/optimist.xml">
+			<version before="0.3" not-before="0.2"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/event-stream/-/event-stream-0.5.3.tgz" size="9785"/>
+			<rename dest="event-stream" source="package"/>
+		</recipe>
+		<manifest-digest sha256="cda3ee07c91f129f3144076f24c71a2a5ee6dbad8bc7abd43bca6c5473380656"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMg27AAoJELrnGdQBsyfG/4gIAM3an9DCKgliV9wwnJX6yCDdQl4a+x94lAp8
+n3C7Ry4YiuApcx8+weRg9uAsWurLT5AsTQQug25EHE8ebHlh2ZNwDvXMGEJwEA/01GpNDNPbbOCB
+Ojs7N23A2yfg1WP1XxZNWW9spV4Lqo4hSWFXvVmIjB9WWSJf+su6JokNDYQY6Z3JZiOT4pRmfN4f
+rJ1i5JOTv22rZSmMDMN/Cm8RoSHYEsoZH/ZSBJ/I1LdTRPOqF7+X/azCX1IKkSsV5ZA2ryM4WV0g
+zyOkaszOGIaXgPDawWSTlKer5ONUFkZEl82Y9tuQMhhrMnlO47ZHSY0nb+UlIoCWa7sEuIOKF9CL
+4No=
+
+-->

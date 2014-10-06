@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=1add221fa58d6e1f2aeac891f80174b05082b44b" version="2.3.6">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/through/-/through-2.3.6.tgz" size="4394"/>
+			<rename dest="through" source="package"/>
+		</recipe>
+		<manifest-digest sha256="745eebadb2cc60a2e99a3b026c54dc2b75c7f061dd08681a8d79b6072403584b"/>
+	</implementation>
+	<name>through</name>
+	<summary>through npm package</summary>
+	<homepage>https://npmjs.org/package/through</homepage>
+	<description>simplified stream construction</description>
+	<gfxmonk:upstream id="through" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMgzYAAoJELrnGdQBsyfGRoMIAM7OhhE5m3Jfw4ykgIWNdTLwSc2O09LlEvFe
+ras3B4yIdCq3lIFXp2d83Ck0p1Yrdd8lJfHsHsbOWZCw7C6RK+oq3YMUeBinazALb6bgomtRB/9y
+H7Dx5AHc92V3fWm4Rs8bT2egwJWKSHg09HBt2dG5FvgRGwUFiLIdSccr3L7eFpbPJvy4Pcgb4ENe
+/IlvBfdBl49G3OdU4UA26Ivxa66Eh5YtT2vNi5iBc0k3pFLf+hLuBthtRq9QnW8qU9GfUBB20rzv
+udvF3pQB/oy5FrfKo/zikHHhYxnFWxzMyvVreEM4HqLtTW7vCtEY0Eu2877NZQ+H54sy9RqKbHaP
+EYQ=
+
+-->

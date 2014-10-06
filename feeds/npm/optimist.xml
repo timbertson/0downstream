@@ -31,13 +31,24 @@
 		</recipe>
 		<manifest-digest sha256="c21e93bbcc7c5d8c2ff484f83a305043df0094fb9c0e2a28415f496051b02c50"/>
 	</implementation>
+  <implementation id="sha1new=852701c6e48c9dd1297a1190136cde5cb584b14c" version="0.2.8">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/wordwrap.xml">
+			<version before="0.1.0" not-before="0.0.1"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/optimist/-/optimist-0.2.8.tgz" size="11471"/>
+			<rename dest="optimist" source="package"/>
+		</recipe>
+		<manifest-digest sha256="ec24d99ff729da062901421c5964f612f18dfb75984796d7c543767707d75eac"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah1wAAoJEOA/kc8tk45WyfUIAIP9zVyihpZhKKjhf2EACkatnH4mw2mq6R+c
-ngzImXDaZRZuvNAw2bvcXcagChcjKL8G4fL6Em7bCEKQzFOK4jhEykFW5Nv3Su7wBEGT0EWN2w66
-pqr4I0NgNa8bBhFAbCnGaOe5OEMPTZ9wipDJehyed0ke40y3crquFh6nhatu+GYM/Im7fvoWwa4v
-PQO6dYfkCyEexbiqgIozPsFr89z6lL+viXilU+yd4t+Ns1KNnjCtMe/ZHq1e0uJWKLDsHrJ1NcMn
-bq143Ei7yT/WNC0yVKisU1vvkr3HDZElp1RfBo3J5mYXO3H+n7LpcQswNb0WwPP7GRgQZ0VW4qFc
-5Ko=
+iQEcBAABAgAGBQJUMg22AAoJELrnGdQBsyfGTvgIANrm5hh+QUIYP4BUY9iwLPZOXltbJ4fc53o0
+jfBd324GwlrclL0WzHHtHROxknoVYPwv/OBs7/7Nr0DOKjccF8gemLVTJXE+XOMBd7GUOuqjMti6
+2twKKr6y7pKZdA6v8GNmBtV7tFivU2KkzQ8PCRzGWuOSylxpahqvhLvZ4t5LGNdn4cG2YD0vGDXQ
+BXFa4w/upwp66gSBes8kMDeI17qviw50BxlX4zivWQjcfVtOWp9CkH+5kaHr3v6sxqkx+tPmf91o
+Yrs6gQfaGuWKP3PpafUYjGr9yp+/4u9wubBKfenzAVyU8p8/51V1VCxZoyOMDlQ8h9fS3rjIdInE
+HyA=
 
 -->

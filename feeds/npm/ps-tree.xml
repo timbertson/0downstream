@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/ps-tree.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=cdf0763635c020cb7c3cfbbff784578d15427d25" version="0.0.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/event-stream.xml">
+			<version before="0.6" not-before="0.5"/>
+		</requires>
+		<recipe>
+			<archive href="http://registry.npmjs.org/ps-tree/-/ps-tree-0.0.3.tgz" size="1672"/>
+			<rename dest="ps-tree" source="package"/>
+		</recipe>
+		<manifest-digest sha256="8cad3bf504afd8d73fc5b4d49339c83dc8e5d054f97019978f66d1c9b510f0e4"/>
+	</implementation>
+	<name>ps-tree</name>
+	<summary>ps-tree npm package</summary>
+	<homepage>https://npmjs.org/package/ps-tree</homepage>
+	<description>get all children of a pid</description>
+	<gfxmonk:upstream id="ps-tree" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMg2/AAoJELrnGdQBsyfG138IANioKFSyD2vakZqBn+YSogmPHxWjv9/o91SW
+/Xw1yv+bjraBVhDZqvSdsyDWbbPn3pLGV+9u4IJf5VDzsW3/lNhA7R/TTGD8PkWPyo+1T1mC6HWk
+vjJLHCvl/o0rWnWOLjhQ5XnNhkMJQpYr43uX08ORYPKvNETdmDhSZVjQpb9/w0bqEkv5CTRHVtvt
+lCQzyC5Xj6GMXh2OEXwIfTLsZQA7FoqIyjmKF3tV429TV6B4dx8XIpHabMTV5XQ8KPqzkVmkYkfJ
+mNrUQLnaiRU2srnMgiuRuuxijxNlJViytfl0v/qoJ2z0sL1S/Sye9HIGJtw75M52PQVE5CYCfybJ
+/r0=
+
+-->

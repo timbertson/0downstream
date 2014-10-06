@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/split.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=37b2cb9c841701d742111b0d2319816025d33660" version="0.3.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/split/-/split-0.3.0.tgz" size="4046"/>
+			<rename dest="split" source="package"/>
+		</recipe>
+		<manifest-digest sha256="11736ce32525d1fa89cc713f4a8a71d8c2de501540434bb9aab98de10f0e5034"/>
+	</implementation>
+	<name>split</name>
+	<summary>split npm package</summary>
+	<homepage>https://npmjs.org/package/split</homepage>
+	<description>split a Text Stream into a Line Stream</description>
+	<gfxmonk:upstream id="split" type="npm"/>
+  <implementation id="sha1new=9734528fa905bdf82bd49da2dfee4e28a75b2934" version="0.2.10">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/through.xml">
+			<version before="3" not-before="2"/>
+		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/split/-/split-0.2.10.tgz" size="3838"/>
+			<rename dest="split" source="package"/>
+		</recipe>
+		<manifest-digest sha256="fde59a72d91791bac4ef40f46c505cdd9f6270cbf5a04fa1e79f1233e32ae77f"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMg1VAAoJELrnGdQBsyfGGI8H/jpgJR0P+g83OMEcwxgjMCH9LSXcroVuvAE3
+lmuSQ5kE/qughmYNWB3vNldMS9BX25Miwt8Yw2c8u9VARjZC18l857H1/uPeyfn2+tNYDPAFFR16
+SY0VsuYg5C2c8IJMzMYgrJDwtK9+SJ8erFPS/xtjMSZkUG0RSGrpLek3pXg98bFPlZMYeHKMvEKI
+M2WhtO6YkCIpEwoQ6Pul3SGcCCexCLO6gqFG1UH4imJM3xeVAjaBRdA2TmK5jVnVYIioYP8SOYbi
+yHwLWQQLizAfzWKk65wfp03sL70aZ6iJpwijeahGrydh9NvSiB3bzelRAYjypQ+k08Ot5YzgwWgb
+IEY=
+
+-->

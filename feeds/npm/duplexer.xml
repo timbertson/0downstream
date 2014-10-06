@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/duplexer.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=4bb1419106e5bee7f3c25025c4c6920d70316d92" version="0.1.1">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/duplexer/-/duplexer-0.1.1.tgz" size="2570"/>
+			<rename dest="duplexer" source="package"/>
+		</recipe>
+		<manifest-digest sha256="dc480c215077496445cc3761c5d23a1b289e1680004e2344ada005e0c31b9f41"/>
+	</implementation>
+	<name>duplexer</name>
+	<summary>duplexer npm package</summary>
+	<homepage>https://npmjs.org/package/duplexer</homepage>
+	<description>Creates a duplex stream</description>
+	<gfxmonk:upstream id="duplexer" type="npm"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMgzeAAoJELrnGdQBsyfGiGIIANQeLG2UJPzRdkkBFkY7abL6bE451AFtYvFx
+cHAlutbaoZNxOtQ6rzJ2/gShTlmQcjnqvT2XLS7Tx1OrqaTX5WPnU6jRsSvq7j+8qq7hOlwRi/9O
+12wwJiEV0uLxi1Ix/nKUOXlaR/bEPgbAERLPKIWyBL6ZzaJul9ALNVeQWOWEAJgClfCPbyKvtUWc
+0bt+qFkwWKs1/hnJBY1kmgkGGziflugHsmbVZzAcY65jhbm4t5Wn386fzmX3PqBqPtD4IiExaL9y
+WQDhnyFsVO/2C48GjdO1x30XgtBUNttTXYO9pX7xex1X8Gb9n3fIXH4Pg9sV2Rpbg7ixruHj9Dm4
+kbw=
+
+-->

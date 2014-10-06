@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/from.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=44d73548c3b932c19c3db6e5e9b232e687f97a92" version="0.1.3">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/from/-/from-0.1.3.tgz" size="3016"/>
+			<rename dest="from" source="package"/>
+		</recipe>
+		<manifest-digest sha256="098de201b60ce8a9a9140a99eed4549bfaee8123550a8078166cd6692ff474d1"/>
+	</implementation>
+	<name>from</name>
+	<summary>from npm package</summary>
+	<homepage>https://npmjs.org/package/from</homepage>
+	<description>Easy way to make a Readable Stream</description>
+	<gfxmonk:upstream id="from" type="npm"/>
+  <implementation id="sha1new=387309a53bea22abc4371c12f10a7b34b1379eda" version="0.0.2">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<recipe>
+			<archive href="http://registry.npmjs.org/from/-/from-0.0.2.tgz" size="2701"/>
+			<rename dest="from" source="package"/>
+		</recipe>
+		<manifest-digest sha256="4baaab60e85af8b2dcc1a79b4463474722f3b2ac138379665c800d5150d73309"/>
+	</implementation>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUMg0kAAoJELrnGdQBsyfGsSQIAKg6ymu6QwICpkwvu/HGHnkqIXXrbhBIL9G7
+N2/F/J+TQVEy3GLHBDWoh+yD8JMPL5M0Zqeq41psWTHhAAvLZBHT1OorYP084uHV8ODcbMimTkgx
+6ASGjm01ZjOBJGduxi9eeKa1Tu9YI1H5/LWQIcTdz3JsmM5iqyiVOqvU5/9kV+1Py2RqL6lHEVr6
+TUA0Z1KJzbAXRNxQ4AgGnXeGubST0sREJXF8ce4llFIYgt51nAxZ4xNlhHvdgqkp8XC4Up1hkquR
+Sl1tSW3dJh1kGpVCkBhTgjy3NDlAh5mXYcN9xi9hUQWmVdqAQFpEWQPvT+ljQvFQSopxMj+lXon/
+LvE=
+
+-->
