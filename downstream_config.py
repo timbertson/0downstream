@@ -45,6 +45,7 @@ FEED_URL_ROOT = URL_ROOT + 'feeds/'
 ROOT_PATH = os.path.join(os.path.dirname(__file__))
 FEED_PATH = os.path.join(ROOT_PATH, 'feeds')
 FILES_PATH = os.path.join(ROOT_PATH, 'files')
+COMPILE_FEED=['--not-before', '1.3-post', api.COMPILE_FEED]
 
 # ZEROINSTALL_BIN = '0install'
 ZEROINSTALL_BIN = "/home/tim/dev/0install/zeroinstall/dist/files/0install"
@@ -103,7 +104,9 @@ def check_validity(project, generated_feed, cleanup, post_compile_hook=None):
 		subprocess.check_call(cmd, **kw)
 
 	def run_feed(feed, args, **kw):
-		_run([ZEROINSTALL_BIN, 'run', feed] + args, **kw)
+		if not isinstance(feed, list):
+			feed = [feed]
+		_run([ZEROINSTALL_BIN, 'run'] + feed + args, **kw)
 
 	def run(args, **kw):
 		_run(args, **kw)
@@ -179,19 +182,19 @@ sys.exit(1)
 		logging.warn("Ensuring dependencies are built")
 
 		do_select()
-		run_feed(api.COMPILE_FEED, ['autocompile', '--selections', sels])
+		run_feed(COMPILE_FEED, ['autocompile', '--selections', sels])
 
 		#XXX get 0compile to dump its post-compiled selections?
 		do_select()
 
 		logging.warn("Building in %s" % dest)
-		run_feed(api.COMPILE_FEED, ['setup', sels, dest])
+		run_feed(COMPILE_FEED, ['setup', sels, dest])
 
 		# transfer to `sandbox` group, so sandbox user can write it
 		# run(['chgrp', '-R', 'sandbox', compile_root])
 		# run(['chmod', '-R', 'g+rwX', compile_root])
 
-		run_feed(api.COMPILE_FEED, ['build'], cwd=dest)
+		run_feed(COMPILE_FEED, ['build'], cwd=dest)
 		#TODO: we could do a `publish` here, if we plan to upload the binaries somewhere
 
 		files = set(os.listdir(dest))

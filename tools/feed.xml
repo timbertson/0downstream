@@ -12,6 +12,11 @@
 		</requires>
 		<requires interface="http://gfxmonk.net/dist/0install/xmlformat.xml"/>
 		<requires interface="http://gfxmonk.net/dist/0install/python-requests.xml"/>
+		<!-- from feeds/pypi/requests.xml -->
+		<requires importance="recommended" interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyopenssl.xml"/>
+		<requires importance="recommended" interface="http://gfxmonk.github.io/0downstream/feeds/pypi/ndg-httpsclient.xml"/>
+		<requires importance="recommended" interface="http://gfxmonk.github.io/0downstream/feeds/pypi/pyasn1.xml"/>
+
 		<requires interface="http://0install.net/2007/interfaces/ZeroInstall.xml">
 			<version not-before="2.3"/>
 			<environment insert="" mode="prepend" name="PYTHONPATH"/>

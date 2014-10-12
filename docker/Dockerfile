@@ -20,3 +20,5 @@ run yum install -y libffi-devel
 run yum install -y openssl-devel
 run yum install -y gtksourceview2-devel
 run yum install -y which
+# required for 0compile-python3; which is required for SNI ssl support
+run yum install -y python3-gobject
