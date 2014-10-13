@@ -14,6 +14,9 @@ ZI = "http://zero-install.sourceforge.net/2004/injector/interface"
 GFXMONK = "http://gfxmonk.net/dist/0install"
 ZEROCOMPILE = "http://zero-install.sourceforge.net/2006/namespaces/0compile"
 
+def escape_0template(s):
+	return s.replace('{', '{{').replace('}', '}}')
+
 class Feed(object):
 	def __init__(self, infile):
 		self.doc = minidom.parse(infile)
@@ -36,7 +39,7 @@ class Feed(object):
 		self._default_child_node(self.interface, "name", name)
 		self._default_child_node(self.interface, "summary", project.summary)
 		self._default_child_node(self.interface, "homepage", project.homepage)
-		self._default_child_node(self.interface, "description", project.description)
+		self._default_child_node(self.interface, "description", escape_0template(project.description))
 
 		project_info = self.create_or_update_child_node(self.interface, "gfxmonk:upstream", ns=GFXMONK)
 		project_info.setAttribute('type', project.upstream_type)
