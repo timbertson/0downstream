@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/pypi/apache-libcloud.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
+	<implementation id="sha1new=b0f6cb7ab32804761f2b6b30479e8c37c7d8ed37" version="0.15.1">
+		<requires interface="http://repo.roscidus.com/python/python"/>
+		<environment insert="" mode="prepend" name="PYTHONPATH"/>
+		<archive extract="apache-libcloud-0.15.1" href="https://pypi.python.org/packages/source/a/apache-libcloud/apache-libcloud-0.15.1.tar.bz2" size="570953"/>
+		<manifest-digest sha256="5eb907f4878227e5662b4ee7a367e1438d1b7c9555d8f251cb3ba1e2bbd51508"/>
+	</implementation>
+	<name>apache-libcloud</name>
+	<summary>A standard Python library that abstracts away differences among multiple cloud provider APIs. For more information and documentation, please see http://libcloud.apache.org</summary>
+	<homepage>http://libcloud.apache.org/</homepage>
+	<description>Apache Libcloud - a unified interface into the cloud
+====================================================
+
+.. image:: https://badge.fury.io/py/apache-libcloud.png
+    :target: http://badge.fury.io/py/apache-libcloud
+
+.. image:: https://pypip.in/d/apache-libcloud/badge.png
+        :target: https://crate.io/packages/apache-libcloud/
+
+.. image:: https://secure.travis-ci.org/apache/libcloud.png?branch=trunk
+        :target: http://travis-ci.org/apache/libcloud
+
+Apache Libcloud is a Python library which hides differences between different
+cloud provider APIs and allows you to manage different cloud resources
+through a unified and easy to use API.
+
+Resource you can manage with Libcloud are divided in the following categories:
+
+* Cloud Servers and Block Storage - services such as Amazon EC2 and Rackspace
+  Cloud Servers (``libcloud.compute.*``)
+* Cloud Object Storage and CDN  - services such as Amazon S3 and Rackspace
+  CloudFiles (``libcloud.storage.*``)
+* Load Balancers as a Service, LBaaS (``libcloud.loadbalancer.*``)
+* DNS as a Service, DNSaaS (``libcloud.dns.*``)
+
+Apache Libcloud is an Apache project, see &lt;http://libcloud.apache.org&gt; for
+more information.
+
+Documentation
+=============
+
+Documentation can be found at https://libcloud.readthedocs.org.
+
+Feedback
+========
+
+Please send feedback to the mailing list at &lt;dev@libcloud.apache.org&gt;,
+or the JIRA at &lt;https://issues.apache.org/jira/browse/LIBCLOUD&gt;.
+
+Contributing
+============
+
+For information on how to contribute, please see the Contributing
+chapter in our documentation
+&lt;https://libcloud.readthedocs.org/en/latest/development.html#contributing&gt;
+
+License
+=======
+
+Apache Libcloud is licensed under the Apache 2.0 license. For more information,
+please see LICENSE and NOTICE file.
+</description>
+	<gfxmonk:upstream id="apache-libcloud" type="pypi"/>
+</interface>
+<!-- Base64 Signature
+iQEcBAABAgAGBQJUOyc1AAoJELrnGdQBsyfGPX4IAKjV0Se3HnaWPl/Yb+JBV1keN6H7bseJyVba
+BBOPh7e/2M+eTiYeenFMf2kbZoAXdEz+xicD/ajK45fKL/CaN/+UnMqhQTJFS0LXKEqSNiTUapS/
+JMQMib5u99h3FeZRH3EZQQ7257m+P75csY/Lgu06EZqJV2hKM5hGSZmRJqbyV7Q1oT1rE9Gp7aT9
+gL4NJrgZsArgvjkKxK7oNk2555frlDsaQgX3KUxvQIubm7bE852EclsiNdCHGlHu2c9oBrswwl5Z
+xszBCvuwMRC4JulF0a4fJ6c+VFBJBqecLS9dEiNvjsOUofFfQ7qPltLVJEXc3XDiQUOjgQ3HZSHG
+1k4=
+
+-->
