@@ -282,7 +282,8 @@ def process(project):
 			info_2['language_version'] = 2
 			python2_dep = requires_python_tag.copy()
 			python2_dep.children.append(Tag('version', {'before':'3'}))
-			project.add_to_impl(python2_dep)
+			info_2['python_dep'] = python2_dep
+			# project.add_to_impl(python2_dep)
 		else:
 			logger.info("project supports python 3")
 			info_3 = get_metadata(3)
@@ -297,12 +298,14 @@ def process(project):
 					info_3['language_version'] = 3
 					python_dep = requires_python_tag.copy()
 					python_dep.children.append(Tag('version', {'not-before':'3'}))
-					project.add_to_impl(python_dep)
+					info_3['python_dep'] = python_dep
+					# project.add_to_impl(python_dep)
 					project_infos = [info_3]
 			else: # info_2 is present
 				if info_2 == info_3:
 					logger.info("Feed appears to support both python 2 and 3 without compilation")
-					project.add_to_impl(requires_python_tag.copy())
+					info_2['python_dep'] = requires_python_tag.copy()
+					# project.add_to_impl(requires_python_tag.copy())
 				else:
 					assert info_3 is not None, "couldn't get python3 metadata"
 					logger.info("Creating separate python 2 & 3 implementations, because:")
@@ -318,16 +321,14 @@ def process(project):
 					project.set_implementation_id("py2_%s" % (project.version))
 					python2_dep = requires_python_tag.copy()
 					python2_dep.children.append(Tag('version', {'before':'3'}))
-					project.add_to_impl(python2_dep)
+					info_2['python_dep'] = python2_dep
+					# project.add_to_impl(python2_dep)
 
 					project_3.set_implementation_id("py3_%s" % (project.version))
 					python3_dep = requires_python_tag.copy()
 					python3_dep.children.append(Tag('version', {'not-before':'3'}))
-					project_3.add_to_impl(python3_dep)
-
-					# for k,v in project.__dict__.items():
-					# 	if getattr(project_3, k) is v:
-					# 		logger.warn("SHARED %s: %r" % (k,v))
+					info_3['python_dep'] = python3_dep
+					# project_3.add_to_impl(python3_dep)
 
 		for (project, info) in zip(projects, project_infos):
 			project.guess_dependencies(info)
@@ -338,6 +339,7 @@ def process(project):
 				pass
 
 			project.add_to_impl(Tag('environment', {'name':'PYTHONPATH', 'insert':'','mode':'prepend'}))
+			project.add_to_impl(info['python_dep'])
 
 			assert not info['commands'], "TODO: don't know how to process pypi commands (only scripts)"
 			scripts = info['scripts']
@@ -446,11 +448,11 @@ def process(project):
 				if has_native_code:
 					# pin python version used to e.g. 2.7.*
 					# this will duplicate the dependency on python, but that should be fine
-					Tag('requires', {'interface':PYTHON_FEED}, [
+					project.add_to_impl(Tag('requires', {'interface':PYTHON_FEED}, [
 						Tag('version', None, children=[
 							pin_components(2),
 						])
-					])
+					]))
 
 				compile_command = Tag('command',{ 'name': 'compile' }, [
 					Tag('runner', {'interface': 'http://gfxmonk.net/dist/0install/setup_py_0compile.xml'})
@@ -465,6 +467,7 @@ def process(project):
 
 				for dep in extra_build_deps:
 					compile_command.append(dep)
+				compile_command.append(info['python_dep'])
 
 				project.set_compile_properties(dup_src=True, command=compile_command)
 

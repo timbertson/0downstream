@@ -7,11 +7,17 @@
 			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml" os="Linux">
 				<version before="3" not-before="2"/>
 			</requires>
+			<requires interface="http://repo.roscidus.com/python/python">
+				<version before="3"/>
+			</requires>
 			<compile:implementation>
 				<requires interface="http://repo.roscidus.com/python/python">
 					<version before="3"/>
 				</requires>
 				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version compile:pin-components="2"/>
+				</requires>
 			</compile:implementation>
 		</command>
 		<archive extract="pycrypto-2.6.1" href="https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz" size="446240"/>
@@ -131,11 +137,17 @@ PyCrypto website:
 			<requires interface="http://gfxmonk.net/dist/0install/python-devel.xml" os="Linux">
 				<version before="4" not-before="3"/>
 			</requires>
+			<requires interface="http://repo.roscidus.com/python/python">
+				<version not-before="3"/>
+			</requires>
 			<compile:implementation>
 				<requires interface="http://repo.roscidus.com/python/python">
 					<version not-before="3"/>
 				</requires>
 				<environment insert="lib" mode="prepend" name="PYTHONPATH"/>
+				<requires interface="http://repo.roscidus.com/python/python">
+					<version compile:pin-components="2"/>
+				</requires>
 			</compile:implementation>
 		</command>
 		<archive extract="pycrypto-2.6.1" href="https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz" size="446240"/>
@@ -143,11 +155,11 @@ PyCrypto website:
 	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUOzkUAAoJELrnGdQBsyfGXIAIAKyPk5OvvXeE9IJWCxWA104EX7YePToUabVN
-NmqjywH2vgXsTFSW3Sxu2EnuiGccRicPxJHVRMEKtybvAydnfdWfuqwAYKJf1LuWqwq6I+Ey27cz
-lfAOT8mFYWH1O9ovbVawrWc6FIusbaSFRkyUUvYebMTdtFigSdHNTltHu4ERosvXlE0iwfYWKS3u
-dFghkn/PnnCfyFKMoGbysz+2l6Y2ATF+F/EuE0MK43sydvcFXIvOIwQgGEKAVnjAJDUxRGP8Jxc8
-tAlHP/zWinSBQGZDbJKILVvU6NDNHpKbvboDpbTD7m0kTdXI7fIXVFGUkStkYyjhww0NfObud1Gp
-1dA=
+iQEcBAABAgAGBQJUOz8lAAoJELrnGdQBsyfG9a8H/RR+FehoIUMEOLVhczm9/gLbwfy0IEoUArqE
+qkq2MkwO6InAUGdg9S3zXLWEHlxuE3Z9RzPPRJCHXbtN5foyr/uNJ+pJ5DBC021o+epPKHC2dpeE
+NMnk/rXXF/cYR9/BD8d57IWxs4wX5wndo2/pXXTxoLbkDQUg/L3zK84UfrQ/W/wwcHwiyPGlIls+
+/KEFUfBnlFSQchpz+HjLkeJBsXvyvQQy2eQWv88hNyXtD8OQqTY2sh0zgw84JCWqeNMd+KuI2Oio
+ymTxRQS72XkDJy1dl+xIZPluyb8Zg+i5O+6vY+1H1cUyDjsdKXoXnyy4onEo3c+Cdsm8sOUNWyYy
+jsQ=
 
 -->
