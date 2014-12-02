@@ -19,14 +19,14 @@
 		<requires interface="http://repo.roscidus.com/python/python"/>
 		<environment insert="" mode="prepend" name="PATH"/>
 		<environment insert="" mode="prepend" name="PYTHONPATH"/>
-		<implementation id="sha1new=89b3a26325853ae51425c0a74d84e010d208e05f" released="2014-10-03" version="0.1">
-			<manifest-digest sha256new="5RBHF6ZRH73XCHKCDQ7J3JNDQ5NVOF6EMYJQC63FKAT2UTBQ6QIA"/>
-			<archive href="http://gfxmonk.github.io/0downstream/files/opam-src-build/opam-src-build-0.1.tgz" size="2384"/>
+		<implementation id="sha1new=8d44facfcae31b6676abb818e7d184bfd457c5b6" released="2014-12-02" version="0.1.1">
+			<manifest-digest sha256new="V7BLB3Z5CQAH5VPT2QMFXP77G3LUCBTKFSGVWOEP6VS6TDFQWE3A"/>
+			<archive href="http://gfxmonk.github.io/0downstream/files/opam-src-build/opam-src-build-0.1.1.tgz" size="2404"/>
 		</implementation>
 	</group>
 </interface>
 <!-- Base64 Signature
-iEYEABECAAYFAlQuWoUACgkQ/lhgK1iJTtIi+QCfdLm1HXUjqaYKKHorGrlK5cbyj/YAnjqRYBW/
-pPccmVK9tcnpqtCSiTIq
+iEYEABECAAYFAlR9hx8ACgkQ/lhgK1iJTtJXQQCgnRzoFZshj2S6lLIB2LKcjkX9iKIAoITijy2R
+5n2e/nO0yyUxAi8j5pHe
 
 -->

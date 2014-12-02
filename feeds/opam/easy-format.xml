@@ -2,11 +2,14 @@
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation arch="*-src" compile:dup-src="true" id="sha1new=e18f6e7ac6a1811258107541f55ad9dace5a8eb4" version="1.0.2">
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" source="true"/>
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
 			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<requires interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml">
+				<version not-before="0.1.1"/>
+			</requires>
 			<arg>easy-format</arg>
 			<compile:implementation/>
 		</command>
@@ -25,11 +28,11 @@
 	<gfxmonk:upstream id="easy-format" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUKP/qAAoJELrnGdQBsyfGX0QH/jB/Huhz2p4Iuv7PPwXa28VHilyt3PVtf3Lk
-p5DP5hNUYOkBaHJo4Pe8Z9LvPH1yte19Hq49fnlqxcGTRixq9+C1BmYe8moNf0flrfwemWE/TR9T
-deJL0fjTXSWg4UoLrMurz6SBxBxGmWaMVCXf77LmF4+ro0DSBWzAsE1cjkytg/5vm+CYrYyS2C0n
-HnO39v3vPYyR7AKC7sMi/SImXN0xpUbG7Ye0CTtLBED4TSScw7LG1s91sk6yHI4P6cUI5/KrXOG6
-vOTzobVKNeTYSUEWaaOiYvqLwzTS7hFc2b4hVSFmsedBFTfzUGEOlU6+7MKkOEfBcUvRu9MAxEv6
-Y34=
+iQEcBAABAgAGBQJUfYfeAAoJELrnGdQBsyfGPPYH/3chMSzZ/ApmJYwKmeEDEqZmL/RbhCCH/JXN
+zYAWUhQGQumakxi74BIvqtlz9ViGNmkjFp9BwRXRY5ETp0XI9tc0EZUMtH07mht1Vvy0yB4tdc6h
+Gb2clLL+dpDKphqRQ45SzajdwK3H+40Kpxd5JQVV6BgNaBRi10SRoXg7AVwOzL7vIiS7lvmQFOX0
+F2oUkqoi/05mbJu6/QW74EQacrA3AF4ThKwt64BVlCg/WdiiV2YroZ3ZLxSqRNZZHonXftAFtUmy
+P+QnW6o9/eXoX0bpKJfvM3lNycQYzCtbzp2Q5v0du5pd8/XF5m4LWNX7Vutyvsj/YdI0FwTssNzO
+nrg=
 
 -->

@@ -194,7 +194,7 @@ class Release(BaseRelease):
 				return
 
 			tag = location.require_tag(tagname)
-			tag.attr('arch','src')
+			tag.attr('source', 'true')
 			if attrs is not None:
 				for k,v in attrs.items():
 					tag.attr(k, v)

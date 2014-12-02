@@ -29,7 +29,9 @@ export HOME="$BUILDDIR/fake_homedir" # make sure opam doesn't mess with our home
 
 # construct an opam package repo just for this build:
 python -m opam_repo "$repo_dir"
-"$OPAM" update default
+
+# --use-internal-solver works around https://github.com/ocaml/opam/issues/1816
+"$OPAM" update default --use-internal-solver
 
 installed_files="$OPAMROOT/system"
 

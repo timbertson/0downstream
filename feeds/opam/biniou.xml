@@ -2,12 +2,15 @@
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/biniou.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation arch="*-src" compile:dup-src="true" id="sha1new=a536fd1be17d33c566f1897dc0f5a8bc23a193e9" version="1.0.9">
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml" source="true"/>
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
 			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<requires interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml">
+				<version not-before="0.1.1"/>
+			</requires>
 			<arg>biniou</arg>
 			<compile:implementation>
 				<environment insert="bin" mode="prepend" name="PATH"/>
@@ -29,11 +32,11 @@
 	<gfxmonk:upstream id="biniou" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUMjkkAAoJELrnGdQBsyfGd6gIALmwUPPxNmcmlVk/ETlxsnfLRDqtNDEuxQCQ
-4C8+lTDN1q/t42jl7eaRmOYT4E0cNCVPDL2PtIMrZSeMk6CEsmFJ31YTUnKFWSWq8pwUwwa0xl7G
-UkAztlwuzkL4aZpeGlgQAeISlJ1O1wUVqp/PXTPy82LQRkk+xxRK6w9hFoYtwEN/JrQK4O2nziGt
-e0ASpaVO8eZPZjWj6nCQ9M6YzaVLhAyCU+mkM6xd5aopaShyqX8Byw6OQa/K61wWwTYG1G0+p+C2
-W3bh0BwpDEEwJ/MvQhCqiy6kOtnxIlxU5lbh5sEbRKLGIFS/RIzo+8lfraIKFfVaLVAliHcOB+Of
-SPo=
+iQEcBAABAgAGBQJUfYazAAoJELrnGdQBsyfGaa4H/RrAZe/pyn62T7B72kUKh0jsl6fh80uGlUDc
+7GcTnan7JuuUdTE+r5IKSpTo5dKZqihTIxW9Vej9OpRM8lEdZe/O3nlX+DULPvUKQIVjdopY71Dh
+OFOZrIPkvqUjpUJpdxP+oQAp+Sjiq+ZNeBxHw/2Qqcm3DaEZ1uhOXHon5iNC3tTIJtPZ7rSypfBf
+TdH21gu2g1IUO1pR/HUokSOGtVw/DzUTBQmgKWZqeaP8zS2JA5QCUturoU1SCoBnw5vTNlBBHvQj
+3FWcUBfc6AYc/GNDYdPjSdVQdfWs5sR49h5m139+K5ivgXVsRc3Jto7FaNxCy6/9v9qSAgM/FYSi
+ryc=
 
 -->

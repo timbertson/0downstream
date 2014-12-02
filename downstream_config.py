@@ -64,6 +64,14 @@ empty_archive_url = FILES_URL_ROOT + 'empty.tar.gz'
 
 python3_blacklist = set([])
 
+def compile_opam_version():
+	if compile_opam_version.cached is None:
+		with open(os.path.join(ROOT_PATH, 'tools','opam-src-build', 'VERSION')) as f:
+			compile_opam_version.cached = f.read().strip()
+	return compile_opam_version.cached
+compile_opam_version.cached = None
+
+
 def pin_components(n):
 	return Attribute('compile:pin-components', str(n), namespace=COMPILE_NAMESPACE)
 
@@ -605,6 +613,10 @@ def process(project):
 			command=
 				Tag('command',{ 'name': 'compile' }, [
 					Tag('runner', {'interface': COMPILE_OPAM_FEED}),
+					Tag('requires', {'interface': COMPILE_OPAM_FEED}, [
+						# always use the latest version on compilation, for consistency
+						Tag('version', {'not-before': compile_opam_version()}),
+					]),
 					Tag('arg', text=project.id),
 				]),
 			children=[

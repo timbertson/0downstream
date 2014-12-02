@@ -2,13 +2,16 @@
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/lablgtk.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation arch="*-src" compile:dup-src="true" id="sha1new=5054c59c6573e7bb283f4fd80f2920d732a577b9" version="2.18.2">
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/camlp4.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/conf-gtksourceview.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/camlp4.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/conf-gtksourceview.xml" source="true"/>
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
 			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<requires interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml">
+				<version not-before="0.1.1"/>
+			</requires>
 			<arg>lablgtk</arg>
 			<compile:implementation>
 				<environment insert="bin" mode="prepend" name="PATH"/>
@@ -25,7 +28,7 @@
 	</implementation>
 	<name>lablgtk</name>
 	<summary>lablgtk opam package</summary>
-	<homepage>http://opam.ocaml.org/packages/lablgtk/lablgtk.2.18.2/</homepage>
+	<homepage>http://opam.ocaml.org/packages/lablgtk/lablgtk.2.18.3/</homepage>
 	<description>OCaml interface to GTK+
 
 If you have problems compiling this on MacOS X, try this using Homebrew:
@@ -37,11 +40,11 @@ $ opam install lablgtk
 	<gfxmonk:upstream id="lablgtk" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUOmm2AAoJELrnGdQBsyfG60kH/1ZOY5zo12VdTIwU8IsfGkw7JZh+7mixYZY0
-TRD+9Ll/EcPRwvbChb9ynuNASfLL6t2nLpfjomVJSdTHkZScK9eDxcm7YKKvEmYyYQz8jAgM9TUB
-zE1hO9m19awWa7dT85ukTLcRh4Sw3xPPL/swkkuszI4StKh4LEQXv1668GbVIVh3WOaS/4h0RJh5
-jubkWGx+WLRorbHUJs3CGiutz4NhR1SwgRMT78jCp34jtXSQHIfqg674vomss3vHlzOhBKeGY9EP
-T13Bw/PwDVmEIR5ao0AvjppGe3292d4qqdcF0wBd3iPlgbHWhxfxAvXJd+o/tqq6SkxchrrvD2NG
-lNA=
+iQEcBAABAgAGBQJUfYhoAAoJELrnGdQBsyfG5ucH/2cPBDmXJCsfae92jOAuOPU0FsNaVk+3TuWk
+0lZw0EIZ7lXwjA+PagLAsb/YtZTqgNAd0lq7+L5d5MqiVsai2CoyV+h/unm7uuJoH3SO5harT46w
+0rTJQiro4Ti/0YWVgkDrzUwQ3NaNTE0JF2uaLZeVjuS3HMWCoBCeZdA4X9geM06a35IEgYWQu144
+jMoCNAIzi63uqu4bMC9lVqo30rk4TeZWw0eJ7B6PBQKyCcgFCbwm9LA+gRZFH3koPLOkJ66WSpaY
+YV6ppf4NccFu+6eR8JUh7Ug9EqiARNKss3wEq/tATz9nLRR6BPS+Gs3wFRE9i7Vj1pTX84IxJfO2
+NaQ=
 
 -->

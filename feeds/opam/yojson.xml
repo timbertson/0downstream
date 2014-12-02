@@ -2,14 +2,17 @@
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
 <interface uri="http://gfxmonk.github.io/0downstream/feeds/opam/yojson.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation arch="*-src" compile:dup-src="true" id="sha1new=a721f76db885bc1ca81421fe558a52546cd2ce00" version="1.1.8">
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/cppo.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml"/>
-		<requires arch="src" interface="http://gfxmonk.github.io/0downstream/feeds/opam/biniou.xml"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/ocamlfind.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/cppo.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/easy-format.xml" source="true"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/opam/biniou.xml" source="true"/>
 		<environment insert="opam" mode="prepend" name="OPAM_PKG_PATH"/>
 		<requires interface="http://gfxmonk.net/dist/0install/ocaml.xml"/>
 		<command name="compile">
 			<runner interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml"/>
+			<requires interface="http://gfxmonk.github.io/0downstream/files/opam-src-build.xml">
+				<version not-before="0.1.1"/>
+			</requires>
 			<arg>yojson</arg>
 			<compile:implementation>
 				<environment insert="bin" mode="prepend" name="PATH"/>
@@ -39,11 +42,11 @@ deserializers from type definitions.
 	<gfxmonk:upstream id="yojson" type="opam"/>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJUMjlAAAoJELrnGdQBsyfGL9EIAK+Nsdw9uilOB937pk22tPG/rLXtSUfXfC/8
-Ylq+0Sh27LqNUZODg5NTHlX92fW0yQYAgOrWQ6B1DV5tnyUPBGI5cMG6ihb8bJZYHgWUKO8/jP55
-1C8FNEywyGvQ/PSBIwC9eu3YMkIpxAsslws+8hlVwglqgTc9l1I3MB2Dr9ZUbXIBpoz9A0qwwI1a
-6giLF6QHpm1MXaqgLDtc5YMXw2oNTZoN+OAt8qAVPMHm7ggYkkTQJXkwyCGJx13vWtWhWJPQtY8V
-SZODyCJ9FZmNICjlIp3ZnzDw4fViTskFGks5jCqGNrJL3uDNNcg2MP5w/zSddwksQOicoERe1kWW
-S54=
+iQEcBAABAgAGBQJUfYgFAAoJELrnGdQBsyfGfAAIANmy9S6wqjiTnBZTE728QxchFgaZy5Yv3aNJ
+FCEBx4WrBnLqchK+cBjMu8drM225hal6aYlMaEpl1Ay9FIfxAGkLbHQHuzSUswxcyFXb580zIABp
+xkVfkJsjTDyfboBCTXLAJw54oYN/C63yFYV2Ku10lXrpaC5glJslPpE6OOVaFsnskdkipjW41pH/
+24PP6/K12HJJUGRw45T5zXyXeWjlrCmjVh2KXnkvkcAov/BszPj1lXSjfhpAgPE7ZWn2Vrciy5fK
+xsnE/BGwTT3cW2LwKe2JwlzAMbclNP90adcQTBoj/E/zOpvaXOH+Q68YlEN+1ekJ0hcApfEerSmZ
+REc=
 
 -->
