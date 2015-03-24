@@ -190,7 +190,7 @@ def export_state(opts):
 		feed = Feed.from_path(path)
 		attrs = feed.get_upstream_attrs()
 		assert make_project(**attrs) # ensure this is enough info to create the project
-		feeds.append({'project': attrs, 'versions':list(map(str, feed.published_versions))})
+		feeds.append({'project': attrs, 'versions':sorted(list(map(str, feed.published_versions)))})
 	feeds = sorted(feeds, key=lambda info: (info['project']['type'], info['project']['id']))
 	state['feeds'] = feeds
 	with open(opts.dest, 'w') as f:

@@ -85,7 +85,16 @@ class Release(BaseRelease):
 		for (name, version_spec) in package_info.get('devDependencies', {}).items():
 			add_dependency('requires', name, version_spec, dest=self.compile_dependencies)
 
-		for (name, version_spec) in package_info.get('engines', {}).items():
+		engines = package_info.get('engines', {})
+		if isinstance(engines, list):
+			lst = engines
+			engines = {}
+			for item in lst:
+				# parse ["node>0.6"] into {"node": ">0.6"}
+				key, op, spec = [s.strip() for s in re.split('([<>=]+)', item)]
+				engines[key] = op+spec
+
+		for (name, version_spec) in engines.items():
 			if name == 'node':
 				version = _parse_version_info(version_spec)
 				tag = Tag('restricts', {'interface':nodejs_feed})
@@ -107,7 +116,7 @@ class Npm(BaseProject):
 	
 	@cached_property
 	def _project_info(self):
-		return getjson(self.base + '/' + self.id)
+		return getjson(self.base + self.id)
 
 	@cached_property
 	def _version_info(self):

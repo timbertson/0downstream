@@ -1,34 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
-	<implementation id="sha1new=24bc2a82e30af2dee34ab3997a15ecf0edaf4ff7" version="2.34.0">
-		<environment insert="" mode="prepend" name="NODE_PATH"/>
-		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-uuid.xml">
-			<version before="1.5" not-before="1.4.0"/>
-		</requires>
-		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/qs.xml">
-			<version before="0.7" not-before="0.6.0"/>
-		</requires>
-		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/json-stringify-safe.xml">
-			<version before="5.1" not-before="5.0.0"/>
-		</requires>
-		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/forever-agent.xml">
-			<version before="0.6" not-before="0.5.0"/>
-		</requires>
-		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mime.xml">
-			<version before="1.3" not-before="1.2.9"/>
-		</requires>
-		<recipe>
-			<archive href="http://registry.npmjs.org/request/-/request-2.34.0.tgz" size="21838"/>
-			<rename dest="request" source="package"/>
-		</recipe>
-		<manifest-digest sha256="d97371837af45ddc99c94f3ee7817be693cdef425694a893443d5fc3d426a9a0"/>
-	</implementation>
-	<name>request</name>
-	<summary>request npm package</summary>
-	<homepage>https://npmjs.org/package/request</homepage>
-	<description>Simplified HTTP request client.</description>
-	<gfxmonk:upstream id="request" type="npm"/>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install" uri="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml">
 	<implementation id="sha1new=31414f57a9ab48c9c5aed22d631b71f6412634e8" version="2.27.0">
 		<environment insert="" mode="prepend" name="NODE_PATH"/>
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/qs.xml">
@@ -67,19 +39,53 @@
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/forever-agent.xml">
 			<version before="0.6" not-before="0.5.0"/>
 		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.8.0"/>
+		</restricts>
 		<recipe>
 			<archive href="http://registry.npmjs.org/request/-/request-2.27.0.tgz" size="100791"/>
 			<rename dest="request" source="package"/>
 		</recipe>
 		<manifest-digest sha256="a57ca099c7fe2ec8cb014f63afb23452e724cd1cf5dc87159d9ea37d899cf123"/>
 	</implementation>
+	<name>request</name>
+	<summary>request npm package</summary>
+	<homepage>https://npmjs.org/package/request</homepage>
+	<description>Simplified HTTP request client.</description>
+	<gfxmonk:upstream id="request" type="npm"/>
+	<implementation id="sha1new=24bc2a82e30af2dee34ab3997a15ecf0edaf4ff7" version="2.34.0">
+		<environment insert="" mode="prepend" name="NODE_PATH"/>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/node-uuid.xml">
+			<version before="1.5" not-before="1.4.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/qs.xml">
+			<version before="0.7" not-before="0.6.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/json-stringify-safe.xml">
+			<version before="5.1" not-before="5.0.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/forever-agent.xml">
+			<version before="0.6" not-before="0.5.0"/>
+		</requires>
+		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/mime.xml">
+			<version before="1.3" not-before="1.2.9"/>
+		</requires>
+		<restricts interface="http://gfxmonk.net/dist/0install/node.js.xml">
+			<version not-before="0.8.0"/>
+		</restricts>
+		<recipe>
+			<archive href="http://registry.npmjs.org/request/-/request-2.34.0.tgz" size="21838"/>
+			<rename dest="request" source="package"/>
+		</recipe>
+		<manifest-digest sha256="d97371837af45ddc99c94f3ee7817be693cdef425694a893443d5fc3d426a9a0"/>
+	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJTah4JAAoJEOA/kc8tk45Wf6EH+QGRkVmjN0zy85LviWZ3o5oLOwoO8FHpkEhn
-4/MuojKytqCyqw1ELABKN5iVv2cnP7FBwRThU4o3bWxeCR8YE/uM3oG5FTm0qrzhOCKCB7U4RUMo
-6j8sxSt/1hj+Pq7vKHV/xCTFjFBuQsYB2QjJeMIUDUKfrGDP7H41Tlkebndl5PxX4RgLYwk8GBoL
-CiJLORNfYYNdHkH1VIz9jOXanL9P6bFnCy8OfLyb/JQNJuINHGnDp8UpCColocs8EXKVtbWYFWhg
-6E4IUEPjN/JNpHKcyg0iflPcNhdqP1ZEpmyQmjino/4ERwVpf/YreoxjgtD/Qp9fDTbZmhr9VDWk
-4Rs=
+iQEcBAABAgAGBQJVENUjAAoJEOA/kc8tk45W3b4IAJogBArgfQsi8A+YTaZOEJb52VI4/eMSnW9n
+peq+YaYN0mY7YOij9C4mJzpdxusf1AnAzanwX8UHLgGl4LRGql5vTXlPoIgJ+P84ZG3A4X6Dx2dt
+SGju7LPZz5mbL0fff4oX6kLl4XiszAWCOa2ePPuJamqYuvUDVkBZZRMy6485XXPKTUTs9CU4vYHi
+dCku6i40iWhjiVaGORCGaen/wDd5TNIK/T6wBxqlLUfR5CnJyrf1Dq0vnHw7NSRyVvAAq08dI0iu
+uvdJjEgLsHY0Ila05lZbFGJIZHlsjHRwYaz3DVEmyQEaYIzzNu4GvFwMuVxMIahwtp8qTGI7vgkb
+gLs=
 
 -->
