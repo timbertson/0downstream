@@ -1,0 +1,4 @@
+#!bash -eu
+gup --always
+find . -name '*.xml' | sort > "$1"
+gup --contents "$1"

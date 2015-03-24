@@ -1,0 +1,6 @@
+#!bash -eu
+gup -u .all-feeds
+feeds="$(cat .all-feeds)"
+gup -u $feeds
+cd ..
+./tools/0downstream export "$1" $(echo "$feeds" | sed -e 's/^/feeds\//')
