@@ -52,6 +52,11 @@ def run():
 	parser_import.set_defaults(func=import_state)
 	parser_import.add_argument('file')
 
+	parser_export = sub.add_parser('touch', help='mark feeds as modified')
+	parser_export.set_defaults(func=touch_feeds)
+	parser_export.add_argument('feeds', nargs='+')
+
+
 	args = parser.parse_args()
 	if args.debug:
 		logging.getLogger().setLevel(logging.DEBUG)
@@ -196,6 +201,10 @@ def export_state(opts):
 	with open(opts.dest, 'w') as f:
 		json.dump(state, f, indent=2, sort_keys=True)
 	
+def touch_feeds(opts):
+	for path in opts.feeds:
+		opts.config.feed_modified(path)
+
 def import_state(opts):
 	opts.recursive = actions.update
 	with open(opts.file) as f:

@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <?xml-stylesheet type='text/xsl' href='interface.xsl'?>
-<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install" uri="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml">
+<interface uri="http://gfxmonk.github.io/0downstream/feeds/npm/request.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:compile="http://zero-install.sourceforge.net/2006/namespaces/0compile" xmlns:gfxmonk="http://gfxmonk.net/dist/0install">
 	<implementation id="sha1new=31414f57a9ab48c9c5aed22d631b71f6412634e8" version="2.27.0">
 		<environment insert="" mode="prepend" name="NODE_PATH"/>
 		<requires interface="http://gfxmonk.github.io/0downstream/feeds/npm/qs.xml">
@@ -81,11 +81,11 @@
 	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJVENUjAAoJEOA/kc8tk45W3b4IAJogBArgfQsi8A+YTaZOEJb52VI4/eMSnW9n
-peq+YaYN0mY7YOij9C4mJzpdxusf1AnAzanwX8UHLgGl4LRGql5vTXlPoIgJ+P84ZG3A4X6Dx2dt
-SGju7LPZz5mbL0fff4oX6kLl4XiszAWCOa2ePPuJamqYuvUDVkBZZRMy6485XXPKTUTs9CU4vYHi
-dCku6i40iWhjiVaGORCGaen/wDd5TNIK/T6wBxqlLUfR5CnJyrf1Dq0vnHw7NSRyVvAAq08dI0iu
-uvdJjEgLsHY0Ila05lZbFGJIZHlsjHRwYaz3DVEmyQEaYIzzNu4GvFwMuVxMIahwtp8qTGI7vgkb
-gLs=
+iQEcBAABAgAGBQJVEeUtAAoJELrnGdQBsyfGQIoH/3gNG5MVnon1BZg3K3/hS8HDWx/IjGvhEEoz
+Y7CJ5ooW2JblvDRchoUyRgLkcUHnFv5jntfgpLQHzh8cD+6VFV7Kh+0f0DiqhG+yLhTPRQ/WheAl
+gU5eYQvtoaGYAtbJijdUgrXAQ2RowHeRpsALSqJVrmdS7CBu6TwWj+DMJGBq3hs4Mc1D7hRbSkw8
+4KW8gZ24CUtXp7FLe79A2liQH1iGy0qthLNa5KEwMJQqjJzy4FcnY6pn4jCVBDCKbrR2b0WmjOqq
+rbAdpQhZBIRaAP1nfnbQ0yHVniAgTo9YvN9WmTZikwwBGo9giDPQvauq+duNW4FYAj5qjtjJjTrA
+E+o=
 
 -->
