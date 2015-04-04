@@ -22,7 +22,7 @@
 			</compile:implementation>
 		</command>
 		<archive extract="pyxattr-0.5.3" href="https://pypi.python.org/packages/source/p/pyxattr/pyxattr-0.5.3.tar.gz" size="25977"/>
-		<manifest-digest sha256="60ba041a2bf16a81c280a0702639402f1b50fb66e7f0911f9f6c098092723f5e"/>
+		<manifest-digest sha1="685eb6cc4109b1fa267775eefada8ee35f490c4e" sha256="60ba041a2bf16a81c280a0702639402f1b50fb66e7f0911f9f6c098092723f5e"/>
 	</implementation>
 	<name>pyxattr</name>
 	<summary>Filesystem extended attributes for python</summary>
@@ -52,15 +52,15 @@ of the attr C library - see attr(5).</description>
 			</compile:implementation>
 		</command>
 		<archive extract="pyxattr-0.5.3" href="https://pypi.python.org/packages/source/p/pyxattr/pyxattr-0.5.3.tar.gz" size="25977"/>
-		<manifest-digest sha256="60ba041a2bf16a81c280a0702639402f1b50fb66e7f0911f9f6c098092723f5e"/>
+		<manifest-digest sha1="685eb6cc4109b1fa267775eefada8ee35f490c4e" sha256="60ba041a2bf16a81c280a0702639402f1b50fb66e7f0911f9f6c098092723f5e"/>
 	</implementation>
 </interface>
 <!-- Base64 Signature
-iQEcBAABAgAGBQJVH4jRAAoJELrnGdQBsyfGNaQH/2Y+WjBfeZuUT+P+amqsbdFxpJ105WSyYebs
-8B3L9E7Jh9MgU9hWfAT0D/zBKzvRhOO+8Ecxs4/3aE9EAof/WHw8sG/BhAajk4GlAR7VB9GAnLdV
-Yz7fple1PvDH8Cz9sVx9WCc1ilTOL7/XTKdCVweuWXfQFGEAaYQ+PXgLEbh3sIuqZRDCsZdAGOim
-bz9eNYJOVfZ+K/nkQ5bOvWC9/6R0qo33w/6DDARmo5B2Y+u8PUZ3tJPBhnKC2bA+6/oRn4roc6gN
-hzYRdBz30/NUaeQiTvFi7tkErscSW/Y2T387nu9RwR9gSM7ds1upPuU3alXFCt1L+WhK8bPqQjHz
-DmE=
+iQEcBAABAgAGBQJVH5ACAAoJELrnGdQBsyfGFbkIAKTz651kNUC204wWLzghzxK1/FPAslBYpRxz
+CwRaeOwpLeR37tXWfiMOAE5NXAzmCWtdqRmztWsTEWYEyv4c6r50ebUnQNDKmA3GKClb1ZIhfVax
+HfApquVUwxSXTYfHyIBmK6tCkWVsSwLkOTIGAXCHsdF1L24Vg06W5WzTdzn8QvkpOc5mQpdEkHJT
+O84vtK+WqO3o/XCZuuWkouY+Y6yV5umdRDIOw2VUraU27qkRG+AT25dkbcasqsNi89ARNlHWlFmn
+amRqZPhKGpETk+MEyq7VuG5viIQw2vMn02c/e2Gsc2XMg97UhP2MtHTjliCxeeAMhJ9wW3SrFmDJ
+Ln8=
 
 -->
