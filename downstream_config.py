@@ -285,7 +285,10 @@ def process(project):
 		info_2 = get_metadata(2)
 		project_infos = [info_2]
 
-		if not project._release.supports_python_3:
+		supports_python_3 = project._release.supports_python_3
+		if project.id == 'pyxattr':
+			supports_python_3 = True
+		if not supports_python_3:
 			logger.info("project does not support python 3")
 			info_2['language_version'] = 2
 			python2_dep = requires_python_tag.copy()
@@ -432,6 +435,9 @@ def process(project):
 				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/libffi-devel.xml'}))
 			if project.id == 'cryptography':
 				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/openssl-dev.xml'}))
+			if project.id == 'pyxattr':
+				extra_build_deps.append(Tag('requires', {'interface':'http://gfxmonk.net/dist/0install/libattr-devel.xml'}))
+				has_native_code = True
 
 			requires_build = any([
 				has_native_code,
