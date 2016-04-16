@@ -1,5 +1,7 @@
 # 0downstream
 
+<img src="http://gfxmonk.net/dist/status/project/0downstream.png">
+
 Easily generate [zero-install][] feeds and keep them up to date based on an
 existing upstream project. You can run this feed from:
 [http://gfxmonk.net/dist/0install/0downstream.xml][self]
