@@ -120,9 +120,12 @@ def check_validity(project, generated_feed, cleanup, post_compile_hook=None):
 		_run(args, **kw)
 
 	oenv = 'http://gfxmonk.net/dist/0install/0env.xml'
+	#XXX 0env isn't using our 0install command!
 	def check(feed):
 		def run_check(args, pre_args=[], **kw):
-			run_feed(oenv, pre_args + [feed, '--console', '--'] + args, **kw)
+			# hack to run my local override:
+			run_feed(oenv, ['-x', '/home/tim/dev/0install/zeroinstall/0install-local.xml', '-x','-rc','-x','run'] + pre_args + [feed, '--console', '--'] + args, **kw)
+			# run_feed(oenv, pre_args + [feed, '--console', '--'] + args, **kw)
 
 		try:
 			if project.upstream_type == 'pypi':
